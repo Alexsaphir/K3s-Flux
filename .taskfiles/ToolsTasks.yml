@@ -1,0 +1,41 @@
+---
+version: "3"
+
+tasks:
+  install:
+    desc: Install workstation dependencies with `Brew` and `Poetry`
+    cmds:
+      - task: .poetry
+      - task: .tools
+
+
+  .tools:
+    cmds:
+      - brew install {{.DEPS}} {{.CLI_ARGS}}
+    preconditions:
+      - sh: command -v brew
+        msg: |
+          Homebrew is not installed. Using MacOS, Linux or WSL?
+          Head over to https://brew.sh to get up and running.
+    vars:
+      DEPS: >-
+        age
+        direnv
+        fluxcd/tap/flux
+        go-task/tap/go-task
+        helm
+        ipcalc
+        jq
+        kubernetes-cli
+        kustomize
+        prettier
+        sops
+        stern
+        terraform
+        tflint
+        yamllint
+        yq
+
+  .poetry:
+    cmds:
+      - poetry install
