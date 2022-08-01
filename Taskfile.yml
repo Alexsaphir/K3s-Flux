@@ -8,3 +8,12 @@ includes:
   cluster: .taskfiles/ClusterTasks.yml
 
 tasks:
+  default:
+    - task: precommit:run
+
+  init:
+    cmds:
+      - task: precommit:init
+      - task: precommit:update
+      - task: tools:install
+      - task: age:init
