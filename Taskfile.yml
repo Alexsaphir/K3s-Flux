@@ -2,6 +2,7 @@
 version: "3"
 
 includes:
+  precommit: .taskfiles/PrecommitTasks.yml
   tools: .taskfiles/ToolsTasks.yml
 
 tasks:
