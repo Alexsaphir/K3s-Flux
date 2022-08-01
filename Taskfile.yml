@@ -4,5 +4,6 @@ version: "3"
 includes:
   precommit: .taskfiles/PrecommitTasks.yml
   tools: .taskfiles/ToolsTasks.yml
+  age: .taskfiles/AgeTasks.yml
 
 tasks:

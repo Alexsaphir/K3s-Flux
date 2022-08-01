@@ -1,6 +1,8 @@
 # K3s cluster with Flux
 
-## 1 - Setup workstation tools
+## I - Local configuration
+
+### 1 - Setup workstation tools
 
 Begin by installing `brew`, then [go-task](https://taskfile.dev).
 
@@ -14,7 +16,7 @@ Then install all dependencies
 task tools:install
 ```
 
-## 2 - Setup `Pre-Commit`
+### 2 - Setup `Pre-Commit`
 
 Enable Pre-Commit
 
@@ -26,4 +28,26 @@ Update Pre-Commit
 
 ```shell
 task precommit:update
+```
+
+### 3 - Setup `Age`
+
+Set up an `Age` Private / Public Key
+
+```shell
+task age:init
+```
+
+### 4 - `.config.env`
+
+Copy sample configuration file
+
+```shell
+cp -n .config.sample.env .config.env
+```
+
+Fetch Public Key and set `BOOTSTRAP_AGE_PUBLIC_KEY` with its value.
+
+```shell
+cat $SOPS_AGE_KEY_FILE | grep --perl-regexp --only-matching "# public key: \K.*"
 ```
