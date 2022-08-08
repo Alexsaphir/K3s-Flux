@@ -16,6 +16,7 @@ includes:
   tools: .taskfiles/ToolsTasks.yml
   age: .taskfiles/AgeTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
+  ansible: .taskfiles/AnsibleTasks.yml
 
 tasks:
   default:
@@ -27,3 +28,10 @@ tasks:
       - task: precommit:update
       - task: tools:install
       - task: age:init
+      - task: ansible:init
+
+  install:
+    desc: Install K3s on the cluster
+    cmds:
+      - task: ansible:prepare
+      - task: ansible:install

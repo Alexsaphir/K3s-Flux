@@ -349,3 +349,6 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,pycharm,ansible,ansibletower,jetbrains+all,pycharm+all,linux
 
 .config.env
+.ansible
+
+provision/kubeconfig

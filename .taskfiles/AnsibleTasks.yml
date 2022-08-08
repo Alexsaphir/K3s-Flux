@@ -1,0 +1,60 @@
+---
+version: "3"
+
+env:
+  ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
+
+vars:
+  ANSIBLE_REQUIREMENTS: "{{.ANSIBLE_DIR}}/requirements.yml"
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
+
+tasks:
+
+  init:
+    desc: Install / Upgrade Ansible galaxy deps
+    cmds:
+      - ansible-galaxy install -r {{.ANSIBLE_REQUIREMENTS}} --force
+      - ansible-galaxy collection install -r {{.ANSIBLE_REQUIREMENTS}} --force
+
+  list:
+    desc: List all the hosts
+    cmds:
+      - ansible-inventory --graph
+
+  prepare:
+    desc: Prepare all the k8s nodes for running k3s
+    cmds:
+      - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yml
+
+  install:
+    desc: Install Kubernetes on the nodes
+    cmds:
+      - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yml
+
+  nuke:
+    desc: Uninstall Kubernetes on the nodes
+    interactive: true
+    cmds:
+      - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yml
+      - task: reboot
+
+  ping:
+    desc: Ping all the hosts
+    cmds:
+      - ansible -o cube  -m 'ping'
+
+  uptime:
+    desc: Uptime of all the hosts
+    cmds:
+      - ansible all --one-line -a 'uptime'
+
+  reboot:
+    desc: Reboot all the k8s nodes
+    cmds:
+      - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-reboot.yml
+
+  poweroff:
+    desc: Shutdown all the k8s nodes
+    cmds:
+      - ansible kubernetes -a '/usr/bin/systemctl poweroff' --become

@@ -1,0 +1,24 @@
+---
+# (string) Timezone for the servers
+timezone: "Europe/Paris"
+
+# (list) Additional ssh public keys to add to the nodes
+# ssh_authorized_keys:
+
+packages:
+  - bash-completion
+  - curl
+  - hdparm
+  - htop
+  - intel-gpu-tools
+  - iotop
+  - ipvsadm
+  - jq
+  - lm-sensors
+  - nano
+  - ncdu
+  - net-tools
+  - nload
+  - nvme-cli
+  - open-iscsi
+  - socat

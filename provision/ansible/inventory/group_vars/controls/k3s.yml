@@ -1,0 +1,11 @@
+k3s_control_node: true
+k3s_server:
+  cluster-cidr: 172.20.0.0/16
+  flannel-backend: 'vxlan'  # This needs to be in quotes
+  write-kubeconfig-mode: '0644'
+  disable:
+    - traefik
+    - servicelb
+  node-label:
+    - "NodeTier=development"
+    - "NodeLocation=sph-bdx"
