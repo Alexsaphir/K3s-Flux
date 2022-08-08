@@ -69,6 +69,7 @@ For each host, create a file named `{{ HOSTNAME }}.sops.yml` and add the `ansibl
 
 ansible_become_pass: the_super_secret_password
 ````
+
 </details>
 
 
@@ -78,13 +79,15 @@ Encrypt the file using `sops`.
 sops --encrypt --in-place provision/ansible/inventory/host_vars/cube-control.sops.yml
 ```
 
-To  get a list of all your nodes and status you can use the followings.
+To get a list of all your nodes and status you can use the followings.
+
 ```shell
 task ansible:list
 task ansible:ping
 ```
 
 You can now prepare the nodes.
+
 ```shell
 task ansible:prepare
 ```
@@ -95,4 +98,12 @@ You can now deploy K3s.
 
 ```shell
 task ansible:install
+```
+
+## A - Update workstation and cluster
+
+You can update the tools on your workstation and update your cluster by using the update task.
+
+```shell
+task update
 ```

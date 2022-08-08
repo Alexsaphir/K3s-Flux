@@ -8,6 +8,10 @@ tasks:
       - task: .poetry
       - task: .tools
 
+  update:
+    cmds:
+      - brew upgrade
+      - poetry update
 
   .tools:
     cmds:
@@ -39,3 +43,4 @@ tasks:
   .poetry:
     cmds:
       - poetry install
+      - poetry install --sync

@@ -23,9 +23,9 @@ tasks:
     - task: precommit:run
 
   init:
+    desc: Initialize workstation
     cmds:
       - task: precommit:init
-      - task: precommit:update
       - task: tools:install
       - task: age:init
       - task: ansible:init
@@ -34,4 +34,12 @@ tasks:
     desc: Install K3s on the cluster
     cmds:
       - task: ansible:prepare
+      - task: ansible:install
+
+  update:
+    desc: Run update
+    cmds:
+      - task: precommit:update
+      - task: tools:update
+      - task: ansible:init
       - task: ansible:install
