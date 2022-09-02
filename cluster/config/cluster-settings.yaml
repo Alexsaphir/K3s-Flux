@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  TIMEZONE: Europe/Paris
+  METALLB_LB_IP_RANGE: 192.168.0.200-192.168.0.250
+  METALLB_TRAEFIK_ADDR: 192.168.0.242
