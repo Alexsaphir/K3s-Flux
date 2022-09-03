@@ -1,0 +1,10 @@
+---
+
+directory: './cluster'
+
+skip-path:
+  - cluster/flux/flux-system
+secrets-scan-file-type:
+  - all
+  - .sops.yml
+  - .sops.yaml

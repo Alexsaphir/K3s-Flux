@@ -4,10 +4,6 @@
   become: true
   gather_facts: true
   any_errors_fatal: true
-  pre_tasks:
-    - name: Pausing for 5 seconds...
-      ansible.builtin.pause:
-        seconds: 5
   tasks:
     - name: Check if cluster is installed
       check_mode: false
@@ -63,7 +59,7 @@
     # not uninstall the manifests.
 
     # Removing them means we can manage the lifecycle
-    # of these components outside of the
+    # of these components outside the
     # /var/lib/rancher/k3s/server/manifests directory
 
     # FIXME(ansible): Check for deployments to be happy rather than waiting

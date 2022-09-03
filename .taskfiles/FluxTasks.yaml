@@ -1,0 +1,52 @@
+---
+version: "3"
+
+tasks:
+
+  verify:
+    desc: Verify flux meets the prerequisites
+    cmds:
+      - flux check --pre
+
+  install:
+    desc: Install Flux into your cluster
+    cmds:
+      - cmd: kubectl create namespace flux-system
+        ignore_error: true
+      - cmd: cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+        ignore_error: true
+      # Multiline command with space for each \n
+      - >
+        flux bootstrap gitlab
+        --hostname={{.FLUX_HOST}}
+        --ssh-hostname={{.FLUX_SSH_HOSTNAME}}
+        --token-auth
+        --owner={{.FLUX_OWNER}}
+        --repository={{.FLUX_REPOSITORY}}
+        --branch={{.FLUX_BRANCH}}
+        --commit-message-appendix=[Flux]
+        --author-email={{.FLUX_AUTHOR_EMAIL}}
+        --gpg-key-id={{.FLUX_GPG_ID}}
+        --gpg-key-ring={{.FLUX_GPG_RING}}
+        --gpg-passphrase=''
+        --path=cluster/flux/
+        --reconcile
+    preconditions:
+      - sh: test -f {{.SOPS_AGE_KEY_FILE}}
+        msg: |
+          Age key file is not found. Did you forget to create it?
+
+  reconcile:
+    desc: Force update Flux to pull in changes from your Git repository
+    cmds:
+      - flux reconcile source git flux-system
+      - flux reconcile kustomization flux-system
+      - flux reconcile kustomization config
+      - flux reconcile kustomization charts
+      - flux reconcile kustomization crds
+      - flux reconcile kustomization core
+
+  logs:
+    desc: Allow to follow Flux logs
+    cmds:
+      - flux logs --follow

@@ -1,0 +1,21 @@
+---
+version: "3"
+
+tasks:
+  init:
+    desc: Ensure `Age` Key is created and sourced.
+    deps:
+      - .create
+      - .direnv
+
+  .create:
+    cmds:
+      - age-keygen -o .tmp.agekey
+      - mkdir -p `dirname {{.SOPS_AGE_KEY_FILE}}`
+      - mv .tmp.agekey {{.SOPS_AGE_KEY_FILE}}
+    status:
+      - test -f {{.SOPS_AGE_KEY_FILE}}
+
+  .direnv:
+    cmds:
+      - direnv allow .envrc

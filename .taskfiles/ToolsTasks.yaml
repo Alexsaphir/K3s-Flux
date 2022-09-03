@@ -15,6 +15,10 @@ tasks:
 
   .tools:
     cmds:
+      - |
+        for tap in {{.TAPS}}; do
+          brew tap $tap
+        done
       - brew install {{.DEPS}} {{.CLI_ARGS}}
     preconditions:
       - sh: command -v brew
@@ -22,14 +26,20 @@ tasks:
           Homebrew is not installed. Using MacOS, Linux or WSL?
           Head over to https://brew.sh to get up and running.
     vars:
+      TAPS: >-
+        weaveworks/tap
       DEPS: >-
         age
+        checkov
         direnv
         fluxcd/tap/flux
+        gitleaks
+        golang
         go-task/tap/go-task
         helm
         ipcalc
         jq
+        kubeconform
         kubernetes-cli
         kustomize
         prettier
@@ -37,6 +47,7 @@ tasks:
         stern
         terraform
         tflint
+        weaveworks/tap/gitops
         yamllint
         yq
 

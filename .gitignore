@@ -13,7 +13,7 @@
 
 # Tower runtime roles
 roles/**
-!roles/requirements.yml
+!roles/requirements.yaml
 
 # Avoid plain-text passwords
 *pwd*
@@ -348,7 +348,14 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,pycharm,ansible,ansibletower,jetbrains+all,pycharm+all,linux
 
-.config.env
+# Ignore env files but allow sample
+**.env
+!**.sample.env
+
 .ansible
+.vagrant
 
 provision/kubeconfig
+
+**.pgp
+.secrets

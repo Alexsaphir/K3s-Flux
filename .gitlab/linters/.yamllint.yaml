@@ -2,7 +2,12 @@
 ignore: |
   *.sops.*
   gotk-components.yaml
+  .ansible/
+
 extends: default
+
+locale: en_US.UTF-8
+
 rules:
   truthy:
     allowed-values: [ "true", "false", "on" ]

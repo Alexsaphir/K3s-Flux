@@ -1,0 +1,4 @@
+title = "Gitleaks configuration file"
+
+[extend]
+useDefault = true

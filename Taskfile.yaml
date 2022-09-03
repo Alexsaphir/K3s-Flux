@@ -9,14 +9,17 @@ vars:
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
   VAGRANT_DIR: "{{.PROJECT_DIR}}/provision/vagrant"
 
-dotenv: [ ".config.env" ]
+dotenv: [ ".config.env", ".flux.env" ]
 
 includes:
-  precommit: .taskfiles/PrecommitTasks.yml
-  tools: .taskfiles/ToolsTasks.yml
-  age: .taskfiles/AgeTasks.yml
-  cluster: .taskfiles/ClusterTasks.yml
-  ansible: .taskfiles/AnsibleTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yaml
+  tools: .taskfiles/ToolsTasks.yaml
+  age: .taskfiles/AgeTasks.yaml
+  cluster: .taskfiles/ClusterTasks.yaml
+  ansible: .taskfiles/AnsibleTasks.yaml
+  vagrant: .taskfiles/VagrantTasks.yaml
+  flux: .taskfiles/FluxTasks.yaml
+  gpg: .taskfiles/GpgTasks.yaml
 
 tasks:
   default:
@@ -35,11 +38,12 @@ tasks:
     cmds:
       - task: ansible:prepare
       - task: ansible:install
+      - task: flux:install
 
   update:
     desc: Run update
     cmds:
-      - task: precommit:update
       - task: tools:update
+      - task: precommit:update
       - task: ansible:init
-      - task: ansible:install
+      - task: install

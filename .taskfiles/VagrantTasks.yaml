@@ -1,0 +1,18 @@
+---
+version: "3"
+
+env:
+  VAGRANT_CWD: "{{.VAGRANT_DIR}}"
+  VAGRANT_DOTFILE_PATH: "{{.VAGRANT_DIR}}/.vagrant"
+
+tasks:
+
+  up:
+    desc: Deploy vagrant virtual machines
+    cmds:
+      - vagrant up --destroy-on-error --provision
+
+  nuke:
+    desc: Nuke vagrant deployment
+    cmds:
+      - vagrant destroy -f

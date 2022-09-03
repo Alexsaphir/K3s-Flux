@@ -7,10 +7,20 @@ tasks:
     cmds:
       - kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
 
+  contexts:
+    desc: List all contexts
+    cmds:
+      - kubectl config get-contexts {{.CLI_ARGS}}
+
   pods:
     desc: List all the pods in your cluster
     cmds:
       - kubectl get pods {{.CLI_ARGS | default "-A"}}
+
+  crds:
+    desc: List all the crds in your cluster
+    cmds:
+      - kubectl get crd
 
   kustomizations:
     desc: List all the kustomizations in your cluster

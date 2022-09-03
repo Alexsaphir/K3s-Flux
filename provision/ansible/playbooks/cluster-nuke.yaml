@@ -16,10 +16,6 @@
       ansible.builtin.fail:
         msg: Aborted nuking the cluster
       when: nuke != 'y'
-
-    - name: Pausing for 5 seconds...
-      ansible.builtin.pause:
-        seconds: 5
   tasks:
     - name: Uninstall k3s
       ansible.builtin.include_role:
