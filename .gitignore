@@ -355,7 +355,7 @@ fabric.properties
 .ansible
 .vagrant
 
-provision/kubeconfig**
+kubeconfig**
 
 **.pgp
 .secrets
