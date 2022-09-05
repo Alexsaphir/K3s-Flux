@@ -19,5 +19,7 @@ k3s_become: true
 # (bool) Enable debug logging on the k3s service
 k3s_debug: false
 
+k3s_etcd_datastore: false
+
 # (bool) Allow the use of unsupported configurations in k3s
 k3s_use_unsupported_config: true

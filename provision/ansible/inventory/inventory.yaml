@@ -2,7 +2,7 @@
 controls:
   hosts:
     cube-control:
-      ansible_host: 192.168.0.16
+      ansible_host: 192.168.0.120
       ansible_connection: ssh
       ansible_user: k3s
 

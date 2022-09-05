@@ -8,6 +8,6 @@ data:
   TIMEZONE: Europe/Paris
   METALLB_LB_IP_RANGE: 192.168.0.200-192.168.0.250
   METALLB_TRAEFIK_ADDR: 192.168.0.242
-  METALLB_LONGHORN_ADDR: 192.168.0.243
 
-  CONFIG_CERTIFICATE_ISSUER: letsencrypt-production
+  # `letsencrypt-production` or `letsencrypt-staging`
+  CONFIG_CERTIFICATE_ISSUER: letsencrypt-staging

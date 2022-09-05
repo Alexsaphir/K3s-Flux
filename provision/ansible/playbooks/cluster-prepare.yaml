@@ -43,12 +43,12 @@
             block: |
               127.0.1.1   {{ inventory_hostname }}
               # The following lines are desirable for IPv6 capable hosts
-              ::1 ip6-localhost ip6-loopback
-              fe00::0 ip6-localnet
-              ff00::0 ip6-mcastprefix
-              ff02::1 ip6-allnodes
-              ff02::2 ip6-allrouters
-              ff02::3 ip6-allhosts
+#              ::1 ip6-localhost ip6-loopback
+#              fe00::0 ip6-localnet
+#              ff00::0 ip6-mcastprefix
+#              ff02::1 ip6-allnodes
+#              ff02::2 ip6-allrouters
+#              ff02::3 ip6-allhosts
 
     - name: Packages
       block:
@@ -85,7 +85,7 @@
           ansible.posix.sysctl:
             name: "{{ item.key }}"
             value: "{{ item.value }}"
-            sysctl_file: /etc/sysctl.d/99-kubernetes-cri.conf
+            sysctl_file: /etc/sysctl.d/99-kubernetes.conf
             reload: true
           with_dict: "{{ sysctl_config }}"
           vars:
@@ -95,13 +95,16 @@
               net.ipv4.conf.all.rp_filter: 0
               net.ipv4.conf.default.rp_filter: 0
               net.ipv6.conf.all.forwarding: 1
+              net.ipv6.conf.all.disable_ipv6: 1
+              net.ipv6.conf.default.disable_ipv6: 1
+              net.ipv6.conf.lo.disable_ipv6: 1
               net.bridge.bridge-nf-call-iptables: 1
               net.bridge.bridge-nf-call-ip6tables: 1
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 512
+      notify: Reboot
 
-        - name: System Configuration | Reload Kubernetes network configuration
-          ansible.builtin.shell: sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
-#          when:
-##            - sysctl_network.changed
-#            - bridge_nf_call_iptables_result.stat.exists
+  handlers:
+    - name: Reboot
+      ansible.builtin.reboot:
+        msg: Rebooting nodes

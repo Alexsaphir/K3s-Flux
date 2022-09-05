@@ -6,11 +6,6 @@ metadata:
   namespace: longhorn-system
 data:
   values.yaml: |-
-    service:
-      enabled: true
-      type: LoadBalancer
-      annotations:
-        metallb.universe.tf/loadBalancerIPs: ${METALLB_LONGHORN_ADDR}
     persistence:
       defaultClass: true
       defaultFsType: ext4
