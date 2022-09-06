@@ -2,9 +2,10 @@
 controls:
   hosts:
     cube-control:
-      ansible_host: 192.168.0.120
+      ansible_host: 192.168.0.148
       ansible_connection: ssh
       ansible_user: k3s
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
 #    vagrant-control:
 #      ansible_host: 192.168.0.16

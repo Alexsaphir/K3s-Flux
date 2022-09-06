@@ -5,8 +5,8 @@ k3s_server:
   flannel-backend: 'vxlan'
   write-kubeconfig-mode: '0644'
   disable:
-    #    - local-storage
-    #    - metrics-server
+#    - local-storage
+    - metrics-server
     - servicelb
     - traefik
 
