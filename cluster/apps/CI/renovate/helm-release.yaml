@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: renovate
+  namespace: flux-ci
+spec:
+  chart:
+    spec:
+      chart: ./helm-charts/whitesource-renovate
+      sourceRef:
+        kind: GitRepository
+        name: renovate-charts-git
+        namespace: flux-charts
+  interval: 15m
+  timeout: 5m
+  valuesFrom:
+    - kind: ConfigMap
+      name: renovate-helm-value-overrides
+      valuesKey: values.yaml
