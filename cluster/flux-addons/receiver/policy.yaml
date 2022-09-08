@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webhooks-from-outside
+  namespace: flux-system
+spec:
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: ${WEBHOOK_SPACE}
+  podSelector:
+    matchLabels:
+      app: notification-controller
+  policyTypes:
+    - Ingress
