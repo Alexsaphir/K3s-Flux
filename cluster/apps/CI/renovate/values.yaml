@@ -18,9 +18,13 @@ data:
         module.exports = {
           // Enter self-hosted configuration options here.
           // https://docs.renovatebot.com/self-hosted-configuration/
+          onboardingConfig: {
+            extends: ['config:base'],
+          },
+          gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}'
         }
 
-      logLevel: info
+      logLevel: debug
 
       cachePersistence:
         enabled: true
