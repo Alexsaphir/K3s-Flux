@@ -22,6 +22,7 @@ data:
             extends: ['config:base'],
           },
           gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}'
+          gitAuthor: '${SECRET_RENOVATE_GIT_AUTHOR}'
         }
 
       logLevel: debug
