@@ -19,9 +19,9 @@ data:
           // Enter self-hosted configuration options here.
           // https://docs.renovatebot.com/self-hosted-configuration/
           onboardingConfig: {
-            extends: ['config:base'],
+            extends: ['config:base',":gitSignOff", ":rebaseStalePrs",":enablePreCommit"],
           },
-          gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}'
+          gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}',
           gitAuthor: '${SECRET_RENOVATE_GIT_AUTHOR}'
         }
 
