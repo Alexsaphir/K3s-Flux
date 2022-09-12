@@ -354,6 +354,7 @@ fabric.properties
 
 .ansible
 .vagrant
+.monokle
 
 kubeconfig**
 
