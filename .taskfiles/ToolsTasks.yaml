@@ -7,6 +7,7 @@ tasks:
     cmds:
       - task: .poetry
       - task: .tools
+      - task: .krew
 
   update:
     cmds:
@@ -30,6 +31,7 @@ tasks:
         weaveworks/tap
       DEPS: >-
         age
+        aylei/tap/kubectl-debug
         checkov
         direnv
         fluxcd/tap/flux
@@ -39,9 +41,11 @@ tasks:
         helm
         ipcalc
         jq
+        k9s
         kubeconform
         kubernetes-cli
         kustomize
+        krew
         prettier
         sops
         stern
@@ -50,6 +54,10 @@ tasks:
         weaveworks/tap/gitops
         yamllint
         yq
+
+  .krew:
+    cmds:
+      - kubectl krew install hns
 
   .poetry:
     cmds:

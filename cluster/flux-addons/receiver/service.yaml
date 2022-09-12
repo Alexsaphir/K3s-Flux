@@ -4,7 +4,7 @@ metadata:
   name: receiver
   namespace: flux-system
   annotations:
-    metallb.universe.tf/loadBalancerIPs: ${METALLB_FLUX_RECEIVER_ADDR}
+    metallb.universe.tf/loadBalancerIPs: ${CONFIG_METALLB_FLUX_RECEIVER_ADDR}
 spec:
   type: LoadBalancer
   selector:

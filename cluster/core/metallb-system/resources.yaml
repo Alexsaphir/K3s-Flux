@@ -6,7 +6,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - ${METALLB_LB_IP_RANGE}
+    - ${CONFIG_METALLB_LB_IP_RANGE}
   autoAssign: true
 
 ---

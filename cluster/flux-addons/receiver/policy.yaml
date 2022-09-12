@@ -7,7 +7,7 @@ spec:
   ingress:
     - from:
         - ipBlock:
-            cidr: ${WEBHOOK_SPACE}
+            cidr: ${CONFIG_WEBHOOK_SPACE}
   podSelector:
     matchLabels:
       app: notification-controller

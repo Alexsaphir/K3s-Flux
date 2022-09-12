@@ -10,7 +10,7 @@ data:
       acceptWhiteSourceTos: 'y'
 
       renovatePlatform: 'gitlab'
-      renovateEndpoint: 'https://${GITLAB_DOMAIN}/api/v4/'
+      renovateEndpoint: 'https://${SECRET_GITLAB_DOMAIN}/api/v4/'
 
       schedulerCron: '*/10 * * * *'
 

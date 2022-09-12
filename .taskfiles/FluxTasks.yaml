@@ -46,7 +46,7 @@ tasks:
       - flux reconcile kustomization charts
       - flux reconcile kustomization crds
       - flux reconcile kustomization core
-
+      - flux reconcile kustomization apps
   logs:
     desc: Allow to follow Flux logs
     cmds:
