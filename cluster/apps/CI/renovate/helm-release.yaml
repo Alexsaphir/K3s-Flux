@@ -8,6 +8,7 @@ spec:
   chart:
     spec:
       chart: ./helm-charts/whitesource-renovate
+      version: 2.1.1
       sourceRef:
         kind: GitRepository
         name: renovate-charts-git
