@@ -14,6 +14,10 @@ data:
 
       schedulerCron: '*/10 * * * *'
 
+      extraEnvVars:
+        - name: RENOVATE_GIT_PRIVATE_KEY
+          value: "${SECRET_RENOVATE_GIT_PRIVATE_KEY}"
+
       config: |
         module.exports = {
           // Enter self-hosted configuration options here.
