@@ -14,9 +14,12 @@ data:
 
       schedulerCron: '*/10 * * * *'
 
-      extraEnvVars:
-        - name: RENOVATE_GIT_PRIVATE_KEY
-          value: "${SECRET_RENOVATE_GIT_PRIVATE_KEY}"
+    #      extraEnvVars:
+    #        - name: RENOVATE_GIT_PRIVATE_KEY
+    #          value: "${SECRET_RENOVATE_GIT_PRIVATE_KEY}"
+
+        #valueFrom: {{ include "whitesource-renovate.secret-name" . }}
+        #key: gitPrivateKey
 
       config: |
         module.exports = {
