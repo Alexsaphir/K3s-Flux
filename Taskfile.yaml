@@ -16,6 +16,8 @@ includes:
   tools: .taskfiles/ToolsTasks.yaml
   age: .taskfiles/AgeTasks.yaml
   cluster: .taskfiles/ClusterTasks.yaml
+  cluster-debug: .taskfiles/ClusterDebugTasks.yaml
+  debug: .taskfiles/DebugTasks.yaml
   ansible: .taskfiles/AnsibleTasks.yaml
   vagrant: .taskfiles/VagrantTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
