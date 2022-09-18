@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: flux-monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: thanos
+      version: 11.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-charts
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+#  dependsOn:
+#    - name: kube-prometheus-stack
+#      namespace: monitoring
+  values:
+    query:
+      enabled: true
+      replicaCount: 1
+      podAntiAffinityPreset: hard
+      replicaLabel:
+        - __replica__
+      dnsDiscovery:
+        sidecarsService: kube-prometheus-stack-thanos-discovery
+        sidecarsNamespace: monitoring
+      ingress:
+        enabled: true
+        hostname: &host "thanos-query.${SECRET_DOMAIN_NAME}"
+        ingressClassName: "traefik"
+    queryFrontend:
+      enabled: false
+    bucketweb:
+      enabled: false
+    compactor:
+      enabled: false
+    storegateway:
+      enabled: false
+    ruler:
+      enabled: false
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
