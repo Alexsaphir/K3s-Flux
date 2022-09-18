@@ -15,6 +15,8 @@ spec:
         kind: HelmRepository
         name: minio-charts
         namespace: flux-charts
+
+  # https://github.com/minio/minio/blob/master/helm/minio/values.yaml
   values:
     podAnnotations:
       secret.reloader.stakater.com/reload: minio
@@ -59,6 +61,19 @@ spec:
         memory: 128Mi
 
     # After installation
+    policies:
+      - name: thanos-policy
+        statements:
+          - resources:
+              - 'arn:aws:s3:::thanos/*'
+            actions:
+              - "s3:PutObject"
+              - "s3:GetObject"
+          - resources:
+              - 'arn:aws:s3:::thanos'
+            actions:
+              - "s3:ListBucket"
+
     buckets:
       - name: bucket-debug
         # Policy to be set on the
@@ -66,3 +81,13 @@ spec:
         policy: download
         # Purge if bucket exists already
         purge: true
+
+      - name: thanos
+        policy: none
+        purge: false
+
+    users:
+      - accessKey: thanos
+        existingSecret: minio-user-secrets
+        existingSecretKey: thanosSecretKey
+        policy: thanos-policy
