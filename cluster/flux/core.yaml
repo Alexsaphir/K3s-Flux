@@ -8,6 +8,8 @@ spec:
   interval: 10m
   path: ./cluster/core
   prune: true
+  force: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system

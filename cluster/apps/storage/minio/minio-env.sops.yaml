@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: minio-env-secrets
+    namespace: flux-storage
+stringData:
+    MINIO_BROWSER: ENC[AES256_GCM,data:SMw=,iv:RVkM20o9ToTITKyx5/hjTwPPK7huz24SaSDsq7148QE=,tag:wKyoHsfuxKmBJu1pOY1o9w==,type:str]
+    MINIO_SITE_NAME: ENC[AES256_GCM,data:iPCzHlh0D8s=,iv:tTP5PKlHd+c8H0ptt4YLQuz4JtoGOHElRGmcgFFl7So=,tag:EPpLbM3BVy/zDwsSlygdUA==,type:str]
+    MINIO_SITE_REGION: ENC[AES256_GCM,data:TzTKO+e/sLTj,iv:GDoaji22BSD7vAFQEr4jIojckkwJlAnT/RKdQq95RgE=,tag:f7mywXPs2qfKymfiRjKTRg==,type:str]
+    MINIO_SITE_COMMENT: ENC[AES256_GCM,data:0G1yOlpGXSd/,iv:/VBxTNjqMPzTYmf90wb53HQajYr2wo1ggWu7NPbKgQ0=,tag:RwVw1CRH3rOzPJD3xaNlqg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3dkFVREMvdFc0WkhBdEFH
+            SnFRK1FzV2w1YlNIZDFEWERyRWw5SWI1eENFCkFVZ09FaXpkeXVaZ09HZEVjUHJi
+            YzVxeXdBWXRGS09ON1oxY2VPcHNoV0EKLS0tIElDVWU1cXNGaUNVOGpENUh0S254
+            dDhwZGViSjM2Zk9OV3RwZWRiano2czAKYNdGgEtByAT6m45YJJdiWYLiiRgHzTF/
+            DnBfrXEAP5iExNPPSUa+tPgx1+VLIiImUlkTzMmuwhzNpbBBVVugow==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-09-18T20:33:24Z"
+    mac: ENC[AES256_GCM,data:Deq4jU2nqYQfATCdYUabzdzm4ieGJWP4eqp6cnWzbgxFKzKU6eGn9f1ye7y9uvbqi7eFvRXC/c1N7RJ3gtSpevkwN/CUguELJ8uXOrO3QyCFVqqjPhWXfzSeuzIpZ87TPH1wWXFUzhqiRrv9mWPFI/O2Sx6cD2CbUNPryyKdxe4=,iv:bkVed4ql/m+Cs9srZkQ32/ccuEvmqY18YjQaN9R3270=,tag:NN+uktNHjWTO7VDnCMwIjA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

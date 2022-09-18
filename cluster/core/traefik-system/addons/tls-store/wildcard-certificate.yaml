@@ -11,4 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - "*.${SECRET_DOMAIN_NAME}"
-    - "*.test.${SECRET_DOMAIN_NAME}"
+    - "*.s3.${SECRET_DOMAIN_NAME}"
