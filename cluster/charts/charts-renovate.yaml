@@ -8,5 +8,5 @@ spec:
   interval: 30m
   url: https://github.com/whitesource/renovate-on-prem
   ref:
-    branch: main
+    tag: 2.5.1
   timeout: 3m
