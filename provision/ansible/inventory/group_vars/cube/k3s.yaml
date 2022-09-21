@@ -23,3 +23,14 @@ k3s_etcd_datastore: false
 
 # (bool) Allow the use of unsupported configurations in k3s
 k3s_use_unsupported_config: true
+
+
+# (list) A list of URLs to deploy on the primary control plane. Read notes below.
+k3s_server_manifests_urls:
+  - url: https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/tigera-operator.yaml
+    filename: tigera-operator.yaml
+
+# (list) A flat list of templates to deploy on the primary control plane
+# /var/lib/rancher/k3s/server/manifests
+k3s_server_manifests_templates:
+  - "calico-installation.yaml.j2"
