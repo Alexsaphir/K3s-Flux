@@ -53,7 +53,7 @@ repos:
 
   # Linters
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.27.1
+    rev: v1.28.0
     hooks:
       - args:
           - --config-file
