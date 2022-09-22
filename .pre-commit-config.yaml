@@ -6,7 +6,7 @@ repos:
     hooks:
       - id: check-merge-conflict
       - id: check-added-large-files
-        args: [ --enforce-all ]
+        args: [ --enforce-all --maxkb=700 ]
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
       - id: check-yaml
