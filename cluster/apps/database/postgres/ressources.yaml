@@ -1,0 +1,17 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-example
+  namespace: databases
+spec:
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  superuserSecret:
+    name: postgres-superuser
+  monitoring:
+    enablePodMonitor: true
+  # Require 1Gi of space
+  storage:
+    size: 1Gi
+    storageClass: local-path
