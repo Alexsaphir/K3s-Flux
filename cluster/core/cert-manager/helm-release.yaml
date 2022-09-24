@@ -52,7 +52,10 @@ spec:
         - "1.1.1.1"
         - "9.9.9.9"
     prometheus:
-      enabled: false
+      enabled: true
+      servicemonitor:
+        enabled: true
+        prometheusInstance: monitoring
     resources:
       requests:
         cpu: 15m
