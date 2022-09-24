@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: cloudnative-pg
-  namespace: flux-core
+  namespace: cnpg-system
 spec:
   interval: 15m
   chart:
@@ -15,10 +15,11 @@ spec:
         name: cloudnative-pg-charts
         namespace: flux-charts
   install:
-    createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 5
   upgrade:
+    crds: CreateReplace
     remediation:
       retries: 5
   values:

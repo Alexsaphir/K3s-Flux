@@ -31,7 +31,6 @@ tasks:
         weaveworks/tap
       DEPS: >-
         age
-        aylei/tap/kubectl-debug
         checkov
         direnv
         fluxcd/tap/flux
@@ -58,6 +57,8 @@ tasks:
   .krew:
     cmds:
       - kubectl krew install hns
+      - kubectl krew install cnpg
+#      - kubectl krew install kots
 
   .poetry:
     cmds:
