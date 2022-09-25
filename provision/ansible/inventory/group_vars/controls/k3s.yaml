@@ -16,7 +16,7 @@ k3s_server:
   disable-network-policy: true
   disable-cloud-controller: true
   disable:
-    #    - local-storage
+    - local-storage
     - metrics-server
     - servicelb
     - traefik
