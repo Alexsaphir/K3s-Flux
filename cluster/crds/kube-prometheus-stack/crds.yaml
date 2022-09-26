@@ -27,4 +27,4 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: kube-prometheus-stack-source
+    name: crd-kube-prometheus-stack-source
