@@ -20,6 +20,9 @@ data:
 
       defaultLonghornStaticStorageClass: longhorn
 
+      backupTarget: s3://longhorn@us-east-1/backupstore
+      backupTargetCredentialSecret: longhorn-backup-secrets
+
     csi:
       attacherReplicaCount: 1
       provisionerReplicaCount: 1
