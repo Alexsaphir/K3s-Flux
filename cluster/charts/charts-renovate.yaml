@@ -9,5 +9,5 @@ spec:
   url: https://github.com/whitesource/renovate-on-prem
   ref:
     # renovate: datasource=github-releases depName=whitesource/renovate-on-prem
-    tag: 2.5.1
+    tag: 2.6.0
   timeout: 3m
