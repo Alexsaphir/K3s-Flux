@@ -7,7 +7,9 @@ metadata:
 spec:
   chart:
     spec:
+      # renovate: datasource=github-releases depName=whitesource/renovate-on-prem
       chart: ./helm-charts/whitesource-renovate
+      version: 2.6.0
       sourceRef:
         kind: GitRepository
         name: renovate-charts-git

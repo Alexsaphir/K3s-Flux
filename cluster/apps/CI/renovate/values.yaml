@@ -6,6 +6,11 @@ metadata:
   namespace: flux-ci
 data:
   values.yaml: |-
+    image:
+      repository: whitesource/renovate
+      tag: 2.6.0
+      pullPolicy: IfNotPresent
+
     renovate:
       acceptWhiteSourceTos: 'y'
 
