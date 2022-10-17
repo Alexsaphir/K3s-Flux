@@ -37,6 +37,7 @@ tasks:
         gitleaks
         golang
         go-task/tap/go-task
+        graphviz
         helm
         ipcalc
         jq
@@ -55,9 +56,19 @@ tasks:
         yq
 
   .krew:
+    desc: Following `https://github.com/ishantanu/awesome-kubectl-plugins`
     cmds:
       - kubectl krew install hns
       - kubectl krew install cnpg
+      - kubectl krew install deprecations
+      - kubectl krew install access-matrix
+      - kubectl krew install score
+      - kubectl krew install get-all
+      - kubectl krew install tree
+      - kubectl krew install outdated
+      - kubectl krew install graph
+      - kubectl krew install sniff
+      - kubectl krew install topology
 #      - kubectl krew install kots
 
   .poetry:
