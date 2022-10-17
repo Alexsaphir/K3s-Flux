@@ -1,188 +1,187 @@
 {
-  "extends": [
-    "config:base",
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":enablePreCommit",
-    ":automergeDigest",
-    ":automergeBranchPush"
+  extends: [
+    'config:base',
+    'docker:enableMajor',
+    ':disableRateLimiting',
+    ':dependencyDashboard',
+    ':semanticCommits',
+    ':enablePreCommit',
+    ':automergeDigest',
+    ':automergeBranch',
   ],
-  "enabled": true,
-  "semanticCommits": "enabled",
-  "configMigration": true,
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": [
-    "prIgnoreNotification"
+  enabled: true,
+  semanticCommits: 'enabled',
+  configMigration: true,
+  dependencyDashboard: true,
+  dependencyDashboardTitle: 'Renovate Dashboard',
+  suppressNotifications: [
+    'prIgnoreNotification',
   ],
-  "rebaseWhen": "behind-base-branch",
-  "schedule": [
-    "before 1am"
+  rebaseWhen: 'behind-base-branch',
+  schedule: [
+    'before 1am',
   ],
-  "pre-commit": {
-    "enabled": true
+  'pre-commit': {
+    enabled: true,
   },
-  "flux": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+  flux: {
+    fileMatch: [
+      'cluster/.+\\.ya?ml$',
+    ],
   },
-  "helm-values": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+  'helm-values': {
+    fileMatch: [
+      'cluster/.+\\.ya?ml$',
+    ],
   },
-  "kubernetes": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$",
-      "provision/ansible/.+\\.ya?ml.j2$"
-    ]
+  kubernetes: {
+    fileMatch: [
+      'cluster/.+\\.ya?ml$',
+      'provision/ansible/.+\\.ya?ml.j2$',
+    ],
   },
-  "regexManagers": [
+  regexManagers: [
     {
-      "description": "Process CRD dependencies",
-      "fileMatch": [
-        "cluster/crds/.+\\.ya?ml$"
+      description: 'Process CRD dependencies',
+      fileMatch: [
+        'cluster/crds/.+\\.ya?ml$',
       ],
-      "matchStrings": [
-        // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
-        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
-        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
-        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
+      matchStrings: [
+        'registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n',
+        'datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n',
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
+      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}',
     },
     {
-      "description": "Process various other dependencies",
-      "fileMatch": [
-        "provision/ansible/.+\\.ya?ml$",
-        "cluster/.+\\.ya?ml$"
+      description: 'Process various other dependencies',
+      fileMatch: [
+        'provision/ansible/.+\\.ya?ml$',
+        'cluster/.+\\.ya?ml$',
       ],
-      "matchStrings": [
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
+      matchStrings: [
+        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?"(?<currentValue>.*)"\n',
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    }
+      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}',
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
+    },
   ],
-  "packageRules": [
+  packageRules: [
     {
-      "description": "Use custom versioning for Minio",
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
-      "matchPackageNames": ["quay.io/minio/minio"]
-    },
-    // setup datasources
-    {
-      "matchDatasources": [
-        "helm"
+      description: 'Use custom versioning for Minio',
+      matchDatasources: [
+        'docker',
       ],
-      "separateMinorPatch": true,
-      "ignoreDeprecated": true
-    },
-    // global docker datasource settings
-    {
-      "matchDatasources": [
-        "docker"
+      versioning: 'regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$',
+      matchPackageNames: [
+        'quay.io/minio/minio',
       ],
-      "enabled": true,
-      "commitMessageTopic": "container image {{depName}}",
-      "commitMessageExtra": "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ]
     },
     {
-      "description": "Group Cert-Manager image (for CRDs) and chart",
-      "groupName": "Cert-Manager",
-      "matchPackagePatterns": [
-        "cert-manager"
+      matchDatasources: [
+        'helm',
       ],
-      "matchDatasources": [
-        "docker",
-        "helm"
+      separateMinorPatch: true,
+      ignoreDeprecated: true,
+    },
+    {
+      matchDatasources: [
+        'docker',
       ],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      enabled: true,
+      commitMessageTopic: 'container image {{depName}}',
+      commitMessageExtra: 'to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}',
+      matchUpdateTypes: [
+        'major',
+        'minor',
+        'patch',
+      ],
+    },
+    {
+      description: 'Group Cert-Manager image (for CRDs) and chart',
+      groupName: 'Cert-Manager',
+      matchPackagePatterns: [
+        'cert-manager',
+      ],
+      matchDatasources: [
+        'docker',
+        'helm',
+      ],
+      group: {
+        commitMessageTopic: '{{{groupName}}} group',
       },
-      "separateMinorPatch": true
-    },
-    // add labels according to package and update types
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "labels": [
-        "renovate/image",
-        "dep/major"
-      ]
+      separateMinorPatch: true,
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "matchUpdateTypes": [
-        "minor"
+      matchUpdateTypes: [
+        'major',
       ],
-      "labels": [
-        "renovate/image",
-        "dep/minor"
-      ]
+      labels: [
+        'renovate/image',
+        'dep/major',
+      ],
     },
     {
-      "matchDatasources": [
-        "docker"
+      matchDatasources: [
+        'docker',
       ],
-      "matchUpdateTypes": [
-        "patch"
+      matchUpdateTypes: [
+        'minor',
       ],
-      "labels": [
-        "renovate/image",
-        "dep/patch"
-      ]
+      labels: [
+        'renovate/image',
+        'dep/minor',
+      ],
     },
     {
-      "matchDatasources": [
-        "helm"
+      matchDatasources: [
+        'docker',
       ],
-      "matchUpdateTypes": [
-        "major"
+      matchUpdateTypes: [
+        'patch',
       ],
-      "labels": [
-        "renovate/helm",
-        "dep/major"
-      ]
+      labels: [
+        'renovate/image',
+        'dep/patch',
+      ],
     },
     {
-      "matchDatasources": [
-        "helm"
+      matchDatasources: [
+        'helm',
       ],
-      "matchUpdateTypes": [
-        "minor"
+      matchUpdateTypes: [
+        'major',
       ],
-      "labels": [
-        "renovate/helm",
-        "dep/minor"
-      ]
+      labels: [
+        'renovate/helm',
+        'dep/major',
+      ],
     },
     {
-      "matchDatasources": [
-        "helm"
+      matchDatasources: [
+        'helm',
       ],
-      "matchUpdateTypes": [
-        "patch"
+      matchUpdateTypes: [
+        'minor',
       ],
-      "labels": [
-        "renovate/helm",
-        "dep/patch"
-      ]
-    }
-  ]
+      labels: [
+        'renovate/helm',
+        'dep/minor',
+      ],
+    },
+    {
+      matchDatasources: [
+        'helm',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
+      labels: [
+        'renovate/helm',
+        'dep/patch',
+      ],
+    },
+  ],
 }
