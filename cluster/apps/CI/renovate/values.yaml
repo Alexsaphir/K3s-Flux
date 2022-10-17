@@ -38,7 +38,7 @@ data:
 
           autodiscover: true,
           onboarding: true,
-          requireConfig: required
+          requireConfig: required,
 
           persistRepoData: true,
           baseDir: '/tmp/renovate'
