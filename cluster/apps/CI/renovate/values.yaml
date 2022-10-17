@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: renovate-helm-value-overrides
   namespace: flux-ci
+  annotations:
+    reloader.stakater.com/match: "true"
 data:
   values.yaml: |-
     image:
@@ -38,7 +40,7 @@ data:
 
           autodiscover: true,
           onboarding: true,
-          requireConfig: required,
+          requireConfig: 'required',
 
           persistRepoData: true,
           baseDir: '/tmp/renovate'

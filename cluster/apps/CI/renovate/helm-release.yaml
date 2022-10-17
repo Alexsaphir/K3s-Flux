@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: renovate
   namespace: flux-ci
+  annotations:
+    reloader.stakater.com/search: "true"
 spec:
   chart:
     spec:
