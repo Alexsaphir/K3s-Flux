@@ -11,6 +11,7 @@
   ],
   "enabled": true,
   "semanticCommits": "enabled",
+  "configMigration": true,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": [
