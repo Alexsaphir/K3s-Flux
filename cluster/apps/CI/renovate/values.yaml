@@ -19,12 +19,12 @@ data:
 
       schedulerCron: '*/10 * * * *'
 
-    #      extraEnvVars:
-    #        - name: RENOVATE_GIT_PRIVATE_KEY
-    #          value: "${SECRET_RENOVATE_GIT_PRIVATE_KEY}"
+        #      extraEnvVars:
+        #        - name: RENOVATE_GIT_PRIVATE_KEY
+        #          value: "${SECRET_RENOVATE_GIT_PRIVATE_KEY}"
 
         #valueFrom: {{ include "whitesource-renovate.secret-name" . }}
-        #key: gitPrivateKey
+      #key: gitPrivateKey
 
       config: |
         module.exports = {
@@ -34,7 +34,14 @@ data:
             extends: ['config:base',":gitSignOff", ":rebaseStalePrs",":enablePreCommit"],
           },
           gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}',
-          gitAuthor: '${SECRET_RENOVATE_GIT_AUTHOR}'
+          gitAuthor: '${SECRET_RENOVATE_GIT_AUTHOR}',
+
+          autodiscover: true,
+          onboarding: true,
+          requireConfig: required
+
+          persistRepoData: true,
+          baseDir: '/tmp/renovate'
         }
 
       logLevel: debug
