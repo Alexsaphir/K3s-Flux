@@ -20,6 +20,8 @@ data:
 
       defaultLonghornStaticStorageClass: longhorn
 
+      concurrentAutomaticEngineUpgradePerNodeLimit: 2
+
       backupTarget: s3://longhorn@us-east-1/backupstore
       backupTargetCredentialSecret: longhorn-backup-secrets
 
