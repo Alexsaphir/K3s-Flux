@@ -30,11 +30,11 @@ spec:
       enabled: false
     controller:
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           enabled: true
     speaker:
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           enabled: true
