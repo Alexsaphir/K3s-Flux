@@ -5,6 +5,7 @@ tasks:
   install:
     desc: Install workstation dependencies with `Brew` and `Poetry`
     cmds:
+      - task: .git
       - task: .poetry
       - task: .tools
       - task: .krew
@@ -69,9 +70,13 @@ tasks:
       - kubectl krew install graph
       - kubectl krew install sniff
       - kubectl krew install topology
-#      - kubectl krew install kots
+  #      - kubectl krew install kots
 
   .poetry:
     cmds:
       - poetry install
       - poetry install --sync
+
+  .git:
+    cmds:
+      - git config diff.sopsdiffer.textconv "sops -d" --local
