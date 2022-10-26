@@ -68,7 +68,7 @@ repos:
       - id: tflint
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 2.1.294
+    rev: 2.2.0
     hooks:
       - id: checkov
 
