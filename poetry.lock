@@ -54,7 +54,7 @@ ansible = ">=2.4"
 
 [[package]]
 name = "ansible-lint"
-version = "6.8.2"
+version = "6.8.4"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 category = "main"
 optional = false
@@ -75,7 +75,7 @@ yamllint = ">=1.25.0"
 
 [package.extras]
 docs = ["myst-parser (>=0.16.1)", "pipdeptree (>=2.2.1)", "sphinx (>=4.4.0)", "sphinx-ansible-theme (>=0.9.1)", "sphinx-rtd-theme (>=1.0.0,<2.0.0)", "sphinxcontrib-apidoc (>=0.3.0)", "sphinxcontrib-programoutput2 (>=2.0a1)", "yamllint (>=1.26.3)"]
-test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "flaky (>=3.7.0)", "mypy", "psutil", "pylint", "pytest (>=6.0.1)", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
+test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "flaky (>=3.7.0)", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
 
 [[package]]
 name = "attrs"
@@ -211,7 +211,7 @@ testing = ["covdefaults (>=2.2)", "coverage (>=6.4.2)", "pytest (>=7.1.2)", "pyt
 
 [[package]]
 name = "identify"
-version = "2.5.7"
+version = "2.5.8"
 description = "File identification library for Python"
 category = "main"
 optional = false
@@ -477,11 +477,11 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "tomlkit"
-version = "0.11.5"
+version = "0.11.6"
 description = "Style preserving TOML library"
 category = "dev"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.6"
 
 [[package]]
 name = "typer"
@@ -571,8 +571,8 @@ ansible-inventory-grapher = [
     {file = "ansible-inventory-grapher-2.5.0.tar.gz", hash = "sha256:17aa515b5db288f68eeb20fe88f4d99fda8fd123ef288e73d5dd70e36850d787"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-6.8.2.tar.gz", hash = "sha256:17dfacb0d9139a435ccf2095234e20491d556f7adb97dedd891b40566e316553"},
-    {file = "ansible_lint-6.8.2-py3-none-any.whl", hash = "sha256:dbfcf94ae4ed7c3b1747c5e4cbb8d9ba094821f28fee3d82f0ba06ef96bfccac"},
+    {file = "ansible-lint-6.8.4.tar.gz", hash = "sha256:b7c9afbda3da25e106ce648fb9846765237c672bacafd069f11bdaa85ece1648"},
+    {file = "ansible_lint-6.8.4-py3-none-any.whl", hash = "sha256:6064cfa95403674ed6ea77b852705333f79f545d154b62a9ec7968179ba4f72b"},
 ]
 attrs = [
     {file = "attrs-22.1.0-py2.py3-none-any.whl", hash = "sha256:86efa402f67bf2df34f51a335487cf46b1ec130d02b8d39fd248abfd30da551c"},
@@ -724,8 +724,8 @@ filelock = [
     {file = "filelock-3.8.0.tar.gz", hash = "sha256:55447caa666f2198c5b6b13a26d2084d26fa5b115c00d065664b2124680c4edc"},
 ]
 identify = [
-    {file = "identify-2.5.7-py2.py3-none-any.whl", hash = "sha256:7a67b2a6208d390fd86fd04fb3def94a3a8b7f0bcbd1d1fcd6736f4defe26390"},
-    {file = "identify-2.5.7.tar.gz", hash = "sha256:5b8fd1e843a6d4bf10685dd31f4520a7f1c7d0e14e9bc5d34b1d6f111cabc011"},
+    {file = "identify-2.5.8-py2.py3-none-any.whl", hash = "sha256:48b7925fe122720088aeb7a6c34f17b27e706b72c61070f27fe3789094233440"},
+    {file = "identify-2.5.8.tar.gz", hash = "sha256:7a214a10313b9489a0d61467db2856ae8d0b8306fc923e03a9effa53d8aedc58"},
 ]
 jinja2 = [
     {file = "Jinja2-3.1.2-py3-none-any.whl", hash = "sha256:6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61"},
@@ -946,8 +946,8 @@ tomli = [
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 tomlkit = [
-    {file = "tomlkit-0.11.5-py3-none-any.whl", hash = "sha256:f2ef9da9cef846ee027947dc99a45d6b68a63b0ebc21944649505bf2e8bc5fe7"},
-    {file = "tomlkit-0.11.5.tar.gz", hash = "sha256:571854ebbb5eac89abcb4a2e47d7ea27b89bf29e09c35395da6f03dd4ae23d1c"},
+    {file = "tomlkit-0.11.6-py3-none-any.whl", hash = "sha256:07de26b0d8cfc18f871aec595fda24d95b08fef89d147caa861939f37230bf4b"},
+    {file = "tomlkit-0.11.6.tar.gz", hash = "sha256:71b952e5721688937fb02cf9d354dbcf0785066149d2855e44531ebdd2b65d73"},
 ]
 typer = [
     {file = "typer-0.4.2-py3-none-any.whl", hash = "sha256:023bae00d1baf358a6cc7cea45851639360bb716de687b42b0a4641cd99173f1"},

@@ -27,6 +27,13 @@ tasks:
   default:
     - task: precommit:run
 
+  commit:
+    desc: Fully deployed tools and flux
+    cmds:
+      - task: init
+      - task: update
+      - task: install
+
   init:
     desc: Initialize workstation
     cmds:
