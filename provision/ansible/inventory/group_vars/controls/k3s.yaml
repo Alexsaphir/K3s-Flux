@@ -69,9 +69,9 @@ k3s_server:
     - "feature-gates=MixedProtocolLBService=true"
 
     # Enable the audit log
-#    - "--audit-log-path=/var/lib/rancher/k3s/audit.log"
-#    - "--audit-policy-file=/var/lib/rancher/k3s/audit-policy.yaml"
-#    - "--audit-log-maxage=2"
+    #    - "--audit-log-path=/var/lib/rancher/k3s/audit.log"
+    #    - "--audit-policy-file=/var/lib/rancher/k3s/audit-policy.yaml"
+    #    - "--audit-log-maxage=2"
 
     # Required for HAProxy health-checks
     - "anonymous-auth=true"

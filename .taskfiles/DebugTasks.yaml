@@ -2,6 +2,11 @@
 version: "3"
 
 tasks:
+  helm:
+    desc: Open WebUi to debug helm deployments
+    cmds:
+      - helm plugin install https://github.com/komodorio/helm-dashboard.git
+      - helm dashboard
 
   network:
     desc: Create a netshoot container for debugging
@@ -47,6 +52,7 @@ tasks:
               "restartPolicy": "Never"
             }
           }'
+
   node:
     desc: |-
       Create a privileged container on a node for debugging (ex. task NODE=k8s-0 debug:node)

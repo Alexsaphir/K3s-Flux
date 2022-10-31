@@ -35,5 +35,5 @@
       ansible.builtin.file:
         path: "{{ item.path }}"
         state: absent
-      #noinspection UndefinedVariable
+      # noinspection UndefinedVariable
       loop: "{{ directory_contents.files }}"

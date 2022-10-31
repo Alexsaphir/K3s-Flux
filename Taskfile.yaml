@@ -27,7 +27,7 @@ tasks:
   default:
     - task: precommit:run
 
-  commit:
+  deploy:
     desc: Fully deployed tools and flux
     cmds:
       - task: init

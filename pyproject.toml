@@ -5,6 +5,7 @@ description = ""
 authors = ["Alexandre Mechineau <git@alexsaphir.com>"]
 readme = "README.md"
 
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.9"

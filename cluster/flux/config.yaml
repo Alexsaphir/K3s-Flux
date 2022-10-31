@@ -6,11 +6,15 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./cluster/config
   prune: true
+  force: true
+  wait: true
+
+  path: ./cluster/config
   sourceRef:
     kind: GitRepository
     name: flux-system
+
   decryption:
     provider: sops
     secretRef:

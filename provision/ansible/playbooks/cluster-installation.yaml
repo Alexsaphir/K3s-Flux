@@ -25,10 +25,10 @@
         group: root
         mode: 0755
 
-#    - name: Copy audit-policy.yaml
-#      ansible.builtin.template:
-#        src: audit-policy.yaml.j2
-#        dest: /var/lib/rancher/k3s/audit-policy.yaml
+    #    - name: Copy audit-policy.yaml
+    #     ansible.builtin.template:
+    #       src: audit-policy.yaml.j2
+    #       dest: /var/lib/rancher/k3s/audit-policy.yaml
 
     - name: Install Kubernetes
       ansible.builtin.include_role:
@@ -50,9 +50,10 @@
       run_once: true
       ansible.builtin.fetch:
         src: "/etc/rancher/k3s/k3s.yaml"
-        #noinspection UndefinedVariable
+        # noinspection UndefinedVariable
         dest: "{{ repo_abs_path.stdout }}/provision/kubeconfig"
         flat: true
+
       when:
         - k3s_control_node is defined
         - k3s_control_node
@@ -62,10 +63,19 @@
       become: false
       run_once: true
       ansible.builtin.replace:
-        #noinspection UndefinedVariable
+        # noinspection UndefinedVariable
         path: "{{ repo_abs_path.stdout }}/provision/kubeconfig"
         regexp: "https://127.0.0.1:6443"
         replace: "https://{{ k3s_registration_address }}:6443"
+
+    - name: Update kubeconfig permissions
+      delegate_to: localhost
+      become: false
+      run_once: true
+      ansible.builtin.file:
+        path: "{{ repo_abs_path.stdout }}/provision/kubeconfig"
+        mode: go-rwx
+
 
     # Cleaning up the manifests from the /var/lib/rancher/k3s/server/manifests
     # directory is needed because k3s has an awesome
