@@ -5,11 +5,11 @@ k3s_agent:
   node-ip: "{{ ansible_host }}"
 
   kubelet-arg:
-    # Allow k8s services to contain TCP and UDP on the same port
-    - "feature-gates=MixedProtocolLBService=true"
-
     # Enables the kubelet to gracefully evict pods during a node shutdown
     - "feature-gates=GracefulNodeShutdown=true"
+
+    # Allow k8s services to contain TCP and UDP on the same port
+    - "feature-gates=MixedProtocolLBService=true"
 
     # Allow pods to be rescheduled quicker in the case of a node failure
     # https://github.com/k3s-io/k3s/issues/1264

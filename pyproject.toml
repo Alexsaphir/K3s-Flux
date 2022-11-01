@@ -14,7 +14,7 @@ pre-commit = "^2.20.0"
 ansible-core = "^2.13.5"
 ansible = "^6.5.0"
 ansible-inventory-grapher = "^2.5.0"
-ansible-lint = "^6.8.2"
+ansible-lint = "^6.8.6"
 
 
 [tool.poetry.group.dev.dependencies]

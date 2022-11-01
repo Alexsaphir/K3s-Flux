@@ -7,10 +7,14 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: [ --enforce-all --maxkb=700 ]
+      - id: check-byte-order-marker
+      - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
+      - id: check-json
       - id: check-yaml
         args: [ --allow-multiple-documents, --unsafe ]
+      - id: detect-aws-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending
@@ -35,10 +39,10 @@ repos:
       - id: poetry-check
       - id: poetry-lock
 
-  #  - repo: https://github.com/renovatebot/pre-commit-hooks
-  #    rev: 32.159.0
-  #    hooks:
-  #      - id: renovate-config-validator
+  - repo: https://github.com/renovatebot/pre-commit-hooks
+    rev: 34.10.0
+    hooks:
+      - id: renovate-config-validator
 
   # Leaks
   - repo: https://github.com/k8s-at-home/sops-pre-commit
@@ -56,10 +60,10 @@ repos:
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.28.0
     hooks:
-      - args:
+      - id: yamllint
+        args:
           - --config-file
           - .gitlab/linters/.yamllint.yaml
-        id: yamllint
 
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.17

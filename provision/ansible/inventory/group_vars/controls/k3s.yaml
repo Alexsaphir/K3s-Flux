@@ -7,29 +7,36 @@ k3s_control_node: true
 k3s_server:
   node-ip: "{{ ansible_host }}"
 
+  # Disable Docker - this will use the default containerd CRI
   docker: false
+
+  # Disable flannel - this will be replaced by calico
   flannel-backend: 'none'
+
   # https://github.com/k3s-io/k3s/issues/5835
   # https://github.com/k3s-io/k3s/issues/5633
   egress-selector-mode: 'disabled'
 
   disable-network-policy: true
   disable-cloud-controller: true
-  disable:
-    - local-storage
-    - metrics-server
-    - servicelb
-    - traefik
-    - flannel
 
-  # Network CIDR to use for pod IPs
+  disable:
+    - local-storage # replaced by longhorn
+    - metrics-server # installed by flux
+    - servicelb # replaced by metallb
+    - traefik # installed by flux
+    - flannel # replaced by calico
+
+  # Cluster-internal IP ranges for pods and services
   cluster-cidr: "10.42.0.0/16"
-  # Network CIDR to use for service IPs
   service-cidr: "10.43.0.0/16"
 
   write-kubeconfig-mode: '0644'
 
   kubelet-arg:
+    # Enables the kubelet to gracefully evict pods during a node shutdown
+    - "feature-gates=GracefulNodeShutdown=true"
+
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
 
@@ -83,5 +90,3 @@ k3s_server:
 
   node-label:
     - "k3s-upgrade=enabled"
-#    - "NodeTier=development"
-#    - "NodeLocation=sph-bdx"

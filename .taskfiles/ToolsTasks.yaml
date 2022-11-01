@@ -30,6 +30,7 @@ tasks:
     vars:
       TAPS: >-
         weaveworks/tap
+        instrumenta/instrumenta
       DEPS: >-
         age
         checkov
@@ -45,6 +46,7 @@ tasks:
         k9s
         kubeconform
         kubernetes-cli
+        kubeval
         kustomize
         krew
         prettier
