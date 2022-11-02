@@ -6,15 +6,18 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./cluster/flux/flux-addons
   prune: true
+  force: true
+
+  path: ./cluster/flux-addons
   sourceRef:
     kind: GitRepository
     name: flux-system
+
   dependsOn:
     - name: charts
     - name: config
-    - name: crds
+
   decryption:
     provider: sops
     secretRef:
