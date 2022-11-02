@@ -67,6 +67,13 @@
   ],
   packageRules: [
     {
+      matchPackageNames: [
+        "kube-prometheus-stack",
+        "kube-prometheus-stack-crds"
+      ],
+      groupName: "kube-prometheus-stack"
+    },
+    {
       description: 'Use custom versioning for Minio',
       matchDatasources: [
         'docker',

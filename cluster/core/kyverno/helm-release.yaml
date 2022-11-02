@@ -21,6 +21,11 @@ spec:
   upgrade:
     remediation:
       retries: 5
+
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: kube-system
+
   values:
     installCRDs: true
     replicaCount: 1
@@ -29,7 +34,7 @@ spec:
       - --clientRateLimitQPS=30
       - --clientRateLimitBurst=60
     serviceMonitor:
-      enabled: false
+      enabled: true
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
