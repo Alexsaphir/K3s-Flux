@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: minio-charts
+  name: jetstack-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://charts.min.io/
+  url: https://charts.jetstack.io/
   timeout: 3m

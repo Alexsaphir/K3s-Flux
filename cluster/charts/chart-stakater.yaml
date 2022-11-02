@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: portainer-charts
+  name: stakater-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://portainer.github.io/k8s/
+  url: https://stakater.github.io/stakater-charts
   timeout: 3m

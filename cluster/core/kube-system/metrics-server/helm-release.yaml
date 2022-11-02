@@ -12,6 +12,6 @@ spec:
       version: 3.8.2
       sourceRef:
         kind: HelmRepository
-        name: metrics-server-charts
+        name: metrics-server-chart
         namespace: flux-charts
       interval: 15m

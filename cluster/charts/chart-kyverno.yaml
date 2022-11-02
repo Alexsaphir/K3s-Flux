@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: deliveryhero-charts
+  name: kyverno-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://charts.deliveryhero.io/
+  url: https://kyverno.github.io/kyverno/
   timeout: 3m

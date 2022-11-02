@@ -12,7 +12,7 @@ spec:
       version: v1.10.0
       sourceRef:
         kind: HelmRepository
-        name: jetstack-charts
+        name: jetstack-chart
         namespace: flux-charts
   install:
     createNamespace: true

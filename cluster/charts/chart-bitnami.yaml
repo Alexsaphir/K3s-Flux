@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: prometheus-community-charts
+  name: bitnami-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://prometheus-community.github.io/helm-charts
+  url: https://charts.bitnami.com/bitnami
   timeout: 3m

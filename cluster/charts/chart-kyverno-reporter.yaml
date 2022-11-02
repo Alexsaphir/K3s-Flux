@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: kyverno-charts
+  name: kyverno-reporter-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://kyverno.github.io/kyverno/
+  url: https://kyverno.github.io/policy-reporter
   timeout: 3m

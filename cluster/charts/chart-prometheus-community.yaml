@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: stakater-charts
+  name: prometheus-community-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://stakater.github.io/stakater-charts
+  url: https://prometheus-community.github.io/helm-charts
   timeout: 3m

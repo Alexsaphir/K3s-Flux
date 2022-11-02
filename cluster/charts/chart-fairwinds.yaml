@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: traefik-charts
+  name: fairwinds-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://helm.traefik.io/traefik
+  url: https://charts.fairwinds.com/stable
   timeout: 3m

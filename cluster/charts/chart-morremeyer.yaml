@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: bjw-s-charts
+  name: morremeyer-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://bjw-s.github.io/helm-charts/
+  url: https://morremeyer.github.io/charts
   timeout: 3m

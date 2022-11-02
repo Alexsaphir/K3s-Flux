@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: dysnix-charts
+  name: traefik-chart
   namespace: flux-charts
 spec:
   interval: 30m
-  url: https://dysnix.github.io/charts
+  url: https://helm.traefik.io/traefik
   timeout: 3m
