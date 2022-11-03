@@ -8,9 +8,9 @@ spec:
   kubernetesConfig:
     image: 'quay.io/opstree/redis:v7.0.5'
     imagePullPolicy: IfNotPresent
-    redisSecret:
-      name: redis-standalone-secret
-      key: secretKey
+#    redisSecret:
+#      name: redis-standalone-secret
+#      key: secretKey
 
   storage:
     volumeClaimTemplate:
