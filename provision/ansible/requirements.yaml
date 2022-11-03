@@ -10,7 +10,7 @@ collections:
     version: 1.4.0
 
   - name: ansible.utils
-    version: 2.6.1
+    version: 2.7.0
 
 roles:
   - src: xanmanning.k3s
