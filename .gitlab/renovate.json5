@@ -8,6 +8,9 @@
     ':enablePreCommit',
     ':automergeDigest',
     ':automergeBranch',
+    'local>Alexsaphir/K3s-Flux//.gitlab/renovate/disabledDatasources.json5',
+    'local>Alexsaphir/K3s-Flux//.gitlab/renovate/groups.json5',
+    'local>Alexsaphir/K3s-Flux//.gitlab/renovate/labels.json5'
   ],
   enabled: true,
   semanticCommits: 'enabled',
