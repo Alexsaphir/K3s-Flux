@@ -24,7 +24,7 @@ spec:
 
   dependsOn:
     - name: kube-prometheus-stack-crds
-      namespace: kube-system
+      namespace: flux-monitoring
 
   values:
     installCRDs: true
