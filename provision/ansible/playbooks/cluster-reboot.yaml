@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Reboot all cluster nodes.
+  hosts:
     - cube
   become: true
   gather_facts: true

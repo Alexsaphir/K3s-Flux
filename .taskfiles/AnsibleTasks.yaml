@@ -9,18 +9,6 @@ vars:
 env:
   ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
 
-
-  ANSIBLE_INVENTORY: "{{.ANSIBLE_DIR}}/inventory"
-  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
-
-  ANSIBLE_COLLECTIONS_PATH: "{{.ANSIBLE_DIR_CACHE}}/collections"
-  ANSIBLE_ROLES_PATH: "{{.ANSIBLE_DIR_CACHE}}/roles:{{.ANSIBLE_DIR}}/roles"
-
-  ANSIBLE_LOG_PATH: "{{.ANSIBLE_DIR_CACHE}}/ansible.log"
-  ANSIBLE_LOCAL_TEMP: "{{.ANSIBLE_DIR_CACHE}}/tmp"
-  ANSIBLE_CACHE_PLUGIN_CONNECTION: "{{.ANSIBLE_DIR_CACHE}}/facts_cache"
-  ANSIBLE_INVENTORY_CACHE_CONNECTION: "{{.ANSIBLE_DIR_CACHE}}/ansible_inventory"
-
 tasks:
 
   init:

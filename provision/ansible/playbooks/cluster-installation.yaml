@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Install kubernetes on each nodes.
+  hosts:
     - cube
   become: true
   gather_facts: true
@@ -23,7 +24,7 @@
         state: directory
         owner: root
         group: root
-        mode: 0755
+        mode: '0755'
 
     #    - name: Copy audit-policy.yaml
     #     ansible.builtin.template:
@@ -38,6 +39,7 @@
         k3s_state: installed
 
     - name: Get absolute path to this Git repository
+      # noqa command-instead-of-module no-changed-when
       delegate_to: localhost
       become: false
       run_once: true

@@ -1,5 +1,6 @@
 ---
-- hosts:
+- name: Nuke the cluster.
+  hosts:
     - cube
   become: true
   gather_facts: true

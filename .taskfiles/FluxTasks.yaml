@@ -42,12 +42,10 @@ tasks:
     cmds:
       - flux reconcile source git flux-system
       - flux reconcile kustomization flux-system
-      - flux reconcile kustomization flux-addons
       - flux reconcile kustomization config
       - flux reconcile kustomization charts
-      - flux reconcile kustomization crds
+      - flux reconcile kustomization flux-addons
       - flux reconcile kustomization core
-      - flux reconcile kustomization apps
   logs:
     desc: Allow to follow Flux logs
     cmds:

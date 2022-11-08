@@ -14,6 +14,7 @@ rules:
   comments:
     min-spaces-from-content: 1
   document-start:
+    level: error
     present: true
   line-length: disable
   braces:
@@ -23,3 +24,4 @@ rules:
     min-spaces-inside: 1
     max-spaces-inside: 1
   indentation: enable
+  octal-values: enable
