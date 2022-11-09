@@ -4,7 +4,6 @@ version: "3"
 vars:
   ANSIBLE_REQUIREMENTS: "{{.ANSIBLE_DIR}}/requirements.yaml"
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
-  ANSIBLE_DIR_CACHE: "{{.ANSIBLE_DIR}}/.ansible"
 
 env:
   ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
@@ -14,8 +13,8 @@ tasks:
   init:
     desc: Install / Upgrade Ansible galaxy deps
     cmds:
-      - ansible-galaxy install -r {{.ANSIBLE_REQUIREMENTS}}
-      - ansible-galaxy collection install -r {{.ANSIBLE_REQUIREMENTS}}
+      - ansible-galaxy install -r {{.ANSIBLE_REQUIREMENTS}} --force
+      - ansible-galaxy collection install -r {{.ANSIBLE_REQUIREMENTS}} --force
 
   list:
     desc: List all the hosts
