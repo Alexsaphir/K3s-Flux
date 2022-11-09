@@ -12,7 +12,7 @@ python = "^3.9"
 pre-commit = "^2.20.0"
 
 ansible-core = "^2.13.6"
-ansible = "^6.5.0"
+ansible = "^6.6.0"
 ansible-inventory-grapher = "^2.5.0"
 ansible-lint = "^6.8.6"
 
