@@ -15,6 +15,14 @@ spec:
         name: grafana-chart
         namespace: flux-charts
       interval: 15m
+
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
+
   values:
     image:
       repository: grafana/grafana
