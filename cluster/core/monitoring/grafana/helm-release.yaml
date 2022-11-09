@@ -24,9 +24,6 @@ spec:
       namespace: flux-monitoring
 
   values:
-    image:
-      repository: grafana/grafana
-      tag: 9.2.2
     deploymentStrategy:
       type: Recreate
     persistence:

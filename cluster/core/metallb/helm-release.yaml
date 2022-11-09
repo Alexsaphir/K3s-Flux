@@ -22,8 +22,16 @@ spec:
   upgrade:
     remediation:
       retries: 3
+
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
+
   values:
     crds:
+      enabled: true
+
+    serviceMonitor:
       enabled: true
 
     prometheusRule:
