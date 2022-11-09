@@ -7,21 +7,15 @@ metadata:
 spec:
   chart:
     spec:
-      # renovate: datasource=github-releases depName=whitesource/renovate-on-prem
-      chart: ./helm-charts/whitesource-renovate
-      version: 2.6.0
+      chart: whitesource-renovate
+      version: 3.1.2
       sourceRef:
-        kind: GitRepository
-        name: renovate-chart-git
+        kind: HelmRepository
+        name: renovate-on-prem-chart
         namespace: flux-charts
   interval: 15m
   timeout: 5m
   values:
-    image:
-      repository: whitesource/renovate
-      tag: 2.6.0
-      pullPolicy: IfNotPresent
-
     renovate:
       acceptWhiteSourceTos: 'y'
 
@@ -55,7 +49,7 @@ spec:
           baseDir: '/tmp/renovate'
         }
 
-      logLevel: debug
+      logLevel: info
 
       cachePersistence:
         enabled: true
