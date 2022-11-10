@@ -31,8 +31,12 @@ spec:
     crds:
       enabled: true
 
-    prometheusRule:
-      enabled: true
+    prometheus:
+      serviceAccount: 'prometheus-prometheus'
+      namespace: 'flux-monitoring'
 
-    serviceMonitor:
-      enabled: true
+      podMonitor:
+        enabled: true
+
+      prometheusRule:
+        enabled: true
