@@ -31,9 +31,6 @@ spec:
     crds:
       enabled: true
 
-    serviceMonitor:
-      enabled: true
-
     prometheusRule:
       enabled: true
     controller:
