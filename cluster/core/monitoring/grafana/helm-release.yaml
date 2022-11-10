@@ -111,6 +111,15 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/flux
 
+          - name: "calico"
+            orgId: 1
+            folder: "Calico"
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/calico
+
           - name: "data"
             orgId: 1
             folder: "Data"
@@ -143,49 +152,22 @@ spec:
         1-node-exporter:
           url: https://grafana.com/api/dashboards/11074/revisions/9/download
           datasource: Prometheus
+
         node-exporter-full:
           gnetId: 1860
           revision: 23
           datasource: Prometheus
+
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
-        traefik:
-          gnetId: 11462
-          revision: 1
-          datasource: Prometheus
-        traefik-ingress:
-          gnetId: 4475
-          revision: 5
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/2842
+
         metallb:
           gnetId: 14127
           revision: 1
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/7845
-      #        zfs:
-      #          gnetId: 7845
-      #          revision: 4
-      #          datasource: Prometheus
-      data:
-        mysql-overview:
-          gnetId: 7362
-          revision: 5
-          datasource: Prometheus
-        redis:
-          gnetId: 14091
-          revision: 1
-          datasource: Prometheus
-        redis-sentinel:
-          gnetId: 12776
-          revision: 2
-          datasource: Redis
-        # Ref: https://grafana.com/grafana/dashboards/13502
-        minio:
-          gnetId: 13502
-          revision: 10
-          datasource: Prometheus
+
+
       loki:
         loki-metrics:
           gnetId: 13407
@@ -227,6 +209,7 @@ spec:
       #          gnetId: 11312
       #          revision: 8
       #          datasource: Prometheus
+
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/v0.34.0/manifests/monitoring/monitoring-config/dashboards/cluster.json
@@ -237,6 +220,13 @@ spec:
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2/v0.34.0/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: Prometheus
+
+      calico:
+        calico:
+          gnetId: 12175
+          revision: 5
+          datasource: Prometheus
+
       #      cilium:
       #        cilium-dashboard:
       #          url: https://raw.githubusercontent.com/cilium/cilium/v1.12.2/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
