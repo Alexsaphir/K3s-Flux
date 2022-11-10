@@ -1,0 +1,100 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: flux-podmonitors
+  namespace: flux-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix-chart
+        namespace: flux-charts
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PodMonitor
+        metadata:
+          name: kustomize-controller
+          namespace: flux-system
+          labels:
+            app.kubernetes.io/instance: flux-system
+            app.kubernetes.io/version: latest
+        spec:
+          namespaceSelector:
+            matchNames:
+              - flux-system
+          selector:
+            matchLabels:
+              app: kustomize-controller
+          podMetricsEndpoints:
+            - port: http-prom
+
+
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PodMonitor
+        metadata:
+          name: source-controller
+          namespace: flux-system
+          labels:
+            app.kubernetes.io/instance: flux-system
+            app.kubernetes.io/version: latest
+        spec:
+          namespaceSelector:
+            matchNames:
+              - flux-system
+          selector:
+            matchLabels:
+              app: source-controller
+          podMetricsEndpoints:
+            - port: http-prom
+
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PodMonitor
+        metadata:
+          name: helm-controller
+          namespace: flux-system
+          labels:
+            app.kubernetes.io/instance: flux-system
+            app.kubernetes.io/version: latest
+        spec:
+          namespaceSelector:
+            matchNames:
+              - flux-system
+          selector:
+            matchLabels:
+              app: helm-controller
+          podMetricsEndpoints:
+            - port: http-prom
+
+      - apiVersion: monitoring.coreos.com/v1
+        kind: PodMonitor
+        metadata:
+          name: notification-controller
+          namespace: flux-system
+          labels:
+            app.kubernetes.io/instance: flux-system
+            app.kubernetes.io/version: latest
+        spec:
+          namespaceSelector:
+            matchNames:
+              - flux-system
+          selector:
+            matchLabels:
+              app: notification-controller
+          podMetricsEndpoints:
+            - port: http-prom
