@@ -33,13 +33,6 @@ spec:
 
     prometheusRule:
       enabled: true
-    controller:
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-    speaker:
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
+
+    serviceMonitor:
+      enabled: true
