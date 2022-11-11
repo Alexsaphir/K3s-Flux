@@ -25,8 +25,11 @@
   schedule: [
     'before 1am'
   ],
-  'poetry': {
-    enabled: true,
+  lockFileMaintenance: {
+    enabled: true
+  },
+  poetry: {
+    enabled: true
   },
   'pre-commit': {
     enabled: true
