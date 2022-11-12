@@ -22,6 +22,14 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
+
+  dependsOn:
+    #    - name: tigera-operator
+    #      namespace: tigera-operator
+
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
+
   values:
     crds:
       create: true

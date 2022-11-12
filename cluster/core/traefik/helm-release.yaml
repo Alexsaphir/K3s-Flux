@@ -18,6 +18,9 @@ spec:
       interval: 15m
   timeout: 5m
   dependsOn:
+    #    - name: tigera-operator
+    #      namespace: tigera-operator
+
     - name: cert-manager
       namespace: cert-manager
   install:

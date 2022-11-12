@@ -15,3 +15,9 @@ spec:
         name: morremeyer-chart
         namespace: flux-charts
       interval: 15m
+  dependsOn:
+    #    - name: tigera-operator
+    #      namespace: tigera-operator
+
+    - name: longhorn
+      namespace: longhorn-system

@@ -21,6 +21,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
+
+  #  dependsOn:
+  #    - name: tigera-operator
+  #      namespace: tigera-operator
+
   values:
     installCRDs: true
     replicaCount: 1
