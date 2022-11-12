@@ -10,7 +10,7 @@
       block:
         - name: Locale | Set timezone
           community.general.timezone:
-            name: "{{ timezone | default('Etc/UTC') }}"
+            name: "{{ os_timezone | default('Etc/UTC') }}"
 
     - name: Filesystem
       block:
@@ -37,25 +37,31 @@
         - name: Networking | Set hostname to inventory hostname
           ansible.builtin.hostname:
             name: "{{ inventory_hostname }}"
+          when:
+            - ansible_hostname != inventory_hostname
 
         - name: Networking | Update /etc/hosts to include inventory hostname
           ansible.builtin.blockinfile:
             path: /etc/hosts
+            mode: '0644'
+            create: true
             block: |
+              127.0.0.1 localhost
               127.0.1.1   {{ inventory_hostname }}
               # The following lines are desirable for IPv6 capable hosts
-#              ::1 ip6-localhost ip6-loopback
-#              fe00::0 ip6-localnet
-#              ff00::0 ip6-mcastprefix
-#              ff02::1 ip6-allnodes
-#              ff02::2 ip6-allrouters
-#              ff02::3 ip6-allhosts
+    #              ::1 ip6-localhost ip6-loopback
+    #              fe00::0 ip6-localnet
+    #              ff00::0 ip6-mcastprefix
+    #              ff02::1 ip6-allnodes
+    #              ff02::2 ip6-allrouters
+    #              ff02::3 ip6-allhosts
+
 
     - name: Packages
       block:
         - name: Packages | Install required packages
           ansible.builtin.apt:
-            name: "{{ packages | default([]) }}"
+            name: "{{ os_packages_install | default([]) }}"
             state: present
             update_cache: true
 

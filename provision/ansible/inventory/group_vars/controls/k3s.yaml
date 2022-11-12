@@ -34,11 +34,16 @@ k3s_server:
   write-kubeconfig-mode: '0644'
 
   kubelet-arg:
-    # Enables the kubelet to gracefully evict pods during a node shutdown
-    - "feature-gates=GracefulNodeShutdown=true"
+
 
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
+
+    # Enable Alpha/Beta features
+    - "feature-gates=EphemeralContainers=true,ReadWriteOncePod=true"
+
+    # Enables the kubelet to gracefully evict pods during a node shutdown
+    - "feature-gates=GracefulNodeShutdown=true"
 
     # Allow pods to be rescheduled quicker in the case of a node failure
     # https://github.com/k3s-io/k3s/issues/1264
@@ -47,6 +52,9 @@ k3s_server:
   kube-controller-manager-arg:
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
+
+    # Enable Alpha/Beta features
+    - "feature-gates=EphemeralContainers=true,ReadWriteOncePod=true"
 
     # Required to monitor kube-controller-manager with kube-prometheus-stack
     - "bind-address=0.0.0.0"
@@ -61,6 +69,9 @@ k3s_server:
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
 
+    # Enable Alpha/Beta features
+    - "feature-gates=EphemeralContainers=true,ReadWriteOncePod=true"
+
     # Required to monitor kube-proxy with kube-prometheus-stack
     - "metrics-bind-address=0.0.0.0"
 
@@ -68,12 +79,18 @@ k3s_server:
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
 
+    # Enable Alpha/Beta features
+    - "feature-gates=EphemeralContainers=true,ReadWriteOncePod=true"
+
     # Required to monitor kube-scheduler with kube-prometheus-stack
     - "bind-address=0.0.0.0"
 
   kube-apiserver-arg:
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
+
+    # Enable Alpha/Beta features
+    - "feature-gates=EphemeralContainers=true,ReadWriteOncePod=true"
 
     # Enable the audit log
     #    - "--audit-log-path=/var/lib/rancher/k3s/audit.log"
@@ -87,6 +104,3 @@ k3s_server:
     # https://github.com/k3s-io/k3s/issues/1264
     - "default-not-ready-toleration-seconds=20"
     - "default-unreachable-toleration-seconds=20"
-
-  node-label:
-    - "k3s-upgrade=enabled"

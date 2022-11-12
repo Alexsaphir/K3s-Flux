@@ -1,17 +1,18 @@
 ---
 # (string) Timezone for the servers
-timezone: "Europe/Paris"
+os_timezone: "Europe/Paris"
 
 # (list) Additional ssh public keys to add to the nodes
-# ssh_authorized_keys:
+os_ssh_authorized_keys:
 
-packages:
+os_packages_install:
   - bash-completion
   - curl
   - hdparm
   - htop
   - intel-gpu-tools
   - iotop
+  - iputils-ping
   - ipvsadm
   - jq
   - lm-sensors
@@ -21,4 +22,24 @@ packages:
   - nload
   - nvme-cli
   - open-iscsi
+  - smartmontools
   - socat
+
+os_packages_remove:
+  - apport
+  - byobu
+  - cloud-init
+  - cloud-guest-utils
+  - cloud-initramfs-copymods
+  - cloud-initramfs-dyn-netconf
+  - friendly-recovery
+  - landscape-common
+  - lxd-agent-loader
+  - ntfs-3g
+  - plymouth
+  - plymouth-theme-ubuntu-text
+  - popularity-contest
+  - snapd
+  - sosreport
+  - ubuntu-advantage-tools
+  - ufw

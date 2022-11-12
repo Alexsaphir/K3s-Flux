@@ -45,6 +45,7 @@ repos:
     hooks:
       - id: renovate-config-validator
 
+
   # Leaks
   - repo: https://github.com/k8s-at-home/sops-pre-commit
     rev: v2.1.1
@@ -83,6 +84,7 @@ repos:
     hooks:
       - id: checkov
 
+  # Check commit name
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.1.1
     hooks:

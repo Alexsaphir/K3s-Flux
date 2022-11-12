@@ -4,32 +4,14 @@ controls:
     cube-control:
       ansible_host: 192.168.0.123
       ansible_connection: ssh
-      ansible_user: k3s
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
-#    vagrant-control:
-#      ansible_host: 192.168.0.16
-#      ansible_connection: ssh
-#      ansible_user: vagrant
-#      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-#      ansible_ssh_private_key_file: 'provision/vagrant/.vagrant/machines/default/virtualbox/private_key'
 workers:
   hosts:
     cube-worker:
       ansible_host: 192.168.0.134
       ansible_connection: ssh
-      ansible_user: k3s
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-#    worker-control:
-#      ansible_host: 192.168.0.16
-#      ansible_connection: ssh
-#      ansible_user: k3s
-
-#    worker-[01:05]:
-#      ansible_port: 6666
-#      ansible_connection: ssh
-#      ansible_user: k3s
 
 cube:
   children:
