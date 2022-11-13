@@ -14,16 +14,18 @@ spec:
         kind: HelmRepository
         name: dysnix-chart
         namespace: flux-charts
+
   install:
-    createNamespace: true
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     remediation:
-      retries: 3
+      retries: 5
+
   dependsOn:
     - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
+
   values:
     resources:
       - apiVersion: monitoring.coreos.com/v1

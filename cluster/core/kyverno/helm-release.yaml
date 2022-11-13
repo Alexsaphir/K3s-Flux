@@ -14,18 +14,18 @@ spec:
         kind: HelmRepository
         name: kyverno-chart
         namespace: flux-charts
+      interval: 15m
+
   install:
-    createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 5
   upgrade:
+    crds: CreateReplace
     remediation:
       retries: 5
 
   dependsOn:
-    #    - name: tigera-operator
-    #      namespace: tigera-operator
-
     - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 

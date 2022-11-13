@@ -8,7 +8,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://bjw-s.github.io/helm-charts/
       chart: app-template
       version: 1.0.1
       sourceRef:
@@ -16,9 +15,11 @@ spec:
         name: bjw-s-chart
         namespace: flux-charts
       interval: 15m
+
   dependsOn:
     - name: traefik
       namespace: traefik-system
+
   values:
     image:
       repository: ghcr.io/tarampampam/error-pages
@@ -35,6 +36,7 @@ spec:
         ports:
           http:
             port: 8080
+
     resources:
       requests:
         memory: 100Mi

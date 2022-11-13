@@ -15,7 +15,3 @@ spec:
         name: metrics-server-chart
         namespace: flux-charts
       interval: 15m
-
-#  dependsOn:
-#    - name: tigera-operator
-#      namespace: tigera-operator

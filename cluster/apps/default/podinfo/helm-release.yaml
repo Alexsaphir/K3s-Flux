@@ -14,13 +14,15 @@ spec:
         kind: HelmRepository
         name: stefanprodan-chart
         namespace: flux-charts
+      interval: 15m
+
   install:
-    createNamespace: true
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
+
   values:
     replicaCount: 2
     resources:

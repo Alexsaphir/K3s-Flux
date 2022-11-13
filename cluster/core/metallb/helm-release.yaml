@@ -5,6 +5,7 @@ metadata:
   name: metallb
   namespace: metallb-system
 spec:
+  interval: 15m
   chart:
     spec:
       chart: metallb
@@ -14,20 +15,17 @@ spec:
         name: metallb-chart
         namespace: flux-charts
       interval: 15m
-  interval: 15m
+
   install:
     crds: CreateReplace
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     crds: CreateReplace
     remediation:
-      retries: 3
+      retries: 5
 
   dependsOn:
-    #    - name: tigera-operator
-    #      namespace: tigera-operator
-
     - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 

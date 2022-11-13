@@ -26,8 +26,10 @@ spec:
   values:
     deploymentStrategy:
       type: Recreate
+
     persistence:
       enabled: false
+
     env:
       GF_EXPLORE_ENABLED: true
       GF_SECURITY_ALLOW_EMBEDDING: true
@@ -36,10 +38,12 @@ spec:
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+
     admin:
       existingSecret: grafana-admin
       userKey: adminUser
       passwordKey: adminPassword
+
     ingress:
       enabled: true
       annotations:
@@ -50,6 +54,7 @@ spec:
         - "grafana.monitoring.${SECRET_DOMAIN_NAME}"
       path: /
       pathType: Prefix
+
     plugins:
       - pr0ps-trackmap-panel
       - grafana-clock-panel
@@ -60,12 +65,16 @@ spec:
       - vonage-status-panel
       - https://github.com/panodata/panodata-map-panel/releases/download/0.16.0/panodata-map-panel-0.16.0.zip;grafana-worldmap-panel-ng
       - redis-datasource
+
     podAnnotations:
       configmap.reloader.stakater.com/reload: *app
+
     serviceMonitor:
       enabled: true
+
     serviceAccount:
       autoMount: true
+
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -256,6 +265,7 @@ spec:
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
+
     sidecar:
       datasources:
         enabled: true
@@ -267,6 +277,7 @@ spec:
         provider:
           allowUiUpdates: true
           foldersFromFilesStructure: true
+
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -280,6 +291,7 @@ spec:
             access: proxy
             url: http://prometheus-prometheus:9090/
             isDefault: false
+
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN_NAME}"

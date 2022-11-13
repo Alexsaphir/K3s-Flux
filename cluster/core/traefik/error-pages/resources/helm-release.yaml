@@ -15,12 +15,11 @@ spec:
         name: dysnix-chart
         namespace: flux-charts
   install:
-    createNamespace: true
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     remediation:
-      retries: 3
+      retries: 5
   dependsOn:
     - name: traefik
       namespace: traefik-system

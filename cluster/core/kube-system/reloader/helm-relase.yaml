@@ -8,7 +8,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://stakater.github.io/stakater-charts
       chart: reloader
       version: v0.0.124
       sourceRef:
@@ -16,13 +15,10 @@ spec:
         name: stakater-chart
         namespace: flux-charts
       interval: 15m
+
   install:
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
-
-#  dependsOn:
-#    - name: tigera-operator
-#      namespace: tigera-operator

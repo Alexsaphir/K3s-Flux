@@ -10,6 +10,7 @@ spec:
   enableSuperuserAccess: true
   superuserSecret:
     name: postgres-superuser
+
   monitoring:
     enablePodMonitor: true
   # Require 1Gi of space

@@ -14,6 +14,8 @@ spec:
         kind: HelmRepository
         name: opstree-chart
         namespace: flux-charts
+      interval: 15m
+
   install:
     crds: CreateReplace
     remediation:
@@ -23,9 +25,9 @@ spec:
     remediation:
       retries: 5
 
-  #  dependsOn:
-  #    - name: tigera-operator
-  #      namespace: tigera-operator
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
 
   values:
     redisOperator:
