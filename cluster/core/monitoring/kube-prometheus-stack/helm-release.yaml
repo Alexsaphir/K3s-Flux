@@ -63,8 +63,23 @@ spec:
         prometheus: true
         prometheusOperator: true
 
+    admissionWebhooks:
+      certManager:
+        enabled: true
+
+    coreDns:
+      enabled: true
+
     kubeControllerManager:
       enabled: false
+      service:
+        enabled: true
+        port: 10257
+        targetPort: 10257
+      serviceMonitor:
+        enabled: true
+        https: true
+        insecureSkipVerify: true
 
     kubeEtcd:
       enabled: false
@@ -83,12 +98,21 @@ spec:
 
     kubeProxy:
       enabled: false
+      serviceMonitor:
+        enabled: true
+        https: true
+        insecureSkipVerify: true
 
     kubeScheduler:
       enabled: false
+      serviceMonitor:
+        enabled: true
+        https: true
+        insecureSkipVerify: true
 
     kubeStateMetrics:
       enabled: true
+
 
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
@@ -148,8 +172,25 @@ spec:
                 requests:
                   storage: 1Gi
 
+    nodeExporter:
+      enabled: true
+      serviceMonitor:
+        https: false
+        relabelings:
+          - action: replace
+            regex: (.*)
+            replacement: $1
+            sourceLabels:
+              - __meta_kubernetes_pod_node_name
+            targetLabel: kubernetes_node
+
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      tolerations:
+        - effect: "NoExecute"
+          operator: "Exists"
+        - effect: "NoSchedule"
+          operator: "Exists"
       prometheus:
         monitor:
           enabled: true
@@ -160,8 +201,22 @@ spec:
               sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: kubernetes_node
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 60
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - i386
+                      - i686
+                      - x86
 
     prometheusOperator:
+      createCustomResource: true
       prometheusConfigReloader:
         resources:
           requests:
@@ -189,7 +244,7 @@ spec:
       prometheusSpec:
         replicas: 1
         podAntiAffinity: hard
-        retentionSize: "1GB"
+        retentionSize: "8GB"
         replicaExternalLabelName: "replica"
         ruleSelector: { }
         ruleNamespaceSelector: { }
@@ -209,7 +264,16 @@ spec:
               storageClassName: longhorn
               resources:
                 requests:
-                  storage: 1Gi
+                  storage: 10Gi
+
+        addtionalScrapeConfigs:
+          - job_name: "coredns"
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "kube-dns.kube-system:9153"
+
+
     #        thanos:
     #          image: quay.io/thanos/thanos:v0.28.0
     #          # renovate: datasource=docker depName=quay.io/thanos/thanos
@@ -217,20 +281,6 @@ spec:
     #          objectStorageConfig:
     #            name: thanos-objstore-secret
     #            key: objstore.yml
-    #        additionalScrapeConfigs:
-    #          - job_name: minio-job
-    #            metrics_path: /minio/v2/metrics/cluster
-    #            scheme: http
-    #            static_configs:
-    #              - targets:
-    #                  - atlas.monitoring.${SECRET_DOMAIN_NAME}:9000
-    #          - job_name: node-exporter
-    #            scrape_interval: 1m
-    #            scrape_timeout: 10s
-    #            honor_timestamps: true
-    #            static_configs:
-    #              - targets:
-    #                  - "ragnar.monitoring.${SECRET_DOMAIN_NAME}:9100"
 
     grafana:
       enabled: false
