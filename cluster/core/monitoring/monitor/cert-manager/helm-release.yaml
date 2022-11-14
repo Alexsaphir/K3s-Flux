@@ -16,12 +16,8 @@ spec:
         namespace: flux-charts
       interval: 15m
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
 
   values:
-
     - apiVersion: monitoring.coreos.com/v1
       kind: PrometheusRule
       metadata:

@@ -16,8 +16,7 @@ spec:
     name: flux-system
 
   dependsOn:
-    - name: charts
-    - name: config
+    - name: infra
 
   decryption:
     provider: sops

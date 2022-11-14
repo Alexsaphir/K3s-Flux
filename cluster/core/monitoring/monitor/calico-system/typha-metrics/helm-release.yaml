@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kube-controllers-metrics
+  name: typha-metrics
   namespace: calico-system
 spec:
   interval: 15m
@@ -16,22 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
   values:
     - apiVersion: monitoring.coreos.com/v1
       kind: ServiceMonitor
       metadata:
-        name: kube-controllers-metrics
+        name: typha-metrics
         namespace: calico-system
         labels:
-          k8s-app: calico-kube-controllers
+          k8s-app: calico-typha
       spec:
         selector:
           matchLabels:
-            k8s-app: calico-kube-controllers
+            k8s-app: calico-typha
         endpoints:
           - port: http-metrics
             path: /metrics
