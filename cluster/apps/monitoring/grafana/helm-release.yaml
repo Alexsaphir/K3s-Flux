@@ -38,11 +38,32 @@ spec:
       GF_DATE_FORMATS_FULL_DATE: "MMM Do, YYYY hh:mm:ss a"
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      DS_PROMETHEUS: "prometheus"
 
     admin:
       existingSecret: grafana-admin
       userKey: adminUser
       passwordKey: adminPassword
+
+
+    grafana.ini:
+      server:
+        root_url: "https://grafana.monitoring.${SECRET_DOMAIN_NAME}"
+      default:
+        force_migration: true
+      paths:
+        data: /var/lib/grafana/data
+        logs: /var/log/grafana
+        plugins: /var/lib/grafana/plugins
+        provisioning: /etc/grafana/provisioning
+      analytics:
+        check_for_updates: false
+      log:
+        mode: console
+      grafana_net:
+        url: https://grafana.net
+      panels:
+        disable_sanitize_html: true
 
     ingress:
       enabled: true
@@ -51,7 +72,7 @@ spec:
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "traefik-system-internal@kubernetescrd"
       hosts:
-        - "grafana.monitoring.${SECRET_DOMAIN_NAME}"
+        - grafana.monitoring.${SECRET_DOMAIN_NAME}
       path: /
       pathType: Prefix
 
@@ -75,6 +96,42 @@ spec:
     serviceAccount:
       autoMount: true
 
+    sidecar:
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+        label: grafana_datasource
+
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+        folderAnnotation: "grafana_folder"
+        provider:
+          allowUiUpdates: true
+          foldersFromFilesStructure: true
+          disableDelete: false
+
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus-prometheus:9090/
+            isDefault: false
+
+          - name: AlertManager
+            type: alertmanager
+            access: proxy
+            url: http://alertmanager-operated:9093
+            jsonData:
+              implementation: "prometheus"
+
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -87,30 +144,7 @@ spec:
             allowUiUpdates: true
             options:
               path: /var/lib/grafana/dashboards/default
-          #          - name: "cilium"
-          #            orgId: 1
-          #            folder: "Cilium"
-          #            type: file
-          #            disableDeletion: false
-          #            editable: true
-          #            options:
-          #              path: /var/lib/grafana/dashboards/cilium
-          #          - name: "unifi"
-          #            orgId: 1
-          #            folder: "Unifi"
-          #            type: file
-          #            disableDeletion: false
-          #            editable: true
-          #            options:
-          #              path: /var/lib/grafana/dashboards/unifi
-          #          - name: "ceph"
-          #            orgId: 1
-          #            folder: "Ceph"
-          #            type: file
-          #            disableDeletion: false
-          #            editable: true
-          #            options:
-          #              path: /var/lib/grafana/dashboards/ceph
+
           - name: "flux"
             orgId: 1
             folder: "Flux"
@@ -167,67 +201,25 @@ spec:
           revision: 23
           datasource: Prometheus
 
-        cert-manager:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
-          datasource: Prometheus
-
         metallb:
           gnetId: 14127
           revision: 1
           datasource: Prometheus
 
+        metallb-git:
+          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
+          datasource: Prometheus
+
+      data:
+        minio:
+          gnetId: 13502
+          revision: 10
+          datasource: Prometheus
 
       loki:
         loki-metrics:
           gnetId: 13407
           revision: 1
-          datasource: Prometheus
-      #      ceph:
-      #        ceph-cluster:
-      #         gnetId: 2842
-      #         revision: 14
-      #         datasource: Prometheus
-      #        # Ref: https://grafana.com/grafana/dashboards/5336
-      #        ceph-osd:
-      #          gnetId: 5336
-      #          revision: 5
-      #          datasource: Prometheus
-      #        # Ref: https://grafana.com/grafana/dashboards/5342
-      #        ceph-pools:
-      #          gnetId: 5342
-      #          revision: 5
-      #          datasource: Prometheus
-      #      unifi:
-      #        # Ref: https://grafana.com/grafana/dashboards/11315
-      #        unifi-client-insights:
-      #          gnetId: 11315
-      #          revision: 8
-      #          datasource: Prometheus
-      #        # Ref: https://grafana.com/grafana/dashboards/11311
-      #        unifi-network-sites:
-      #          gnetId: 11311
-      #          revision: 4
-      #          datasource: Prometheus
-      #        # Ref: https://grafana.com/grafana/dashboards/11314
-      #        unifi-uap-insights:
-      #          gnetId: 11314
-      #          revision: 9
-      #          datasource: Prometheus
-      #        # Ref: https://grafana.com/grafana/dashboards/11312
-      #        unifi-usw-insights:
-      #          gnetId: 11312
-      #          revision: 8
-      #          datasource: Prometheus
-
-      flux:
-        flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v0.34.0/manifests/monitoring/monitoring-config/dashboards/cluster.json
-          datasource: Prometheus
-        flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v0.34.0/manifests/monitoring/monitoring-config/dashboards/control-plane.json
-          datasource: Prometheus
-        flux-logs:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v0.34.0/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: Prometheus
 
       calico:
@@ -236,16 +228,6 @@ spec:
           revision: 5
           datasource: Prometheus
 
-      #      cilium:
-      #        cilium-dashboard:
-      #          url: https://raw.githubusercontent.com/cilium/cilium/v1.12.2/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
-      #          datasource: Prometheus
-      #        cilium-operator-dashboard:
-      #          url: https://raw.githubusercontent.com/cilium/cilium/v1.12.2/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-operator-dashboard.json
-      #          datasource: Prometheus
-      #        hubble-dashboard:
-      #          url: https://raw.githubusercontent.com/cilium/cilium/v1.12.2/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
-      #          datasource: Prometheus
       kubernetes:
         api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
@@ -265,46 +247,3 @@ spec:
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
-
-    sidecar:
-      datasources:
-        enabled: true
-        searchNamespace: ALL
-      dashboards:
-        enabled: true
-        searchNamespace: ALL
-        folderAnnotation: "grafana_folder"
-        provider:
-          allowUiUpdates: true
-          foldersFromFilesStructure: true
-
-    datasources:
-      datasources.yaml:
-        apiVersion: 1
-        # list of datasources that should be deleted from the database
-        deleteDatasources:
-          - name: Loki
-            orgId: 1
-        datasources:
-          - name: Prometheus
-            type: prometheus
-            access: proxy
-            url: http://prometheus-prometheus:9090/
-            isDefault: false
-
-    grafana.ini:
-      server:
-        root_url: "https://grafana.${SECRET_DOMAIN_NAME}"
-      default:
-        force_migration: true
-      paths:
-        data: /var/lib/grafana/data
-        logs: /var/log/grafana
-        plugins: /var/lib/grafana/plugins
-        provisioning: /etc/grafana/provisioning
-      analytics:
-        check_for_updates: false
-      log:
-        mode: console
-      grafana_net:
-        url: https://grafana.net
