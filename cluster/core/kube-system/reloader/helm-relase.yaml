@@ -22,3 +22,8 @@ spec:
   upgrade:
     remediation:
       retries: 5
+
+  values:
+    reloader:
+      podMonitor:
+        enabled: true
