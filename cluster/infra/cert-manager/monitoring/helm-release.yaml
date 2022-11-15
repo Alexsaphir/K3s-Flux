@@ -16,6 +16,9 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
 
   values:
     - apiVersion: monitoring.coreos.com/v1

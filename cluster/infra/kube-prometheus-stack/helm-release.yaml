@@ -25,6 +25,13 @@ spec:
     remediation:
       retries: 5
 
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
+
+    - name: longhorn
+      namespace: longhorn-system
+
   values:
     fullnameOverride: prometheus
 
