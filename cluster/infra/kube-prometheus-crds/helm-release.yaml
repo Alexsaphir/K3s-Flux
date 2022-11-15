@@ -24,7 +24,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 5
-
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
