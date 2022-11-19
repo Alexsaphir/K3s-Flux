@@ -21,7 +21,6 @@ k3s_server:
   disable-cloud-controller: true
 
   disable:
-    - local-storage # replaced by longhorn
     - metrics-server # installed by flux
     - servicelb # replaced by metallb
     - traefik # installed by flux
@@ -34,8 +33,6 @@ k3s_server:
   write-kubeconfig-mode: '0644'
 
   kubelet-arg:
-
-
     # Allow k8s services to contain TCP and UDP on the same port
     - "feature-gates=MixedProtocolLBService=true"
 
