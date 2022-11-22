@@ -15,6 +15,7 @@
   ],
   enabled: true,
   semanticCommits: 'enabled',
+  configWarningReuseIssue: true,
   configMigration: true,
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard',
