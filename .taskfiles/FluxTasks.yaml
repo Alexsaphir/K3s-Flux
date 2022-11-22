@@ -44,6 +44,7 @@ tasks:
       - flux reconcile kustomization flux-system
       - flux reconcile kustomization config
       - flux reconcile kustomization charts
+      - flux reconcile kustomization infra
       - flux reconcile kustomization flux-addons
       - flux reconcile kustomization core
       - flux reconcile kustomization apps

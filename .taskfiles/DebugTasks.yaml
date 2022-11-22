@@ -5,7 +5,7 @@ tasks:
   helm:
     desc: Open WebUi to debug helm deployments
     cmds:
-      - helm plugin install https://github.com/komodorio/helm-dashboard.git
+#      - helm plugin install https://github.com/komodorio/helm-dashboard.git
       - helm dashboard
 
   network:

@@ -6,11 +6,15 @@ collections:
   - name: community.sops
     version: 1.4.1
 
+  - name: kubernetes.core
+    version: 2.3.2
+
   - name: ansible.posix
     version: 1.4.0
 
   - name: ansible.utils
     version: 2.7.0
+
 
 roles:
   - name: xanmanning.k3s

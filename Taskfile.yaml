@@ -30,7 +30,6 @@ tasks:
   deploy:
     desc: Fully deployed tools and flux
     cmds:
-      - task: init
       - task: install
 
   init:
@@ -46,6 +45,7 @@ tasks:
     cmds:
       - task: ansible:prepare
       - task: ansible:install
+      - task: ansible:tigera-ownership
       - task: flux:install
 
   update:

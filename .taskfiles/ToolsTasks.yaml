@@ -34,6 +34,7 @@ tasks:
       DEPS: >-
         age
         checkov
+        derailed/popeye/popeye
         direnv
         fluxcd/tap/flux
         gitleaks
