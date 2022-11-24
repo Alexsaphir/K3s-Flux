@@ -16,10 +16,10 @@ spec:
         namespace: flux-charts
   install:
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
     remediation:
-      retries: 5
+      retries: 3
   dependsOn:
     - name: traefik
       namespace: traefik-system
