@@ -160,20 +160,20 @@ spec:
   valuesFrom:
     - targetPath: loki.structuredConfig.common.storage.s3.bucketnames
       kind: Secret
-      name: bucket_name
-      valuesKey: BUCKET_NAME
+      name: loki-bucket
+      valuesKey: bucket_name
 
     - targetPath: loki.structuredConfig.common.storage.s3.endpoint
       kind: Secret
-      name: endpoint
-      valuesKey: BUCKET_HOST
+      name: loki-bucket
+      valuesKey: endpoint
 
     - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
       kind: Secret
-      name: access_key_id
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: loki-bucket
+      valuesKey: access_key_id
 
     - targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
       kind: Secret
-      name: secret_access_key
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: loki-bucket
+      valuesKey: secret_access_key
