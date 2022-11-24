@@ -32,6 +32,10 @@ spec:
     adminUser:
       create: true
       username: admin
+
+    metrics:
+      enabled: true
+
     ingress:
       enabled: true
       className: traefik
