@@ -77,6 +77,8 @@ spec:
         lokiCanary:
           enabled: false
 
+    test:
+      enabled: false
 
     loki:
       structuredConfig:
