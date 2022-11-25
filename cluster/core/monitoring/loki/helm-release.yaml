@@ -25,13 +25,13 @@ spec:
 
   values:
     write:
-      replicas: 1
+      replicas: &replication_factor 2
       persistence:
         size: &storage_size 5Gi
         storageClass: longhorn
 
     read:
-      replicas: 1
+      replicas: *replication_factor
       extraVolumeMounts:
         - name: loki-rules
           mountPath: /rules/fake
@@ -51,7 +51,7 @@ spec:
 
     gateway:
       enabled: true
-      replicas: 1
+      replicas: *replication_factor
       ingress:
         enabled: true
         ingressClassName: "traefik"
@@ -70,6 +70,8 @@ spec:
       #          grafana_dashboard: "1"
       serviceMonitor:
         enabled: true
+        metricsInstance:
+          enabled: true
       selfMonitoring:
         enabled: false
         grafanaAgent:
@@ -81,6 +83,18 @@ spec:
       enabled: false
 
     loki:
+      common:
+        path_prefix: /var/loki
+        replication_factor: *replication_factor
+        storage:
+          s3:
+            s3: null
+            insecure: true
+            s3forcepathstyle: true
+        ring:
+          kvstore:
+            store: memberlist
+
       structuredConfig:
         auth_enabled: false
         server:
@@ -110,18 +124,6 @@ spec:
               index:
                 prefix: loki_index_
                 period: 24h
-
-        common:
-          path_prefix: /var/loki
-          replication_factor: 3
-          storage:
-            s3:
-              s3: null
-              insecure: true
-              s3forcepathstyle: true
-          ring:
-            kvstore:
-              store: memberlist
 
         ruler:
           enable_api: true
