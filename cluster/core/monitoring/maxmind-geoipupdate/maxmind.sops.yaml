@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: maxmind-geoipupdate
+    namespace: flux-monitoring
+type: Opaque
+stringData:
+    GEOIPUPDATE_ACCOUNT_ID: ENC[AES256_GCM,data:TSb1MAhZ,iv:8G80ewDACTEQz5F2x/y3oXIt5fgYKaetRYR2CwJTcYw=,tag:h8pmusctawgBOf6WtnVXCA==,type:str]
+    GEOIPUPDATE_LICENSE_KEY: ENC[AES256_GCM,data:c2ygnI0M1KMYqvuvj5jcUQ==,iv:my9gGEkAnalwm/6jn7e5sYrzgracQyQO8eILnB2pKf4=,tag:vqkexX0OaMPdpmMtH2cB0g==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBGd2QvV05WUFdMVEVBVWFS
+            eGVHcDVnTlZvVStqSnlrWHQrdkloRnpwdzJVCkd2YVJlOU9VbFJDL21ScDJHbXQv
+            K2FBNm56aXFkSWJFUU0wV3FBcXo2YW8KLS0tIGx4dFU4T01RZUlhOWZWN3V1YmMv
+            Wld2VWk1M09EL29IdXJGRy9iMDNscGcKfNSY6Vz/5492wWkM5M0DYscaaXbKwRvs
+            S2AoXs4ayfrHYTnLCzllyWsjP64/pg20FebH6kE4vnakSzbSTTICCg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-11-25T01:35:10Z"
+    mac: ENC[AES256_GCM,data:cpM0Epuwmc8P39F1zbmH5UzEW47/3pum7pDryQdMGCgqfl9zJRwtG/gjlt9DBWSpJbB6M/JJcGAP9s6V0gTYACnOqkhC5hjQOzNUvP0NPcY4HiOREvVGEAVhLfMrDPRvSsPLEgQyDMlFQYFM2RXc9CQ/VsYfdg8rIPp5fntbToA=,iv:Ca1V2axJyOJUmZipIdJrJ+VKEsAXYAy2hiH5gwyqqVc=,tag:GkYN9BFoo51XofT3PdZ+Vg==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3
