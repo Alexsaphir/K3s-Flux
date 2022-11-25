@@ -25,13 +25,13 @@ spec:
 
   values:
     write:
-      replicas: 2
+      replicas: 1
       persistence:
         size: &storage_size 5Gi
         storageClass: longhorn
 
     read:
-      replicas: 2
+      replicas: 1
       extraVolumeMounts:
         - name: loki-rules
           mountPath: /rules/fake
@@ -51,7 +51,7 @@ spec:
 
     gateway:
       enabled: true
-      replicas: 2
+      replicas: 1
       ingress:
         enabled: true
         ingressClassName: "traefik"
@@ -69,7 +69,7 @@ spec:
       #        labels:
       #          grafana_dashboard: "1"
       serviceMonitor:
-        enabled: false
+        enabled: true
       selfMonitoring:
         enabled: false
         grafanaAgent:
