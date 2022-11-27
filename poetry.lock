@@ -311,7 +311,7 @@ test = ["appdirs (==1.4.4)", "pytest (>=7.2)", "pytest-cov (>=4)", "pytest-mock 
 
 [[package]]
 name = "poetryup"
-version = "0.12.3"
+version = "0.12.4"
 description = "Update dependencies and bump their version in the pyproject.toml file"
 category = "dev"
 optional = false
@@ -451,14 +451,14 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "subprocess-tee"
-version = "0.3.5"
+version = "0.4.0"
 description = "subprocess-tee"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 
 [package.extras]
-test = ["enrich (>=1.2.6)", "mock (>=4.0.3)", "molecule (>=3.4.0)", "pytest (>=6.2.5)", "pytest-cov (>=2.12.1)", "pytest-plus (>=0.2)", "pytest-xdist (>=2.3.0)"]
+test = ["enrich (>=1.2.6)", "molecule (>=3.4.0)", "pytest (>=6.2.5)", "pytest-cov (>=2.12.1)", "pytest-plus (>=0.2)", "pytest-xdist (>=2.3.0)"]
 
 [[package]]
 name = "toml"
@@ -799,8 +799,8 @@ platformdirs = [
     {file = "platformdirs-2.5.4.tar.gz", hash = "sha256:1006647646d80f16130f052404c6b901e80ee4ed6bef6792e1f238a8969106f7"},
 ]
 poetryup = [
-    {file = "poetryup-0.12.3-py3-none-any.whl", hash = "sha256:fb8349a18ac6498e65654129a421248e9577f157e89bae592cf7e95dfddd1ba9"},
-    {file = "poetryup-0.12.3.tar.gz", hash = "sha256:772eb5d625193630637f927cd5982b9d1393aecd5ffd7b8b2a3a7b9066160009"},
+    {file = "poetryup-0.12.4-py3-none-any.whl", hash = "sha256:a77c2356a98b80c540c4f1422b0c9d2a8aed58a46badb7e3dc9b097053f41b2c"},
+    {file = "poetryup-0.12.4.tar.gz", hash = "sha256:0162972317fc4b810fa9ac0533cc2aa2a8dd840395c488a4e9f8d95d98596d70"},
 ]
 pre-commit = [
     {file = "pre_commit-2.20.0-py2.py3-none-any.whl", hash = "sha256:51a5ba7c480ae8072ecdb6933df22d2f812dc897d5fe848778116129a681aac7"},
@@ -936,8 +936,8 @@ setuptools = [
     {file = "setuptools-65.6.3.tar.gz", hash = "sha256:a7620757bf984b58deaf32fc8a4577a9bbc0850cf92c20e1ce41c38c19e5fb75"},
 ]
 subprocess-tee = [
-    {file = "subprocess-tee-0.3.5.tar.gz", hash = "sha256:ff5cced589a4b8ac973276ca1ba21bb6e3de600cde11a69947ff51f696efd577"},
-    {file = "subprocess_tee-0.3.5-py3-none-any.whl", hash = "sha256:d34186c639aa7f8013b5dfba80e17f52589539137c9d9205f2ae1c1bd03549e1"},
+    {file = "subprocess-tee-0.4.0.tar.gz", hash = "sha256:7ea885ff32cdb2b2d3b2a6c464492f2ee1ebbf324e50598d75de4f6f3ea0f149"},
+    {file = "subprocess_tee-0.4.0-py3-none-any.whl", hash = "sha256:dae5fba2640b45442a84b23f887aadfbe3f9addcca8320f5f99acb8d5c36b77e"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
