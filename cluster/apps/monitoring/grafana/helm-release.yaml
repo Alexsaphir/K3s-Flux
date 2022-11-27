@@ -125,11 +125,6 @@ spec:
             jsonData:
               implementation: "prometheus"
 
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki-gateway.flux-monitoring.svc.cluster.local:80
-
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
