@@ -13,3 +13,4 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: longhorn
+  volumeName: maxmind-geoipupdate-config-v1
