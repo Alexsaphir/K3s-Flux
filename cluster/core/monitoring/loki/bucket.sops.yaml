@@ -5,9 +5,11 @@ metadata:
     namespace: flux-monitoring
 stringData:
     bucket_name: ENC[AES256_GCM,data:jHPCaQ==,iv:BobBGAecSDLgVfvojlLTosxvKyHVHi7tsC/WaIlDT64=,tag:gefFGWC0DDqAMWksl8FICw==,type:str]
-    endpoint: ENC[AES256_GCM,data:PcSB+gAQwoJmCkv9r+ERX00=,iv:+y+lAonNGDndQndxhmLL2kQHlN2L+f8xXE9xAVzZd6Y=,tag:d5BALktnOW12c+RFHQOmZw==,type:str]
+    endpoint: ENC[AES256_GCM,data:l82/hBiCIIeogFz8beou/TU=,iv:NgGUIU1yd4znaVLs05rY2yJqmLZcIgjFMrZczoPr27M=,tag:Y0i3Fjqjqfqa0ktBEfJU1w==,type:str]
+    region: ENC[AES256_GCM,data:BXH5v59mcAOh,iv:ACJ9VpTZkWK6LhfLU6NJ4q0wwm3fc9p8xyOYoYzSeuo=,tag:veD4qAfiQD8VDfTcPp3DpA==,type:str]
     access_key_id: ENC[AES256_GCM,data:IIVxlxcwIvHLZeKVh7TWeS5uaIIVyg94WitbEbAiPRLTk1trh4sgefemY2l0vhkaFl/BzEtWW9Tg3Nk8O620lw==,iv:wwkGyW1dDhDl0kTbn+7CKnwKVNYEe+iMIsel48wSe2c=,tag:qdKysHaxowxu4Fa11CDx+A==,type:str]
     secret_access_key: ENC[AES256_GCM,data:SeV1Tgg5XDQkOil5s6Ow5eavpo6PTP6i7ZPQ9kbyh7YO5oaR+DlWsRDyaSK+9zOTgbLCIuM7tl51/XCrEVwo2w==,iv:Wv5MxCp+1QfInILYjX9nFxpze3azamLfe+Y9UJxQXc0=,tag:xpM669W9PMvKqqOTJcITvg==,type:str]
+    s3forcepathstyle: ENC[AES256_GCM,data:ztvdNA==,iv:dOg80tz5KSGrhlcdq153m52eEQXFNfpHbIpmp/gwkMM=,tag:0ZZwiAFh3jetgGe+P+8t1A==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -23,8 +25,8 @@ sops:
             MEVjTjlLMGZFdmZpQmlrYjcwSGxUeGMKSdIRPcMn7+6XvQV+Fx3+H820VVK4VozA
             /bZlEY74w8ox3FXLArCNVYW2bEu3Dq3PmHcnpJSMEHb4brG8T4L1DA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-11-24T23:31:07Z"
-    mac: ENC[AES256_GCM,data:EsxCfKe8eEifB1pRJrO/TTeD+SaJ2REh4UR32QUQ1/mm9CAhkl7davJ70oYfr/dQcFGVQCIdZ+DF3Xce7B8cZfN4tPtONr3YDgCHKm2ckYpXMjO0huBHpVUp3bbpNMt26+IAsN1szVeWURgSsPAl5gVwpONCleVrVOmZA1yuh5s=,iv:2GCaCfOzhIhSuuMbmCtKd7iAgoxVc5BDDC75DCCWRQw=,tag:KlR1hOtlpms06H4df6JO0w==,type:str]
+    lastmodified: "2022-11-27T23:36:33Z"
+    mac: ENC[AES256_GCM,data:R8tknr+1LPoR5avvr8nrEDKg24Fa6Sa5GGM0QBRUj7aPf7xspwvCH2oK6VV0qnohgrTO7nRW4n9Zfg/xySvqR+rQFpdEfgkPltY3GtHvxKYjLjQHz/0aAblwKKpCqTkg2wvhw1tihbm+SEqfDaVP4m9sJJDgPh9s/ZP25GLNuZk=,iv:oftNs5L3mm+eoe1jYC8IiHwu0JF6bk+8THD1UaEwUIc=,tag:eKqtYUgRC0GlzT7mhT+b3w==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3

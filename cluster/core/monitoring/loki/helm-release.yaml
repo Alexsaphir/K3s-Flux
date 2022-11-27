@@ -83,14 +83,15 @@ spec:
       enabled: false
 
     loki:
+      storage:
+        s3:
+          s3: null
+          insecure: true
+          s3ForcePathStyle: true
+
       common:
         path_prefix: /var/loki
         replication_factor: *replication_factor
-        storage:
-          s3:
-            s3: null
-            insecure: true
-            s3forcepathstyle: true
         ring:
           kvstore:
             store: memberlist
@@ -167,17 +168,27 @@ spec:
       name: loki-bucket
       valuesKey: bucket_name
 
-    - targetPath: loki.structuredConfig.common.storage.s3.endpoint
+    - targetPath: loki.structuredConfig.storage.s3.endpoint
       kind: Secret
       name: loki-bucket
       valuesKey: endpoint
 
-    - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
+    - targetPath: loki.structuredConfig.storage.s3.region
+      kind: Secret
+      name: loki-bucket
+      valuesKey: region
+
+    - targetPath: loki.structuredConfig.storage.s3.accessKeyId
       kind: Secret
       name: loki-bucket
       valuesKey: access_key_id
 
-    - targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
+    - targetPath: loki.structuredConfig.storage.s3.secretAccessKey
       kind: Secret
       name: loki-bucket
       valuesKey: secret_access_key
+
+#    - targetPath: loki.structuredConfig.storage.s3.s3ForcePathStyle
+#      kind: Secret
+#      name: loki-bucket
+#      valuesKey: s3forcepathstyle
