@@ -553,7 +553,7 @@ setuptools = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d13c34c2153b250050457cc1eeb9b486f75e48d4d9760c50672d186a855a084c"
+content-hash = "972ed4026aa85214cbe3b1fcfee217e1a452d3742522e20f3f1eb6e3ddf9a5d8"
 
 [metadata.files]
 ansible = [
