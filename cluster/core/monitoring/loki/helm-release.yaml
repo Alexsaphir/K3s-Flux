@@ -175,12 +175,12 @@ spec:
       name: loki-bucket
       valuesKey: region
 
-    - targetPath: loki.structuredConfig.common.storage.s3.accessKeyId
+    - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
       kind: Secret
       name: loki-bucket
       valuesKey: access_key_id
 
-    - targetPath: loki.structuredConfig.common.storage.s3.secretAccessKey
+    - targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
       kind: Secret
       name: loki-bucket
       valuesKey: secret_access_key
