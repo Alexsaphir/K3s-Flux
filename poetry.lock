@@ -11,7 +11,7 @@ ansible-core = ">=2.14.0,<2.15.0"
 
 [[package]]
 name = "ansible-compat"
-version = "2.2.5"
+version = "2.2.6"
 description = "Ansible compatibility goodies"
 category = "main"
 optional = false
@@ -237,7 +237,7 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "jsonschema"
-version = "4.17.1"
+version = "4.17.3"
 description = "An implementation of JSON Schema validation for Python"
 category = "main"
 optional = false
@@ -561,8 +561,8 @@ ansible = [
     {file = "ansible-7.0.0.tar.gz", hash = "sha256:73144e7e602715fab623005d2e71e503dddae86185e061fed861b2449c5618ea"},
 ]
 ansible-compat = [
-    {file = "ansible-compat-2.2.5.tar.gz", hash = "sha256:28c7c545fd60ef9c3059cfb2fefd27f92db091ff6b5868f83f121ceb5e1fe1b5"},
-    {file = "ansible_compat-2.2.5-py3-none-any.whl", hash = "sha256:ad5f10019a54283ae8e61a80c4c427c73a242167182c0d738018262e931476e3"},
+    {file = "ansible-compat-2.2.6.tar.gz", hash = "sha256:8bb3488327125a0948d38b766389a4819573343d5673aa78a7bed23eb9d5b28d"},
+    {file = "ansible_compat-2.2.6-py3-none-any.whl", hash = "sha256:e976b875c6e721e1276da25dfa49850833e0ce73153fe789744f357d5bf9d079"},
 ]
 ansible-core = [
     {file = "ansible-core-2.14.0.tar.gz", hash = "sha256:fa48b481cb623bf79bb903f223097681a0c13e1b4ec7e78e7dd7d858d36a34b2"},
@@ -733,8 +733,8 @@ jinja2 = [
     {file = "Jinja2-3.1.2.tar.gz", hash = "sha256:31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"},
 ]
 jsonschema = [
-    {file = "jsonschema-4.17.1-py3-none-any.whl", hash = "sha256:410ef23dcdbca4eaedc08b850079179883c2ed09378bd1f760d4af4aacfa28d7"},
-    {file = "jsonschema-4.17.1.tar.gz", hash = "sha256:05b2d22c83640cde0b7e0aa329ca7754fbd98ea66ad8ae24aa61328dfe057fa3"},
+    {file = "jsonschema-4.17.3-py3-none-any.whl", hash = "sha256:a870ad254da1a8ca84b6a2905cac29d265f805acc57af304784962a2aa6508f6"},
+    {file = "jsonschema-4.17.3.tar.gz", hash = "sha256:0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d"},
 ]
 markupsafe = [
     {file = "MarkupSafe-2.1.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:86b1f75c4e7c2ac2ccdaec2b9022845dbb81880ca318bb7a0a01fbf7813e3812"},
