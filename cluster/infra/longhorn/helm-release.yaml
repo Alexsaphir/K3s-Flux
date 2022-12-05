@@ -29,13 +29,13 @@ spec:
     persistence:
       defaultClass: true
       defaultFsType: ext4
-      defaultClassReplicaCount: 1
+      defaultClassReplicaCount: 2
       defaultDataLocality: best-effort
 
     defaultSettings:
       createDefaultDiskLabeledNodes: false
       defaultDataPath: /var/lib/longhorn
-      defaultReplicaCount: 1
+      defaultReplicaCount: 2
       orphan-auto-deletion: false
 
       defaultLonghornStaticStorageClass: longhorn
@@ -46,7 +46,7 @@ spec:
       backupTargetCredentialSecret: longhorn-backup-secrets
 
     csi:
-      attacherReplicaCount: 1
-      provisionerReplicaCount: 1
-      resizerReplicaCount: 1
-      snapshotterReplicaCount: 1
+      attacherReplicaCount: 2
+      provisionerReplicaCount: 2
+      resizerReplicaCount: 2
+      snapshotterReplicaCount: 2
