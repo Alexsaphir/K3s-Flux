@@ -5,7 +5,7 @@ metadata:
   name: cluster-example
   namespace: default
 spec:
-  instances: 3
+  instances: 2
   primaryUpdateStrategy: unsupervised
   enableSuperuserAccess: true
   superuserSecret:
@@ -13,6 +13,7 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
   # Require 1Gi of space
   storage:
     size: 1Gi
