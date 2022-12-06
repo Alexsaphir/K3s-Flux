@@ -2,14 +2,14 @@
 controls:
   hosts:
     cube-control:
-      ansible_host: 192.168.0.123
+      ansible_host: 192.168.0.70
       ansible_connection: ssh
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
 workers:
   hosts:
     cube-worker:
-      ansible_host: 192.168.0.134
+      ansible_host: 192.168.0.71
       ansible_connection: ssh
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
