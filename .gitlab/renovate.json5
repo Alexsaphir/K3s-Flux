@@ -9,6 +9,7 @@
     ':automergeDigest',
     ':automergeBranch',
     'github>whitesource/merge-confidence:beta',
+    'local>Alexsaphir/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/disabledDatasources.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/groups.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/labels.json5'
