@@ -11,10 +11,10 @@ packages = []
 python = "^3.9"
 pre-commit = "2.20.0"
 
-ansible-core = "2.14.0"
-ansible = "7.0.0"
+ansible-core = "2.14.1"
+ansible = "7.1.0"
 ansible-inventory-grapher = "2.5.0"
-ansible-lint = { version = "6.9.0", markers = 'platform_system != "Windows"' }
+ansible-lint = { version = "6.9.1", markers = 'platform_system != "Windows"' }
 
 
 [tool.poetry.group.dev.dependencies]
