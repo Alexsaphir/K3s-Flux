@@ -27,7 +27,7 @@ spec:
 
   values:
     installCRDs: true
-    replicaCount: 2
+    replicaCount: 1
 
     extraArgs:
       - --autogenInternals=false
