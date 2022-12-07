@@ -1,56 +1,19 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
 metadata:
-  name: flux-podmonitors
+  name: flux-system
   namespace: flux-system
+  labels:
+    app.kubernetes.io/part-of: flux
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: raw
-      version: v0.3.1
-      sourceRef:
-        kind: HelmRepository
-        name: dysnix-chart
-        namespace: flux-charts
-
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      retries: 3
-
-  values:
-    resources:
-      - apiVersion: monitoring.coreos.com/v1
-        kind: PodMonitor
-        metadata:
-          name: flux-system
-          namespace: flux-system
-          labels:
-            app.kubernetes.io/part-of: flux
-            app.kubernetes.io/component: monitoring
-        spec:
-          namespaceSelector:
-            matchNames:
-              - flux-system
-          selector:
-            matchExpressions:
-              - key: app
-                operator: In
-                values:
-                  - helm-controller
-                  - source-controller
-                  - kustomize-controller
-                  - notification-controller
-                  - image-automation-controller
-                  - image-reflector-controller
-          podMetricsEndpoints:
-            - port: http-prom
-              relabelings:
-                # https://github.com/prometheus-operator/prometheus-operator/issues/4816
-                - sourceLabels: [ __meta_kubernetes_pod_phase ]
-                  action: keep
-                  regex: Running
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchExpressions:
+      - key: app
+        operator: Exists
+  podMetricsEndpoints:
+    - port: http-prom
+      honorLabels: true
