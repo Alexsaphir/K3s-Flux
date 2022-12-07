@@ -29,11 +29,10 @@ spec:
     recreate: true
     cleanupOnFail: true
 
+  # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
   values:
     configuration:
-      startTime: "10pm"
-      endTime: "2am"
+      #startTime: "10pm"
+      #endTime: "2am"
       logFormat: "json"
       timeZone: "${CONFIG_TIMEZONE}"
-      rebootSentinelCommand: |-
-        sh -c "! needs-restarting --reboothint"
