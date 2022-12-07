@@ -27,13 +27,16 @@ spec:
 
   values:
     installCRDs: true
-    replicaCount: 1
+    replicaCount: 2
+
     extraArgs:
       - --autogenInternals=false
       - --clientRateLimitQPS=30
       - --clientRateLimitBurst=60
+
     serviceMonitor:
       enabled: true
+
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
