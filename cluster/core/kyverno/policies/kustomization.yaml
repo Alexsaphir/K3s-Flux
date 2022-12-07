@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
   - ./add-ndots.yaml
   - ./delete-cpu-limits.yaml
-  - ./inject-timezone.yaml
   - ./mutate-large-termination-gps.yaml
   - ./prevent-naked-pods.yaml
