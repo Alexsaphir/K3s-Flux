@@ -32,12 +32,12 @@ spec:
   # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
   values:
     configuration:
-      #startTime: "10pm"
-      #endTime: "2am"
+      startTime: "4am"
+      endTime: "9am"
       logFormat: "json"
       timeZone: "${CONFIG_TIMEZONE}"
 
-      period: "10m"
+      period: "1h"
 
       annotateNodes: true
       lockReleaseDelay: "1h"
