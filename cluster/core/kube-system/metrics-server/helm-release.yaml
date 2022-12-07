@@ -15,3 +15,23 @@ spec:
         name: metrics-server-chart
         namespace: flux-charts
       interval: 15m
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  values:
+    args:
+      - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --kubelet-use-node-status-port
+      - --metric-resolution=15s
+
+    metrics:
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
