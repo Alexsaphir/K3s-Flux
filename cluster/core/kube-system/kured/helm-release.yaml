@@ -36,3 +36,8 @@ spec:
       #endTime: "2am"
       logFormat: "json"
       timeZone: "${CONFIG_TIMEZONE}"
+
+      period: "10m"
+
+      annotateNodes: true
+      lockReleaseDelay: "1h"
