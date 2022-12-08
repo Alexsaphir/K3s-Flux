@@ -36,6 +36,7 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: traefik
+        hajimari.io/enable: "true"
       hosts:
         - host: podinfo.${SECRET_DOMAIN_NAME}
           paths:

@@ -27,9 +27,12 @@ spec:
   values:
     hajimari:
       defaultEnable: true
-      #namespaceSelector:
-      #  matchNames:
-      #    - default
+      namespaceSelector:
+        matchNames:
+          - default
+          - longhorn-system
+          - flux-ci
+          - flux-monitoring
       name: "you"
     ingress:
       main:
