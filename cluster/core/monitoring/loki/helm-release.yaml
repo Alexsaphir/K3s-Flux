@@ -63,7 +63,7 @@ spec:
 
     monitoring:
       serviceMonitor:
-        enabled: true
+        enabled: false
         metricsInstance:
           enabled: true
       selfMonitoring:
