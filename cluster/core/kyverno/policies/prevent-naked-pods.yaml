@@ -22,6 +22,11 @@ spec:
   background: true
   rules:
     - name: naked-pods
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - longhorn-system
       match:
         any:
           - resources:
