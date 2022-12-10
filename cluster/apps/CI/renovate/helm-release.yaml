@@ -23,7 +23,7 @@ spec:
       renovatePlatform: 'gitlab'
       renovateEndpoint: 'https://${SECRET_GITLAB_DOMAIN}/api/v4/'
 
-      schedulerCron: '*/5 * * * *'
+      schedulerCron: '0 * * * *'
 
       #      extraEnvVars:
       #        - name: RENOVATE_GIT_PRIVATE_KEY
