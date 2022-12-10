@@ -48,10 +48,17 @@ spec:
           emptyDir: { }
       persistence:
         size: *storage_size
+        storageClass: longhorn
 
     gateway:
       enabled: true
       replicas: *replication_factor
+      verboseLogging: false
+      deploymentStrategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 1
+          maxSurge: 0
       ingress:
         enabled: true
         ingressClassName: "traefik"
@@ -62,6 +69,16 @@ spec:
                 pathType: Prefix
 
     monitoring:
+      dashboards:
+        enabled: true
+        annotations:
+          kustomize.toolkit.fluxcd.io/substitute: disabled
+          grafana_folder: Loki
+        labels:
+          grafana_dashboard: "true"
+      rules:
+        enabled: true
+
       serviceMonitor:
         enabled: false
         metricsInstance:
