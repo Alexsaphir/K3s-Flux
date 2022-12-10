@@ -6,4 +6,4 @@ resources:
   - helm-release.yaml
   - datasource.yaml
 #  - rules.yaml
-#  - service-monitor.yaml
+  - service-monitor.yaml
