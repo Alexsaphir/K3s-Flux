@@ -266,12 +266,12 @@ spec:
                 requests:
                   storage: 10Gi
 
-        addtionalScrapeConfigs:
-          - job_name: "coredns"
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "kube-dns.kube-system:9153"
+#        addtionalScrapeConfigs:
+#          - job_name: "coredns"
+#            honor_timestamps: true
+#            static_configs:
+#              - targets:
+#                  - "kube-dns.kube-system:9153"
 
 
     #        thanos:
