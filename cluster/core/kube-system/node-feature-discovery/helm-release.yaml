@@ -70,3 +70,8 @@ spec:
               matchOn:
                 - usbId:
                     vendor: [ "1a6e", "18d1" ]
+
+            - name: barcode-reader
+              matchOn:
+                - usbId:
+                    vendor: [ "1234" ]
