@@ -32,6 +32,7 @@ spec:
     - name: longhorn
       namespace: longhorn-system
 
+  # https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-42.3.0/charts/kube-prometheus-stack/values.yaml
   values:
     fullnameOverride: prometheus
 

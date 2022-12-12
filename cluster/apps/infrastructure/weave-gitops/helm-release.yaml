@@ -28,6 +28,7 @@ spec:
       valuesKey: adminPassword
       targetPath: adminUser.passwordHash
 
+  # https://github.com/weaveworks/weave-gitops/blob/main/charts/gitops-server/values.yaml
   values:
     adminUser:
       create: true

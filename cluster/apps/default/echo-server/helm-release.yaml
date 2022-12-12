@@ -27,14 +27,17 @@ spec:
     controller:
       replicas: 1
       strategy: RollingUpdate
+
     image:
       repository: docker.io/jmalloc/echo-server
       tag: 0.3.3
+
     service:
       main:
         ports:
           http:
             port: &port 8080
+
     probes:
       liveness: &probes
         enabled: true
@@ -50,6 +53,7 @@ spec:
       readiness: *probes
       startup:
         enabled: false
+
     resources:
       requests:
         cpu: 50m

@@ -24,6 +24,7 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/external-secrets/external-secrets/blob/v0.7.0/deploy/charts/external-secrets/values.yaml
   values:
     installCRDs: true
     replicaCount: 2

@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/stakater/Reloader/blob/v0.0.126/deployments/kubernetes/chart/reloader/values.yaml
   values:
     fullnameOverride: reloader
     reloader:

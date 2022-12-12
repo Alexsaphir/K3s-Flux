@@ -30,6 +30,7 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
 
+  # https://github.com/traefik/traefik-helm-chart/blob/v20.8.0/traefik/values.yaml
   values:
     deployment:
       enabled: true

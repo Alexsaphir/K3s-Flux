@@ -29,7 +29,7 @@ spec:
     recreate: true
     cleanupOnFail: true
 
-  # https://github.com/kubereboot/charts/blob/main/charts/kured/values.yaml
+  # https://github.com/kubereboot/charts/blob/kured-4.1.0/charts/kured/values.yaml
   values:
     configuration:
       startTime: "4am"

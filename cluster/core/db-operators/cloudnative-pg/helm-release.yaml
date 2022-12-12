@@ -25,6 +25,7 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.16.0/charts/cloudnative-pg/values.yaml
   values:
     crds:
       create: true

@@ -24,5 +24,6 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/weaveworks/tf-controller/blob/main/charts/tf-controller/values.yaml
   values:
     installCRDs: true

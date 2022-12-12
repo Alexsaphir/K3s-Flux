@@ -29,6 +29,7 @@ spec:
     - name: kube-prometheus-stack
       namespace: flux-monitoring
 
+  # https://github.com/cert-manager/cert-manager/blob/v1.10.1/deploy/charts/cert-manager/values.yaml
   values:
     installCRDs: true
     replicaCount: 1

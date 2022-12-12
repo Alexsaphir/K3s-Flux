@@ -25,6 +25,7 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/OT-CONTAINER-KIT/helm-charts/blob/redis-operator-0.12.0/charts/redis-operator/values.yaml
   values:
     redisOperator:
       name: redis-operator
@@ -37,22 +38,14 @@ spec:
       # Additional Pod labels (e.g. for filtering Pod by custom labels)
       podLabels: { }
 
-      # watch_namespace: ot-operators
+    # watch_namespace: ot-operators
 
-      resources:
-        limits:
-          cpu: null
-          memory: null
-        requests:
-          cpu: null
-          memory: null
+    resources:
+      limits:
+        cpu: null
+        memory: null
+      requests:
+        cpu: null
+        memory: null
 
-      replicas: 1
-
-      serviceAccountName: redis-operator
-
-      priorityClassName: ""
-      nodeSelector: { }
-      tolerateAllTaints: false
-      tolerations: [ ]
-      affinity: { }
+    replicas: 1

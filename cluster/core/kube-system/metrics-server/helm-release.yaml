@@ -23,12 +23,21 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/kubernetes-sigs/metrics-server/blob/v0.6.2/charts/metrics-server/values.yaml
   values:
     args:
       - --kubelet-insecure-tls
       - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
       - --kubelet-use-node-status-port
       - --metric-resolution=15s
+
+    replicas: 2
+
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
 
     metrics:
       enabled: true

@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 3
 
+  # https://github.com/grafana/loki/blob/helm-loki-3.6.1/production/helm/loki/values.yaml
   values:
     write:
       replicas: &replication_factor 2

@@ -15,6 +15,8 @@ spec:
         name: deliveryhero-chart
         namespace: flux-charts
       interval: 15m
+
+  # https://github.com/deliveryhero/helm-charts/blob/200aa7fcf6b5aa22dcb8a7d9491ea73e48df3319/stable/node-problem-detector/values.yaml
   values:
     metrics:
       enabled: true
