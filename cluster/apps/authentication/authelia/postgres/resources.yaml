@@ -1,0 +1,20 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-auth
+  namespace: traefik-system
+spec:
+  instances: 2
+  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: postgres-authelia-user
+
+  monitoring:
+    enablePodMonitor: true
+
+  # Require 1Gi of space
+  storage:
+    size: 1Gi
+    storageClass: longhorn
