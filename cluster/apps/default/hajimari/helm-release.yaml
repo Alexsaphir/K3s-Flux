@@ -34,6 +34,8 @@ spec:
           - flux-ci
           - flux-monitoring
       name: "you"
+      showAppGroups: true
+
     ingress:
       main:
         enabled: true
