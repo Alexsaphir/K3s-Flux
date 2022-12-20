@@ -31,13 +31,16 @@ tasks:
       TAPS: >-
         weaveworks/tap
         instrumenta/instrumenta
+        raffis/gitops-zombies
       DEPS: >-
         age
+        calicoctl
         checkov
         derailed/popeye/popeye
         direnv
         fluxcd/tap/flux
         gitleaks
+        gitops-zombies
         golang
         go-task/tap/go-task
         graphviz
@@ -73,6 +76,7 @@ tasks:
       - kubectl krew install graph
       - kubectl krew install sniff
       - kubectl krew install topology
+      - kubectl krew install minio
   #      - kubectl krew install kots
 
   .poetry:

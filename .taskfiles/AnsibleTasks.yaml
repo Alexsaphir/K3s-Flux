@@ -16,11 +16,6 @@ tasks:
       - ansible-galaxy install -r {{.ANSIBLE_REQUIREMENTS}} --force
       - ansible-galaxy collection install -r {{.ANSIBLE_REQUIREMENTS}} --force
 
-  list:
-    desc: List all the hosts
-    cmds:
-      - ansible-inventory --graph
-
   prepare:
     desc: Prepare all the k8s nodes for running k3s
     cmds:
@@ -43,6 +38,11 @@ tasks:
       - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml
       - task: reboot
 
+  list:
+    desc: List all the hosts
+    cmds:
+      - ansible-inventory --graph
+
   ping:
     desc: Ping all the hosts
     cmds:
@@ -61,4 +61,4 @@ tasks:
   poweroff:
     desc: Shutdown all the k8s nodes
     cmds:
-      - ansible kubernetes -a '/usr/bin/systemctl poweroff' --become
+      - ansible cube -a '/usr/bin/systemctl poweroff' --become
