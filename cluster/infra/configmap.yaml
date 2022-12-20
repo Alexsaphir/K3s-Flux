@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-test
+  namespace: default
+data:
+  TZ: ${CONFIG_TIMEZONE}
+  DM: ${SECRET_CF_DOMAIN}
