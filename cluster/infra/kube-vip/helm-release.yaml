@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-vip
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-vip
+      version: 0.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: kube-vip-chart
+        namespace: flux-charts
+      interval: 15m
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  # https://github.com/kube-vip/helm-charts/blob/kube-vip-0.4.2/charts/kube-vip/values.yaml
+  values:
+    config:
+      address: "${CONFIG_KUBE_VIP_ADDR}"
+
+    env:
+      vip_arp: "true"
+      lb_enable: "true"
+      lb_port: "6443"
+      cp_enable: "true"
+      svc_enable: "false"
+      vip_leaderelection: "false"
+
+    nodeSelector: { }
+
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+    affinity: { }
+      # nodeAffinity:
+      #   requiredDuringSchedulingIgnoredDuringExecution:
+      #     nodeSelectorTerms:
+      #     - matchExpressions:
+      #       - key: node-role.kubernetes.io/master
+      #         operator: Exists
+      #     - matchExpressions:
+      #       - key: node-role.kubernetes.io/control-plane
+    #         operator: Exists

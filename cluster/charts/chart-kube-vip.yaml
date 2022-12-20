@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: kube-vip-chart
+  namespace: flux-charts
+spec:
+  interval: 30m
+  url: https://kube-vip.io/helm-charts
+  timeout: 3m
