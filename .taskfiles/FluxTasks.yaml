@@ -30,7 +30,7 @@ tasks:
         --gpg-key-ring={{.FLUX_GPG_RING}}
         --gpg-passphrase=''
         --path=cluster/flux/
-        --network-policy=true
+        --network-policy=false
         --reconcile
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
