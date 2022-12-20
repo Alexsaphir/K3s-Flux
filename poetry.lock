@@ -72,18 +72,18 @@ ansible = ">=2.4"
 
 [[package]]
 name = "ansible-lint"
-version = "6.9.1"
+version = "6.10.0"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "ansible-lint-6.9.1.tar.gz", hash = "sha256:4c85f0d61700042cab964dd7bdc9227137ba5490249f705acfd9de46eb00a07f"},
-    {file = "ansible_lint-6.9.1-py3-none-any.whl", hash = "sha256:b614a7b669d72d3aa7a0379f3ef9b27ad781be50044e0dd27b3f9773dc36467a"},
+    {file = "ansible-lint-6.10.0.tar.gz", hash = "sha256:f5ecec58ebe7b6bfc4976be7d6e400411a8af05b0e1a19f15f25f59f3401348c"},
+    {file = "ansible_lint-6.10.0-py3-none-any.whl", hash = "sha256:5513fba2a66d0201fa9f23c5c0ac375a3dcd5acc2dee767b294406e54978664b"},
 ]
 
 [package.dependencies]
-ansible-compat = ">=2.2.6"
+ansible-compat = ">=2.2.7"
 ansible-core = {version = ">=2.12.0", markers = "python_version >= \"3.9\""}
 black = ">=22.8.0"
 filelock = ">=3.3.0"
@@ -97,7 +97,7 @@ yamllint = ">=1.26.3"
 
 [package.extras]
 docs = ["myst-parser (>=0.16.1)", "pipdeptree (>=2.2.1)", "sphinx (>=4.4.0)", "sphinx-ansible-theme (>=0.9.1)", "sphinx-rtd-theme (>=1.0.0,<2.0.0)", "sphinxcontrib-apidoc (>=0.3.0)", "sphinxcontrib-programoutput2 (>=2.0a1)"]
-test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "flaky (>=3.7.0)", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
+test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
 
 [[package]]
 name = "attrs"
@@ -373,14 +373,14 @@ testing = ["covdefaults (>=2.2.2)", "coverage (>=6.5)", "pytest (>=7.2)", "pytes
 
 [[package]]
 name = "identify"
-version = "2.5.9"
+version = "2.5.11"
 description = "File identification library for Python"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "identify-2.5.9-py2.py3-none-any.whl", hash = "sha256:a390fb696e164dbddb047a0db26e57972ae52fbd037ae68797e5ae2f4492485d"},
-    {file = "identify-2.5.9.tar.gz", hash = "sha256:906036344ca769539610436e40a684e170c3648b552194980bb7b617a8daeb9f"},
+    {file = "identify-2.5.11-py2.py3-none-any.whl", hash = "sha256:e7db36b772b188099616aaf2accbee122949d1c6a1bac4f38196720d6f9f06db"},
+    {file = "identify-2.5.11.tar.gz", hash = "sha256:14b7076b29c99b1b0b8b08e96d448c7b877a9b07683cd8cfda2ea06af85ffa1c"},
 ]
 
 [package.extras]
@@ -518,14 +518,14 @@ pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 
 [[package]]
 name = "pathspec"
-version = "0.10.2"
+version = "0.10.3"
 description = "Utility library for gitignore style pattern matching of file paths."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pathspec-0.10.2-py3-none-any.whl", hash = "sha256:88c2606f2c1e818b978540f73ecc908e13999c6c3a383daf3705652ae79807a5"},
-    {file = "pathspec-0.10.2.tar.gz", hash = "sha256:8f6bf73e5758fd365ef5d58ce09ac7c27d2833a8d7da51712eac6e27e35141b0"},
+    {file = "pathspec-0.10.3-py3-none-any.whl", hash = "sha256:3c95343af8b756205e2aba76e843ba9520a24dd84f68c22b9f93251507509dd6"},
+    {file = "pathspec-0.10.3.tar.gz", hash = "sha256:56200de4077d9d0791465aa9095a01d421861e405b5096955051deefd697d6f6"},
 ]
 
 [[package]]
@@ -823,14 +823,14 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "subprocess-tee"
-version = "0.4.0"
+version = "0.4.1"
 description = "subprocess-tee"
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "subprocess-tee-0.4.0.tar.gz", hash = "sha256:7ea885ff32cdb2b2d3b2a6c464492f2ee1ebbf324e50598d75de4f6f3ea0f149"},
-    {file = "subprocess_tee-0.4.0-py3-none-any.whl", hash = "sha256:dae5fba2640b45442a84b23f887aadfbe3f9addcca8320f5f99acb8d5c36b77e"},
+    {file = "subprocess-tee-0.4.1.tar.gz", hash = "sha256:b3c124993f8b88d1eb1c2fde0bc2069787eac720ba88771cba17e8c93324825d"},
+    {file = "subprocess_tee-0.4.1-py3-none-any.whl", hash = "sha256:eca56973a1c1237093c2055b2731bcaab784683b83f22c76f26e4c5763402e28"},
 ]
 
 [package.extras]
@@ -961,4 +961,4 @@ setuptools = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "13193cccf6d594a9e5a064f530a76842793b2159274c491c5b5281eb0b806cca"
+content-hash = "d0796e0dca863e549312ebc8b6090a75b16dce99dbd4a466ffdb4cee5b62e0c2"
