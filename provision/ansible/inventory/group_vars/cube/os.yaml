@@ -22,6 +22,8 @@ os_packages_install:
   - nload
   - nvme-cli
   - open-iscsi
+  - python3-kubernetes
+  - python3-yaml
   - smartmontools
   - socat
 

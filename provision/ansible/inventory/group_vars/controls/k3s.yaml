@@ -13,18 +13,18 @@ k3s_server:
   # Disable flannel - this will be replaced by calico
   flannel-backend: 'none'
 
-  # https://github.com/k3s-io/k3s/issues/5835
-  # https://github.com/k3s-io/k3s/issues/5633
-  egress-selector-mode: 'disabled'
-
   disable-network-policy: true
   disable-cloud-controller: true
 
   disable:
-    - metrics-server # installed by flux
-    - servicelb # replaced by metallb
-    - traefik # installed by flux
-    - flannel # replaced by calico
+    # Disable flannel - replaced with Calico
+    - flannel
+    # Disable traefik - replaced with ingress-nginx
+    - traefik
+    # Disable servicelb - replaced with metallb and install with Flux
+    - servicelb
+    # Disable metrics-server - installed with Flux
+    - metrics-server
 
   # Cluster-internal IP ranges for pods and services
   cluster-cidr: "10.42.0.0/16"

@@ -26,10 +26,10 @@
         group: root
         mode: '0755'
 
-    #    - name: Copy audit-policy.yaml
-    #     ansible.builtin.template:
-    #       src: audit-policy.yaml.j2
-    #       dest: /var/lib/rancher/k3s/audit-policy.yaml
+    - name: Copy audit-policy.yaml
+      ansible.builtin.template:
+        src: audit-policy.yaml.j2
+        dest: /var/lib/rancher/k3s/audit-policy.yaml
 
     - name: Install Kubernetes
       ansible.builtin.include_role:
@@ -78,6 +78,38 @@
         path: "{{ repo_abs_path.stdout }}/provision/kubeconfig"
         mode: go-rwx
 
+    - name: Resource Readiness Check
+      run_once: true
+      kubernetes.core.k8s_info:
+        kubeconfig: /etc/rancher/k3s/k3s.yaml
+        kind: "{{ item.kind }}"
+        name: "{{ item.name }}"
+        namespace: "{{ item.namespace | default('') }}"
+        wait: true
+        wait_sleep: 10
+        wait_timeout: 360
+      loop:
+        - kind: Deployment
+          name: tigera-operator
+          namespace: tigera-operator
+
+        - kind: Installation
+          name: default
+
+        - kind: Deployment
+          name: calico-typha
+          namespace: calico-system
+
+        - kind: Deployment
+          name: calico-kube-controllers
+          namespace: calico-system
+      register: resource_check
+      when:
+        - k3s_server_manifests_templates | length > 0
+          or k3s_server_manifests_urls | length > 0
+        - k3s_control_node is defined
+        - k3s_control_node
+
 
     # Cleaning up the manifests from the /var/lib/rancher/k3s/server/manifests
     # directory is needed because k3s has an awesome
@@ -88,13 +120,6 @@
     # Removing them means we can manage the lifecycle
     # of these components outside the
     # /var/lib/rancher/k3s/server/manifests directory
-
-    # FIXME(ansible): Check for deployments to be happy rather than waiting
-    - name: Wait for k3s to finish installing the deployed manifests
-      ansible.builtin.wait_for:
-        timeout: 15
-      when: k3s_server_manifests_templates | length > 0
-        or k3s_server_manifests_dir | length > 0
 
     - name: Remove deployed manifest templates
       ansible.builtin.file:

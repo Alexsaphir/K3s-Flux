@@ -1,19 +1,21 @@
 ---
-controls:
-  hosts:
-    cube-control:
-      ansible_host: 192.168.0.70
-      ansible_connection: ssh
-      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-workers:
-  hosts:
-    cube-worker:
-      ansible_host: 192.168.0.71
-      ansible_connection: ssh
-      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
 cube:
+  vars:
+    ansible_connection: ssh
+    ansible_ssh_port: 22
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    k8s_labels:
+      topology.kubernetes.io/region: 'homelab'
+      topology.kubernetes.io/zone: 'homelab-0'
+      node.kubernetes.io/instance-type: 'm3.medium'
+
   children:
     controls:
+      hosts:
+        cube-control:
+          ansible_host: 192.168.0.70
+
     workers:
+      hosts:
+        cube-worker:
+          ansible_host: 192.168.0.71
