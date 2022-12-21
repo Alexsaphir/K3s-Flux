@@ -8,6 +8,8 @@
     ':enablePreCommit',
     ':automergeDigest',
     ':automergeBranch',
+    ':enableVulnerabilityAlerts',
+    '',
     'github>whitesource/merge-confidence:beta',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/disabledDatasources.json5',
@@ -28,7 +30,7 @@
     'before 1am'
   ],
   lockFileMaintenance: {
-    enabled: true
+    enabled: false
   },
   poetry: {
     enabled: true
