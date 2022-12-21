@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: tigera-operator
-      version: &tag v3.24.5
+      version: v3.24.5
       sourceRef:
         kind: HelmRepository
-        name: calico-charts
+        name: calico
         namespace: flux-charts
 
   install:

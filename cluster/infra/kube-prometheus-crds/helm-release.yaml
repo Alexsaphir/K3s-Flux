@@ -12,7 +12,7 @@ spec:
       version: 43.1.1
       sourceRef:
         kind: HelmRepository
-        name: morremeyer-charts
+        name: morremeyer
         namespace: flux-charts
       interval: 15m
 

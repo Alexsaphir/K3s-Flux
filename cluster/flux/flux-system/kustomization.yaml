@@ -23,6 +23,19 @@ images:
   - name: fluxcd/source-controller
     newName: ghcr.io/fluxcd/source-controller
 
+patchesStrategicMerge:
+  - |-
+    apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    kind: Kustomization
+    metadata:
+      name: flux-system
+      namespace: flux-system
+    spec:
+      decryption:
+        provider: sops
+        secretRef:
+          name: sops-age
+
 patches:
   - patch: |
       $patch: delete
@@ -72,16 +85,3 @@ patches:
     target:
       kind: ClusterRole
       name: crd-controller-flux-system
-
-patchesStrategicMerge:
-  - |-
-    apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-    kind: Kustomization
-    metadata:
-      name: flux-system
-      namespace: flux-system
-    spec:
-      decryption:
-        provider: sops
-        secretRef:
-          name: sops-age
