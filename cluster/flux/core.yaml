@@ -5,7 +5,7 @@ metadata:
   name: core
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 5m
   prune: true
   force: true
   wait: true
