@@ -9,12 +9,11 @@
     ':automergeDigest',
     ':automergeBranch',
     ':enableVulnerabilityAlerts',
-    '',
     'github>whitesource/merge-confidence:beta',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/disabledDatasources.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/groups.json5',
-    'local>Alexsaphir/K3s-Flux//.gitlab/renovate/labels.json5'
+    'local>Alexsaphir/K3s-Flux//.gitlab/renovate/labels.json5',
   ],
   enabled: true,
   semanticCommits: 'enabled',
@@ -23,90 +22,90 @@
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard',
   suppressNotifications: [
-    'prIgnoreNotification'
+    'prIgnoreNotification',
   ],
   rebaseWhen: 'behind-base-branch',
   schedule: [
-    'before 1am'
+    'before 1am',
   ],
   lockFileMaintenance: {
-    enabled: false
+    enabled: false,
   },
   poetry: {
-    enabled: true
+    enabled: true,
   },
   'pre-commit': {
-    enabled: true
+    enabled: true,
   },
   flux: {
     fileMatch: [
-      'cluster/.+\\.ya?ml$'
-    ]
+      'cluster/.+\\.ya?ml$',
+    ],
   },
   'helm-values': {
     fileMatch: [
-      'cluster/.+\\.ya?ml$'
-    ]
+      'cluster/.+\\.ya?ml$',
+    ],
   },
   kubernetes: {
     fileMatch: [
       'cluster/.+\\.ya?ml$',
-      'provision/ansible/.+\\.ya?ml.j2$'
-    ]
+      'provision/ansible/.+\\.ya?ml.j2$',
+    ],
   },
   regexManagers: [
     {
       description: 'Process CRD dependencies',
       fileMatch: [
-        'cluster/crds/.+\\.ya?ml$'
+        'cluster/crds/.+\\.ya?ml$',
       ],
       matchStrings: [
         'registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n',
-        'datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n'
+        'datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n',
       ],
-      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}'
+      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}',
     },
     {
       description: 'Process various other dependencies',
       fileMatch: [
         'provision/ansible/.+\\.ya?ml$',
-        'cluster/.+\\.ya?ml$'
+        'cluster/.+\\.ya?ml$',
       ],
       matchStrings: [
-        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?"(?<currentValue>.*)"\n'
+        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?"(?<currentValue>.*)"\n',
       ],
       datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}',
-      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}'
-    }
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
+    },
   ],
   packageRules: [
     {
       matchPackageNames: [
-        "kube-prometheus-stack",
-        "kube-prometheus-stack-crds"
+        'kube-prometheus-stack',
+        'kube-prometheus-stack-crds',
       ],
-      groupName: "kube-prometheus-stack"
+      groupName: 'kube-prometheus-stack',
     },
     {
       description: 'Use custom versioning for Minio',
       matchDatasources: [
-        'docker'
+        'docker',
       ],
       versioning: 'regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$',
       matchPackageNames: [
-        'quay.io/minio/minio'
-      ]
+        'quay.io/minio/minio',
+      ],
     },
     {
       matchDatasources: [
-        'helm'
+        'helm',
       ],
       separateMinorPatch: true,
-      ignoreDeprecated: true
+      ignoreDeprecated: true,
     },
     {
       matchDatasources: [
-        'docker'
+        'docker',
       ],
       enabled: true,
       commitMessageTopic: 'container image {{depName}}',
@@ -114,95 +113,95 @@
       matchUpdateTypes: [
         'major',
         'minor',
-        'patch'
-      ]
+        'patch',
+      ],
     },
     {
       description: 'Group Cert-Manager image (for CRDs) and chart',
       groupName: 'Cert-Manager',
       matchPackagePatterns: [
-        'cert-manager'
+        'cert-manager',
       ],
       matchDatasources: [
         'docker',
-        'helm'
+        'helm',
       ],
       group: {
-        commitMessageTopic: '{{{groupName}}} group'
+        commitMessageTopic: '{{{groupName}}} group',
       },
-      separateMinorPatch: true
+      separateMinorPatch: true,
     },
     {
       matchDatasources: [
-        'docker'
+        'docker',
       ],
       matchUpdateTypes: [
-        'major'
+        'major',
       ],
       labels: [
         'renovate/image',
-        'dep/major'
-      ]
+        'dep/major',
+      ],
     },
     {
       matchDatasources: [
-        'docker'
+        'docker',
       ],
       matchUpdateTypes: [
-        'minor'
+        'minor',
       ],
       labels: [
         'renovate/image',
-        'dep/minor'
-      ]
+        'dep/minor',
+      ],
     },
     {
       matchDatasources: [
-        'docker'
+        'docker',
       ],
       matchUpdateTypes: [
-        'patch'
+        'patch',
       ],
       labels: [
         'renovate/image',
-        'dep/patch'
-      ]
+        'dep/patch',
+      ],
     },
     {
       matchDatasources: [
-        'helm'
+        'helm',
       ],
       matchUpdateTypes: [
-        'major'
+        'major',
       ],
       labels: [
         'renovate/helm',
-        'dep/major'
-      ]
+        'dep/major',
+      ],
     },
     {
       matchDatasources: [
-        'helm'
+        'helm',
       ],
       matchUpdateTypes: [
-        'minor'
+        'minor',
       ],
       labels: [
         'renovate/helm',
-        'dep/minor'
-      ]
+        'dep/minor',
+      ],
     },
     {
       matchDatasources: [
-        'helm'
+        'helm',
       ],
       matchUpdateTypes: [
-        'patch'
+        'patch',
       ],
       labels: [
         'renovate/helm',
-        'dep/patch'
-      ]
-    }
-  ]
+        'dep/patch',
+      ],
+    },
+  ],
 }
