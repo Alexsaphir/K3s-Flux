@@ -1,0 +1,39 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app smartctl-exporter
+  namespace: flux-monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: prometheus-smartctl-exporter
+      version: 0.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-charts
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  # https://github.com/prometheus-community/helm-charts/blob/prometheus-smartctl-exporter-0.3.1/charts/prometheus-smartctl-exporter/values.yaml
+  values:
+    fullnameOverride: *app
+
+    # Nodes are provided with one nvme drive and one ssd drive.
+    config:
+      devices:
+        - /dev/sda
+        - /dev/nvme0n1
+
+    serviceMonitor:
+      enabled: true
+
+    prometheusRules:
+      enabled: false

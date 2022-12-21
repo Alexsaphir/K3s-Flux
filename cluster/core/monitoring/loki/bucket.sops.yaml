@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: loki-bucket
+    namespace: flux-monitoring
+stringData:
+    bucket_name: ENC[AES256_GCM,data:jHPCaQ==,iv:BobBGAecSDLgVfvojlLTosxvKyHVHi7tsC/WaIlDT64=,tag:gefFGWC0DDqAMWksl8FICw==,type:str]
+    endpoint: ENC[AES256_GCM,data:l82/hBiCIIeogFz8beou/TU=,iv:NgGUIU1yd4znaVLs05rY2yJqmLZcIgjFMrZczoPr27M=,tag:Y0i3Fjqjqfqa0ktBEfJU1w==,type:str]
+    region: ENC[AES256_GCM,data:BXH5v59mcAOh,iv:ACJ9VpTZkWK6LhfLU6NJ4q0wwm3fc9p8xyOYoYzSeuo=,tag:veD4qAfiQD8VDfTcPp3DpA==,type:str]
+    access_key_id: ENC[AES256_GCM,data:IIVxlxcwIvHLZeKVh7TWeS5uaIIVyg94WitbEbAiPRLTk1trh4sgefemY2l0vhkaFl/BzEtWW9Tg3Nk8O620lw==,iv:wwkGyW1dDhDl0kTbn+7CKnwKVNYEe+iMIsel48wSe2c=,tag:qdKysHaxowxu4Fa11CDx+A==,type:str]
+    secret_access_key: ENC[AES256_GCM,data:SeV1Tgg5XDQkOil5s6Ow5eavpo6PTP6i7ZPQ9kbyh7YO5oaR+DlWsRDyaSK+9zOTgbLCIuM7tl51/XCrEVwo2w==,iv:Wv5MxCp+1QfInILYjX9nFxpze3azamLfe+Y9UJxQXc0=,tag:xpM669W9PMvKqqOTJcITvg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBrNlFqcjhwK1ppZldEV2sr
+            Yno3Z1BiQjE2dnFHQXo4Zm1nRVRWMkQ2c0QwClBXRm42ZXp0RENwV0pVMXAyT25D
+            SFRQT1BaN1BMdkhVcHp2Q1NOUk1jaXcKLS0tIC90SUNla082WFdKaXdITXJXT0px
+            MEVjTjlLMGZFdmZpQmlrYjcwSGxUeGMKSdIRPcMn7+6XvQV+Fx3+H820VVK4VozA
+            /bZlEY74w8ox3FXLArCNVYW2bEu3Dq3PmHcnpJSMEHb4brG8T4L1DA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-11-29T00:12:45Z"
+    mac: ENC[AES256_GCM,data:MLIUfAhMNRx9QnklPa7BisvENiPeZEXbOg1+6SmECj/EGiCJS6VHyP0qgL2ilaBkdoez7SDVpDdgfMm0tDwFoQTheSdEYIgz/yWPb5+PTRMvpdZIBOy6lTw38LBGY5ZjE6CHDzysY3UNtx5t4QV15k2KNxkhw3TUmQDRFTJS+QY=,iv:fGwbR7B+P7su7StcSHSrrWISSFV9LsM1vFxzXEGOJLg=,tag:DdZgI/EfRxmI45RCD8qQqw==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

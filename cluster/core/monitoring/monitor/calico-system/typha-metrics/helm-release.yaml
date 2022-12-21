@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: typha-metrics
+  namespace: calico-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix
+        namespace: flux-charts
+      interval: 15m
+
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: ServiceMonitor
+        metadata:
+          name: typha-metrics
+          namespace: calico-system
+          labels:
+            k8s-app: calico-typha
+        spec:
+          selector:
+            matchLabels:
+              k8s-app: calico-typha
+          endpoints:
+            - port: http-metrics
+              path: /metrics
+              interval: 15s

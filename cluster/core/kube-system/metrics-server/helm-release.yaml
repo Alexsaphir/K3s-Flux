@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metrics-server
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: metrics-server
+      version: 3.8.3
+      sourceRef:
+        kind: HelmRepository
+        name: metrics-server
+        namespace: flux-charts
+      interval: 15m
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  # https://github.com/kubernetes-sigs/metrics-server/blob/v0.6.2/charts/metrics-server/values.yaml
+  values:
+    args:
+      - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --kubelet-use-node-status-port
+      - --metric-resolution=15s
+
+    replicas: 2
+
+    updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 1
+
+    metrics:
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
