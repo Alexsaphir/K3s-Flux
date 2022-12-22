@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: falco-exporter
+  namespace: falco-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: falco-exporter
+      version: 0.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: falco
+        namespace: flux-charts
+      interval: 15m
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-system
+
+  # https://github.com/falcosecurity/charts/blob/master/falco-exporter/values.yaml
+  values:
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+
+    serviceMonitor:
+      enabled: true
+
+    grafanaDashboard:
+      enabled: true
+
+    scc:
+      enabled: false
+
+    prometheusRules:
+      enabled: true
