@@ -8,6 +8,7 @@ os_ssh_authorized_keys:
 os_packages_install:
   - bash-completion
   - curl
+  - dkms
   - hdparm
   - htop
   - intel-gpu-tools
@@ -15,6 +16,7 @@ os_packages_install:
   - iputils-ping
   - ipvsadm
   - jq
+  - linux-headers-generic
   - lm-sensors
   - nano
   - ncdu

@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: falco
+  namespace: flux-charts
+spec:
+  interval: 1h
+  url: https://falcosecurity.github.io/charts
+  timeout: 3m

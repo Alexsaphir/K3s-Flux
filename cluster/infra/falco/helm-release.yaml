@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: falco
+  namespace: falco-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: falco
+      version: 2.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: falco
+        namespace: flux-charts
+      interval: 15m
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  # https://github.com/falcosecurity/charts/blob/master/falco/values.yaml
+  values:
+    timezone: ${CONFIG_TIMEZONE}
+
+    driver:
+      enabled: true
+      kind: module
+      loader:
+        enabled: true
+        initContainer:
+          enabled: true
+          env:
+            ENABLE_COMPILE: yes
+            ENABLE_DOWNLOAD: no
+          securityContext:
+            privileged: true
+
+    collectors:
+      containerd:
+        enabled: false
+
+      docker:
+        enabled: false
+
+      ebpf:
+        enabled: false
+
+    falco:
+      grpc:
+        enabled: true
+      grpcOutput:
+        enabled: true
+
+    falcosidekick:
+      enabled: true
+
+      # https://github.com/falcosecurity/charts/blob/master/falcosidekick/values.yaml
+      webui:
+        enabled: true
+        replicaCount: 1
+
+        ingress:
+          enabled: true
+          hosts:
+            - host: falcosidekick-ui.${SECRET_DOMAIN_NAME}
+              paths:
+                - path: /
+          annotations:
+            kubernetes.io/ingress.class: traefik
