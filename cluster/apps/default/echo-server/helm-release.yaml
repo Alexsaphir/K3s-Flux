@@ -30,7 +30,7 @@ spec:
 
     image:
       repository: docker.io/jmalloc/echo-server
-      tag: 0.3.3
+      tag: 0.3.4
 
     service:
       main:
