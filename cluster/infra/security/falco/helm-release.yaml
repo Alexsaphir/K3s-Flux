@@ -27,6 +27,8 @@ spec:
   values:
     timezone: ${CONFIG_TIMEZONE}
 
+    tty: true
+
     driver:
       enabled: true
       kind: ebpf
