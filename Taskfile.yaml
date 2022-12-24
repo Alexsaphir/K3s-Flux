@@ -35,8 +35,8 @@ tasks:
   init:
     desc: Initialize workstation
     cmds:
-      - task: precommit:init
       - task: tools:install
+      - task: precommit:init
       - task: age:init
       - task: ansible:init
 
