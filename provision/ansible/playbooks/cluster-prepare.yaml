@@ -6,6 +6,14 @@
   gather_facts: true
   any_errors_fatal: true
   tasks:
+    - name: Enable passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
     - name: Locale
       block:
         - name: Locale | Set timezone
