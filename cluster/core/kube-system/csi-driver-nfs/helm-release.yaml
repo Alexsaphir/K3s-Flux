@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: csi-driver-nfs
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: csi-driver-nfs
+      version: v4.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: csi-driver-nfs
+        namespace: flux-charts
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.1.0/charts/v4.1.0/csi-driver-nfs/values.yaml
+  values:
+    kubeletDir: /var/lib/kubelet
+
+    feature:
+      enableInlineVolume: true
+
+    controller:
+      replicas: 1
