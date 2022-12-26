@@ -7,7 +7,7 @@
   any_errors_fatal: true
   tasks:
     - name: Enable passwordless sudo
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /etc/sudoers
         state: present
         regexp: '^%sudo'
