@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: authelia-postgres
+  namespace: traefik-system
+spec:
+  instances: 2
+  storage:
+    size: 1Gi
