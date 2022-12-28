@@ -23,7 +23,7 @@ spec:
       retries: 3
 
   dependsOn:
-    - name: intel-gpu-plugin
+    - name: intel-device-plugin-gpu
       namespace: kube-system
 
   values:
