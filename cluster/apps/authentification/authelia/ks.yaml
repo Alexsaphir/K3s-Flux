@@ -1,0 +1,44 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: apps-authelia-resources
+  namespace: flux-system
+  labels:
+    substitution.flux.home.arpa/enabled: false
+spec:
+  interval: 10m
+  prune: true
+  force: true
+  wait: true
+
+  path: cluster/apps/authentification/authelia/resources
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+  healthChecks:
+    - kind: postgresql.cnpg.io/v1
+      name: authelia-postgres
+      namespace: traefik-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: apps-authelia
+  namespace: flux-system
+  labels:
+    substitution.flux.home.arpa/enabled: false
+spec:
+  interval: 10m
+  prune: true
+  force: true
+
+  path: cluster/apps/authentification/authelia/app
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+  dependsOn:
+    - name: authelia-resources
