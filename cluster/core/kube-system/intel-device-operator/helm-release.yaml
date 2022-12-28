@@ -23,3 +23,5 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
+
+  # https://github.com/intel/helm-charts/blob/intel-device-plugins-operator-0.25.1/charts/device-plugin-operator/values.yaml

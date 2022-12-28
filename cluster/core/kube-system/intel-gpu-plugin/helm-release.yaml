@@ -26,6 +26,7 @@ spec:
     - name: intel-device-operator
     - name: node-feature-discovery
 
+  # https://github.com/intel/helm-charts/blob/intel-device-plugins-gpu-0.25.1/charts/gpu-device-plugin/values.yaml
   values:
     name: intel-gpu-plugin
     sharedDevNum: 3
