@@ -1,0 +1,17 @@
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: barcode-reader-device
+spec:
+  rules:
+    - # USB Barcode Reader
+      name: barcode.reader
+      labels:
+        reader.feature.node.kubernetes.io/barcode: "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            vendor:
+              op: In
+              value: [ "1234" ]
