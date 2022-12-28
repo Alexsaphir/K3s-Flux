@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: intel-device-plugin-gpu
+  name: intel-device-operator
   namespace: kube-system
 spec:
   interval: 15m
   chart:
     spec:
-      chart: intel-device-plugins-gpu
+      chart: intel-device-plugins-operator
       version: 0.25.1
       sourceRef:
         kind: HelmRepository
@@ -16,17 +16,10 @@ spec:
         namespace: flux-charts
 
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    crds: CreateReplace
     remediation:
       retries: 3
-
-  dependsOn:
-    - name: intel-device-operator
-    - name: node-feature-discovery
-
-  values:
-    name: intel-gpu-plugin
-    sharedDevNum: 3
-    nodeFeatureRule: true
