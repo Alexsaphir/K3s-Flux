@@ -22,7 +22,7 @@ spec:
       name: authelia-postgres
       namespace: traefik-system
 
-    - kind: redis.redis.opstreelabs.in/v1beta1
+    - kind: databases.spotahome.com/v1
       name: authelia-redis
       namespace: traefik-system
 

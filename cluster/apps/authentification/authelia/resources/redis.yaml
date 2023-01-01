@@ -1,0 +1,12 @@
+---
+apiVersion: databases.spotahome.com/v1
+kind: RedisFailover
+metadata:
+  name: authelia-redis
+  namespace: traefik-system
+spec:
+  redis:
+    replicas: 1
+
+  auth:
+    secretPath: authelia-redis-auth
