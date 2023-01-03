@@ -16,6 +16,8 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  test:
+    enable: false
   # https://github.com/grafana/helm-charts/blob/grafana-6.47.1/charts/grafana/values.yaml
   values:
     deploymentStrategy:
