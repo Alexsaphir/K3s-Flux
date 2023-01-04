@@ -6,7 +6,7 @@ metadata:
   namespace: traefik-system
 spec:
   redis:
-    replicas: 1
+    replicas: 2
 
   auth:
     secretPath: authelia-redis-auth
