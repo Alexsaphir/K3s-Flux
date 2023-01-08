@@ -7,6 +7,16 @@ metadata:
 spec:
   redis:
     replicas: 2
-
+    storage:
+      persistentVolumeClaim:
+        metadata:
+          name: authelia-redis-persistent-data
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          storageClassName: longhorn
+          resources:
+            requests:
+              storage: 1Gi
   auth:
     secretPath: authelia-redis-auth
