@@ -17,6 +17,9 @@ spec:
 
   # https://github.com/mend/renovate-on-prem/blob/2.6.0/helm-charts/whitesource-renovate/values.yaml
   values:
+    image:
+      tag: 3.0.0-rc.0
+
     renovate:
       acceptWhiteSourceTos: 'y'
 
