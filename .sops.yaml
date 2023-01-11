@@ -5,3 +5,5 @@ creation_rules:
 
   - path_regex: cluster/.*\.sops\.ya?ml
     encrypted_regex: "^(data|stringData)$"
+
+  - path_regex: cluster/.*\.sops\.toml
