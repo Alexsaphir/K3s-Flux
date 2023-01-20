@@ -5,6 +5,9 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
+  # renovate: datasource=github-releases depName=k3s-io/k3s
+  K3S_VERSION: v1.26.0+k3s2
+
   CONFIG_TIMEZONE: Europe/Paris
   CONFIG_WEBHOOK_SPACE: 192.168.0.0/24
 
