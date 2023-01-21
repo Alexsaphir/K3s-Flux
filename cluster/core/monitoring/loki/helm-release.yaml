@@ -28,28 +28,23 @@ spec:
     write:
       replicas: &replication_factor 2
       persistence:
-        size: &storage_size 5Gi
-        storageClass: longhorn
+        storageClass: local-path
 
     read:
       replicas: *replication_factor
-      extraVolumeMounts:
-        - name: loki-rules
-          mountPath: /rules/fake
-        - name: loki-rules-tmp
-          mountPath: /tmp/scratch
-        - name: loki-tmp
-          mountPath: /tmp/loki-tmp
-      extraVolumes:
-        - name: loki-rules
-          emptyDir: { }
-        - name: loki-rules-tmp
-          emptyDir: { }
-        - name: loki-tmp
-          emptyDir: { }
+
+    backend:
+      replicas: *replication_factor
       persistence:
-        size: *storage_size
-        storageClass: longhorn
+        storageClass: local-path
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules/fake
+        - name: scratch
+          mountPath: /tmp/scratch
+      extraVolumes:
+        - name: scratch
+          emptyDir: { }
 
     gateway:
       enabled: true
