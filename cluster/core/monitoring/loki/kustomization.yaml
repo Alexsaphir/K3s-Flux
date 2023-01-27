@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - bucket.sops.yaml
   - rules.yaml
-  - helm-release.yaml
-  - datasource.yaml
-  - service-monitor.yaml
+#  - helm-release.yaml
+#  - datasource.yaml
+#  - service-monitor.yaml
