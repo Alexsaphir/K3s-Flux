@@ -48,6 +48,7 @@ spec:
 
           autodiscover: true,
           onboarding: true,
+          onboardingNoDeps: true,
           requireConfig: 'required',
 
           persistRepoData: true,
