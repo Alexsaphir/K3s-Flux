@@ -80,7 +80,7 @@ repos:
       - id: tflint
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 2.3.3
+    rev: 2.3.7
     hooks:
       - id: checkov
 
