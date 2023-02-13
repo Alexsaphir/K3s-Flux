@@ -20,7 +20,7 @@ spec:
   values:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
-      tag: 3.0.0
+      tag: 3.0.1
 
     renovate:
       acceptWhiteSourceTos: 'y'
