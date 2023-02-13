@@ -21,6 +21,7 @@ spec:
         any:
           - resources:
               namespaces:
+                - flux-system
                 - calico-system
                 - tigera-operator
           - resources:
@@ -37,15 +38,8 @@ spec:
               annotations:
                 kyverno.io/ignore: "true"
       mutate:
-        patchStrategicMerge:
-          spec:
-            initContainers:
-              - (name): "*"
-                resources:
-                  limits:
-                    cpu: null
-            containers:
-              - (name): "*"
-                resources:
-                  limits:
-                    cpu: null
+        patchesJson6902: |-
+          - path: "/spec/containers/*/resources/limits/cpu"
+            op: remove
+          - path: "/spec/initContainers/*/resources/limits/cpu"
+            op: remove
