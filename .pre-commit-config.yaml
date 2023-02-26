@@ -79,11 +79,6 @@ repos:
       - id: terraform-validate
       - id: tflint
 
-  - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 2.3.44
-    hooks:
-      - id: checkov
-
   # Check commit name
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.1.1

@@ -25,6 +25,8 @@ k3s_server:
     - servicelb
     # Disable metrics-server - installed with Flux
     - metrics-server
+    # Disable local-path-provider - replaced with longhorn (but also installed with helm)
+    # - local-storage
 
   # Cluster-internal IP ranges for pods and services
   cluster-cidr: "10.42.0.0/16"

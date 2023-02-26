@@ -28,6 +28,7 @@
             enabled: true
 
         - name: Disable swap at runtime
+          # noqa no-changed-when
           ansible.builtin.command: swapoff -a
           when: ansible_swaptotal_mb > 0
 

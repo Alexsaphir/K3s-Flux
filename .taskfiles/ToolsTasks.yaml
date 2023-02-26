@@ -34,32 +34,24 @@ tasks:
         raffis/gitops-zombies
       DEPS: >-
         age
-        calicoctl
-        checkov
-        derailed/popeye/popeye
         direnv
         fluxcd/tap/flux
         gitleaks
         gitops-zombies
-        golang
         go-task/tap/go-task
-        graphviz
         helm
         ipcalc
         jq
         k9s
+        krew
         kubeconform
         kubernetes-cli
         kubeval
         kustomize
-        krew
-        prettier
         sops
         stern
         terraform
         tflint
-        weaveworks/tap/gitops
-        yamllint
         yq
 
   .krew:
@@ -77,6 +69,7 @@ tasks:
       - kubectl krew install sniff
       - kubectl krew install topology
       - kubectl krew install minio
+      - kubectl krew install kyverno
   #      - kubectl krew install kots
 
   .poetry:

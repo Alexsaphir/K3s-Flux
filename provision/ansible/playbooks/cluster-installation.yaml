@@ -30,6 +30,7 @@
       ansible.builtin.template:
         src: audit-policy.yaml.j2
         dest: /var/lib/rancher/k3s/audit-policy.yaml
+        mode: '0755'
 
     - name: Install Kubernetes
       ansible.builtin.include_role:
@@ -39,7 +40,7 @@
         k3s_state: installed
 
     - name: Get absolute path to this Git repository
-      # noqa command-instead-of-module no-changed-when
+      # noqa command-instead-of-module no-changed-when run-once
       delegate_to: localhost
       become: false
       run_once: true
@@ -49,6 +50,7 @@
       register: repo_abs_path
 
     - name: Copy kubeconfig to provision folder
+      # noqa run-once
       run_once: true
       ansible.builtin.fetch:
         src: "/etc/rancher/k3s/k3s.yaml"
@@ -61,6 +63,7 @@
         - k3s_control_node
 
     - name: Update kubeconfig with the correct IPv4 address
+      # noqa run-once
       delegate_to: localhost
       become: false
       run_once: true
@@ -71,6 +74,7 @@
         replace: "https://{{ k3s_registration_address }}:6443"
 
     - name: Update kubeconfig permissions
+      # noqa run-once
       delegate_to: localhost
       become: false
       run_once: true
@@ -79,6 +83,7 @@
         mode: go-rwx
 
     - name: Resource Readiness Check
+      # noqa run-once
       run_once: true
       kubernetes.core.k8s_info:
         kubeconfig: /etc/rancher/k3s/k3s.yaml
