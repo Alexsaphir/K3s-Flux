@@ -13,7 +13,7 @@ tasks:
     cmds:
       - cmd: kubectl create namespace flux-system
         ignore_error: true
-      - cmd: cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+      - cmd: cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=identity.agekey=/dev/stdin
         ignore_error: true
       # Multiline command with space for each \n
       - >
