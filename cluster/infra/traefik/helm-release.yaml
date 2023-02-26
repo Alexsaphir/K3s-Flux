@@ -30,6 +30,9 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
 
+    - name: kube-prometheus-stack
+      namespace: flux-system
+
   # https://github.com/traefik/traefik-helm-chart/blob/v20.8.0/traefik/values.yaml
   values:
     deployment:

@@ -24,7 +24,7 @@ spec:
       retries: 3
 
   dependsOn:
-    - name: kube-prometheus-stack-crds
+    - name: kube-prometheus-stack
       namespace: flux-system
 
   # https://github.com/falcosecurity/charts/blob/master/falco-exporter/values.yaml

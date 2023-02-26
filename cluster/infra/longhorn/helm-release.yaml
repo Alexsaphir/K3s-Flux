@@ -16,10 +16,6 @@ spec:
         namespace: flux-charts
       interval: 15m
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-system
-
   install:
     crds: CreateReplace
     remediation:
@@ -29,7 +25,7 @@ spec:
     remediation:
       retries: 3
 
-  # https://github.com/longhorn/longhorn/blob/v1.3.2/chart/values.yaml
+  # https://github.com/longhorn/longhorn/blob/v1.4.0/chart/values.yaml
   values:
     persistence:
       defaultClass: true
