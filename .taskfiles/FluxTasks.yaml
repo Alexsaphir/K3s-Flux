@@ -1,8 +1,11 @@
 ---
 version: "3"
 
-tasks:
+vars:
+  FLUX_BRANCH:
+    sh: git branch --show-current
 
+tasks:
   verify:
     desc: Verify flux meets the prerequisites
     cmds:
@@ -24,7 +27,7 @@ tasks:
         --owner={{.FLUX_OWNER}}
         --repository={{.FLUX_REPOSITORY}}
         --branch={{.FLUX_BRANCH}}
-        --commit-message-appendix=[Flux]
+        --commit-message-appendix='chore(flux):'
         --author-email={{.FLUX_AUTHOR_EMAIL}}
         --gpg-key-id={{.FLUX_GPG_ID}}
         --gpg-key-ring={{.FLUX_GPG_RING}}
