@@ -18,7 +18,7 @@ spec:
 
   dependsOn:
     - name: kube-prometheus-stack
-      namespace: flux-system
+      namespace: flux-monitoring
 
   install:
     crds: CreateReplace

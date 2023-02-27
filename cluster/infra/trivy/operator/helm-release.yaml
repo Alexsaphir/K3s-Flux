@@ -27,7 +27,11 @@ spec:
     remediation:
       retries: 3
 
-  # https://github.com/aquasecurity/trivy-operator/blob/v0.10.1/deploy/helm/values.yaml
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
+
+  # https://github.com/aquasecurity/trivy-operator/blob/v0.11.1/deploy/helm/values.yaml
   values:
     excludeNamespaces: "{{ .Release.Namespace }}"
 
@@ -42,3 +46,4 @@ spec:
 
     serviceMonitor:
       enabled: true
+      namespace: "flux-monitoring"

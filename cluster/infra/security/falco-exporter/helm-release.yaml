@@ -25,7 +25,7 @@ spec:
 
   dependsOn:
     - name: kube-prometheus-stack
-      namespace: flux-system
+      namespace: flux-monitoring
 
   # https://github.com/falcosecurity/charts/blob/master/falco-exporter/values.yaml
   values:
