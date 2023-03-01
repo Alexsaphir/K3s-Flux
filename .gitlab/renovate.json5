@@ -32,7 +32,7 @@
     enabled: false,
   },
   poetry: {
-    enabled: true,
+    enabled: false,
   },
   'pre-commit': {
     enabled: true,
