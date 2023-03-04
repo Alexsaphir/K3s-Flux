@@ -16,7 +16,7 @@ spec:
         namespace: flux-charts
 
   install:
-    crds: Create
+    crds: CreateReplace
     remediation:
       retries: 3
 
@@ -41,6 +41,8 @@ spec:
     # here: https://projectcalico.docs.tigera.io/reference/installation/api#operator.tigera.io/v1.InstallationSpec
     installation:
       enabled: true
+      registry: quay.io
+      imagePath: calico
       # Configures Calico networking.
       calicoNetwork:
         # Note: The ipPools section cannot be modified post-install.
