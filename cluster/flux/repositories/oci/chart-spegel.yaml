@@ -1,10 +1,12 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
+kind: OCIRepository
 metadata:
-  name: minio
+  name: spegel
   namespace: flux-charts
 spec:
   interval: 1h
-  url: https://charts.min.io/
   timeout: 3m
+  url: oci://ghcr.io/xenitab/helm-charts/
+  ref:
+    tag: 0.0.4

@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: bjw-s
+  name: piraeus
   namespace: flux-charts
 spec:
   interval: 1h
-  url: https://bjw-s.github.io/helm-charts/
+  url: https://piraeus.io/helm-charts
   timeout: 3m

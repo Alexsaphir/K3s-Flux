@@ -2,8 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: node-feature-discovery
+  name: bjw-s
   namespace: flux-charts
 spec:
   interval: 1h
-  url: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+  url: https://bjw-s.github.io/helm-charts
+  timeout: 3m

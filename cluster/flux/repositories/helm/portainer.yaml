@@ -2,8 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: weave-gitops
+  name: portainer
   namespace: flux-charts
 spec:
   interval: 1h
-  url: https://helm.gitops.weave.works
+  url: https://portainer.github.io/k8s
+  timeout: 3m
