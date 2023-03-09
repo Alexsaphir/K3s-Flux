@@ -15,6 +15,7 @@ spec:
         name: bjw-s
         namespace: flux-charts
   maxHistory: 3
+
   install:
     createNamespace: true
     remediation:
@@ -25,7 +26,13 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+
   values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     initContainers:
       01-init-config:
         image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.15
@@ -35,13 +42,11 @@ spec:
         volumeMounts:
           - { name: secret-file, mountPath: /data/mosquitto_secret }
           - { name: external-config, mountPath: /data/external_config }
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
+
     image:
       repository: public.ecr.aws/docker/library/eclipse-mosquitto
       tag: 2.0.15
+
     service:
       main:
         type: LoadBalancer
@@ -51,18 +56,6 @@ spec:
           mqtt:
             enabled: true
             port: 1883
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 512Mi
-        storageClass: longhorn
 
     persistence:
       config-file:
@@ -82,9 +75,11 @@ spec:
         enabled: true
         type: emptyDir
         mountPath: /mosquitto/external_config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 150Mi
+
+
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 512Mi
+        storageClass: longhorn
