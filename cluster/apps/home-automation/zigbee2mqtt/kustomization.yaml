@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: home-automation
 resources:
   - secrets.sops.yaml
+  - helm-release.yaml
 
 labels:
   - pairs:
