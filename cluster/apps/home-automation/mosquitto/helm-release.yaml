@@ -79,7 +79,7 @@ spec:
 
     volumeClaimTemplates:
       - name: config
-        mountPath: /data
+        mountPath: /mosquitto/data
         accessMode: ReadWriteOnce
         size: 512Mi
         storageClass: longhorn
