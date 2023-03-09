@@ -1,0 +1,17 @@
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: sonoff-zigbee-device
+spec:
+  rules:
+    - # ZigBee
+      name: zigbee
+      labels:
+        zigbee.feature.node.kubernetes.io/sonoff: "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            vendor:
+              op: In
+              value: [ "1a86" ]
