@@ -16,14 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
   # https://github.com/spotahome/redis-operator/blob/Chart-3.2.7/charts/redisoperator/values.yaml
   values:

@@ -15,16 +15,20 @@ spec:
         name: external-secrets
         namespace: flux-charts
 
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/external-secrets/external-secrets/blob/v0.7.0/deploy/charts/external-secrets/values.yaml
+  # https://github.com/external-secrets/external-secrets/blob/v0.7.2/deploy/charts/external-secrets/values.yaml
   values:
     installCRDs: true
     replicaCount: 2

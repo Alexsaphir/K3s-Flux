@@ -15,18 +15,18 @@ spec:
         name: calico
         namespace: flux-charts
 
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
-
   upgrade:
     crds: CreateReplace
+    cleanupOnFail: true
     remediation:
       retries: 3
-      remediateLastFailure: true
-    cleanupOnFail: true
-
+  uninstall:
+    keepHistory: false
   rollback:
     timeout: 10m
     recreate: true

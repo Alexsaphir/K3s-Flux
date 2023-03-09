@@ -18,20 +18,20 @@ spec:
 
   maxHistory: 3
   install:
-    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
-    crds: CreateReplace
     cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
   dependsOn:
     - name: trivy-operator
       namespace: trivy-system
 
-  # https://github.com/giantswarm/starboard-exporter/blob/v0.6.3/helm/starboard-exporter/values.yaml
+  # https://github.com/giantswarm/starboard-exporter/blob/v0.7.2/helm/starboard-exporter/values.yaml
   values:
     psp:
       enabled: false

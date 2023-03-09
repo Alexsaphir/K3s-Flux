@@ -16,14 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/stefanprodan/podinfo/blob/6.2.3/charts/podinfo/values.yaml
+  # https://github.com/stefanprodan/podinfo/blob/6.3.5/charts/podinfo/values.yaml
   values:
     replicaCount: 2
     resources:

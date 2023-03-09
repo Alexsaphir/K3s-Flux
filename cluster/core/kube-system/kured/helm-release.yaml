@@ -16,20 +16,22 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
-      remediateLastFailure: true
-    cleanupOnFail: true
+  uninstall:
+    keepHistory: false
   rollback:
     timeout: 10m
     recreate: true
     cleanupOnFail: true
 
-  # https://github.com/kubereboot/charts/blob/kured-4.1.0/charts/kured/values.yaml
+  # https://github.com/kubereboot/charts/blob/kured-4.4.1/charts/kured/values.yaml
   values:
     configuration:
       startTime: "4am"

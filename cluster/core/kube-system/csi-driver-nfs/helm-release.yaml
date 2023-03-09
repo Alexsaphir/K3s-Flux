@@ -15,14 +15,18 @@ spec:
         name: csi-driver-nfs
         namespace: flux-charts
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.1.0/charts/v4.1.0/csi-driver-nfs/values.yaml
+  # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.2.0/charts/v4.2.0/csi-driver-nfs/values.yaml
   values:
     kubeletDir: /var/lib/kubelet
 

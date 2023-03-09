@@ -16,14 +16,16 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
-    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
-    crds: CreateReplace
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
   # https://github.com/ori-edge/k8s_gateway/blob/master/charts/k8s-gateway/values.yaml
   values:

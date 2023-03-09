@@ -14,22 +14,21 @@ spec:
         kind: HelmRepository
         name: backube
         namespace: flux-charts
-  maxHistory: 3
 
+  maxHistory: 3
   install:
     crds: CreateReplace
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
-    crds: CreateReplace
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
   uninstall:
     keepHistory: false
 
-  # https://github.com/backube/volsync/blob/release-0.6/helm/volsync/values.yaml
+  # https://github.com/backube/volsync/blob/main/helm/volsync/values.yaml
   values:
     manageCRDs: true
     metrics:

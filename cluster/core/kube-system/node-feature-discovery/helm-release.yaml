@@ -16,16 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
-    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
-    crds: CreateReplace
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/kubernetes-sigs/node-feature-discovery/blob/v0.12.0/deployment/helm/node-feature-discovery/values.yaml
+  # https://github.com/kubernetes-sigs/node-feature-discovery/blob/v0.12.1/deployment/helm/node-feature-discovery/values.yaml
   values:
     nodeFeatureRule:
       createCRD: true

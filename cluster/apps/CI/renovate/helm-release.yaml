@@ -16,11 +16,22 @@ spec:
         namespace: flux-charts
       interval: 15m
 
-  # https://github.com/mend/renovate-on-prem/blob/2.6.0/helm-charts/whitesource-renovate/values.yaml
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  # https://github.com/mend/renovate-on-prem/blob/main/helm-charts/whitesource-renovate/values.yaml
   values:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
-      tag: 3.0.2
+      tag: 3.1.0
 
     renovate:
       acceptWhiteSourceTos: 'y'

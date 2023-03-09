@@ -15,14 +15,18 @@ spec:
         name: tf-controller
         namespace: flux-charts
 
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
   # https://github.com/weaveworks/tf-controller/blob/main/charts/tf-controller/values.yaml
   values:

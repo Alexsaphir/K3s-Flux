@@ -16,14 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/kubernetes-sigs/metrics-server/blob/v0.6.2/charts/metrics-server/values.yaml
+  # https://github.com/kubernetes-sigs/metrics-server/blob/metrics-server-helm-chart-3.8.4/charts/metrics-server/values.yaml
   values:
     args:
       - --kubelet-insecure-tls

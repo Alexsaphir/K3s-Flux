@@ -16,20 +16,24 @@ spec:
         namespace: flux-charts
       interval: 15m
 
-  dependsOn:
-    - name: kube-prometheus-stack
-      namespace: flux-monitoring
-
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/kyverno/kyverno/blob/kyverno-policies-chart-2.6.4/charts/kyverno/values.yaml
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
+
+  # https://github.com/kyverno/kyverno/blob/kyverno-policies-chart-2.7.1/charts/kyverno/values.yaml
   values:
     installCRDs: true
     replicaCount: 1

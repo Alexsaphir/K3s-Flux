@@ -16,14 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/grafana/loki/blob/helm-loki-3.6.1/production/helm/loki/values.yaml
+  # https://github.com/grafana/loki/blob/helm-loki-4.8.0/production/helm/loki/values.yaml
   values:
     write:
       replicas: &replication_factor 2

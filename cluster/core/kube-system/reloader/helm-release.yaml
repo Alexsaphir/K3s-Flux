@@ -16,14 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/stakater/Reloader/blob/v0.0.126/deployments/kubernetes/chart/reloader/values.yaml
+  # https://github.com/stakater/Reloader/blob/v1.0.12/deployments/kubernetes/chart/reloader/values.yaml
   values:
     fullnameOverride: reloader
     reloader:

@@ -15,12 +15,16 @@ spec:
         name: prometheus-community
         namespace: flux-charts
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
   # https://github.com/prometheus-community/helm-charts/blob/prometheus-smartctl-exporter-0.3.1/charts/prometheus-smartctl-exporter/values.yaml
   values:

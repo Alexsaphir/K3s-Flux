@@ -16,16 +16,20 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.16.0/charts/cloudnative-pg/values.yaml
+  # https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.17.0/charts/cloudnative-pg/values.yaml
   values:
     crds:
       create: true

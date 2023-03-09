@@ -16,12 +16,16 @@ spec:
         namespace: flux-charts
       interval: 15m
 
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
   # https://github.com/toboshii/hajimari/blob/main/charts/hajimari/values.yaml
   values:
@@ -33,6 +37,7 @@ spec:
           - longhorn-system
           - flux-ci
           - flux-monitoring
+          - home-automation
       name: "you"
       showAppGroups: true
 

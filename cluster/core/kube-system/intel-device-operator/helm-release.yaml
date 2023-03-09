@@ -15,13 +15,17 @@ spec:
         name: intel
         namespace: flux-charts
 
+  maxHistory: 3
   install:
     crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     crds: CreateReplace
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
 
-  # https://github.com/intel/helm-charts/blob/intel-device-plugins-operator-0.25.1/charts/device-plugin-operator/values.yaml
+  # https://github.com/intel/helm-charts/blob/intel-device-plugins-operator-0.26.0/charts/device-plugin-operator/values.yaml

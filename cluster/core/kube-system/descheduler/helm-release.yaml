@@ -16,7 +16,18 @@ spec:
         namespace: flux-charts
       interval: 15m
 
-  # https://github.com/kubernetes-sigs/descheduler/blob/descheduler-helm-chart-0.25.2/charts/descheduler/values.yaml
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  # https://github.com/kubernetes-sigs/descheduler/blob/descheduler-helm-chart-0.26.0/charts/descheduler/values.yaml
   values:
     kind: Deployment
     replicas: 2

@@ -14,15 +14,22 @@ spec:
         kind: HelmRepository
         name: dysnix
         namespace: flux-charts
+
+  maxHistory: 3
   install:
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
+  uninstall:
+    keepHistory: false
+
   dependsOn:
     - name: traefik-middlewares
       namespace: traefik-system
+
   values:
     resources:
       - apiVersion: traefik.containo.us/v1alpha1
