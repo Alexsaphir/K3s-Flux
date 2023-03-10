@@ -7,3 +7,4 @@ resources:
   - intel-device-operator
   - k8s-gateway
   - node-feature-discovery
+  - snapshot-controller
