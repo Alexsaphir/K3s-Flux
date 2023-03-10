@@ -29,6 +29,10 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
+
   # https://github.com/spotahome/redis-operator/blob/Chart-3.2.7/charts/redisoperator/values.yaml
   values:
     monitoring:

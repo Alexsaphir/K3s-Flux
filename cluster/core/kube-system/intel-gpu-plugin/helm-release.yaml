@@ -26,13 +26,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: intel-device-operator
-      namespace: kube-system
-
-    - name: node-feature-discovery
-      namespace: kube-system
-
   # https://github.com/intel/helm-charts/blob/intel-device-plugins-gpu-0.26.0/charts/gpu-device-plugin/values.yaml
   values:
     name: intel-gpu-plugin
