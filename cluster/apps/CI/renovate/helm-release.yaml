@@ -28,11 +28,6 @@ spec:
     keepHistory: false
 
   # https://github.com/mend/renovate-on-prem/blob/main/helm-charts/whitesource-renovate/values.yaml
-
-  valuesFrom:
-    - name: renovate-extra-env
-      kind: Secret
-
   values:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
@@ -52,6 +47,18 @@ spec:
 
       # valueFrom: {{ include "whitesource-renovate.secret-name" . }}
       # key: gitPrivateKey
+
+      extraEnvVars:
+        - name: DOCKER_HUB_USER
+          valueFrom:
+            secretKeyRef:
+              name: renovate-dockerhub-credentials
+              key: username
+        - name: DOCKER_HUB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: renovate-dockerhub-credentials
+              key: password
 
       config: |
         module.exports = {
