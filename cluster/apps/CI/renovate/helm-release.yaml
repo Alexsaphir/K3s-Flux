@@ -28,6 +28,11 @@ spec:
     keepHistory: false
 
   # https://github.com/mend/renovate-on-prem/blob/main/helm-charts/whitesource-renovate/values.yaml
+
+  valuesFrom:
+    - name: renovate-extra-env
+      kind: Secret
+
   values:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
@@ -58,6 +63,15 @@ spec:
           gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}',
           gitAuthor: '${SECRET_RENOVATE_GIT_AUTHOR}',
 
+          hostRules: [
+            {
+              hostType: 'docker',
+              "matchHost": "docker.io",
+              username: process.env.DOCKER_HUB_USER,
+              password: process.env.DOCKER_HUB_PASSWORD,
+            },
+          ],
+
           autodiscover: true,
           onboarding: true,
           onboardingNoDeps: true,
@@ -71,11 +85,9 @@ spec:
 
       cachePersistence:
         enabled: true
+        storageClass: "longhorn"
         accessModes:
           - ReadWriteOnce
-          ## Persistent Volume size
         size: 1Gi
-        ## The name of an existing PVC to use for persistence
-        existingClaim: ""
 
       existingSecret: whitesource-renovate
