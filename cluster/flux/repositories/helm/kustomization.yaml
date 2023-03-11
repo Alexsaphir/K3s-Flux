@@ -18,6 +18,7 @@ resources:
   - falco.yaml
   - grafana.yaml
   - hajimari.yaml
+  - hashicorp.yaml
   - intel.yaml
   - jetstack.yaml
   - kubereboot.yaml

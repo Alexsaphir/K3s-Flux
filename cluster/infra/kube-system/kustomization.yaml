@@ -8,3 +8,4 @@ resources:
   - k8s-gateway
   - node-feature-discovery
   - snapshot-controller
+  - hashicorp-vault
