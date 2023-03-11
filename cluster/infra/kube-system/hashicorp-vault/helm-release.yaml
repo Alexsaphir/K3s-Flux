@@ -28,6 +28,10 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: secrets-store-csi-driver
+      namespace: kube-system
+
   # https://github.com/hashicorp/vault-helm/blob/main/values.yaml
   values:
     global:

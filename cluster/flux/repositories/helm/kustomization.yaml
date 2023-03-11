@@ -9,6 +9,7 @@ resources:
   - calico.yaml
   - cloudnative-pg.yaml
   - csi-driver-nfs.yaml
+  - csi-driver-secrets-store.yaml
   - datashim.yaml
   - deliveryhero.yaml
   - descheduler.yaml
