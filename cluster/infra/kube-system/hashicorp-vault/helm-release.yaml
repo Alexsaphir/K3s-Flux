@@ -50,9 +50,9 @@ spec:
       ingress:
         enabled: true
         ingressClassName: traefik
-        labels: { }
-        # traffic: external
-        annotations: { }
+        annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: shield-key
 
         hosts:
           - host: vault.${SECRET_DOMAIN_NAME}
@@ -86,7 +86,7 @@ spec:
         config: |
           ui = true
 
-          cluster_name = "sph-prod
+          cluster_name = "sph-prod"
 
           listener "tcp" {
             tls_disable = 1
@@ -96,7 +96,6 @@ spec:
           storage "file" {
             path = "/vault/data"
           }
-
 
           # Example configuration for enabling Prometheus metrics in your config.
           # Enable unauthenticated metrics access (necessary for Prometheus Operator)
