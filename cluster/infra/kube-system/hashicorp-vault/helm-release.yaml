@@ -72,10 +72,10 @@ spec:
       extraEnvironmentVars:
         TZ: ${CONFIG_TIMEZONE}
 
-      extraVolumes:
-        - type: secret
-          name: kms-vault-unseal
-          path: /vault/userconfig
+#      extraVolumes:
+#        - type: secret
+#          name: kms-vault-unseal
+#          path: /vault/userconfig
 
       # Run Vault in "standalone" mode. This is the default mode that will deploy if
       # no arguments are given to helm. This requires a PVC for data storage to use
