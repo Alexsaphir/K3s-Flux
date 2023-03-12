@@ -29,7 +29,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: secrets-store-csi-driver
+    - name: csi-driver-secrets-store
       namespace: kube-system
 
   # https://github.com/hashicorp/vault-helm/blob/main/values.yaml
