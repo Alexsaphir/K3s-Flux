@@ -32,6 +32,9 @@ spec:
     - name: csi-driver-secrets-store
       namespace: kube-system
 
+    - name: longhorn
+      namespace: longhorn-system
+
   # https://github.com/hashicorp/vault-helm/blob/main/values.yaml
   values:
     global:

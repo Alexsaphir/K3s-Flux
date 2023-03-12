@@ -1,0 +1,48 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hashicorp-vault-autounseal
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: vault-autounseal
+      version: 0.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: pytoshka-vault-autounseal
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  dependsOn:
+    - name: hashicorp-vault
+      namespace: kube-system
+
+  values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: 'vault-root-token,vault-keys'
+
+    settings:
+      vault_url: 'http://hashicorp-vault.kube-system.svc.cluster.local:8200'
+
+      # vault unlocking keys settings:
+      vault_secret_shares: 3
+      vault_secret_threshold: 2
+
+      # secret for storing vault root token
+      vault_root_token_secret: hashicorp-vault-root-token
+      # secret for storing vault unlock keys
+      vault_keys_secret: hashicorp-vault-keys
