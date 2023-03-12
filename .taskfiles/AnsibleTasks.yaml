@@ -16,19 +16,11 @@ tasks:
       - ansible-galaxy install -r {{.ANSIBLE_REQUIREMENTS}} --force
       - ansible-galaxy collection install -r {{.ANSIBLE_REQUIREMENTS}} --force
 
-  prepare:
+  deploy:
     desc: Prepare all the k8s nodes for running k3s
     cmds:
       - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yaml
-
-  install:
-    desc: Install Kubernetes on the nodes
-    cmds:
       - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml
-
-  tigera-ownership:
-    desc: Takeownership of tigera resources
-    cmds:
       - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/tigera-ownership.yaml
 
   nuke:

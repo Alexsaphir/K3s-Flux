@@ -21,7 +21,6 @@ includes:
   ansible: .taskfiles/AnsibleTasks.yaml
   vagrant: .taskfiles/VagrantTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
-  gpg: .taskfiles/GpgTasks.yaml
 
 tasks:
   default:
@@ -30,7 +29,8 @@ tasks:
   deploy:
     desc: Fully deployed tools and flux
     cmds:
-      - task: install
+      - task: ansible:deploy
+      - task: flux:install
 
   init:
     desc: Initialize workstation
@@ -40,18 +40,9 @@ tasks:
       - task: age:init
       - task: ansible:init
 
-  install:
-    desc: Install K3s on the cluster
-    cmds:
-      - task: ansible:prepare
-      - task: ansible:install
-      - task: ansible:tigera-ownership
-      - task: flux:install
-
   update:
     desc: Run update
     cmds:
       - task: tools:update
       - task: precommit:update
       - task: ansible:init
-      - task: install
