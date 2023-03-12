@@ -1,0 +1,43 @@
+[book]
+authors = ["Alexandre Mechineau"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Home Operations"
+description = "Document the use of k3s and flux"
+
+[build]
+build-dir = "public"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+git-repository-url = "https://gitlab.alexsaphir.com/Alexsaphir/K3s-Flux"
+git-repository-icon = "fa-gitlab"
+no-section-label = true
+git-branch = "main"
+open-on-text = "[Edit this page on GitLab]"
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.playground]
+copyable = false
+
+[output.html.search]
+limit-results = 15
+
+## Does not play nice with embedding my README.md
+# [output.linkcheck]
+
+[preprocessor]
+
+
+[preprocessor.open-git-repo]
+source-control-host = "gitlab"
+command = "mdbook-open-git-repo"
+renderer = ["html"]
+
+[preprocessor.emojicodes]
+after = ["links"]

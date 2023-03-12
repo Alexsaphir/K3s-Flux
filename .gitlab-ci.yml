@@ -1,0 +1,28 @@
+---
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  image: rust
+  variables:
+    CARGO_HOME: $CI_PROJECT_DIR/cargo
+  before_script:
+    - export PATH="$PATH:$CARGO_HOME/bin"
+    - |
+      mdbook --version || cargo install mdbook \
+                                        mdbook-open-git-repo \
+                                        mdbook-linkcheck \
+                                        mdbook-toc \
+                                        mdbook-emojicodes \
+                                        mdbook-linkcheck
+  script:
+    - mdbook build -d public docs
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  artifacts:
+    paths:
+      - public
+  cache:
+    paths:
+      - $CARGO_HOME/bin
