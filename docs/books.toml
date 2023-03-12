@@ -10,8 +10,8 @@ description = "Document the use of k3s and flux"
 build-dir = "public"
 
 [output.html]
-default-theme = "navy"
-preferred-dark-theme = "navy"
+default-theme = "rust"
+preferred-dark-theme = "rust"
 git-repository-url = "https://gitlab.alexsaphir.com/Alexsaphir/K3s-Flux"
 git-repository-icon = "fa-gitlab"
 no-section-label = true
