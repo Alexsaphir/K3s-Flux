@@ -2,29 +2,29 @@
 
 [[package]]
 name = "ansible"
-version = "7.2.0"
+version = "7.3.0"
 description = "Radically simple IT automation"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ansible-7.2.0-py3-none-any.whl", hash = "sha256:756a6d8fec6c19ccd7a00ad0f0cb18859f4ab77e0c5063f73a115f3fb75284aa"},
-    {file = "ansible-7.2.0.tar.gz", hash = "sha256:60e2c1a58f1ceb34a190b7c380f7b3386d1e7369061954b1f8b8ca3df76063cc"},
+    {file = "ansible-7.3.0-py3-none-any.whl", hash = "sha256:5039bf0fe4cbb9dcc3dbefe464fe2fa7fe75d8548814f00c478d5fe90c3e3979"},
+    {file = "ansible-7.3.0.tar.gz", hash = "sha256:56c2fd97487b2cc83e39e895d8dfad8b2a5df34d490394a15735ebcfdc45f5be"},
 ]
 
 [package.dependencies]
-ansible-core = ">=2.14.2,<2.15.0"
+ansible-core = ">=2.14.3,<2.15.0"
 
 [[package]]
 name = "ansible-core"
-version = "2.14.2"
+version = "2.14.3"
 description = "Radically simple IT automation"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ansible-core-2.14.2.tar.gz", hash = "sha256:47f0d4b4125b58edba6435a47f37cbe6a18da54594d18f812958bb0cb58d4e65"},
-    {file = "ansible_core-2.14.2-py3-none-any.whl", hash = "sha256:d1d44aab18fb5436d94ba77081bcfebece2a87015665e2444aadc16ece230886"},
+    {file = "ansible-core-2.14.3.tar.gz", hash = "sha256:093a4bc4a1259eaeb56ea37ec1d33cf1836c88f39281d89197f8d3480e068a58"},
+    {file = "ansible_core-2.14.3-py3-none-any.whl", hash = "sha256:a4b36bfdd7aa3534d449e9ae6a9fd82d8e513fda8caaf5d18e1e27d217151c8c"},
 ]
 
 [package.dependencies]
@@ -50,18 +50,18 @@ ansible = ">=2.4"
 
 [[package]]
 name = "ansible-lint"
-version = "6.12.2"
+version = "6.14.2"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 category = "main"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "ansible-lint-6.12.2.tar.gz", hash = "sha256:ab33152834c95fcfc4fb65ecd53c9cd1bf1c9b3ead179edd6304274b82b34852"},
-    {file = "ansible_lint-6.12.2-py3-none-any.whl", hash = "sha256:088f3a80a756dd8ed8c8df2e22aafd8f62b5b2d17f0efef662dc3ac618d1bcd5"},
+    {file = "ansible-lint-6.14.2.tar.gz", hash = "sha256:de87ef104302c2c6fcb43798a75c42d4f0a5c07e887c2a1d07a0b5a9fb774de0"},
+    {file = "ansible_lint-6.14.2-py3-none-any.whl", hash = "sha256:1e76d6736efff05556d0f15d052822688b512759a3e97820b22ba59ecd900de2"},
 ]
 
 [package.dependencies]
-ansible-core = {version = ">=2.12.0", markers = "python_version >= \"3.9\""}
+ansible-core = ">=2.12.0"
 black = ">=22.8.0"
 filelock = ">=3.3.0"
 jsonschema = ">=4.10.0"
@@ -74,9 +74,9 @@ wcmatch = ">=8.1.2"
 yamllint = ">=1.26.3"
 
 [package.extras]
-docs = ["cairosvg", "markdown-exec (>=1.0.0)", "mkdocs (>=1.4.2)", "mkdocs-gen-files (>=0.4.0)", "mkdocs-htmlproofer-plugin", "mkdocs-material (>=9.0.6)", "mkdocs-material-extensions (>=1.1.1)", "mkdocstrings (>=0.20.0)", "mkdocstrings-python (>=0.8.3)", "pillow", "pipdeptree (>=2.3.3)", "pymdown-extensions (>=9.9.2)"]
-lock = ["ansible-core (==2.14.1)", "attrs (==22.2.0)", "black (==22.12.0)", "bracex (==2.3.post1)", "cffi (==1.15.1)", "click (==8.1.3)", "cryptography (==39.0.1)", "filelock (==3.9.0)", "jinja2 (==3.1.2)", "jsonschema (==4.17.3)", "markdown-it-py (==2.1.0)", "markupsafe (==2.1.1)", "mdurl (==0.1.2)", "mypy-extensions (==0.4.3)", "packaging (==22.0)", "pathspec (==0.10.3)", "platformdirs (==2.6.2)", "pycparser (==2.21)", "pygments (==2.13.0)", "pyrsistent (==0.19.3)", "pyyaml (==6.0)", "resolvelib (==0.8.1)", "rich (==13.2.0)", "ruamel-yaml (==0.17.21)", "setuptools (==65.6.3)", "subprocess-tee (==0.4.1)", "tomli (==2.0.1)", "typing-extensions (==4.4.0)", "wcmatch (==8.4.1)", "yamllint (==1.28.0)"]
-test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)", "types-pyyaml"]
+docs = ["cairosvg (>=2.6.0)", "markdown-exec (>=1.3.0)", "mkdocs (>=1.4.2)", "mkdocs-gen-files (>=0.4.0)", "mkdocs-htmlproofer-plugin (>=0.10.2)", "mkdocs-material (>=9.0.13)", "mkdocs-material-extensions (>=1.1.1)", "mkdocstrings (>=0.20.0)", "mkdocstrings-python (>=0.8.3)", "pillow (>=9.4.0)", "pipdeptree (>=2.4.0)", "pymdown-extensions (>=9.9.2)"]
+lock = ["ansible-core (==2.14.3)", "attrs (==22.2.0)", "black (==23.1.0)", "bracex (==2.3.post1)", "cffi (==1.15.1)", "click (==8.1.3)", "cryptography (==39.0.2)", "filelock (==3.9.0)", "jinja2 (==3.1.2)", "jsonschema (==4.17.3)", "markdown-it-py (==2.2.0)", "markupsafe (==2.1.2)", "mdurl (==0.1.2)", "mypy-extensions (==1.0.0)", "packaging (==23.0)", "pathspec (==0.11.0)", "platformdirs (==3.1.0)", "pycparser (==2.21)", "pygments (==2.14.0)", "pyrsistent (==0.19.3)", "pyyaml (==6.0)", "resolvelib (==0.8.1)", "rich (==13.3.2)", "ruamel-yaml (==0.17.21)", "setuptools (==67.5.1)", "subprocess-tee (==0.4.1)", "tomli (==2.0.1)", "typing-extensions (==4.5.0)", "wcmatch (==8.4.1)", "yamllint (==1.29.0)"]
+test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)", "spdx-tools", "types-pyyaml"]
 
 [[package]]
 name = "attrs"
@@ -336,14 +336,14 @@ testing = ["covdefaults (>=2.2.2)", "coverage (>=7.0.1)", "pytest (>=7.2)", "pyt
 
 [[package]]
 name = "identify"
-version = "2.5.19"
+version = "2.5.20"
 description = "File identification library for Python"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "identify-2.5.19-py2.py3-none-any.whl", hash = "sha256:3ee3533e7f6f5023157fbebbd5687bb4b698ce6f305259e0d24b2d7d9efb72bc"},
-    {file = "identify-2.5.19.tar.gz", hash = "sha256:4102ecd051f6884449e7359e55b38ba6cd7aafb6ef27b8e2b38495a5723ea106"},
+    {file = "identify-2.5.20-py2.py3-none-any.whl", hash = "sha256:5dfef8a745ca4f2c95f27e9db74cb4c8b6d9916383988e8791f3595868f78a33"},
+    {file = "identify-2.5.20.tar.gz", hash = "sha256:c8b288552bc5f05a08aff09af2f58e6976bf8ac87beb38498a0e3d98ba64eb18"},
 ]
 
 [package.extras]
@@ -553,14 +553,14 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.2.2)", "pytest (>=7.2.1)", "pytes
 
 [[package]]
 name = "pre-commit"
-version = "3.0.4"
+version = "3.1.1"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pre_commit-3.0.4-py2.py3-none-any.whl", hash = "sha256:9e3255edb0c9e7fe9b4f328cb3dc86069f8fdc38026f1bf521018a05eaf4d67b"},
-    {file = "pre_commit-3.0.4.tar.gz", hash = "sha256:bc4687478d55578c4ac37272fe96df66f73d9b5cf81be6f28627d4e712e752d5"},
+    {file = "pre_commit-3.1.1-py2.py3-none-any.whl", hash = "sha256:b80254e60668e1dd1f5c03a1c9e0413941d61f568a57d745add265945f65bfe8"},
+    {file = "pre_commit-3.1.1.tar.gz", hash = "sha256:d63e6537f9252d99f65755ae5b79c989b462d511ebbc481b561db6a297e1e865"},
 ]
 
 [package.dependencies]
@@ -854,14 +854,14 @@ files = [
 
 [[package]]
 name = "virtualenv"
-version = "20.20.0"
+version = "20.21.0"
 description = "Virtual Python Environment builder"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "virtualenv-20.20.0-py3-none-any.whl", hash = "sha256:3c22fa5a7c7aa106ced59934d2c20a2ecb7f49b4130b8bf444178a16b880fa45"},
-    {file = "virtualenv-20.20.0.tar.gz", hash = "sha256:a8a4b8ca1e28f864b7514a253f98c1d62b64e31e77325ba279248c65fb4fcef4"},
+    {file = "virtualenv-20.21.0-py3-none-any.whl", hash = "sha256:31712f8f2a17bd06234fa97fdf19609e789dd4e3e4bf108c3da71d710651adbc"},
+    {file = "virtualenv-20.21.0.tar.gz", hash = "sha256:f50e3e60f990a0757c9b68333c9fdaa72d7188caa417f96af9e52407831a3b68"},
 ]
 
 [package.dependencies]
@@ -908,4 +908,4 @@ setuptools = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = ">3.9, <3.12"
-content-hash = "7c7c03564551d41419e6636dd4d8df21432d23699345abd038b1c631270b7db8"
+content-hash = "4a847f0216f455b13116a1f49fa2a41eac72822169af71bcf39a3c00053c1806"
