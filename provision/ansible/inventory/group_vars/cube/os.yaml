@@ -16,6 +16,7 @@ os_packages_install:
   - ipvsadm
   - jq
   - lm-sensors
+  - multipath-tools
   - nano
   - ncdu
   - net-tools
