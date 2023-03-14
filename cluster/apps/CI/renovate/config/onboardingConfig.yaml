@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-onboarding-config
+  namespace: flux-ci
+data:
+  onboardingConfig: |
+    {
+      "enabled": true,
+      "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+      "configWarningReuseIssue": true,
+      "configMigration": true,
+      "dependencyDashboard": true,
+      "dependencyDashboardTitle": "Renovate Dashboard",
+    }

@@ -33,6 +33,8 @@ spec:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
       tag: 3.1.0
 
+    fullnameOverride: 'whitesource-renovate'
+
     renovate:
       acceptWhiteSourceTos: 'y'
 
@@ -60,6 +62,12 @@ spec:
               name: renovate-dockerhub-credentials
               key: password
 
+        - name: RENOVATE_ONBOARDING_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: renovate-onboarding-config
+              key: onboardingConfig
+
       config: |
         module.exports = {
           // Enter self-hosted configuration options here.
@@ -80,9 +88,12 @@ spec:
           ],
 
           autodiscover: true,
+          requireConfig: 'required',
           onboarding: true,
           onboardingNoDeps: true,
-          requireConfig: 'required',
+          onboardingConfigFileName: '.gitlab/renovate.json5',
+
+          binarySource: 'install',
 
           persistRepoData: true,
           baseDir: '/tmp/renovate'
@@ -98,3 +109,17 @@ spec:
         size: 1Gi
 
       existingSecret: whitesource-renovate
+
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - patch:
+              - op: add
+                path: /spec/template/metadata/annotations
+                value:
+                  configmap.reloader.stakater.com/reload: "renovate-config-js,renovate-onboarding-config"
+                  secret.reloader.stakater.com/reload: "renovate-dockerhub-credentials,whitesource-renovate"
+            target:
+              kind: Deployment
+              name: whitesource-renovate
+              namespace: flux-ci
