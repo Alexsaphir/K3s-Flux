@@ -5,10 +5,9 @@ metadata:
   name: renovate-whitesource-renovate
   namespace: flux-ci
   annotations:
-    kubernetes.io/ingress.class: "traefik"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     hajimari.io/enable: "true"
 spec:
+  ingressClassName: traefik
   rules:
     - host: renovate.${SECRET_DOMAIN_NAME}
       http:
