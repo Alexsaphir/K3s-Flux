@@ -17,6 +17,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: renovate-whitesource-renovate
+                name: whitesource-renovate
                 port:
                   number: 80
