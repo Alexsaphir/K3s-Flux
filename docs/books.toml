@@ -4,10 +4,10 @@ language = "en"
 multilingual = false
 src = "src"
 title = "Home Operations"
-description = "Document the use of k3s and flux"
+description = "Document my homelab"
 
 [build]
-build-dir = "public"
+build-dir = "../public"
 
 [output.html]
 default-theme = "rust"
