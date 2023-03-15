@@ -1,13 +1,13 @@
 # Summary
 
-## Welcome
+# Welcome
 
 ---
 
 - [Introduction](introduction.md)
-- [Tools](tools.md)
+- [Hardware](notes/hardware.md)
 
-## Maintenance
+# Maintenance
 
 - [Configuration](notes/configuration.md)
 
