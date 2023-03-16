@@ -110,6 +110,11 @@
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
       "semanticCommitScope": "github-action"
+    },
+    {
+      "matchManagers": ["poetry"],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "poetry"
     }
   ]
 }
