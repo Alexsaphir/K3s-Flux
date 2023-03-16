@@ -7,8 +7,6 @@
     ':dependencyDashboard',
     ':enablePreCommit',
     ':semanticCommits',
-    ':automergeDigest',
-    ':automergeBranch',
     ':enableVulnerabilityAlerts',
 
     'github>whitesource/merge-confidence:beta',
@@ -19,7 +17,6 @@
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/labels.json5'
   ],
   enabled: true,
-  semanticCommits: 'enabled',
   configWarningReuseIssue: true,
   configMigration: true,
   dependencyDashboard: true,
@@ -35,9 +32,6 @@
   poetry: {
     enabled: true,
     rangeStrategy: "bump"
-  },
-  'pre-commit': {
-    enabled: true
   },
   flux: {
     fileMatch: [
