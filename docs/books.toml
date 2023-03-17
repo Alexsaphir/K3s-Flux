@@ -6,9 +6,6 @@ src = "src"
 title = "Home Operations"
 description = "Document my homelab"
 
-[build]
-build-dir = "../public"
-
 [output.html]
 default-theme = "rust"
 preferred-dark-theme = "rust"
