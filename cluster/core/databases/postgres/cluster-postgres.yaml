@@ -1,0 +1,14 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: default
+  annotations:
+    kyverno.io/ignore: "true"
+
+spec:
+  instances: 1
+  storage:
+    size: 10Gi
+    storageClass: longhorn
