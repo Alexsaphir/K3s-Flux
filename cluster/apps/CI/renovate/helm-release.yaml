@@ -31,7 +31,7 @@ spec:
   values:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
-      tag: 3.1.0
+      tag: '3.1.0'
 
     fullnameOverride: 'whitesource-renovate'
 
