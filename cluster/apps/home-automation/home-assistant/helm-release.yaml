@@ -1,0 +1,93 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-automation
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    image:
+      repository: ghcr.io/onedr0p/home-assistant
+      tag: 2023.3.5@sha256:3c09a402257d2e02217f0536456bf6e2b971d81384f7054461eb2397fff199bb
+
+    podAnnotations:
+      secret.reloader.stakater.com/reload: home-assistant-secret
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8123
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - host: "ha.${SECRET_DOMAIN_NAME}"
+            paths:
+              - path: /
+                pathType: Prefix
+
+    env:
+      TZ: "${CONFIG_TIMEZONE}"
+      HASS_EXTERNAL_URL: "https://ha.${SECRET_DOMAIN_NAME}"
+      POSTGRES_DB:
+        valueFrom:
+          secretKeyRef:
+            name: database-home-assistant
+            key: DATABASE_NAME
+
+      HASS_POSTGRES_URL:
+        valueFrom:
+          secretKeyRef:
+            name: database-home-assistant
+            key: POSTGRES_URL
+    envFrom:
+      - secretRef:
+          name: home-assistant-secret
+
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 100
+
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: longhorn
