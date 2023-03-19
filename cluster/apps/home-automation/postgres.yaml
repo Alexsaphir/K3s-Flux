@@ -3,7 +3,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app home-assistant
-  namespace: default
+  namespace: home-automation
 spec:
   database: *app # db name in postgres cluster
 
@@ -12,9 +12,9 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app home-assistant
-  namespace: default
+  namespace: home-automation
 spec:
   role: *app
   database: *app # references the CR
-  secretName: home-assistant-database
+  secretName: database
   privileges: OWNER

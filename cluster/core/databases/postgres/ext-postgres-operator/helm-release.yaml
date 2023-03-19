@@ -43,7 +43,7 @@ spec:
     podAnnotations:
       reloader.stakater.com/search: "true"
 
-    watchNamespace: "default"
+    # watchNamespace: "default"
 
     postgres:
       host: postgres-rw.default.svc.cluster.local
