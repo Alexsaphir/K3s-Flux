@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - cluster-postgres.yaml
   - service.yaml
+  - ext-postgres-operator
 labels:
   - pairs:
       app.kubernetes.io/name: cloudnative-pg-cluster
