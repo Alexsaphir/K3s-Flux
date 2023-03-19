@@ -77,17 +77,9 @@ spec:
       startup:
         enabled: false
 
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-
-    volumeClaimTemplates:
-      - name: config
+    persistence:
+      config:
         mountPath: /config
-        accessMode: ReadWriteOnce
+        accessMode: ReadWriteMany
         size: 5Gi
         storageClass: longhorn
