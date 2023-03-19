@@ -76,10 +76,12 @@ spec:
         enabled: false
       startup:
         enabled: false
-
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        mountPath: /config
-        accessMode: ReadWriteMany
-        size: 5Gi
-        storageClass: longhorn
+        enabled: true
+        existingClaim: home-assistant-config
