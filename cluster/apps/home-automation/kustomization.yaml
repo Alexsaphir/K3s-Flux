@@ -6,4 +6,4 @@ resources:
   - postgres.yaml
   - mosquitto
   - zigbee2mqtt
-  - home-assistant
+#  - home-assistant
