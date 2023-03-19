@@ -30,6 +30,7 @@ resources:
   - metallb.yaml
   - metric-server.yaml
   - minio.yaml
+  - movetokube.yaml
   - morremeyer.yaml
   - node-feature-discovery.yaml
   - opstree.yaml
