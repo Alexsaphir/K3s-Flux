@@ -32,7 +32,7 @@ spec:
   valuesFrom:
     - kind: Secret
       name: postgres-superuser
-      valuesKey: user
+      valuesKey: username
       targetPath: postgres.user
     - kind: Secret
       name: postgres-superuser
