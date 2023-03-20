@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: node-problem-detector
-  namespace: flux-monitoring
+  namespace: kube-system
 spec:
   interval: 15m
   chart:
@@ -26,6 +26,10 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
 
   # https://github.com/deliveryhero/helm-charts/blob/200aa7fcf6b5aa22dcb8a7d9491ea73e48df3319/stable/node-problem-detector/values.yaml
   values:
