@@ -27,15 +27,55 @@ spec:
   uninstall:
     keepHistory: false
 
+  valuesFrom:
+    - targetPath: storageConfig.AWS_ACCESS_KEY_ID
+      kind: Secret
+      name: netbox-s3-secret
+      valuesKey: AWS_ACCESS_KEY_ID
+    - targetPath: storageConfig.AWS_SECRET_ACCESS_KEY
+      kind: Secret
+      name: netbox-s3-secret
+      valuesKey: AWS_SECRET_ACCESS_KEY
+    - targetPath: storageConfig.AWS_S3_ENDPOINT_URL
+      kind: Secret
+      name: netbox-s3-secret
+      valuesKey: AWS_ENDPOINT
+    - targetPath: storageConfig.AWS_S3_REGION_NAME
+      kind: Secret
+      name: netbox-s3-secret
+      valuesKey: AWS_REGION_NAME
+
+
   # https://github.com/bootc/netbox-chart/blob/develop/values.yaml
   values:
+    replicaCount: 1
+
+    image:
+      repository: ghcr.io/netbox-community/netbox
+      tag: v3.4.7-2.5.2
+
     existingSecret: netbox-secret
 
     superuser:
       name: admin
-
     napalm:
       username: napalm
+
+    preferIPv4: true
+    timeZone: "${CONFIG_TIMEZONE}"
+    powerFeedDefaultAmperage: 15
+    powerFeedDefaultVoltage: 230
+    powerFeedMaxUtilisation: 80
+
+    persistence:
+      enabled: false
+    reportsPersistence:
+      enabled: false
+
+    storageBackend: storages.backends.s3boto3.S3Boto3Storage
+    storageConfig:
+      AWS_STORAGE_BUCKET_NAME: netbox
+      AWS_S3_ADDRESSING_STYLE: path
 
     postgresql:
       enabled: false
@@ -50,14 +90,8 @@ spec:
     redis:
       enabled: true
 
-    persistence:
-      enabled: true
-      storageClassName: longhorn
-      accessMode: ReadWriteMany
-      size: 1Gi
-
     podAnnotations:
-      secret.reloader.stakater.com/reload: netbox-secret
+      secret.reloader.stakater.com/reload: "netbox-secret,netbox-s3-secret"
       config.reloader.stakater.com/reload: netbox
 
     csrf:
@@ -75,3 +109,13 @@ spec:
 
     allowedHosts:
       - *hostname
+
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/instance: netbox
+                app.kubernetes.io/name: netbox
+                app.kubernetes.io/component: netbox
+            topologyKey: kubernetes.io/hostname
