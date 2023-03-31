@@ -5,7 +5,7 @@ namespace: trivy-system
 configMapGenerator:
   - name: trivy-dashboard
     files:
-      - trivy-dashboard.json=https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/trivy
+      - trivy-dashboard.json=https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-trivy-operator.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
