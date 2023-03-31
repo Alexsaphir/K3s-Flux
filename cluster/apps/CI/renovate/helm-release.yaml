@@ -31,7 +31,7 @@ spec:
   values:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
-      tag: 4.0.0
+      tag: '4.0.0'
 
     fullnameOverride: 'whitesource-renovate'
 
@@ -41,7 +41,7 @@ spec:
       renovatePlatform: 'gitlab'
       renovateEndpoint: 'https://${SECRET_GITLAB_DOMAIN}/api/v4/'
 
-      schedulerCron: '0/15 * * * *'
+      schedulerCron: '0/60 * * * *'
 
       #      extraEnvVars:
       #        - name: RENOVATE_GIT_PRIVATE_KEY
