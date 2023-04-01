@@ -54,6 +54,12 @@ spec:
       repository: ghcr.io/netbox-community/netbox
       tag: v3.4.7-2.5.2
 
+    housekeeping:
+      enabled: false
+
+    worker:
+      enabled: false
+
     existingSecret: netbox-secret
 
     superuser:
