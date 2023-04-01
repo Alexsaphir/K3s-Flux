@@ -60,13 +60,13 @@ spec:
     worker:
       enabled: false
 
-    plugins:
-      - netbox_topology_views
-      - netbox_ipcalculator
-      - netbox_secretstore
-      - nextbox_ui_plugin
-      - netbox_qrcode
-      - netbox_bgp
+    #plugins:
+    #  - netbox_topology_views
+    #  - netbox_ipcalculator
+    #  - netbox_secretstore
+    #  - nextbox_ui_plugin
+    #  - netbox_qrcode
+    #  - netbox_bgp
 
     existingSecret: netbox-secret
 
