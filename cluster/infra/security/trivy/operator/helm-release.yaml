@@ -45,6 +45,7 @@ spec:
 
     trivy:
       ignoreUnfixed: true
+      storageClassName: longhorn
 
     serviceMonitor:
       enabled: true
