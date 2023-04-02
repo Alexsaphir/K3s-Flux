@@ -47,6 +47,7 @@ resources:
   - tf-controller.yaml
   - traefik.yaml
   - trivy-exporter.yaml
+  - trivy-operator-polr-adapter.yaml
   - trivy.yaml
   - vector.yaml
   - weave-gitops.yaml

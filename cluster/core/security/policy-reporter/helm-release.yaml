@@ -52,7 +52,7 @@ spec:
         kyverno: true
 
     ingress:
-      enabled: true
+      enabled: false
       className: traefik
       hosts:
         - host: "policy-reporter.${SECRET_DOMAIN_NAME}"
