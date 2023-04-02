@@ -32,6 +32,18 @@ spec:
       enabled: true
     ui:
       enabled: true
+      plugins:
+        kyverno: true
+      ingress:
+        enabled: true
+        className: traefik
+        hosts:
+          - host: "policy-reporter-ui.${SECRET_DOMAIN_NAME}"
+            paths:
+              - path: /
+                pathType: Prefix
+
+
     kyvernoPlugin:
       enabled: true
 
