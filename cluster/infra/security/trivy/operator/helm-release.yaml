@@ -40,11 +40,13 @@ spec:
     operator:
       replicas: 2
       scanJobsConcurrentLimit: 2
+      builtInTrivyServer: true
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
 
     trivy:
       ignoreUnfixed: true
+      mode: ClientServer
       storageClassName: longhorn
 
     serviceMonitor:
