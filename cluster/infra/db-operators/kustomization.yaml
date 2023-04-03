@@ -5,3 +5,4 @@ resources:
   - namespace.yaml
   - cloudnative-pg
   - redis-operator
+  - redis-opstree-operator
