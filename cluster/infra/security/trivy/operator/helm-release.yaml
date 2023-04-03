@@ -39,7 +39,7 @@ spec:
 
     operator:
       replicas: 2
-      scanJobsConcurrentLimit: 2
+      scanJobsConcurrentLimit: 4
       builtInTrivyServer: true
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
