@@ -47,7 +47,7 @@ spec:
     trivy:
       ignoreUnfixed: true
       mode: ClientServer
-      storageClassName: longhorn
+      storageClassName: local-path
 
     serviceMonitor:
       enabled: true
