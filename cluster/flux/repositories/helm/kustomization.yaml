@@ -21,6 +21,7 @@ resources:
   - grafana.yaml
   - hajimari.yaml
   - hashicorp.yaml
+  - influxdata.yaml
   - intel.yaml
   - jetstack.yaml
   - kubereboot.yaml
