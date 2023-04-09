@@ -5,6 +5,6 @@ resources:
   - namespace.yaml
   - postgres.yaml
   - influxdb
-  - mosquitto
-  - zigbee2mqtt
+#  - mosquitto
+#  - zigbee2mqtt
 #  - home-assistant
