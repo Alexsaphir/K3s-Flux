@@ -16,6 +16,7 @@ resources:
   - descheduler.yaml
   - dysnix.yaml
   - external-secrets.yaml
+  - emqx.yaml
   - fairwinds.yaml
   - falco.yaml
   - grafana.yaml

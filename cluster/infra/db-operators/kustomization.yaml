@@ -6,3 +6,4 @@ resources:
   - cloudnative-pg
   - redis-operator
   - redis-opstree-operator
+  - emqx-operator
