@@ -31,3 +31,16 @@ spec:
   # https://github.com/weaveworks/tf-controller/blob/main/charts/tf-controller/values.yaml
   values:
     installCRDs: true
+
+    image:
+      tag: upgrade-to-flux-2-rc-1-d3949b9e
+    runner:
+      image:
+        tag: upgrade-to-flux-2-rc-1-d3949b9e
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        endpoint:
+          interval: 1m
