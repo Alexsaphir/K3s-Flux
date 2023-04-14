@@ -1,0 +1,21 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: kanidm-selfsigned-issuer
+  namespace: traefik-system
+spec:
+  selfSigned: {}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kanidm-selfsigned-cert
+  namespace: traefik-system
+spec:
+  commonName: kanidm-selfsigned-cert
+  secretName: kanidm-selfsigned-cert
+  issuerRef:
+    name: kanidm-selfsigned-issuer
+    kind: Issuer

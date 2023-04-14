@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kanidm-configmap
+  namespace: traefik-system
+data:
+  server.toml: |-
+    bindaddress = "[::]:8443"
+    ldapbindaddress = "[::]:3636"
+
+    db_path = "/data/kanidm.db"
+
+    tls_chain = "/data/chain.pem"
+    tls_key = "/data/key.pem"
+
+    trust_x_forward_for = true
+
+    domain = "idm.${SECRET_DOMAIN_NAME}"
+    origin = "https://idm.${SECRET_DOMAIN_NAME}"
+
+    role = "WriteReplica"
