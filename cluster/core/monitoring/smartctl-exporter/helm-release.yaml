@@ -34,7 +34,10 @@ spec:
     config:
       devices:
         - /dev/sda
-        - /dev/nvme0n1
+        - /dev/nvme0
+
+    # nodeSelector:
+    #  node.home.arpa/physical: "true"
 
     serviceMonitor:
       enabled: true
