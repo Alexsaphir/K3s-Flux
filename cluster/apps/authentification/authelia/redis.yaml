@@ -1,0 +1,25 @@
+---
+apiVersion: redis.redis.opstreelabs.in/v1beta1
+kind: Redis
+metadata:
+  name: redis-standalone
+  namespace: traefik-system
+spec:
+  kubernetesConfig:
+    image: quay.io/opstree/redis:v7.0.5
+    imagePullPolicy: IfNotPresent
+    redisSecret:
+      name: authelia-redis-auth
+      key: password
+
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: longhorn
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 1000
