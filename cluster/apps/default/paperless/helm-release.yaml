@@ -1,0 +1,122 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: paperless
+  namespace: paperless
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    image:
+      repository: ghcr.io/paperless-ngx/paperless-ngx
+      tag: 1.13.0
+
+    env:
+      PAPERLESS_TIME_ZONE: "${CONFIG_TIMEZONE}"
+
+      PAPERLESS_CONSUMER_POLLING: 60
+      PAPERLESS_CONSUMER_RECURSIVE: "true"
+      PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+
+      PAPERLESS_CONSUMPTION_DIR: /library/consume
+      PAPERLESS_DATA_DIR: /library/data
+      PAPERLESS_EXPORT_DIR: /library/export
+      PAPERLESS_MEDIA_ROOT: /library/media
+
+      PAPERLESS_OCR_LANGUAGE: eng
+
+      PAPERLESS_PORT: &port 80
+      PAPERLESS_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN_NAME}"
+
+      PAPERLESS_REDIS: redis://localhost:6379
+      PAPERLESS_TASK_WORKERS: 2
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+      PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+
+      USERMAP_UID: 568
+      USERMAP_GID: 568
+
+      PAPERLESS_DBENGINE: postgresql
+      PAPERLESS_DBPORT: "5432"
+      PAPERLESS_DBHOST: "postgres-rw.{{ .Release.Namespace }}.svc.cluster.local"
+      PAPERLESS_DBNAME: app
+      PAPERLESS_DBUSER:
+        valueFrom:
+          secretKeyRef:
+            name: postgres-app
+            key: username
+      PAPERLESS_DBPASS:
+        valueFrom:
+          secretKeyRef:
+            name: postgres-app
+            key: password
+
+    envFrom:
+      - secretRef:
+          name: paperless-secret
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          hajimari.io/icon: mdi:file-multiple
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_NAME}"
+            paths:
+              - path: /
+
+    persistence:
+      library:
+        enabled: true
+        mountPath: /library
+        size: 20Gi
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+
+    sidecars:
+      gotenburg:
+        image: thecodingmachine/gotenberg:7.8.2
+        imagePullPolicy: IfNotPresent
+        env:
+          - { name: DISABLE_GOOGLE_CHROME, value: "1" }
+      redis:
+        image: public.ecr.aws/docker/library/redis:7.0.10
+        imagePullPolicy: IfNotPresent
+      tika:
+        image: ghcr.io/paperless-ngx/tika:2.7.0-full
+        imagePullPolicy: IfNotPresent
