@@ -30,8 +30,9 @@ spec:
   # https://github.com/mend/renovate-on-prem/blob/main/helm-charts/whitesource-renovate/values.yaml
   values:
     image:
-      # renovate: datasource=github-releases depName=mend/renovate-on-prem
-      tag: '4.0.0'
+      # renovate: datasource=github-releases depName=whitesource/renovate
+      repository: whitesource/renovate
+      tag: '4.1.0'
 
     fullnameOverride: 'whitesource-renovate'
 
