@@ -28,6 +28,10 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
+
   # https://github.com/weaveworks/tf-controller/blob/main/charts/tf-controller/values.yaml
   values:
     installCRDs: true
