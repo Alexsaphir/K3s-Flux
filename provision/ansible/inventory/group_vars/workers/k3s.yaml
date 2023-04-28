@@ -10,7 +10,7 @@ k3s_agent:
     - "feature-gates=MixedProtocolLBService=true"
 
     # Enable Alpha/Beta features
-    - "feature-gates=EphemeralContainers=true,ReadWriteOncePod=true"
+    - "feature-gates=ReadWriteOncePod=true"
 
     # Enables the kubelet to gracefully evict pods during a node shutdown
     - "feature-gates=GracefulNodeShutdown=true"
