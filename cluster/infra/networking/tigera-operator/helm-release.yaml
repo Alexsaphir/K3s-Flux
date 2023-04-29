@@ -48,13 +48,15 @@ spec:
         # Note: The ipPools section cannot be modified post-install.
         # ALl blocks must fall within the NETWORK_K8S_CLUSTER_CIDR
         bgp: Disabled
+        #        linuxDataplane: BPF
         ipPools:
           - blockSize: 26
             cidr: ${NETWORK_K8S_CLUSTER_CIDR}
             encapsulation: VXLANCrossSubnet
             natOutgoing: Enabled
             nodeSelector: all()
-      #        containerIPForwarding: Enabled
+        multiInterfaceMode: None
+        containerIPForwarding: "Enabled"
       nodeMetricsPort: 9091
       typhaMetricsPort: 9093
 
