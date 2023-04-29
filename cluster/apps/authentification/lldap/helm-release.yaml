@@ -57,6 +57,10 @@ spec:
 
     service:
       main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/address-pool: metallb-pool
         ports:
           http:
             port: *http-port
