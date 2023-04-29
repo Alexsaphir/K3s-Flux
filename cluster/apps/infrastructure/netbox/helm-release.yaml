@@ -45,9 +45,22 @@ spec:
       name: netbox-s3-secret
       valuesKey: AWS_REGION_NAME
 
+    - targetPath: externalDatabase.host
+      kind: Secret
+      name: database-netbox
+      valuesKey: HOST
+    - targetPath: externalDatabase.database
+      kind: Secret
+      name: database-netbox
+      valuesKey: DATABASE_NAME
+    - targetPath: externalDatabase.username
+      kind: Secret
+      name: database-netbox
+      valuesKey: LOGIN
 
   # https://github.com/bootc/netbox-chart/blob/develop/values.yaml
   values:
+
     replicaCount: 1
 
     image:
@@ -94,12 +107,9 @@ spec:
     postgresql:
       enabled: false
     externalDatabase:
-      host: netbox-postgres-rw.default.svc.cluster.local
       port: 5432
-      database: app
-      username: app
-      existingSecretName: netbox-postgres-app
-      existingSecretKey: password
+      existingSecretName: database-netbox
+      existingSecretKey: PASSWORD
 
     redis:
       enabled: true

@@ -1,14 +1,20 @@
 ---
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
 metadata:
-  name: netbox-postgres
+  name: &app netbox
   namespace: default
-  annotations:
-    kyverno.io/ignore: "true"
-
 spec:
-  instances: 1
-  storage:
-    size: 5Gi
-    storageClass: longhorn
+  database: *app # db name in postgres cluster
+
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: &app netbox
+  namespace: default
+spec:
+  role: *app
+  database: *app # references the CR
+  secretName: database
+  privileges: OWNER
