@@ -35,7 +35,7 @@ spec:
 
     image:
       repository: kanidm/server
-      tag: latest@sha256:c10a2938d3a8c15169a3ed2f6d08d25430d22cef3d5749d57ab3a9052d60354c
+      tag: latest@sha256:ba21193842ff43fefb71d3e3678d7825ced733fe98d7dd900925cbf03d2327ca
 
     env:
       TZ: "${CONFIG_TIMEZONE}"
