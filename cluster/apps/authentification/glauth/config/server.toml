@@ -1,0 +1,33 @@
+debug = true
+
+# Enable hot-reload of configuration on changes
+watchconfig = true
+
+#################
+# yubikeyclientid = "yubi-api-clientid"
+# yubikeysecret = "yubi-api-secret"
+
+#################
+# Server configuration.
+
+[ldap]
+enabled = true
+listen = "0.0.0.0:3893"
+
+[ldaps]
+enabled = false
+listen = "0.0.0.0:389"
+
+[backend]
+datastore = "plugin"
+plugin = "/app/postgres.so"
+pluginhandler = "NewPostgresHandler"
+database = ""
+
+baseDN = "dc=glauth,dc=com"
+nameformat = "uid"
+groupformat = "cn"
+sshkeyattr = "ipaSshPubKey"
+
+[api]
+enabled = false

@@ -1,0 +1,95 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app glauth
+  namespace: traefik-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+
+    image:
+      repository: "glauth/glauth-plugins"
+      tag: "v2.2.0-RC1"
+
+    podAnnotations:
+      secret.reloader.stakater.com/reload: glauth-config
+
+    command: [ "/app/glauth", "-c", "/config" ]
+
+    env:
+      TZ: "${CONFIG_TIMEZONE}"
+      PGHOST:
+        valueFrom:
+          secretKeyRef:
+            name: database-glauth
+            key: HOST
+      PGDATABASE:
+        valueFrom:
+          secretKeyRef:
+            name: database-glauth
+            key: DATABASE_NAME
+      PGUSER:
+        valueFrom:
+          secretKeyRef:
+            name: database-glauth
+            key: LOGIN
+      PGPASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: database-glauth
+            key: PASSWORD
+
+    service:
+      main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/address-pool: metallb-pool
+        ports:
+          http:
+            enabled: false
+          ldap:
+            enabled: true
+            port: 389
+
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: glauth-config
+        items:
+          - key: server.toml
+            path: server.toml
+
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
