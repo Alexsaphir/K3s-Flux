@@ -1,8 +1,15 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: flux-ci
 resources:
-  - config
-  - secrets
+  - secret.sops.yaml
   - helm-release.yaml
-  - ingress.yaml
+configMapGenerator:
+  - name: renovate-config
+    files:
+      - config=config/config.js
+      - RENOVATE_ONBOARDING_CONFIG=config/onboardingConfig.js
+
+generatorOptions:
+  disableNameSuffixHash: true

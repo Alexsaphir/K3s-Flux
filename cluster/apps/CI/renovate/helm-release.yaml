@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: whitesource-renovate
-      version: 3.1.3
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: renovate-on-prem
+        name: bjw-s
         namespace: flux-charts
       interval: 15m
 
@@ -27,100 +27,66 @@ spec:
   uninstall:
     keepHistory: false
 
-  # https://github.com/mend/renovate-on-prem/blob/main/helm-charts/whitesource-renovate/values.yaml
   values:
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
+
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
       repository: whitesource/renovate
       tag: '4.1.0'
 
-    fullnameOverride: 'whitesource-renovate'
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
 
-    renovate:
-      acceptWhiteSourceTos: 'y'
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
 
-      renovatePlatform: 'gitlab'
-      renovateEndpoint: 'https://${SECRET_GITLAB_DOMAIN}/api/v4/'
+    env:
+      TZ: "${CONFIG_TIMEZONE}"
 
-      schedulerCron: '0/60 * * * *'
+      ACCEPT_WHITESOURCE_TOS: 'y'
+      RENOVATE_PLATFORM: 'gitlab'
+      SCHEDULER_CRON: '0/5 * * * *'
 
-      #      extraEnvVars:
-      #        - name: RENOVATE_GIT_PRIVATE_KEY
-      #          value: "${SECRET_RENOVATE_GIT_PRIVATE_KEY}"
+      RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
+      RENOVATE_ALLOW_PLUGINS: 'false'
 
-      # valueFrom: {{ include "whitesource-renovate.secret-name" . }}
-      # key: gitPrivateKey
+      RENOVATE_AUTODISCOVER: 'true'
+      RENOVATE_ONBOARDING: 'true'
 
-      extraEnvVars:
-        - name: DOCKER_HUB_USER
-          valueFrom:
-            secretKeyRef:
-              name: renovate-dockerhub-credentials
-              key: username
-        - name: DOCKER_HUB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: renovate-dockerhub-credentials
-              key: password
+    envFrom:
+      - configMapRef:
+          name: renovate-config
+      - secretRef:
+          name: renovate-secret
 
-        - name: RENOVATE_ONBOARDING_CONFIG
-          valueFrom:
-            configMapKeyRef:
-              name: renovate-onboarding-config
-              key: onboardingConfig
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
 
-      config: |
-        module.exports = {
-          // Enter self-hosted configuration options here.
-          // https://docs.renovatebot.com/self-hosted-configuration/
-          onboardingConfig: {
-            extends: ['config:base',":gitSignOff", ":rebaseStalePrs",":enablePreCommit"],
-          },
-          gitPrivateKey: '${SECRET_RENOVATE_GIT_PRIVATE_KEY}',
-          gitAuthor: '${SECRET_RENOVATE_GIT_AUTHOR}',
-
-          hostRules: [
-            {
-              hostType: 'docker',
-              "matchHost": "docker.io",
-              username: process.env.DOCKER_HUB_USER,
-              password: process.env.DOCKER_HUB_PASSWORD,
-            },
-          ],
-
-          autodiscover: true,
-          requireConfig: 'required',
-          onboarding: true,
-          onboardingNoDeps: true,
-          onboardingConfigFileName: '.gitlab/renovate.json5',
-
-          binarySource: 'install',
-
-          persistRepoData: true,
-          baseDir: '/tmp/renovate'
-        }
-
-      logLevel: info
-
-      cachePersistence:
+    ingress:
+      main:
         enabled: true
-        storageClass: "longhorn"
-        accessModes:
-          - ReadWriteOnce
+        ingressClassName: traefik
+        hosts:
+          - host: renovate.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                pathType: Prefix
+
+    persistence:
+      cache-persistence:
+        type: pvc
+        enabled: true
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
         size: 1Gi
-
-      existingSecret: whitesource-renovate
-
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - patch:
-              - op: add
-                path: /spec/template/metadata/annotations
-                value:
-                  configmap.reloader.stakater.com/reload: "renovate-config-js,renovate-onboarding-config"
-                  secret.reloader.stakater.com/reload: "renovate-dockerhub-credentials,whitesource-renovate"
-            target:
-              kind: Deployment
-              name: whitesource-renovate
-              namespace: flux-ci
+        mountPath: '/tmp/renovate'
