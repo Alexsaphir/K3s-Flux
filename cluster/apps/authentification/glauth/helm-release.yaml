@@ -37,7 +37,7 @@ spec:
       tag: "v2.2.0-RC1"
 
     podAnnotations:
-      secret.reloader.stakater.com/reload: glauth-config
+      configmap.reloader.stakater.com/reload: glauth-config
 
     command: [ "/app/glauth", "-c", "/config" ]
 
