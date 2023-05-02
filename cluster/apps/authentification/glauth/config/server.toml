@@ -12,11 +12,11 @@ watchconfig = true
 
 [ldap]
 enabled = true
-listen = "0.0.0.0:3893"
+listen = "0.0.0.0:389"
 
 [ldaps]
 enabled = false
-listen = "0.0.0.0:389"
+listen = "0.0.0.0:3893"
 
 [backend]
 datastore = "plugin"
@@ -32,3 +32,11 @@ sshkeyattr = "ipaSshPubKey"
 [api]
 enabled = true
 listen = "0.0.0.0:5555"
+
+[behaviors]
+LimitFailedBinds = true
+NumberOfFailedBinds = 3
+PeriodOfFailedBinds = 10
+BlockFailedBindsFor = 60
+PruneSourceTableEvery = 600
+PruneSourcesOlderThan = 600
