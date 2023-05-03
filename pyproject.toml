@@ -15,7 +15,6 @@ ansible-core = "^2.14.5"
 ansible = "^7.5.0"
 ansible-inventory-grapher = "^2.5.0"
 
-ansible-lint = { version = "^6.15.0", markers = 'platform_system != "Windows"' }
 prettier = "^0.0.7"
 yamllint = "^1.31.0"
 
