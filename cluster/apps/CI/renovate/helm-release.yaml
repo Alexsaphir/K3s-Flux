@@ -42,11 +42,6 @@ spec:
     podAnnotations:
       reloader.stakater.com/auto: "true"
 
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-
     env:
       TZ: "${CONFIG_TIMEZONE}"
 
@@ -84,9 +79,7 @@ spec:
 
     persistence:
       cache-persistence:
-        type: pvc
         enabled: true
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 1Gi
+        type: emptyDir
+        sizeLimit: 4Gi
         mountPath: '/tmp/renovate'
