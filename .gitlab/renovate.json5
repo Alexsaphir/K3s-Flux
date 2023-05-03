@@ -8,9 +8,7 @@
     ':enablePreCommit',
     ':semanticCommits',
     ':enableVulnerabilityAlerts',
-
     'github>whitesource/merge-confidence:beta',
-
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/semanticCommits.json5',
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/groups.json5',
@@ -21,17 +19,22 @@
   configMigration: true,
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard',
+  gitLabIgnoreApprovals: true,
   suppressNotifications: [
     'prIgnoreNotification'
   ],
   rebaseWhen: 'behind-base-branch',
-
   lockFileMaintenance: {
     enabled: false
   },
   poetry: {
     enabled: true,
+    automerge: true,
     rangeStrategy: "bump"
+  },
+  'pre-commit': {
+    enabled: true,
+    automerge: true
   },
   flux: {
     fileMatch: [
