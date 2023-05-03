@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - postgres.yaml
   - authelia
-  - lldap
   - glauth
