@@ -17,7 +17,7 @@ ansible-inventory-grapher = "^2.5.0"
 
 ansible-lint = { version = "^6.14.3", markers = 'platform_system != "Windows"' }
 prettier = "^0.0.7"
-yamllint = "^1.30.0"
+yamllint = "^1.31.0"
 
 [build-system]
 requires = ["poetry-core"]
