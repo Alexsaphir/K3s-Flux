@@ -52,7 +52,7 @@ spec:
 
       ACCEPT_WHITESOURCE_TOS: 'y'
       RENOVATE_PLATFORM: 'gitlab'
-      SCHEDULER_CRON: '0/5 * * * *'
+      SCHEDULER_CRON: '0 * * * *'
 
       RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
       RENOVATE_ALLOW_PLUGINS: 'false'
