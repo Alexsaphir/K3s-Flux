@@ -62,16 +62,10 @@ kubeconform:
 
 'publish-oci':
   stage: deploy
-  image: ubuntu
+  extends:
+    - .arkade
   only:
     - tags
-  dependencies:
-    - 'create-oci'
-  before_script:
-    - apt update && apt install -qy curl
-    - curl -sLS https://get.arkade.dev | sh
-    - arkade get flux
-    - export PATH=$PATH:$HOME/.arkade/bin/
   script:
     - |
       flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
@@ -87,18 +81,17 @@ kubeconform:
     entrypoint: [ "" ]
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  dependencies:
-    - 'create-oci'
   script:
     - |
-      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
+      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/crdSchemas/Dockerfile
       FROM ghcr.io/nginxinc/nginx-unprivileged:latest
       COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
       USER nginx
       EOF
+    - cat $CI_PROJECT_DIR/crdSchemas/crdSchemas/Dockerfile
     - /kaniko/executor
-      --context $CI_PROJECT_DIR/crdSchemas
-      --dockerfile $CI_PROJECT_DIR/crdSchemas/Dockerfile
+      --context $CI_PROJECT_DIR/crdSchemas/crdSchemas
+      --dockerfile $CI_PROJECT_DIR/crdSchemas/crdSchemas/Dockerfile
       --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:latest
 
 pages:
