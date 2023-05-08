@@ -10,14 +10,15 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
+default:
+  interruptible: true
+
 stages:
-  - publish
-  - publish-web
+  - oci
   - deploy
 
-
-'publish-oci':
-  stage: publish
+'create-oci':
+  stage: oci
   image: ubuntu
   before_script:
     - apt update && apt install -qy curl wget unzip python3 python3-yaml
@@ -28,7 +29,6 @@ stages:
     - wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
     - unzip crd-extractor.zip
     - export HOME=$CI_PROJECT_DIR
-    - echo $CI_PROJECT_DIR
   script:
     - mkdir -p $CI_PROJECT_DIR/crdSchemas
     - bash crd-extractor.sh
@@ -43,13 +43,33 @@ stages:
     paths:
       - crdSchemas/
 
+'publish-oci':
+  stage: deploy
+  image: ubuntu
+  only:
+    - tags
+  dependencies:
+    - 'create-oci'
+  before_script:
+    - apt update && apt install -qy curl
+    - curl -sLS https://get.arkade.dev | sh
+    - arkade get flux
+    - export PATH=$PATH:$HOME/.arkade/bin/
+  script:
+    - |
+      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
+      --path=$CI_PROJECT_DIR/crdSchemas \
+      --source=${CI_REPOSITORY_URL} \
+      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
+      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
+
 'publish-oci-web':
   stage: deploy
   image:
     name: gcr.io/kaniko-project/executor:v1.9.0-debug
     entrypoint: [ "" ]
   dependencies:
-    - 'publish-oci'
+    - 'create-oci'
   script:
     - |
       cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
