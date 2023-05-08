@@ -15,21 +15,27 @@ default:
 
 stages:
   - oci
+  - quality
   - deploy
+
+.arkade:
+  image: ubuntu
+  before_script:
+    - apt update && apt install -qy curl python3 python3-yaml
+    - curl -sLS https://get.arkade.dev | sh
+    - arkade get flux
+    - arkade get kubectl
+    - export PATH=$PATH:$HOME/.arkade/bin/
 
 'create-oci':
   stage: oci
-  image: ubuntu
-  before_script:
-    - apt update && apt install -qy curl wget unzip python3 python3-yaml
-    - curl -sLS https://get.arkade.dev | sh
-    - arkade get kubectl
-    - arkade get flux
-    - export PATH=$PATH:$HOME/.arkade/bin/
+  extends:
+    - .arkade
+  script:
+    - apt install -qy wget unzip
     - wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
     - unzip crd-extractor.zip
     - export HOME=$CI_PROJECT_DIR
-  script:
     - mkdir -p $CI_PROJECT_DIR/crdSchemas
     - bash crd-extractor.sh
     - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/crdSchemas
@@ -42,6 +48,18 @@ stages:
   artifacts:
     paths:
       - crdSchemas/
+
+kubeconform:
+  stage: quality
+  extends:
+    - .arkade
+  script:
+    - arkade get kubeconform kustomize
+    - |
+      bash ./.gitlab/scripts/kubeconform.sh \
+      ${CI_PROJECT_DIR}/cluster \
+      ${CI_PROJECT_DIR}/crdSchemas \
+      1.27
 
 'publish-oci':
   stage: deploy
