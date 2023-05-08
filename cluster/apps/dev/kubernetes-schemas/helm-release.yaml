@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bjw-s
-        namespace: flux-system
+        namespace: flux-charts
 
   maxHistory: 3
   install:
