@@ -54,12 +54,11 @@ kubeconform:
   extends:
     - .arkade
   script:
-    - arkade get kubeconform kustomize
-    - |
-      bash ./.gitlab/scripts/kubeconform.sh \
-      ${CI_PROJECT_DIR}/cluster \
-      ${CI_PROJECT_DIR}/crdSchemas \
-      1.27
+    - arkade get kubeconform kustomize flux
+    -
+      bash ./.gitlab/scripts/kubeconform.sh
+      cluster/
+      crdSchemas/
 
 'publish-oci':
   stage: deploy
@@ -91,7 +90,7 @@ kubeconform:
   script:
     - |
       cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
-      FROM docker.io/nginxinc/nginx-unprivileged:latest
+      FROM ghcr.io/nginxinc/nginx-unprivileged:latest
       COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
       USER nginx
       EOF

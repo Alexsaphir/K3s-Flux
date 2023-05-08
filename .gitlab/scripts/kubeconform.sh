@@ -22,6 +22,7 @@ kubeconform_args=(
   "-schema-location"
   "${SCHEMA_DIR}/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json"
   "-verbose"
+  "-summary"
 )
 
 echo "=== Validating standalone manifests in ${KUBERNETES_DIR}/flux ==="
