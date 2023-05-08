@@ -11,7 +11,56 @@ workflow:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 stages:
+  - publish
+  - publish-web
   - deploy
+
+
+'publish-oci':
+  stage: publish
+  image: ubuntu
+  before_script:
+    - apt update && apt install -qy curl wget unzip python3 python3-yaml
+    - curl -sLS https://get.arkade.dev | sh
+    - arkade get kubectl
+    - arkade get flux
+    - export PATH=$PATH:$HOME/.arkade/bin/
+    - wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
+    - unzip crd-extractor.zip
+    - export HOME=$CI_PROJECT_DIR
+    - echo $CI_PROJECT_DIR
+  script:
+    - mkdir -p $CI_PROJECT_DIR/crdSchemas
+    - bash crd-extractor.sh
+    - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/crdSchemas
+    - |
+      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
+      --path=$CI_PROJECT_DIR/crdSchemas \
+      --source=${CI_REPOSITORY_URL} \
+      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
+      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
+  artifacts:
+    paths:
+      - crdSchemas/
+
+'publish-oci-web':
+  stage: deploy
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [ "" ]
+  dependencies:
+    - 'publish-oci'
+  script:
+    - |
+      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
+      FROM docker.io/nginxinc/nginx-unprivileged:latest
+      COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
+      USER nginx
+      EOF
+    - /kaniko/executor
+      --context $CI_PROJECT_DIR/crdSchemas
+      --dockerfile $CI_PROJECT_DIR/crdSchemas/Dockerfile
+      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:latest
 
 pages:
   stage: deploy
