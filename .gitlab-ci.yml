@@ -85,6 +85,8 @@ kubeconform:
   image:
     name: gcr.io/kaniko-project/executor:v1.9.0-debug
     entrypoint: [ "" ]
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   dependencies:
     - 'create-oci'
   script:
