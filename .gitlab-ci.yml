@@ -20,8 +20,13 @@ stages:
 
 .arkade:
   image: ubuntu
+  cache:
+    paths:
+      - .apt
   before_script:
-    - apt update && apt install -qy curl python3 python3-yaml
+    - rm -f /etc/apt/apt.conf.d/docker-clean
+    - mkdir .apt && mkdir /var/cache/apt/archives && mount --bind .apt /var/cache/apt/archives/
+    - apt update && apt install -qy curl python3 python3-yaml wget unzip tree
     - curl -sLS https://get.arkade.dev | sh
     - arkade get flux
     - arkade get kubectl
@@ -32,19 +37,20 @@ stages:
   extends:
     - .arkade
   script:
-    - apt install -qy wget unzip
-    - wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
-    - unzip crd-extractor.zip
+    - kubectl get nodes
+    - |
+      wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
+      unzip crd-extractor.zip
     - export HOME=$CI_PROJECT_DIR
-    - mkdir -p $CI_PROJECT_DIR/crdSchemas
     - bash crd-extractor.sh
-    - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/crdSchemas
+    - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/
     - |
       flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
       --path=$CI_PROJECT_DIR/crdSchemas \
       --source=${CI_REPOSITORY_URL} \
       --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
       --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
+    - tree
   artifacts:
     paths:
       - crdSchemas/
@@ -55,10 +61,9 @@ kubeconform:
     - .arkade
   script:
     - arkade get kubeconform kustomize flux
-    -
-      bash ./.gitlab/scripts/kubeconform.sh
-      cluster/
-      crdSchemas/
+    - bash ./.gitlab/scripts/kubeconform.sh
+      cluster
+      crdSchemas
 
 'publish-oci':
   stage: deploy
@@ -83,16 +88,17 @@ kubeconform:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   script:
     - |
-      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/crdSchemas/Dockerfile
+      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
       FROM ghcr.io/nginxinc/nginx-unprivileged:latest
       COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
       USER nginx
       EOF
-    - cat $CI_PROJECT_DIR/crdSchemas/crdSchemas/Dockerfile
+    - cat $CI_PROJECT_DIR/crdSchemas/Dockerfile
     - /kaniko/executor
-      --context $CI_PROJECT_DIR/crdSchemas/crdSchemas
-      --dockerfile $CI_PROJECT_DIR/crdSchemas/crdSchemas/Dockerfile
+      --context $CI_PROJECT_DIR/crdSchemas
+      --dockerfile $CI_PROJECT_DIR/crdSchemas/Dockerfile
       --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:latest
+#      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:${CI_COMMIT_SHA}
 
 pages:
   stage: deploy
