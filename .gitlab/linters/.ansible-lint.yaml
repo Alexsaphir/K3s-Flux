@@ -3,6 +3,7 @@ exclude_paths:
   - ../../.ansible
   - ../../.taskfiles/
   - ../../cluster/
+  - ../../cluster-wip/
   - ../../Taskfile.yaml
 
 enable_list:
