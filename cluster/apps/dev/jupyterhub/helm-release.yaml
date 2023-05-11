@@ -1,0 +1,138 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jupyterhub
+  namespace: jupyterhub
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: jupyterhub
+      version: 2.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: jupyterhub
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  valuesFrom:
+    - kind: Secret
+      name: jupyterhub-secret
+      targetPath: hub.cookieSecret
+      valuesKey: cookie
+    - kind: Secret
+      name: database-jupyterhub
+      targetPath: hub.db.url
+      valuesKey: POSTGRES_URL
+
+  values:
+    hub:
+      # existingSecret:
+      activeServerLimit: 6
+      allowNamedServers: true
+      concurrentSpawnLimit: 10
+
+      db:
+        type: postgres
+        upgrade: true
+
+      config:
+        JupyterHub:
+          admin_access: false
+          authenticator_class: ldapauthenticator.LDAPAuthenticator
+
+        Authenticator:
+          admin_users:
+            - admin
+            - Saphir
+          delete_invalid_users: true
+          refresh_pre_spawn: true
+          enable_auth_state: false
+          auto_login: false
+
+        LDAPAuthenticator:
+          server_hosts:
+            - 'ldap://freeipa.ldapnet:389'
+          server_use_ssl: false
+          bind_user_dn: 'uid=admin,cn=users,cn=accounts,dc=alexsaphir,dc=com'
+          bind_user_password: os.environ['LDAP_ADMIN_PASSWORD']
+          user_search_base: 'cn=users,cn=accounts,dc=alexsaphir,dc=com'
+          user_search_filter: '(&(objectClass=person)(uid={username}))'
+          user_membership_attribute: 'memberOf'
+          group_search_base: 'cn=groups,cn=accounts,dc=alexsaphir,dc=com'
+          group_search_filter: '(&(objectClass=ipausergroup)(memberOf={group}))'
+          allowed_groups:
+            - 'cn=jupyterhub,cn=groups,cn=accounts,dc=alexsaphir,dc=com'
+          allow_nested_groups: true
+          username_pattern: '[a-zA-Z0-9_.][a-zA-Z0-9_.-]{0,252}[a-zA-Z0-9_.$-]?'
+
+      nodeSelector:
+        kubernetes.io/arch: amd64
+
+    singleuser:
+      cpu:
+        limit: 4
+        guarantee: 0.05
+      memory:
+        limit: 8G
+        guarantee: 512M
+
+      defaultUrl: "/lab"
+
+      image:
+        name: jupyter/scipy-notebook
+        tag: 82ce73789ba4
+
+      profileList:
+        - display_name: "Minimal environment"
+          description: "To avoid too much bells and whistles: Python."
+          kubespawner_override:
+            image: jupyter/minimal-notebook:82ce73789ba4
+
+        - display_name: "Datascience environment"
+          description: "If you want the additional bells and whistles: Python, R, and Julia."
+          default: true
+
+        - display_name: "Spark environment"
+          description: "The Jupyter Stacks spark image!"
+          kubespawner_override:
+            image: jupyter/all-spark-notebook:2343e33dec46
+
+      #        - display_name: "Haskell environment"
+      #          description: "The Jupyter Stacks ihaskell"
+      #          kubespawner_override:
+      #            image: ghcr.io/jamesdbrock/ihaskell-notebook:master
+      #
+      #        - display_name: "Learning Data Science"
+      #          description: "Datascience Environment with Sample Notebooks"
+      #          kubespawner_override:
+      #            image: jupyter/datascience-notebook:2343e33dec46
+
+      extraEnv:
+        EDITOR: "nano"
+        JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+
+      storage:
+        capacity: 15Gi
+        dynamic:
+          storageClass: longhorn
+
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        hajimari.io/icon: simple-icons:jupyter
+      hosts:
+        - &host "jupyter.${SECRET_DOMAIN_NAME}"

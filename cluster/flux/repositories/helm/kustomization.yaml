@@ -25,6 +25,7 @@ resources:
   - influxdata.yaml
   - intel.yaml
   - jetstack.yaml
+  - jupyterhub.yaml
   - kubereboot.yaml
   - kube-vip.yaml
   - kyverno-reporter.yaml
