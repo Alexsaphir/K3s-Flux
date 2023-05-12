@@ -47,8 +47,8 @@ spec:
       concurrentAutomaticEngineUpgradePerNodeLimit: 2
       storageOverProvisioningPercentage: 100
       storageMinimalAvailablePercentage: 10
-      guaranteedEngineManagerCPU: 20
-      guaranteedReplicaManagerCPU: 20
+      guaranteedEngineManagerCPU: 5
+      guaranteedReplicaManagerCPU: 5
 
       defaultLonghornStaticStorageClass: longhorn
       defaultDataPath: /var/lib/longhorn
