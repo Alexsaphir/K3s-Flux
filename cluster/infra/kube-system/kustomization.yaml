@@ -7,6 +7,7 @@ resources:
   - external-secrets
   - intel-device-operator
   - k8s-gateway
+  - metrics-server
   - node-feature-discovery
   - node-problem-detector
   - reloader

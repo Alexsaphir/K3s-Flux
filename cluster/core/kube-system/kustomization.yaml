@@ -6,4 +6,3 @@ resources:
   - intel-gpu-plugin
   - intel-gpu-exporter
   - kured
-  - metrics-server
