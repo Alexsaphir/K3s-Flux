@@ -51,7 +51,8 @@ spec:
       config:
         JupyterHub:
           admin_access: false
-          authenticator_class: ldapauthenticator.LDAPAuthenticator
+          # authenticator_class: ldapauthenticator.LDAPAuthenticator
+          authenticator_class: dummy
 
         Authenticator:
           admin_users:
@@ -59,24 +60,26 @@ spec:
             - Saphir
           delete_invalid_users: true
           refresh_pre_spawn: true
-          enable_auth_state: false
+          enable_auth_state: true
           auto_login: false
 
-        LDAPAuthenticator:
-          server_hosts:
-            - 'ldap://freeipa.ldapnet:389'
-          server_use_ssl: false
-          bind_user_dn: 'uid=admin,cn=users,cn=accounts,dc=alexsaphir,dc=com'
-          bind_user_password: os.environ['LDAP_ADMIN_PASSWORD']
-          user_search_base: 'cn=users,cn=accounts,dc=alexsaphir,dc=com'
-          user_search_filter: '(&(objectClass=person)(uid={username}))'
-          user_membership_attribute: 'memberOf'
-          group_search_base: 'cn=groups,cn=accounts,dc=alexsaphir,dc=com'
-          group_search_filter: '(&(objectClass=ipausergroup)(memberOf={group}))'
-          allowed_groups:
-            - 'cn=jupyterhub,cn=groups,cn=accounts,dc=alexsaphir,dc=com'
-          allow_nested_groups: true
-          username_pattern: '[a-zA-Z0-9_.][a-zA-Z0-9_.-]{0,252}[a-zA-Z0-9_.$-]?'
+        DummyAuthenticator:
+          password: a-shared-secret-password
+      #        LDAPAuthenticator:
+      #          server_hosts:
+      #            - 'ldap://freeipa.ldapnet:389'
+      #          server_use_ssl: false
+      #          bind_user_dn: 'uid=admin,cn=users,cn=accounts,dc=alexsaphir,dc=com'
+      #          bind_user_password: os.environ['LDAP_ADMIN_PASSWORD']
+      #          user_search_base: 'cn=users,cn=accounts,dc=alexsaphir,dc=com'
+      #          user_search_filter: '(&(objectClass=person)(uid={username}))'
+      #          user_membership_attribute: 'memberOf'
+      #          group_search_base: 'cn=groups,cn=accounts,dc=alexsaphir,dc=com'
+      #          group_search_filter: '(&(objectClass=ipausergroup)(memberOf={group}))'
+      #          allowed_groups:
+      #            - 'cn=jupyterhub,cn=groups,cn=accounts,dc=alexsaphir,dc=com'
+      #          allow_nested_groups: true
+      #          username_pattern: '[a-zA-Z0-9_.][a-zA-Z0-9_.-]{0,252}[a-zA-Z0-9_.$-]?'
 
       nodeSelector:
         kubernetes.io/arch: amd64
