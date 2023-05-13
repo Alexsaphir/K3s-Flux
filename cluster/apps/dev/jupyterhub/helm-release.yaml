@@ -137,3 +137,4 @@ spec:
         hajimari.io/icon: simple-icons:jupyter
       hosts:
         - &host "jupyter.${SECRET_DOMAIN_NAME}"
+        - "*.jupyter.${SECRET_DOMAIN_NAME}"

@@ -49,6 +49,7 @@ spec:
             - "*.${SECRET_DOMAIN_NAME}"
             - "*.s3.${SECRET_DOMAIN_NAME}"
             - "*.monitoring.${SECRET_DOMAIN_NAME}"
+            - "*.jupyter.${SECRET_DOMAIN_NAME}"
 
       - apiVersion: traefik.containo.us/v1alpha1
         kind: TLSStore
