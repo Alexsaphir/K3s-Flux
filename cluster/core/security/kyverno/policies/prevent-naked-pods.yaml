@@ -27,6 +27,7 @@ spec:
           - resources:
               namespaces:
                 - longhorn-system
+                - jupyterhub
       match:
         any:
           - resources:
