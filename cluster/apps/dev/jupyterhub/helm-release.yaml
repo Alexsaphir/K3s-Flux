@@ -125,6 +125,7 @@ spec:
         capacity: 15Gi
         dynamic:
           storageClass: longhorn
+          storageAccessModes: [ ReadWriteMany ]
 
     scheduling:
       userScheduler:
