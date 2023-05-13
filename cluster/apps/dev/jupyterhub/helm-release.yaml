@@ -53,6 +53,7 @@ spec:
           admin_access: false
           # authenticator_class: ldapauthenticator.LDAPAuthenticator
           authenticator_class: dummy
+          subdomain_host: https://jupyter.${SECRET_DOMAIN_NAME}
 
         Authenticator:
           admin_users:
