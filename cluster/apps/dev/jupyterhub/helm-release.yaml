@@ -125,6 +125,10 @@ spec:
         dynamic:
           storageClass: longhorn
 
+    scheduling:
+      userScheduler:
+        enabled: false
+
     ingress:
       enabled: true
       ingressClassName: traefik
