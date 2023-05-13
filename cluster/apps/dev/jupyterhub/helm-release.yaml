@@ -85,13 +85,6 @@ spec:
         kubernetes.io/arch: amd64
 
     singleuser:
-      cpu:
-        limit: 4
-        guarantee: 0.05
-      memory:
-        limit: 8G
-        guarantee: 512M
-
       defaultUrl: "/lab"
 
       image:
