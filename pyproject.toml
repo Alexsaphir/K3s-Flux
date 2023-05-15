@@ -11,7 +11,7 @@ packages = []
 python = ">3.9, <3.12"
 pre-commit = "^3.3.1"
 
-ansible-core = "^2.14.5"
+ansible-core = "^2.15.0"
 ansible = "^7.5.0"
 ansible-inventory-grapher = "^2.5.0"
 
