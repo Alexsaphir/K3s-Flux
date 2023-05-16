@@ -53,7 +53,7 @@ spec:
           admin_access: false
           # authenticator_class: ldapauthenticator.LDAPAuthenticator
           authenticator_class: dummy
-          subdomain_host: https://jupyter.${SECRET_DOMAIN_NAME}
+          # subdomain_host: https://jupyter.${SECRET_DOMAIN_NAME}
 
         Authenticator:
           admin_users:
@@ -93,6 +93,12 @@ spec:
         tag: 82ce73789ba4
 
       profileList:
+        - display_name: "Bloody env"
+          description: "Homelab."
+          default: true
+          kubespawner_override:
+            image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook@sha256:c5117458dbae7d0619fbefca421da41b87a4a5bda640c57b03ca3c060dffcbe8
+
         - display_name: "Minimal environment"
           description: "To avoid too much bells and whistles: Python."
           kubespawner_override:
@@ -100,32 +106,39 @@ spec:
 
         - display_name: "Datascience environment"
           description: "If you want the additional bells and whistles: Python, R, and Julia."
-          default: true
 
         - display_name: "Spark environment"
           description: "The Jupyter Stacks spark image!"
           kubespawner_override:
             image: jupyter/all-spark-notebook:2343e33dec46
 
-      #        - display_name: "Haskell environment"
-      #          description: "The Jupyter Stacks ihaskell"
-      #          kubespawner_override:
-      #            image: ghcr.io/jamesdbrock/ihaskell-notebook:master
-      #
-      #        - display_name: "Learning Data Science"
-      #          description: "Datascience Environment with Sample Notebooks"
-      #          kubespawner_override:
-      #            image: jupyter/datascience-notebook:2343e33dec46
+            #        - display_name: "Bloody TPU"
+            #          description: "Homelab."
+            #          default: true
+            #          kubespawner_override:
+            #            image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook-tpu
+            #            extra_resource_limits:
+            #              nvidia.com/gpu: "1"
+
+        - display_name: "Haskell environment"
+          description: "The Jupyter Stacks ihaskell"
+          kubespawner_override:
+            image: ghcr.io/jamesdbrock/ihaskell-notebook:master
+
+        - display_name: "Learning Data Science"
+          description: "Datascience Environment with Sample Notebooks"
+          kubespawner_override:
+            image: jupyter/datascience-notebook:2343e33dec46
 
       extraEnv:
         EDITOR: "nano"
-        JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
+      #        JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
 
       storage:
         capacity: 15Gi
         dynamic:
           storageClass: longhorn
-          storageAccessModes: [ ReadWriteMany ]
+    #          storageAccessModes: [ ReadWriteMany ]
 
     scheduling:
       userScheduler:
