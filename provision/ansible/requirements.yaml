@@ -10,7 +10,7 @@ collections:
     version: 2.4.0
 
   - name: ansible.posix
-    version: 1.5.2
+    version: 1.5.4
 
   - name: ansible.utils
     version: 2.10.2
