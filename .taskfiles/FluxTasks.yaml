@@ -34,7 +34,6 @@ tasks:
         --gpg-passphrase=''
         --path=cluster/flux/
         --network-policy=false
-        --reconcile
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
         msg: |
