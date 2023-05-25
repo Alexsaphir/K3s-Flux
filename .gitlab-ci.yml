@@ -82,7 +82,7 @@ kubeconform:
 'publish-oci-web':
   stage: deploy
   image:
-    name: gcr.io/kaniko-project/executor:v1.9.2-debug
+    name: gcr.io/kaniko-project/executor:v1.10.0-debug
     entrypoint: [ "" ]
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
