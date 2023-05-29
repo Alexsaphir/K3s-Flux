@@ -5,7 +5,7 @@ configMapGenerator:
   - name: authelia-configmap
     namespace: traefik-system
     files:
-      - configuration.yaml
+      - configuration.yml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

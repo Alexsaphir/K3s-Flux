@@ -45,7 +45,7 @@ spec:
     envFrom:
       - secretRef:
           name: authelia-secret
-    url: ldap://freeipa
+
     start_tls: false
 
     env:
