@@ -9,11 +9,13 @@ resources:
   - bootc.yaml
   - calico.yaml
   - cloudnative-pg.yaml
+  - containeroo.yaml
   - csi-driver-nfs.yaml
   - csi-driver-secrets-store.yaml
   - datashim.yaml
   - deliveryhero.yaml
   - descheduler.yaml
+  - docker-mailserver.yaml
   - dysnix.yaml
   - external-secrets.yaml
   - emqx.yaml

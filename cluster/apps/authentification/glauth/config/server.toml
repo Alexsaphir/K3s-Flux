@@ -24,10 +24,7 @@ plugin = "/app/postgres.so"
 pluginhandler = "NewPostgresHandler"
 database = ""
 
-baseDN = "dc=glauth,dc=com"
-nameformat = "uid"
-groupformat = "cn"
-sshkeyattr = "ipaSshPubKey"
+baseDN = "dc=home,dc=arpa"
 
 [api]
 enabled = true

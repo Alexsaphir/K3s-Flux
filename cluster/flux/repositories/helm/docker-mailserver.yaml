@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: docker-mailserver
+  namespace: flux-charts
+spec:
+  interval: 1h
+  url: https://docker-mailserver.github.io/docker-mailserver-helm
+  timeout: 3m

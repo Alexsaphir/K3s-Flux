@@ -4,3 +4,12 @@ kind: Kustomization
 resources:
   - secret.sops.yaml
   - redis.yaml
+configMapGenerator:
+  - name: authelia-configmap
+    namespace: traefik-system
+    files:
+      - config/configuration.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
