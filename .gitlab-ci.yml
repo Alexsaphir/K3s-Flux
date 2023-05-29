@@ -50,7 +50,6 @@ stages:
       --source=${CI_REPOSITORY_URL} \
       --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
       --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
-    - tree
   artifacts:
     paths:
       - crdSchemas/

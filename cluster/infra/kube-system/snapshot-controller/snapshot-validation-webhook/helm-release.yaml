@@ -34,3 +34,4 @@ spec:
       namespace: flux-monitoring
 
   # https://github.com/piraeusdatastore/helm-charts/blob/main/charts/snapshot-validation-webhook/values.yaml
+  values:

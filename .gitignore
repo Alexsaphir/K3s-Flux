@@ -362,3 +362,4 @@ kubeconfig**
 .secrets
 
 cluster-wip
+.bash_completion

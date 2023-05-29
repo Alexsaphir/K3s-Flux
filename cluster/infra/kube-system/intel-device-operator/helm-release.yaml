@@ -33,3 +33,4 @@ spec:
       namespace: flux-monitoring
 
   # https://github.com/intel/helm-charts/blob/intel-device-plugins-operator-0.26.0/charts/device-plugin-operator/values.yaml
+  values:

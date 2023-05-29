@@ -31,6 +31,9 @@ tasks:
     cmds:
       - task: ansible:deploy
       - task: flux:install
+      - flux suspend ks infra
+      - flux suspend ks core
+      - flux suspend ks apps
 
   init:
     desc: Initialize workstation
