@@ -33,7 +33,8 @@ spec:
       type: deployment
       strategy: Recreate # RollingUpdate
       annotations:
-        reloader.stakater.com/auto: "true"
+        configmap.reloader.stakater.com/reload: authelia-configmap
+        secret.reloader.stakater.com/reload: authelia-secret,redis-standalone,database-authelia,glauth-search
 
     enableServiceLinks: false
 
@@ -112,7 +113,7 @@ spec:
         valueFrom:
           secretKeyRef:
             name: database-authelia
-            key: PASSORD
+            key: PASSWORD
 
     service:
       main:
@@ -152,7 +153,9 @@ spec:
                 pathType: Prefix
 
     podAnnotations:
-      reloader.stakater.com/auto: "true"
+      configmap.reloader.stakater.com/reload: authelia-configmap
+      secret.reloader.stakater.com/reload: authelia-secret,redis-standalone,database-authelia,glauth-search
+
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
