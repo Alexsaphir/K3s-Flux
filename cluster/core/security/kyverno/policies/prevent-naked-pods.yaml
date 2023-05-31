@@ -22,13 +22,14 @@ spec:
   background: true
   rules:
     - name: naked-pods
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - kube-system
+                - longhorn-system
+                - jupyterhub
       match:
-        exclude:
-          any:
-            - resources:
-                namespaces:
-                  - longhorn-system
-                  - jupyterhub
         any:
           - resources:
               kinds:
