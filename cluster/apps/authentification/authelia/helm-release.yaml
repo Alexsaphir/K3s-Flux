@@ -30,7 +30,8 @@ spec:
   values:
     controller:
       replicas: 2
-      strategy: RollingUpdate
+      type: deployment
+      strategy: Recreate # RollingUpdate
       annotations:
         reloader.stakater.com/auto: "true"
 
@@ -45,7 +46,6 @@ spec:
     envFrom:
       - secretRef:
           name: authelia-secret
-
     start_tls: false
 
     env:
@@ -75,11 +75,44 @@ spec:
       AUTHELIA_SESSION_DOMAIN: ${SECRET_DOMAIN_NAME}
       AUTHELIA_SESSION_REDIS_DATABASE_INDEX: 1
       AUTHELIA_SESSION_REDIS_HOST: redis-standalone.traefik-system.svc.cluster.local
+      AUTHELIA_SESSION_REDIS_PORT: 6379
       AUTHELIA_TELEMETRY_METRICS_ADDRESS: "tcp://0.0.0.0:8080"
       AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
       AUTHELIA_THEME: grey
       AUTHELIA_TOTP_ISSUER: authelia.com
       AUTHELIA_WEBAUTHN_DISABLE: "true"
+
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: glauth-search
+            key: password
+      AUTHELIA_SESSION_REDIS_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: redis-standalone
+            key: redisSecret
+
+      AUTHELIA_STORAGE_POSTGRES_DATABASE:
+        valueFrom:
+          secretKeyRef:
+            name: database-authelia
+            key: DATABASE_NAME
+      AUTHELIA_STORAGE_POSTGRES_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: database-authelia
+            key: HOST
+      AUTHELIA_STORAGE_POSTGRES_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: database-authelia
+            key: LOGIN
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: database-authelia
+            key: PASSORD
 
     service:
       main:
