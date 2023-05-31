@@ -25,12 +25,15 @@ pluginhandler = "NewPostgresHandler"
 database = ""
 
 baseDN = "dc=home,dc=arpa"
+nameformat = "cn"
+groupformat = "ou"
 
 [api]
 enabled = true
 listen = "0.0.0.0:5555"
 
 [behaviors]
+IgnoreCapabilities = false
 LimitFailedBinds = true
 NumberOfFailedBinds = 3
 PeriodOfFailedBinds = 10
