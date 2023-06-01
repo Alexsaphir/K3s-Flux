@@ -71,7 +71,7 @@ spec:
         annotations:
           metallb.universe.tf/address-pool: metallb-pool
         ports:
-          ldap:
+          ldap-ext:
             enabled: true
             port: 389
       main:
