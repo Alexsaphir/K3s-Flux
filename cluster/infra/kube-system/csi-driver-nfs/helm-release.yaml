@@ -26,12 +26,24 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: snapshot-controller
+      namespace: kube-system
+
   # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.2.0/charts/v4.2.0/csi-driver-nfs/values.yaml
   values:
     kubeletDir: /var/lib/kubelet
 
+    driver:
+      name: nfs.csi.k8s.io
+      mountPermissions: 0
+
     feature:
+      enableFSGroupPolicy: true
       enableInlineVolume: true
 
     controller:
       replicas: 1
+
+    externalSnapshotter:
+      enabled: false
