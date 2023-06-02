@@ -15,6 +15,14 @@ spec:
   generateExistingOnPolicyUpdate: true
   rules:
     - name: remove-containers-cpu-limits
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - flux-system
+                - calico-system
+                - tigera-operator
+                - longhorn-system
       match:
         any:
           - resources:
