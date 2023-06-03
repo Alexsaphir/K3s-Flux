@@ -3,4 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - delete-cpu-limits.yaml
+  - add-ttl-jobs.yaml
 #  - prevent-naked-pods.yaml
