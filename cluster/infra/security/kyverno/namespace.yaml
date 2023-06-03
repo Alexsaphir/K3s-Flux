@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: kyverno
   labels:
-    app.kubernetes.io/component: kyverno
+    kustomize.toolkit.fluxcd.io/prune: disabled
