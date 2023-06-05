@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - secret.sops.yaml
-  - cluster-postgres.yaml
-  - helm-release.yaml
+#  - cluster-postgres.yaml
+#  - helm-release.yaml
