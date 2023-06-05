@@ -147,9 +147,8 @@ spec:
 
     ingress:
       enabled: true
-      ingressClassName: traefik
+      ingressClassName: nginx
       annotations:
         hajimari.io/icon: simple-icons:jupyter
       hosts:
         - "jupyter.${SECRET_DOMAIN_NAME}"
-        - "*.jupyter.${SECRET_DOMAIN_NAME}"
