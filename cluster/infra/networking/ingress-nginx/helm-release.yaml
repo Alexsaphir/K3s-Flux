@@ -32,7 +32,7 @@ spec:
       replicaCount: 2
 
       service:
-        externalIPs: [ "192.168.69.200" ]
+        externalIPs: [ "192.168.0.200" ]
         externalTrafficPolicy: Local
 
       ingressClassResource:
