@@ -32,7 +32,8 @@ spec:
       replicaCount: 2
 
       service:
-        externalIPs: [ "192.168.0.200" ]
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${CONFIG_METALLB_TRAEFIK_ADDR}
         externalTrafficPolicy: Local
 
       ingressClassResource:
