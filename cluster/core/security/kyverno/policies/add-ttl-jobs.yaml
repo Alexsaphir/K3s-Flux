@@ -18,6 +18,8 @@ metadata:
       is specified. This policy adds the ttlSecondsAfterFinished field to an Job that does
       not have an ownerReference set if not already specified.
 spec:
+  validationFailureAction: Enforce
+  generateExisting: true
   rules:
     - name: add-ttlSecondsAfterFinished
       match:
@@ -25,11 +27,11 @@ spec:
           - resources:
               kinds:
                 - Job
-      preconditions:
-        any:
-          - key: "{{ request.object.metadata.ownerReferences || `[]` }}"
-            operator: Equals
-            value: [ ]
+      #      preconditions:
+      #        any:
+      #          - key: "{{ request.object.metadata.ownerReferences || `[]` }}"
+      #            operator: Equals
+      #            value: [ ]
       mutate:
         patchStrategicMerge:
           spec:

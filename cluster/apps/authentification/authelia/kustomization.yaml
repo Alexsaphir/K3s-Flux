@@ -6,4 +6,3 @@ resources:
   - redis.yaml
   - config
   - helm-release.yaml
-  - policy.yaml

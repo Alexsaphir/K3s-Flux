@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - delete-cpu-limits.yaml
   - add-ttl-jobs.yaml
-#  - prevent-naked-pods.yaml
+  - ingress-auth.yaml
+  - prevent-naked-pods.yaml

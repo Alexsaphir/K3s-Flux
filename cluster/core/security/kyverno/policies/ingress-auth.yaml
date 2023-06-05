@@ -9,14 +9,17 @@ metadata:
     policies.kyverno.io/description: >-
       This policy creates auth annotations on ingresses.
 spec:
-  mutateExistingOnPolicyUpdate: true
+  validationFailureAction: Enforce
   generateExisting: true
   rules:
     - name: auth
-      exclude:
+      match:
         any:
           - resources:
               kinds: [ "Ingress" ]
+      exclude:
+        any:
+          - resources:
               annotations:
                 auth.home.arpa/disabled: "true"
 

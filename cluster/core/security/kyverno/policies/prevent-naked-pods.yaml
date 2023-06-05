@@ -18,7 +18,7 @@ metadata:
       This policy prevents such "naked" Pods from being created unless they originate
       from a higher-level workload controller of some sort.
 spec:
-  validationFailureAction: enforce
+  validationFailureAction: Enforce
   background: true
   rules:
     - name: naked-pods
