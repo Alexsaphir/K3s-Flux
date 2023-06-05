@@ -61,7 +61,7 @@ spec:
           maxSurge: 0
       ingress:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: nginx
         hosts:
           - host: "loki.${SECRET_DOMAIN_NAME}"
             paths:

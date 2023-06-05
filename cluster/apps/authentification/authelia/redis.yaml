@@ -3,7 +3,7 @@ apiVersion: redis.redis.opstreelabs.in/v1beta1
 kind: Redis
 metadata:
   name: redis-standalone
-  namespace: traefik-system
+  namespace: network-system
 spec:
   kubernetesConfig:
     image: quay.io/opstree/redis:v7.0.5

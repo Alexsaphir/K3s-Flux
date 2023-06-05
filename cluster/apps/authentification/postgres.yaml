@@ -3,7 +3,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app authelia
-  namespace: traefik-system
+  namespace: network-system
 spec:
   database: *app # db name in postgres cluster
 ---
@@ -11,7 +11,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app glauth
-  namespace: traefik-system
+  namespace: network-system
 spec:
   database: *app # db name in postgres cluster
 ---
@@ -19,7 +19,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app lldap
-  namespace: traefik-system
+  namespace: network-system
 spec:
   database: *app # db name in postgres cluster
 
@@ -28,7 +28,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app authelia
-  namespace: traefik-system
+  namespace: network-system
 spec:
   role: *app
   database: *app # references the CR
@@ -39,7 +39,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app glauth
-  namespace: traefik-system
+  namespace: network-system
 spec:
   role: *app
   database: *app # references the CR
@@ -50,7 +50,7 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app lldap
-  namespace: traefik-system
+  namespace: network-system
 spec:
   role: *app
   database: *app # references the CR

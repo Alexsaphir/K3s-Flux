@@ -65,7 +65,7 @@ spec:
 
     ingress:
       enabled: true
-      ingressClassName: traefik
+      ingressClassName: nginx
       host: longhorn.${SECRET_DOMAIN_NAME}
       annotations:
         hajimari.io/enable: "true"

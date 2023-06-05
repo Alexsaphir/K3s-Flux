@@ -136,9 +136,7 @@ spec:
       ingress:
         enabled: false
         annotations:
-          kubernetes.io/ingress.class: traefik
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "traefik-system-internal@kubernetescrd"
+          kubernetes.io/ingress.class: nginx
         hosts:
           - "alerts.monitoring.${SECRET_DOMAIN_NAME}"
         path: /
@@ -233,9 +231,7 @@ spec:
       ingress:
         enabled: false
         annotations:
-          kubernetes.io/ingress.class: traefik
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "traefik-system-internal@kubernetescrd"
+          kubernetes.io/ingress.class: nginx
         hosts:
           - "prometheus.monitoring.${SECRET_DOMAIN_NAME}"
         path: /

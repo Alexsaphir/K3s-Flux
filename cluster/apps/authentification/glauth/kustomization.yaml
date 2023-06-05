@@ -6,7 +6,7 @@ resources:
   - helm-release.yaml
 configMapGenerator:
   - name: glauth-config
-    namespace: traefik-system
+    namespace: network-system
     files:
       - server.toml=config/server.toml
 generatorOptions:

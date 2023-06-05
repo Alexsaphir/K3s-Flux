@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kanidm-configmap
-  namespace: traefik-system
+  namespace: network-system
 data:
   server.toml: |-
     bindaddress = "[::]:8443"

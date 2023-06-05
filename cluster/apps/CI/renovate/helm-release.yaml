@@ -70,7 +70,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        ingressClassName: nginx
         hosts:
           - host: renovate.${SECRET_DOMAIN_NAME}
             paths:

@@ -25,6 +25,7 @@ resources:
   - hajimari.yaml
   - hashicorp.yaml
   - influxdata.yaml
+  - ingress-nginx.yaml
   - intel.yaml
   - jetstack.yaml
   - jupyterhub.yaml

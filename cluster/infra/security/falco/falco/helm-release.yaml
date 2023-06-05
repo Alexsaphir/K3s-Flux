@@ -90,4 +90,4 @@ spec:
               paths:
                 - path: /
           annotations:
-            kubernetes.io/ingress.class: traefik
+            kubernetes.io/ingress.class: nginx

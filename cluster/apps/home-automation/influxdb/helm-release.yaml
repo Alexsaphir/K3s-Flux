@@ -40,7 +40,7 @@ spec:
 
     ingress:
       enabled: true
-      className: traefik
+      className: nginx
       hostname: influx.${SECRET_DOMAIN_NAME}
       annotations:
         hajimari.io/enable: "true"
