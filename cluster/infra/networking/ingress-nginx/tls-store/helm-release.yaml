@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nginx-tls
+  name: wildcard-tls
   namespace: network-system
 spec:
   interval: 15m
@@ -42,7 +42,8 @@ spec:
           issuerRef:
             name: ${CONFIG_CERTIFICATE_ISSUER}
             kind: ClusterIssuer
-          commonName: ${SECRET_DOMAIN_NAME}
+          # ${SECRET_DOMAIN_NAME} is not in dnsNames
+          # commonName: ${SECRET_DOMAIN_NAME}
           dnsNames:
             - "*.${SECRET_DOMAIN_NAME}"
             - "*.s3.${SECRET_DOMAIN_NAME}"

@@ -27,6 +27,7 @@ spec:
   uninstall:
     keepHistory: false
 
+  # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
   values:
     controller:
       replicaCount: 2
@@ -63,7 +64,7 @@ spec:
             any: true
 
       extraArgs:
-        default-ssl-certificate: network-system/wildcard-certificate
+        default-ssl-certificate: network-system/wildcard-tls
 
       topologySpreadConstraints:
         - maxSkew: 1
