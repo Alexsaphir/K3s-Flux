@@ -363,3 +363,6 @@ kubeconfig**
 
 cluster-wip
 .bash_completion
+
+images
+docs
