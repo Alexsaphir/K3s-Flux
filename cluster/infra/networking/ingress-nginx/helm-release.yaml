@@ -27,6 +27,15 @@ spec:
   uninstall:
     keepHistory: false
 
+
+  valuesFrom:
+    # Cloudflare Networks
+    # https://www.cloudflare.com/ips/
+    - kind: ConfigMap
+      name: cloudflare-proxied-networks
+      valuesKey: cloudflare-proxied-networks.txt
+      targetPath: controller.config.proxy-real-ip-cidr
+
   # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
   values:
     controller:
@@ -41,19 +50,30 @@ spec:
         name: nginx
         default: true
 
+      podAnnotations:
+        configmap.reloader.stakater.com/reload: 'cloudflare-proxied-networks'
+
       config:
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
+
         enable-brotli: "true"
         enable-real-ip: "true"
-        hsts-max-age: 31449600
+
         keep-alive-requests: 10000
         keep-alive: 120
+
         proxy-body-size: 0
         proxy-buffer-size: 16k
+
         ssl-protocols: TLSv1.3 TLSv1.2
         force-ssl-redirect: "true"
+        hsts-max-age: 31449600
+
+        use-forwarded-headers: 'false'
+        location-snippet: |
+          add_header X-Clacks-Overhead "GNU Terry Pratchett" always;
 
       metrics:
         enabled: true

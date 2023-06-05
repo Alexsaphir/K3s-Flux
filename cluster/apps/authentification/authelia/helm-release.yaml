@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: authelia
+  name: &app authelia
   namespace: network-system
 spec:
   interval: 15m
@@ -34,8 +34,7 @@ spec:
   values:
     controller:
       replicas: 2
-      type: deployment
-      strategy: Recreate # RollingUpdate
+      strategy: RollingUpdate
       annotations:
         configmap.reloader.stakater.com/reload: authelia-configmap
         secret.reloader.stakater.com/reload: authelia-secret,redis-standalone,database-authelia,glauth-search
@@ -149,6 +148,12 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          auth.home.arpa/disabled: "true"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            add_header Cache-Control "no-store";
+            add_header Pragma "no-cache";
+            add_header X-Frame-Options "SAMEORIGIN";
+            add_header X-XSS-Protection "1; mode=block";
           hajimari.io/icon: mdi:shield-account
         hosts:
           - host: "auth.${SECRET_DOMAIN_NAME}"
@@ -174,3 +179,18 @@ spec:
         subPath: configuration.yml
         mountPath: /config/configuration.yml
         readOnly: false
+
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
+
+    resources:
+      requests:
+        cpu: 5m
+        memory: 10Mi
+      limits:
+        memory: 100Mi

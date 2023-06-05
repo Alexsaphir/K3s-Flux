@@ -12,7 +12,5 @@ access_control:
   rules:
     - domain: [ "*.${SECRET_DOMAIN_NAME}" ]
       policy: deny
-    - domain: [ "auth.${SECRET_DOMAIN_NAME}" ]
-      policy: bypass
     - domain: [ "jupyter.${SECRET_DOMAIN_NAME}" ]
       policy: bypass

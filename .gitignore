@@ -20,6 +20,8 @@ roles/**
 *pass*
 *password*
 *.txt
+!cloudflare-proxied-networks.txt
+
 
 # Exclude all binaries
 *.bin
