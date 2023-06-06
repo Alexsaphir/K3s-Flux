@@ -146,7 +146,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: traefik
         annotations:
           auth.home.arpa/disabled: "true"
           nginx.ingress.kubernetes.io/configuration-snippet: |

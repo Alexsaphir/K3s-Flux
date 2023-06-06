@@ -64,8 +64,8 @@ spec:
       snapshotterReplicaCount: 2
 
     ingress:
-      enabled: false
-      ingressClassName: nginx
+      enabled: true
+      ingressClassName: traefik
       host: longhorn.${SECRET_DOMAIN_NAME}
       annotations:
         hajimari.io/enable: "true"

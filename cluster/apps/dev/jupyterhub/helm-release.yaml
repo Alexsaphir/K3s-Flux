@@ -149,7 +149,7 @@ spec:
 
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: traefik
       annotations:
         hajimari.io/icon: simple-icons:jupyter
         auth.home.arpa/disabled: "true"

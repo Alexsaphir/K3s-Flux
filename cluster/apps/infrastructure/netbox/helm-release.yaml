@@ -125,7 +125,7 @@ spec:
 
     ingress:
       enabled: true
-      className: nginx
+      className: traefik
       hosts:
         - host: &hostname netbox.${SECRET_DOMAIN_NAME}
           paths:

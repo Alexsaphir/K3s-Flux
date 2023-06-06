@@ -31,12 +31,12 @@ spec:
     api:
       enabled: true
     ui:
-      enabled: false
+      enabled: true
       plugins:
         kyverno: true
       ingress:
         enabled: true
-        className: nginx
+        className: traefik
         hosts:
           - host: "policy-reporter-ui.${SECRET_DOMAIN_NAME}"
             paths:
@@ -53,7 +53,7 @@ spec:
 
     ingress:
       enabled: false
-      className: nginx
+      className: traefik
       hosts:
         - host: "policy-reporter.${SECRET_DOMAIN_NAME}"
           paths:

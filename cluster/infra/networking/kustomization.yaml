@@ -8,4 +8,4 @@ resources:
   - cert-manager-csi-driver
   - metallb
   - k8s-gateway
-  - ingress-nginx
+  - traefik
