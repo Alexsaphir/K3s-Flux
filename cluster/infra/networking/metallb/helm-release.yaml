@@ -33,7 +33,7 @@ spec:
     - name: kube-prometheus-stack
       namespace: flux-monitoring
 
-  # https://github.com/metallb/metallb/blob/v0.13.9/charts/metallb/values.yaml
+  # https://github.com/metallb/metallb/blob/v0.13.10/charts/metallb/values.yaml
   values:
     crds:
       enabled: true

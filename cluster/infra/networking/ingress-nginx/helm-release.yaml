@@ -27,6 +27,9 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: flux-monitoring
 
   valuesFrom:
     # Cloudflare Networks

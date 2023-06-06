@@ -64,7 +64,7 @@ spec:
       snapshotterReplicaCount: 2
 
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: nginx
       host: longhorn.${SECRET_DOMAIN_NAME}
       annotations:

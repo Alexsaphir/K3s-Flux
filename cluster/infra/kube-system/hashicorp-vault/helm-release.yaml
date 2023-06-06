@@ -35,6 +35,9 @@ spec:
     - name: longhorn
       namespace: longhorn-system
 
+    - name: kyverno
+      namespace: kyverno
+
   # https://github.com/hashicorp/vault-helm/blob/main/values.yaml
   values:
     global:
@@ -58,6 +61,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          auth.home.arpa/disabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: shield-key
 
