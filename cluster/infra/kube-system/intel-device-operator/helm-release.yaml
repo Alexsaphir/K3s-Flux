@@ -32,5 +32,8 @@ spec:
     - name: kube-prometheus-stack
       namespace: flux-monitoring
 
+    - name: cert-manager
+      namespace: cert-manager
+
   # https://github.com/intel/helm-charts/blob/intel-device-plugins-operator-0.26.0/charts/device-plugin-operator/values.yaml
   values:
