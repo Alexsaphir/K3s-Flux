@@ -31,7 +31,7 @@ spec:
     api:
       enabled: true
     ui:
-      enabled: true
+      enabled: false
       plugins:
         kyverno: true
       ingress:
