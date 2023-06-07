@@ -65,7 +65,7 @@ spec:
       v3:
         enabled: false
       plugins:
-        enabled: true
+        enabled: false
       kubernetesGateway:
         enabled: false
 
@@ -133,7 +133,8 @@ spec:
         advertisedPort: 80
 
       websecure:
-        asDefault: true
+        # TODO: enable when v3 released
+        # asDefault: true
         http3:
           enabled: true
         tls:
