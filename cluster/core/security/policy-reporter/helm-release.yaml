@@ -37,6 +37,8 @@ spec:
       ingress:
         enabled: true
         className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: "policy-reporter-ui.${SECRET_DOMAIN_NAME}"
             paths:

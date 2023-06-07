@@ -5,6 +5,7 @@ metadata:
   name: echo-server
   namespace: default
   annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
     hajimari.io/enable: "true"
 spec:
   ingressClassName: traefik

@@ -65,6 +65,7 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hajimari.io/enable: "true"
       hosts:
         - grafana.monitoring.${SECRET_DOMAIN_NAME}

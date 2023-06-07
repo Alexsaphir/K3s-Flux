@@ -26,6 +26,7 @@ spec:
           enabled: true
           ingressClassName: traefik
           annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
             hajimari.io/appName: "Hass Config"
             hajimari.io/icon: cib:visual-studio-code
           hosts:

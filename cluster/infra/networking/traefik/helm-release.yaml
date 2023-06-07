@@ -147,9 +147,7 @@ spec:
         tls:
           enabled: true
           options: "default"
-
-        middlewares:
-          - network-system-authelia-auth@kubernetescrd
+        # middlewares:
 
       metrics:
         port: 8082

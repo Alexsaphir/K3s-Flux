@@ -137,6 +137,7 @@ spec:
         enabled: false
         annotations:
           kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - "alerts.monitoring.${SECRET_DOMAIN_NAME}"
         path: /
@@ -232,6 +233,7 @@ spec:
         enabled: false
         annotations:
           kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - "prometheus.monitoring.${SECRET_DOMAIN_NAME}"
         path: /

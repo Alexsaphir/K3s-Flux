@@ -115,6 +115,7 @@ spec:
         enabled: true
         ingressClassName: traefik
         annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/icon: mdi:zigbee
         hosts:
           - host: "zigbee2mqtt.${SECRET_DOMAIN_NAME}"

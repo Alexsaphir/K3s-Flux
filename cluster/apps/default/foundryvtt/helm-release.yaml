@@ -62,6 +62,7 @@ spec:
         enabled: true
         ingressClassName: traefik
         annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/icon: mdi:dice-d20
         hosts:
           - host: *host

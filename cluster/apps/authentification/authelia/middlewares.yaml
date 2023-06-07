@@ -13,3 +13,17 @@ spec:
       - Remote-Name
       - Remote-Email
       - Remote-Groups
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authelia-headers
+  namespace: network-system
+spec:
+  headers:
+    browserXssFilter: true
+    customFrameOptionsValue: "SAMEORIGIN"
+    customResponseHeaders:
+      Cache-Control: "no-store"
+      Pragma: "no-cache"

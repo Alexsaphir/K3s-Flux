@@ -149,11 +149,7 @@ spec:
         ingressClassName: traefik
         annotations:
           auth.home.arpa/disabled: "true"
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Cache-Control "no-store";
-            add_header Pragma "no-cache";
-            add_header X-Frame-Options "SAMEORIGIN";
-            add_header X-XSS-Protection "1; mode=block";
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
           hajimari.io/icon: mdi:shield-account
         hosts:
           - host: "auth.${SECRET_DOMAIN_NAME}"
