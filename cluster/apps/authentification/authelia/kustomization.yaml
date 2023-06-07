@@ -6,3 +6,4 @@ resources:
   - redis.yaml
   - config
   - helm-release.yaml
+  - middleware.yaml

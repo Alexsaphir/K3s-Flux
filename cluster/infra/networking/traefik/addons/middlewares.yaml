@@ -45,7 +45,7 @@ spec:
       - apiVersion: traefik.io/v1alpha1
         kind: Middleware
         metadata:
-          name: rfc1918-ips
+          name: rfc1918
           namespace: network-system
         spec:
           ipWhiteList:
@@ -53,16 +53,6 @@ spec:
               - 10.0.0.0/8
               - 172.16.0.0/12
               - 192.168.0.0/16
-
-      - apiVersion: traefik.io/v1alpha1
-        kind: Middleware
-        metadata:
-          name: rfc1918
-          namespace: network-system
-        spec:
-          chain:
-            middlewares:
-              - name: rfc1918-ips
 
       - apiVersion: traefik.io/v1alpha1
         kind: Middleware

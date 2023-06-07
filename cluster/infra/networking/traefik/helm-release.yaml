@@ -89,6 +89,13 @@ spec:
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
         sniStrict: true
+        preferServerCipherSuites: true
+        cipherSuites:
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_RSA_WITH_AES_256_GCM_SHA384
+        curvePreferences:
+          - CurveP521
+          - CurveP384
 
     providers:
       kubernetesCRD:
@@ -140,6 +147,9 @@ spec:
         tls:
           enabled: true
           options: "default"
+
+        middlewares:
+          - network-system-authelia-auth@kubernetescrd
 
       metrics:
         port: 8082
