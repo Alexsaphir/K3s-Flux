@@ -33,8 +33,10 @@ spec:
 
   # https://github.com/ori-edge/k8s_gateway/blob/master/charts/k8s-gateway/values.yaml
   values:
+    replicaCount: 2
+
     domain: ${SECRET_DOMAIN_NAME}
-    ttl: 1
+    ttl: 10
 
     service:
       type: LoadBalancer
