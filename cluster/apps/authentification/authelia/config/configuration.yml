@@ -3,6 +3,12 @@
 notifier:
   filesystem:
     filename: /tmp/notification.txt
+
+regulation:
+  max_retries: 3
+  find_time: 2m
+  ban_time: 5m
+
 access_control:
   default_policy: two_factor
   networks:
@@ -10,7 +16,14 @@ access_control:
       networks: [ "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16" ]
 
   rules:
-    - domain: [ "*.${SECRET_DOMAIN_NAME}" ]
-      policy: deny
-    - domain: [ "jupyter.${SECRET_DOMAIN_NAME}" ]
+    - domain:
+        - "auth.${SECRET_DOMAIN_NAME}"
       policy: bypass
+
+    - domain:
+        - "jupyter.${SECRET_DOMAIN_NAME}"
+      policy: bypass
+
+    - domain:
+        - "*.${SECRET_DOMAIN_NAME}"
+      policy: deny
