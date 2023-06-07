@@ -21,6 +21,12 @@ access_control:
       policy: bypass
 
     - domain:
+        - "*.${SECRET_DOMAIN_NAME}"
+      policy: bypass
+      networks:
+        - internal
+
+    - domain:
         - "jupyter.${SECRET_DOMAIN_NAME}"
       policy: bypass
 

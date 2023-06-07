@@ -42,14 +42,14 @@ spec:
           namespace: network-system
         spec:
           entryPoints:
+            - web
             - websecure
           routes:
             - kind: Rule
               match: HostRegexp(`{host:.+}`)
               priority: 1
               middlewares:
-                - name: error-pages
-                  namespace: network-system
+                - name: error-pages-network-system@kubernetescrd
               services:
                 - kind: Service
                   name: error-pages

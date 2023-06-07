@@ -148,6 +148,7 @@ spec:
           enabled: true
           options: "default"
         # middlewares:
+        #   - network-system-error-pages@kubernetescrd
 
       metrics:
         port: 8082
