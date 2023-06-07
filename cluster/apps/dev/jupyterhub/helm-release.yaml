@@ -37,8 +37,17 @@ spec:
       targetPath: hub.db.url
       valuesKey: POSTGRES_URL
 
+    - kind: Secret
+      name: jupyterhub-secret
+      targetPath: hub.config.LDAPAuthenticator.bind_user_password
+      valuesKey: ldap_search
+
   values:
     hub:
+      image:
+        name: jupyterhub/k8s-hub
+        tag: "set-by-chartpress"
+      cmd: [ "pip", "install", "jupyterhub-ldap-authenticator", "&&", "jupyterhub", "--config", "/usr/local/etc/jupyterhub/jupyterhub_config.py" ]
       # existingSecret:
       activeServerLimit: 6
       allowNamedServers: true
@@ -51,38 +60,20 @@ spec:
       config:
         JupyterHub:
           admin_access: false
-          # authenticator_class: ldapauthenticator.LDAPAuthenticator
-          authenticator_class: dummy
+          authenticator_class: ldapauthenticator.LDAPAuthenticator
+          # authenticator_class: dummy
           # subdomain_host: https://jupyter.${SECRET_DOMAIN_NAME}
-
-        Authenticator:
-          admin_users:
-            - admin
-            - Saphir
-          delete_invalid_users: true
-          refresh_pre_spawn: true
-          enable_auth_state: true
-          auto_login: false
 
 
         LDAPAuthenticator:
           server_hosts:
-            - 'ldap://glauth.default.svc.cluster.local:389'
+            - 'glauth.network-system.svc.cluster.local'
           server_use_ssl: false
+
           bind_user_dn: 'cn=search,ou=svcaccts,dc=home,dc=arpa'
-          bind_user_password: os.environ['LDAP_SEARCH_PASSWORD']
 
-          user_search_base: 'cn=jupyter,dc=glauth,dc=com'
-
+          user_search_base: 'cn=jupyter,dc=home,dc=arpa'
           user_search_filter: '(&(objectClass=posixAccount)(|(uid=%[1]s)(mail=%[1]s)))'
-          user_membership_attribute: 'memberOf'
-
-          group_search_base: 'cn=groups,cn=accounts,dc=alexsaphir,dc=com'
-          group_search_filter: '(&(objectClass=ipausergroup)(memberOf={group}))'
-          allowed_groups:
-            - 'cn=jupyterhub,cn=groups,cn=accounts,dc=alexsaphir,dc=com'
-          allow_nested_groups: true
-          username_pattern: '[a-zA-Z0-9_.][a-zA-Z0-9_.-]{0,252}[a-zA-Z0-9_.$-]?'
 
       nodeSelector:
         kubernetes.io/arch: amd64
@@ -100,7 +91,7 @@ spec:
           default: true
           kubespawner_override:
             image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook@sha256:c5117458dbae7d0619fbefca421da41b87a4a5bda640c57b03ca3c060dffcbe8
-            node_selector: {'node.kubernetes.io/instance-type': 'm3.large'}
+            node_selector: { 'node.kubernetes.io/instance-type': 'm3.large' }
 
         - display_name: "Minimal environment"
           description: "To avoid too much bells and whistles: Python."
