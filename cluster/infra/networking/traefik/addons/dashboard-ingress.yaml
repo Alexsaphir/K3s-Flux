@@ -3,9 +3,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: traefik-dashboard
-  namespace: traefik-system
+  namespace: network-system
   annotations:
-#    traefik.ingress.kubernetes.io/router.middlewares: "traefik-system-internal@kubernetescrd"
+#    traefik.ingress.kubernetes.io/router.middlewares: "network-system-internal@kubernetescrd"
 spec:
   ingressClassName: traefik
   rules:

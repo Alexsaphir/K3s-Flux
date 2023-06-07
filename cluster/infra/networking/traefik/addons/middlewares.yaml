@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: traefik-middlewares
-  namespace: traefik-system
+  namespace: network-system
 spec:
   interval: 15m
   chart:
@@ -28,7 +28,7 @@ spec:
 
   dependsOn:
     - name: traefik
-      namespace: traefik-system
+      namespace: network-system
 
   values:
     resources:
@@ -36,7 +36,7 @@ spec:
         kind: Middleware
         metadata:
           name: https-redirect
-          namespace: traefik-system
+          namespace: network-system
         spec:
           redirectScheme:
             scheme: https
@@ -46,7 +46,7 @@ spec:
         kind: Middleware
         metadata:
           name: rfc1918-ips
-          namespace: traefik-system
+          namespace: network-system
         spec:
           ipWhiteList:
             sourceRange:
@@ -58,7 +58,7 @@ spec:
         kind: Middleware
         metadata:
           name: rfc1918
-          namespace: traefik-system
+          namespace: network-system
         spec:
           chain:
             middlewares:
@@ -68,7 +68,7 @@ spec:
         kind: Middleware
         metadata:
           name: whitelisted-ips
-          namespace: traefik-system
+          namespace: network-system
         spec:
           # https://www.cloudflare.com/ips/
           ipWhiteList:
