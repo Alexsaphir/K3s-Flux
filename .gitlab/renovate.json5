@@ -15,6 +15,7 @@
     'local>Alexsaphir/K3s-Flux//.gitlab/renovate/labels.json5'
   ],
   enabled: true,
+  prConcurrentLimit: 3,
   configWarningReuseIssue: true,
   configMigration: true,
   dependencyDashboard: true,
