@@ -71,8 +71,18 @@ spec:
 
           bind_user_dn: 'cn=search,ou=svcaccts,dc=home,dc=arpa'
 
-          user_search_base: 'cn=jupyter,dc=home,dc=arpa'
-          user_search_filter: '(&(objectClass=posixAccount)(|(uid=%[1]s)(mail=%[1]s)))'
+          user_search_base: 'dc=home,dc=arpa'
+          user_search_filter: '(&(objectClass=posixAccount)(uid={username}))'
+
+
+          user_membership_attribute: memberOf
+          group_search_base: 'dc=home,dc=arpa'
+          group_search_filter: '(&(objectClass=posixAccount)(memberOf={group}))'
+
+          allowed_groups:
+            - ou=jupyter,ou=groups,dc=home,dc=arpa
+
+          create_user_home_dir: false
 
       nodeSelector:
         kubernetes.io/arch: amd64
