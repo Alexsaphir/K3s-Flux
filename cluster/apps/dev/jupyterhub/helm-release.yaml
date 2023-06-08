@@ -69,15 +69,14 @@ spec:
             - 'glauth.network-system.svc.cluster.local'
           server_use_ssl: false
 
-          bind_user_dn: 'cn=search,ou=svcaccts,dc=home,dc=arpa'
+          bind_user_dn: 'cn=search_jupyter,ou=svcaccts,dc=home,dc=arpa'
 
-          user_search_base: 'dc=home,dc=arpa'
+          user_search_base: 'ou=jupyter,ou=users,dc=home,dc=arpa'
           user_search_filter: '(&(objectClass=posixAccount)(uid={username}))'
 
-
           user_membership_attribute: memberOf
-          group_search_base: 'dc=home,dc=arpa'
-          group_search_filter: '(&(objectClass=posixAccount)(memberOf={group}))'
+          group_search_base: 'ou=jupyter,ou=groups,dc=home,dc=arpa'
+          group_search_filter: '(&(objectClass=groupOfUniqueNames)(memberOf={group}))'
 
           allowed_groups:
             - ou=jupyter,ou=groups,dc=home,dc=arpa
