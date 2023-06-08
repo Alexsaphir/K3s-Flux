@@ -45,9 +45,8 @@ spec:
   values:
     hub:
       image:
-        name: jupyterhub/k8s-hub
-        tag: "set-by-chartpress"
-      cmd: [ "pip", "install", "jupyterhub-ldap-authenticator", "&&", "jupyterhub", "--config", "/usr/local/etc/jupyterhub/jupyterhub_config.py" ]
+        name: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/k8s-hub
+        tag: 2.0.0
       # existingSecret:
       activeServerLimit: 6
       allowNamedServers: true
