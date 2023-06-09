@@ -50,10 +50,9 @@ resources:
   - spotahome.yaml
   - stakater.yaml
   - stefanprodan.yaml
-  - tf-controller.yaml
+  - weaveworks.yaml
   - traefik.yaml
   - trivy-exporter.yaml
   - trivy-operator-polr-adapter.yaml
   - trivy.yaml
   - vector.yaml
-  - weave-gitops.yaml

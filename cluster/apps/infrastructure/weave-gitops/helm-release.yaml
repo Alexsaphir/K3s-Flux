@@ -12,7 +12,7 @@ spec:
       version: 4.0.23
       sourceRef:
         kind: HelmRepository
-        name: weave-gitops
+        name: weaveworks
         namespace: flux-charts
 
   maxHistory: 3
@@ -40,6 +40,19 @@ spec:
 
     metrics:
       enabled: true
+
+    networkPolicy:
+      create: false
+
+    rbac:
+      create: true
+      impersonationResourceNames: [ "admin" ]
+      additionalRules:
+        - apiGroups: [ "infra.contrib.fluxcd.io" ]
+          resources: [ "terraforms" ]
+          verbs: [ "get", "list", "patch" ]
+    podAnnotations:
+      secret.reloader.stakater.com/reload: cluster-user-auth
 
     ingress:
       enabled: true
