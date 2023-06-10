@@ -71,7 +71,7 @@ spec:
 
           bind_user_dn: 'cn=search_jupyter,ou=svcaccts,dc=home,dc=arpa'
 
-          user_search_base: 'ou=users,dc=home,dc=arpa'
+          user_search_base: 'ou=jupyter,ou=users,dc=home,dc=arpa'
           user_search_filter: '(&(objectClass=posixAccount)(uid={username}))'
 
           user_membership_attribute: memberOf
