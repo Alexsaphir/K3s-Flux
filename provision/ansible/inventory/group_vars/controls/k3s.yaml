@@ -42,3 +42,10 @@ k3s_server:
     - "bind-address=0.0.0.0"
   kube-apiserver-arg:
     - "anonymous-auth=true"
+
+  node-label: "{{ global_k8s_labels + (k8s_labels | default([])) }}"
+
+
+  # Stop k3s control plane having workloads scheduled on them
+  # node-taint:
+  #  - "k3s-controlplane=true:NoExecute"

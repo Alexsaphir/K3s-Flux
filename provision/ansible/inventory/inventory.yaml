@@ -4,11 +4,11 @@ cube:
     ansible_connection: ssh
     ansible_ssh_port: 22
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-    k8s_labels:
-      topology.kubernetes.io/region: 'homelab'
-      topology.kubernetes.io/zone: 'homelab-0'
-      node.kubernetes.io/instance-type: 'm3.medium'
-      node.longhorn.io/create-default-disk: true
+    global_k8s_labels:
+      - "topology.kubernetes.io/region=homelab"
+      - "topology.kubernetes.io/zone=homelab-0"
+      - "node.kubernetes.io/instance-type=m3.medium"
+      - "node.longhorn.io/create-default-disk=true"
 
   children:
     controls:
@@ -21,9 +21,8 @@ cube:
         cube-worker:
           ansible_host: 192.168.0.71
 
-        cube-jup:
-          ansible_host: 192.168.0.80
-          vars:
-            k8s_labels:
-              node.kubernetes.io/instance-type: 'm3.large'
-              node.longhorn.io/create-default-disk: false
+#        cube-jup:
+#          ansible_host: 192.168.0.80
+#          k8s_labels:
+#            - "node.kubernetes.io/instance-type=m3.large"
+#            - "node.longhorn.io/create-default-disk=false"

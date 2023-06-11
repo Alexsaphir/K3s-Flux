@@ -29,7 +29,7 @@ spec:
   uninstall:
     keepHistory: false
 
-  # https://github.com/longhorn/longhorn/blob/v1.4.1/chart/values.yaml
+  # https://github.com/longhorn/longhorn/blob/v1.4.2/chart/values.yaml
   values:
     persistence:
       defaultClass: true
@@ -39,7 +39,7 @@ spec:
       migratable: true
 
     defaultSettings:
-      createDefaultDiskLabeledNodes: false
+      createDefaultDiskLabeledNodes: true
 
       orphan-auto-deletion: true
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
