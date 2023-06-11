@@ -47,11 +47,11 @@ spec:
       SEMAPHORE_LDAP_ACTIVATED: 'yes'
       SEMAPHORE_LDAP_HOST: glauth.network-system.svc.cluster.local
       SEMAPHORE_LDAP_PORT: 389
-      SEMAPHORE_LDAP_NEEDTLS: 'no'
+      SEMAPHORE_LDAP_NEEDTLS: false
       SEMAPHORE_LDAP_DN_BIND: cn=search_semaphore,ou=svcaccts,dc=home,dc=arpa
 
       SEMAPHORE_LDAP_DN_SEARCH: ou=people,ou=users,dc=home,dc=arpa
-      SEMAPHORE_LDAP_SEARCH_FILTER: "(&(uid=%s)(memberOf=cn=semaphore,cn=groups,dc=home,dc=arpa))"
+      SEMAPHORE_LDAP_SEARCH_FILTER: "(&(uid=%s)(memberOf=ou=semaphore,ou=groups,dc=home,dc=arpa))"
 
       SEMAPHORE_LDAP_PASSWORD:
         valueFrom:
