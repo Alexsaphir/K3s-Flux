@@ -101,43 +101,45 @@ spec:
             image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook@sha256:c5117458dbae7d0619fbefca421da41b87a4a5bda640c57b03ca3c060dffcbe8
             node_selector: { 'node.kubernetes.io/instance-type': 'm3.large' }
 
-        - display_name: "Minimal environment"
-          description: "To avoid too much bells and whistles: Python."
-          kubespawner_override:
-            image: jupyter/minimal-notebook:82ce73789ba4
 
-        - display_name: "Datascience environment"
-          description: "If you want the additional bells and whistles: Python, R, and Julia."
+      # - display_name: "Minimal environment"
+      #   description: "To avoid too much bells and whistles: Python."
+      #   kubespawner_override:
+      #     image: jupyter/minimal-notebook:82ce73789ba4
 
-        - display_name: "Spark environment"
-          description: "The Jupyter Stacks spark image!"
-          kubespawner_override:
-            image: jupyter/all-spark-notebook:2343e33dec46
+      # - display_name: "Datascience environment"
+      #   description: "If you want the additional bells and whistles: Python, R, and Julia."
 
-            #        - display_name: "Bloody TPU"
-            #          description: "Homelab."
-            #          default: true
-            #          kubespawner_override:
-            #            image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook-tpu
-            #            extra_resource_limits:
-            #              nvidia.com/gpu: "1"
+      # - display_name: "Spark environment"
+      #   description: "The Jupyter Stacks spark image!"
+      #   kubespawner_override:
+      #     image: jupyter/all-spark-notebook:2343e33dec46
 
-        - display_name: "Haskell environment"
-          description: "The Jupyter Stacks ihaskell"
-          kubespawner_override:
-            image: ghcr.io/jamesdbrock/ihaskell-notebook:master
+      #        - display_name: "Bloody TPU"
+      #          description: "Homelab."
+      #          default: true
+      #          kubespawner_override:
+      #            image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook-tpu
+      #            extra_resource_limits:
+      #              nvidia.com/gpu: "1"
 
-        - display_name: "Learning Data Science"
-          description: "Datascience Environment with Sample Notebooks"
-          kubespawner_override:
-            image: jupyter/datascience-notebook:2343e33dec46
+      # - display_name: "Haskell environment"
+      #   description: "The Jupyter Stacks ihaskell"
+      #   kubespawner_override:
+      #     image: ghcr.io/jamesdbrock/ihaskell-notebook:master
+
+      # - display_name: "Learning Data Science"
+      #   description: "Datascience Environment with Sample Notebooks"
+      #   kubespawner_override:
+      #     image: jupyter/datascience-notebook:2343e33dec46
 
       extraEnv:
         EDITOR: "nano"
       #        JUPYTERHUB_SINGLEUSER_APP: "jupyter_server.serverapp.ServerApp"
 
       storage:
-        capacity: 15Gi
+        capacity: 2Gi
+        homeMountPath: /home/jovyan/workspace
         dynamic:
           storageClass: longhorn
     #          storageAccessModes: [ ReadWriteMany ]
