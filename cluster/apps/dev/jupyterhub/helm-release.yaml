@@ -146,8 +146,9 @@ spec:
 
     proxy:
       service:
-        type: ClusterIP
-
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 192.168.0.230
     scheduling:
       userScheduler:
         enabled: false
