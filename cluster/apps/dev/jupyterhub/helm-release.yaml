@@ -48,9 +48,9 @@ spec:
         name: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/k8s-hub
         tag: 2.0.0
       # existingSecret:
-      activeServerLimit: 6
+      activeServerLimit: 0
       allowNamedServers: true
-      concurrentSpawnLimit: 50
+      concurrentSpawnLimit: 10
 
       db:
         type: postgres
