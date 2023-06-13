@@ -8,7 +8,7 @@ metadata:
     kyverno.io/ignore: "true"
 
 spec:
-  instances: 1
+  instances: 2
   storage:
     size: 10Gi
     storageClass: longhorn
