@@ -50,7 +50,7 @@ spec:
       # existingSecret:
       activeServerLimit: 6
       allowNamedServers: true
-      concurrentSpawnLimit: 10
+      concurrentSpawnLimit: 50
 
       db:
         type: postgres
