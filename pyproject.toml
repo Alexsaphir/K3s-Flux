@@ -9,7 +9,7 @@ packages = []
 
 [tool.poetry.dependencies]
 python = ">3.9, <3.12"
-pre-commit = "^3.3.2"
+pre-commit = "^3.3.3"
 
 ansible-core = "^2.15.0"
 #ansible = "^7.5.0"
