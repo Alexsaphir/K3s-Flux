@@ -5,7 +5,6 @@ resources:
   - csi-driver-secrets-store
   - external-secrets
   - intel-device-operator
-  - metrics-server
   - node-feature-discovery
   - node-problem-detector
   - reloader

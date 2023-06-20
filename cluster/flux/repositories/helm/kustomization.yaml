@@ -56,3 +56,4 @@ resources:
   - trivy-operator-polr-adapter.yaml
   - trivy.yaml
   - vector.yaml
+  - victoria-metrics.yaml
