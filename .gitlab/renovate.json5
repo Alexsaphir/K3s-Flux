@@ -74,6 +74,12 @@
         'kube-prometheus-stack-crds'
       ],
       groupName: 'kube-prometheus-stack'
+    },
+    {
+      "matchPackagePatterns": [
+        "^intel-device-plugins"
+      ],
+      groupName: 'intel-device-plugins'
     }
   ]
 }
