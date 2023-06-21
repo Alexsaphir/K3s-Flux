@@ -34,7 +34,7 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
 
-    - name: kube-prometheus-stack
+    - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 
     - name: metallb

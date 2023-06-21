@@ -30,7 +30,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 
   # https://github.com/piraeusdatastore/helm-charts/blob/main/charts/snapshot-validation-webhook/values.yaml

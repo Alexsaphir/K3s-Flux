@@ -28,7 +28,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 
   # https://github.com/deliveryhero/helm-charts/blob/200aa7fcf6b5aa22dcb8a7d9491ea73e48df3319/stable/node-problem-detector/values.yaml
