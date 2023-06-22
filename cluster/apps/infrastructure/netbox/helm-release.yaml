@@ -65,7 +65,7 @@ spec:
 
     image:
       repository: ghcr.io/netbox-community/netbox
-      tag: v3.5.3
+      tag: v3.5.4
 
     housekeeping:
       enabled: false
