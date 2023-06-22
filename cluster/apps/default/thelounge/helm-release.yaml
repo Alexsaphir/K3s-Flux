@@ -30,6 +30,8 @@ spec:
   values:
     controller:
       type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
 
     image:
       repository: ghcr.io/thelounge/thelounge
@@ -82,8 +84,17 @@ spec:
               - path: /
                 pathType: Prefix
 
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: thelounge-config
+        subPath: config.js
+        mountPath: /config/config.js
+        readOnly: true
+
     volumeClaimTemplates:
-      - name: config
+      - name: config-vol
         mountPath: /config
         accessMode: ReadWriteOnce
         size: 1Gi
@@ -115,7 +126,7 @@ spec:
                 certificate: "",
                 ca: "",
               },
-              theme: {{ .Values.thelounge.theme | toJson }}
+              theme: {{ .Values.thelounge.theme | toJson }},
               prefetch: {{ .Values.thelounge.prefetch | toJson }},
               prefetchStorage: {{ .Values.thelounge.prefetchStorage | toJson }},
               prefetchMaxImageSize: {{ .Values.thelounge.prefetchMaxImageSize | toJson }},
