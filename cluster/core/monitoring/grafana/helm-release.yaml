@@ -118,7 +118,7 @@ spec:
           - name: victoriametrics
             type: prometheus
             orgId: 1
-            url: http://vminsert-victoria.flux-monitoring.svc.cluster.local:8480/insert/0/prometheus
+            url: http://vmselect-victoria.flux-monitoring.svc.cluster.local:8481/select/0/prometheus
             access: proxy
             isDefault: true
             updateIntervalSeconds: 10
