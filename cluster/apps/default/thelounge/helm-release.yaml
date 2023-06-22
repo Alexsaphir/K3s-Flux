@@ -38,6 +38,34 @@ spec:
     env:
       THELOUNGE_HOME: /config
 
+    thelounge:
+      public: false
+      reverseProxy: true
+      maxHistory: 10000
+      theme: "default"
+      prefetch: false
+      prefetchStorage: false
+      prefetchMaxImageSize: 2048
+      fileUpload:
+        enable: false
+        maxFileSize: 10240
+        baseUrl: null
+      leaveMessage: "The Lounge - https://thelounge.chat"
+      ldap:
+        enable: false
+        url: "ldap://ldap.example.com"
+        ## This should also work with TheLounge 4.3+ (due to ldapjs 2.2.0+)
+        ## (Will failover to the next url in the list when the current one does not work)
+        #url:
+        #  - "ldap://ldap-1.example.com"
+        #  - "ldaps://ldap-2.example.com"
+        primaryKey: "uid"
+        bindDn: "uid=my-service,ou=ServiceAccount,dc=example,dc=com"
+        bindPassword: "my-password"
+        filter: "(objectClass=person)(memberOf=ou=accounts,dc=example,dc=com)"
+        searchSuffix: "dc=example,dc=com"
+        scope: "sub"
+
     service:
       main:
         ports:
@@ -67,3 +95,70 @@ spec:
         memory: 250Mi
       limits:
         memory: 500Mi
+
+    configMaps:
+      config:
+        enabled: true
+        data:
+          config.js: |
+            "use strict";
+            module.exports = {
+              public: {{ .Values.thelounge.public | toJson }},
+              host: undefined,
+              port: 9000,
+              bind: undefined,
+              reverseProxy: {{ .Values.thelounge.reverseProxy | toJson }},
+              maxHistory: {{ .Values.thelounge.maxHistory | toJson }},
+              https: {
+                enable: false,
+                key: "",
+                certificate: "",
+                ca: "",
+              },
+              theme: {{ .Values.thelounge.theme | toJson }}
+              prefetch: {{ .Values.thelounge.prefetch | toJson }},
+              prefetchStorage: {{ .Values.thelounge.prefetchStorage | toJson }},
+              prefetchMaxImageSize: {{ .Values.thelounge.prefetchMaxImageSize | toJson }},
+              fileUpload: {{ .Values.thelounge.fileUpload | toJson }},
+              transports: ["polling", "websocket"],
+              leaveMessage: {{ .Values.thelounge.leaveMessage | toJson }},
+              defaults: {
+                name: "Freenode",
+                host: "chat.freenode.net",
+                port: 6697,
+                password: "",
+                tls: true,
+                rejectUnauthorized: true,
+                nick: "thelounge%%",
+                username: "thelounge",
+                realname: "The Lounge User",
+                join: "#thelounge",
+              },
+              displayNetwork: true,
+              lockNetwork: false,
+              messageStorage: ["sqlite", "text"],
+              useHexIp: false,
+              webirc: null,
+              identd: {
+                enable: false,
+                port: 113,
+              },
+              oidentd: null,
+              ldap: {
+                enable: {{ .Values.thelounge.ldap.enable | toJson }},
+                url: {{ .Values.thelounge.ldap.url | toJson }},
+                tlsOptions: {},
+                primaryKey: {{ .Values.thelounge.ldap.primaryKey | quote }},
+                searchDN: {
+                  rootDN: {{ .Values.thelounge.ldap.bindDn | quote }},
+                  rootPassword: {{ .Values.thelounge.ldap.bindPassword | quote }},
+                  filter: {{ .Values.thelounge.ldap.filter | quote }},
+                  base: {{ .Values.thelounge.ldap.searchSuffix | quote }},
+                  scope: {{ .Values.thelounge.ldap.scope | quote }},
+                },
+              },
+              debug: {
+                ircFramework: false,
+                raw: false,
+              },
+            };
