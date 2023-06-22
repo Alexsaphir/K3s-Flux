@@ -27,6 +27,12 @@ spec:
   uninstall:
     keepHistory: false
 
+  valuesFrom:
+    - kind: Secret
+      name: thelounge-ldap-search
+      valuesKey: password
+      targetPath: thelounge.ldap.bindPassword
+
   values:
     controller:
       type: statefulset
@@ -54,18 +60,13 @@ spec:
         baseUrl: null
       leaveMessage: "The Lounge - https://thelounge.chat"
       ldap:
-        enable: false
-        url: "ldap://ldap.example.com"
-        ## This should also work with TheLounge 4.3+ (due to ldapjs 2.2.0+)
-        ## (Will failover to the next url in the list when the current one does not work)
-        #url:
-        #  - "ldap://ldap-1.example.com"
-        #  - "ldaps://ldap-2.example.com"
+        enable: true
+        url: "ldap://glauth.network-system.svc.cluster.local:389"
         primaryKey: "uid"
-        bindDn: "uid=my-service,ou=ServiceAccount,dc=example,dc=com"
-        bindPassword: "my-password"
-        filter: "(objectClass=person)(memberOf=ou=accounts,dc=example,dc=com)"
-        searchSuffix: "dc=example,dc=com"
+        bindDn: "cn=search_thelounge,ou=svcaccts,dc=home,dc=arpa"
+        # bindPassword:
+        filter: "(objectClass=posixAccount)(memberOf=ou=thelounge,ou=groups,dc=home,dc=arpa)"
+        searchSuffix: "ou=people,ou=users,dc=home,dc=arpa"
         scope: "sub"
 
     service:
@@ -145,7 +146,6 @@ spec:
                 realname: "The Lounge User",
                 join: "#thelounge",
               },
-              displayNetwork: true,
               lockNetwork: false,
               messageStorage: ["sqlite", "text"],
               useHexIp: false,
