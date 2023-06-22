@@ -1,0 +1,96 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: victoria-resources
+  namespace: flux-monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix
+        namespace: flux-charts
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  dependsOn:
+    - name: victoria-operator
+      namespace: flux-monitoring
+  values:
+    resources:
+      - apiVersion: operator.victoriametrics.com/v1beta1
+        kind: VMCluster
+        metadata:
+          name: ${CLUSTER_NAME_LOWER}
+          namespace: flux-monitoring
+        spec:
+          clusterVersion: "v1.90.0-cluster"
+          retentionPeriod: "1"
+          replicationFactor: 2
+          vminsert:
+            replicaCount: 2
+          vmselect:
+            replicaCount: 2
+            cacheMountPath: "/select-cache"
+            storage:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: longhorn
+                  resources:
+                    requests:
+                      storage: 5Gi
+            resources:
+              limits:
+                memory: "300Mi"
+          vmstorage:
+            replicaCount: 2
+            storageDataPath: "/vm-data"
+            storage:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: longhorn
+                  resources:
+                    requests:
+                      storage: 20Gi
+            resources:
+              limits:
+                memory: "500Mi"
+
+      - apiVersion: operator.victoriametrics.com/v1beta1
+        kind: VMAgent
+        metadata:
+          name: ${CLUSTER_NAME_LOWER}
+          namespace: flux-monitoring
+        spec:
+          remoteWrite:
+            - url: "http://vminsert-${CLUSTER_NAME_LOWER}:8480/insert/0/prometheus"
+          selectAllByDefault: true
+          replicaCount: 1
+          serviceScrapeNamespaceSelector: { }
+          podScrapeNamespaceSelector: { }
+          podScrapeSelector: { }
+          serviceScrapeSelector: { }
+          nodeScrapeSelector: { }
+          nodeScrapeNamespaceSelector: { }
+          staticScrapeSelector: { }
+          staticScrapeNamespaceSelector: { }
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "400Mi"
+            limits:
+              cpu: "300m"
+              memory: "2Gi"

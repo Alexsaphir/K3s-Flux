@@ -6,4 +6,5 @@ resources:
   - kube-prometheus-stack-crds
   - kube-state-metrics
   - metrics-server
+  - node-exporter
   - victoria-operator
