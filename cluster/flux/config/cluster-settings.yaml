@@ -8,8 +8,6 @@ data:
   # renovate: datasource=github-releases depName=k3s-io/k3s
   K3S_VERSION: "v1.27.2+k3s1"
 
-  CLUSTER_NAME_LOWER: k3s-victoria
-
   CONFIG_TIMEZONE: Europe/Paris
   CONFIG_WEBHOOK_SPACE: 192.168.0.0/24
 

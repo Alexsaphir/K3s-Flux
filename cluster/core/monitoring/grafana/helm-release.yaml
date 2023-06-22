@@ -115,18 +115,27 @@ spec:
           - name: Loki
             orgId: 1
         datasources:
-          - name: Prometheus
+          - name: victoriametrics
             type: prometheus
+            orgId: 1
+            url: http://vminsert-victoria.flux-monitoring.svc.cluster.local:8480/insert/0/prometheus
             access: proxy
-            url: http://prometheus-prometheus:9090/
-            isDefault: false
+            isDefault: true
+            updateIntervalSeconds: 10
+            editable: true
 
-          - name: AlertManager
-            type: alertmanager
-            access: proxy
-            url: http://alertmanager-operated:9093
-            jsonData:
-              implementation: "prometheus"
+          # - name: Prometheus
+          #   type: prometheus
+          #   access: proxy
+          #   url: http://prometheus-prometheus:9090/
+          #   isDefault: false
+
+          # - name: AlertManager
+          #   type: alertmanager
+          #   access: proxy
+          #   url: http://alertmanager-operated:9093
+          #   jsonData:
+          #     implementation: "prometheus"
 
     dashboardProviders:
       dashboardproviders.yaml:
@@ -188,59 +197,72 @@ spec:
 
     dashboards:
       system:
+        victoriametrics:
+          gnetId: 11176
+          revision: 18
+          datasource: victoriametrics
+        vmagent:
+          gnetId: 12683
+          revision: 7
+          datasource: victoriametrics
+        kubernetes:
+          gnetId: 14205
+          revision: 1
+          datasource: victoriametrics
+
         1-node-exporter:
           gnetId:
           revision: 9
-          datasource: Prometheus
+          datasource: victoriametrics
 
         node-exporter-full:
           gnetId: 1860
           revision: 23
-          datasource: Prometheus
+          datasource: victoriametrics
 
         metallb:
           gnetId: 14127
           revision: 1
-          datasource: Prometheus
+          datasource: victoriametrics
 
         metallb-git:
           url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
-          datasource: Prometheus
+          datasource: victoriametrics
 
       data:
         minio:
           gnetId: 13502
           revision: 10
-          datasource: Prometheus
+          datasource: victoriametrics
 
       loki:
         loki-metrics:
           gnetId: 13407
           revision: 1
-          datasource: Prometheus
+          datasource: victoriametrics
 
       calico:
         calico:
           gnetId: 12175
           revision: 5
-          datasource: Prometheus
+          datasource: victoriametrics
 
       kubernetes:
         api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
-          datasource: Prometheus
+          datasource: victoriametrics
         # coredns:
         #   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
         #   datasource: Prometheus
         global:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-          datasource: Prometheus
+          datasource: victoriametrics
         namespaces:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
-          datasource: Prometheus
+          datasource: victoriametrics
         nodes:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
-          datasource: Prometheus
+          datasource: victoriametrics
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-          datasource: Prometheus
+          datasource: victoriametrics
