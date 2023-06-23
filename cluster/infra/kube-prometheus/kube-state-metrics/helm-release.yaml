@@ -30,3 +30,8 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
+
+  values:
+    prometheus:
+      monitor:
+        enabled: true

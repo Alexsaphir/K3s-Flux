@@ -122,7 +122,7 @@ spec:
             access: proxy
             isDefault: true
             updateIntervalSeconds: 10
-            editable: true
+            editable: false
 
           # - name: Prometheus
           #   type: prometheus
@@ -186,14 +186,14 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/kubernetes
 
-          - name: "loki"
-            orgId: 1
-            folder: "Loki"
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/loki
+          # - name: "loki"
+          #   orgId: 1
+          #   folder: "Loki"
+          #   type: file
+          #   disableDeletion: false
+          #   editable: true
+          #   options:
+          #     path: /var/lib/grafana/dashboards/loki
 
     dashboards:
       system:
@@ -225,21 +225,17 @@ spec:
           revision: 1
           datasource: victoriametrics
 
-        metallb-git:
-          url: https://raw.githubusercontent.com/jr0dd/grafana-dashboards/main/metallb.json
-          datasource: victoriametrics
+      # data:
+      #   minio:
+      #     gnetId: 13502
+      #     revision: 10
+      #     datasource: victoriametrics
 
-      data:
-        minio:
-          gnetId: 13502
-          revision: 10
-          datasource: victoriametrics
-
-      loki:
-        loki-metrics:
-          gnetId: 13407
-          revision: 1
-          datasource: victoriametrics
+      # loki:
+      #   loki-metrics:
+      #     gnetId: 13407
+      #     revision: 1
+      #     datasource: victoriametrics
 
       calico:
         calico:

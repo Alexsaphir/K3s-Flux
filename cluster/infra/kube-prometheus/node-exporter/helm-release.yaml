@@ -40,3 +40,4 @@ spec:
     prometheus:
       monitor:
         enabled: true
+        interval: 2m
