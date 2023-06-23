@@ -20,6 +20,7 @@ spec:
           - resources:
               namespaces:
                 - flux-system
+                - flux-monitoring
                 - calico-system
                 - tigera-operator
                 - longhorn-system
