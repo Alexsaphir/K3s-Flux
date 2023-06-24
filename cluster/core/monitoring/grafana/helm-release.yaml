@@ -18,7 +18,7 @@ spec:
 
   test:
     enable: false
-  # https://github.com/grafana/helm-charts/blob/grafana-6.47.1/charts/grafana/values.yaml
+  # https://github.com/grafana/helm-charts/blob/grafana-6.57.3/charts/grafana/values.yaml
   values:
     deploymentStrategy:
       type: Recreate
@@ -115,27 +115,27 @@ spec:
           - name: Loki
             orgId: 1
         datasources:
-          - name: victoriametrics
-            type: prometheus
-            orgId: 1
-            url: http://vmselect-victoria.flux-monitoring.svc.cluster.local:8481/select/0/prometheus
-            access: proxy
-            isDefault: true
-            updateIntervalSeconds: 10
-            editable: false
-
-          # - name: Prometheus
+          # - name: victoriametrics
           #   type: prometheus
+          #   orgId: 1
+          #   url: http://vmselect-victoria.flux-monitoring.svc.cluster.local:8481/select/0/prometheus
           #   access: proxy
-          #   url: http://prometheus-prometheus:9090/
-          #   isDefault: false
+          #   isDefault: true
+          #   updateIntervalSeconds: 10
+          #   editable: false
 
-          # - name: AlertManager
-          #   type: alertmanager
-          #   access: proxy
-          #   url: http://alertmanager-operated:9093
-          #   jsonData:
-          #     implementation: "prometheus"
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus-prometheus.flux-monitoring.svc.cluster.local:9090/
+            isDefault: true
+
+          - name: AlertManager
+            type: alertmanager
+            access: proxy
+            url: http://alertmanager-operated.flux-monitoring.svc.cluster.local:9093
+            jsonData:
+              implementation: "prometheus"
 
     dashboardProviders:
       dashboardproviders.yaml:
@@ -159,23 +159,14 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/flux
 
-          - name: "calico"
+          - name: "networking"
             orgId: 1
-            folder: "Calico"
+            folder: "Networking"
             type: file
             disableDeletion: false
-            editable: true
+            editable: false
             options:
-              path: /var/lib/grafana/dashboards/calico
-
-          - name: "data"
-            orgId: 1
-            folder: "Data"
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/data
+              path: /var/lib/grafana/dashboards/networking
 
           - name: "kubernetes"
             orgId: 1
@@ -186,79 +177,50 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/kubernetes
 
-          # - name: "loki"
-          #   orgId: 1
-          #   folder: "Loki"
-          #   type: file
-          #   disableDeletion: false
-          #   editable: true
-          #   options:
-          #     path: /var/lib/grafana/dashboards/loki
-
     dashboards:
-      system:
-        victoriametrics:
-          gnetId: 11176
-          revision: 18
-          datasource: victoriametrics
-        vmagent:
-          gnetId: 12683
-          revision: 7
-          datasource: victoriametrics
-        kubernetes:
-          gnetId: 14205
-          revision: 1
-          datasource: victoriametrics
+      # victoria:
+      #  victoriametrics:
+      #    gnetId: 11176
+      #    revision: 18
+      #    datasource: victoriametrics
+      #  vmagent:
+      #    gnetId: 12683
+      #    revision: 7
+      #    datasource: victoriametrics
+      #  kubernetes:
+      #    gnetId: 14205
+      #    revision: 1
+      #    datasource: victoriametrics
 
+      system:
         1-node-exporter:
           gnetId:
           revision: 9
-          datasource: victoriametrics
 
         node-exporter-full:
           gnetId: 1860
           revision: 23
-          datasource: victoriametrics
+
+      networking:
+        calico:
+          gnetId: 12175
+          revision: 5
 
         metallb:
           gnetId: 14127
           revision: 1
-          datasource: victoriametrics
-
-      # data:
-      #   minio:
-      #     gnetId: 13502
-      #     revision: 10
-      #     datasource: victoriametrics
-
-      # loki:
-      #   loki-metrics:
-      #     gnetId: 13407
-      #     revision: 1
-      #     datasource: victoriametrics
-
-      calico:
-        calico:
-          gnetId: 12175
-          revision: 5
-          datasource: victoriametrics
 
       kubernetes:
         api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
-          datasource: victoriametrics
         # coredns:
         #   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
         #   datasource: Prometheus
         global:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-          datasource: victoriametrics
         namespaces:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
-          datasource: victoriametrics
         nodes:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
-          datasource: victoriametrics
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-          datasource: victoriametrics

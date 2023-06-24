@@ -2,17 +2,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: victoria-operator
+  name: node-exporter
   namespace: flux-monitoring
 spec:
   interval: 15m
   chart:
     spec:
-      chart: victoria-metrics-operator
-      version: 0.23.1
+      chart: prometheus-node-exporter
+      version: 4.18.1
       sourceRef:
         kind: HelmRepository
-        name: victoria-metrics
+        name: prometheus-community
         namespace: flux-charts
       interval: 15m
 
@@ -30,19 +30,14 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack-crds
+    - name: kube-prometheus-stack
       namespace: flux-monitoring
 
   values:
-    createCRD: true
-
-    operator:
-      psp_auto_creation_enabled: false
-      useCustomConfigReloader: true
-
+    nameOverride: node-exporter
     rbac:
       pspEnabled: false
-
-
-    admissionWebhooks:
-      enabled: false
+    prometheus:
+      monitor:
+        enabled: true
+        interval: 2m

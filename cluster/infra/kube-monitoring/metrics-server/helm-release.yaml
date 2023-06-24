@@ -28,7 +28,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack-crds
+    - name: kube-prometheus-stack
       namespace: flux-monitoring
 
   # https://github.com/kubernetes-sigs/metrics-server/blob/metrics-server-helm-chart-3.8.4/charts/metrics-server/values.yaml

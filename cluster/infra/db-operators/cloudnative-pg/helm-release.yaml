@@ -30,7 +30,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack-crds
+    - name: kube-prometheus-stack
       namespace: flux-monitoring
 
   # https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.18.1/charts/cloudnative-pg/values.yaml

@@ -33,7 +33,7 @@ spec:
     - name: longhorn
       namespace: longhorn-system
 
-  # https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-45.7.1/charts/kube-prometheus-stack/values.yaml
+  # https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-47.0.0/charts/kube-prometheus-stack/values.yaml
   values:
     fullnameOverride: prometheus
     cleanPrometheusOperatorObjectNames: true
@@ -116,7 +116,6 @@ spec:
     kubeStateMetrics:
       enabled: true
 
-
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
@@ -142,6 +141,7 @@ spec:
           - "alerts.monitoring.${SECRET_DOMAIN_NAME}"
         path: /
         pathType: Prefix
+
       config:
         global:
           resolve_timeout: 5m
@@ -238,14 +238,17 @@ spec:
           - "prometheus.monitoring.${SECRET_DOMAIN_NAME}"
         path: /
         pathType: Prefix
+
       thanosService:
         enabled: false
+
       thanosServiceMonitor:
         enabled: false
+
       prometheusSpec:
         replicas: 1
         podAntiAffinity: hard
-        retentionSize: "8GB"
+        retentionSize: "15GB"
         replicaExternalLabelName: "replica"
         ruleSelector: { }
         ruleNamespaceSelector: { }
@@ -265,7 +268,7 @@ spec:
               storageClassName: longhorn
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 20Gi
 
     # addtionalScrapeConfigs:
     #   - job_name: "coredns"
@@ -285,8 +288,3 @@ spec:
 
     grafana:
       enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          annotations:
-            grafana_folder: Prometheus
