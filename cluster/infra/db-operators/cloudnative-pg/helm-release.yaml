@@ -29,10 +29,17 @@ spec:
   uninstall:
     keepHistory: false
 
-  # https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.17.0/charts/cloudnative-pg/values.yaml
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
+
+  # https://github.com/cloudnative-pg/charts/blob/cloudnative-pg-v0.18.1/charts/cloudnative-pg/values.yaml
   values:
     crds:
       create: true
     config:
       data:
         INHERITED_ANNOTATIONS: kyverno.io/ignore
+
+    monitoring:
+      podMonitorEnabled: true
