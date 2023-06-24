@@ -28,7 +28,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 
   valuesFrom:

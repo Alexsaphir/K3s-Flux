@@ -18,12 +18,12 @@ spec:
 
   maxHistory: 3
   install:
-    crds: CreateReplace
+    crds: Skip
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
     remediation:
       retries: 3
   uninstall:

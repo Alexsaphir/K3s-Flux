@@ -30,7 +30,7 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 
   # https://github.com/kyverno/kyverno/blob/kyverno-policies-chart-2.7.1/charts/kyverno/values.yaml
