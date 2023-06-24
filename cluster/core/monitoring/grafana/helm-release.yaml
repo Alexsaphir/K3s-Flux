@@ -194,7 +194,7 @@ spec:
 
       system:
         1-node-exporter:
-          gnetId:
+          gnetId: 11074
           revision: 9
 
         node-exporter-full:
