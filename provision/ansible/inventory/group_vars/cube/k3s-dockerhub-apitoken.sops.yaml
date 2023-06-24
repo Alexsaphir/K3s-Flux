@@ -1,0 +1,23 @@
+kind: Secret
+secret_dockerhub_username: ENC[AES256_GCM,data:dr+lfOPNg9WDcGU=,iv:0WpHHNKDUzVQUFnJyKV2TD5uTSjC/LA2ETc8y5+/bSQ=,tag:o6CFE+qp9i4BcxCsEZfyKg==,type:str]
+secret_dockerhub_apitoken: ENC[AES256_GCM,data:+kwD+VPp7JEQvS4Z1ki/m4xo1AS6JCCF6GnkYbvUJnqj6yf9,iv:XIuxmC7zWxxX4fkxRsYUZ6TOj5pjLqicWjxGx6MssSw=,tag:jstpmMFt9NKCGDiKJmwgfQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUUGtpcGxMaWo3K05nWXlo
+            MGlZUHZvNjJ2blNmeEg4NldrMWtHWFVRb25RCmwwMUtMQmk1MFJmSmkvUk0rRHZY
+            dWFzWUp1RlljNngwSHMrUUlsemgrZm8KLS0tIDJ4Z2Nzc2xmdGgvcEMxK3VSL2ta
+            U0kwUUd2dGR3YmJxUjZHNEcrZXRLTjAKg719pVrWBlRyHanz0qSzqVzFDhHXZShU
+            RjvySjaM3X3VWxGV19ZGlaLvnQi+x0rGKhnWd3iZXxUf/EcPCTntyw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-06-24T18:05:05Z"
+    mac: ENC[AES256_GCM,data:HG/mZvm5XBtV4eQ2KYj8oCsKZNufnbFzSYAT1qRl/0AiC653uBcgew+FoMw9Dhojoz9c34imusp24Rk7zgmYPVQHHne7YMEzHHpi8/20t6AnPqwvGlBDFvLkaYeqA6NB0KajzUUlCigOjLehiS5o+oO5rUpLlj1cp+WsHY6Q9gY=,iv:uBn1INTRU4GdverMQ+9WF0ywyrx8LH4g/lGBtl1tkxY=,tag:QSbFT65/2NvYo3uaWR1rZg==,type:str]
+    pgp: []
+    unencrypted_regex: ^(kind)$
+    version: 3.7.3

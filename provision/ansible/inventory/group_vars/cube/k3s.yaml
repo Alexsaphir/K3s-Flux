@@ -37,3 +37,10 @@ k3s_server_manifests_urls:
 # /var/lib/rancher/k3s/server/manifests
 k3s_server_manifests_templates:
   - calico-installation.yaml.j2
+
+k3s_registries:
+  configs:
+    registry-1.docker.io:
+      auth:
+        username: "{{ secret_dockerhub_username }}"
+        password: "{{ secret_dockerhub_apitoken }}"
