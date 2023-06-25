@@ -29,6 +29,10 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: cluster-postgres
+      namespace: operators-system
+
   valuesFrom:
     - kind: Secret
       name: postgres-superuser
