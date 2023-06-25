@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: movetokube-default
-  namespace: default
+  name: movetokube-cluster-postgres
+  namespace: operators-system
 spec:
   interval: 15m
   chart:
@@ -46,7 +46,7 @@ spec:
     # watchNamespace: "default"
 
     postgres:
-      host: postgres-rw.default.svc.cluster.local
+      host: postgres-rw.operators-system.svc.cluster.local
       default_database: "postgres"
 
     resources:

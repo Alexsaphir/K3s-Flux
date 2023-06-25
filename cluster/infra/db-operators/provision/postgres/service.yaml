@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres-lb
-  namespace: default
+  namespace: operators-system
   annotations:
     metallb.universe.tf/address-pool: metallb-pool
 spec:
