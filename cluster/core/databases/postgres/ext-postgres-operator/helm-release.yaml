@@ -48,3 +48,10 @@ spec:
     postgres:
       host: postgres-rw.default.svc.cluster.local
       default_database: "postgres"
+
+    resources:
+      requests:
+        cpu: 5m
+        memory: 32M
+      limits:
+        memory: 100M
