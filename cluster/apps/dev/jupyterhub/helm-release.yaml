@@ -45,7 +45,7 @@ spec:
   values:
     hub:
       image:
-        name: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/k8s-hub
+        name: registry.alexsaphir.com/homelab/containers/jupyter/k8s-hub
         tag: 2.0.0
       # existingSecret:
       activeServerLimit: 0
@@ -98,7 +98,7 @@ spec:
           description: "Homelab."
           default: true
           kubespawner_override:
-            image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook@sha256:c5117458dbae7d0619fbefca421da41b87a4a5bda640c57b03ca3c060dffcbe8
+            image: registry.alexsaphir.com/homelab/containers/jupyter/notebook@sha256:7362cfeb403cc3c56febf45eaf1a6080c9aa3fe9d504d7f12365cdbb0418d10c
             node_selector: { 'node.kubernetes.io/instance-type': 'm3.large' }
 
 
