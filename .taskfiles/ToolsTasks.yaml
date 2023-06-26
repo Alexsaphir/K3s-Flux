@@ -32,7 +32,6 @@ tasks:
         weaveworks/tap
         instrumenta/instrumenta
         raffis/gitops-zombies
-        robusta-dev/homebrew-krr
       DEPS: >-
         age
         direnv
@@ -45,7 +44,6 @@ tasks:
         jq
         k9s
         krew
-        krr
         kubeconform
         kubernetes-cli
         kubeval

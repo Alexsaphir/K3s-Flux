@@ -23,7 +23,6 @@ tasks:
         flux bootstrap gitlab
         --hostname={{.FLUX_HOST}}
         --ssh-hostname={{.FLUX_SSH_HOSTNAME}}
-        --token-auth
         --owner={{.FLUX_OWNER}}
         --repository={{.FLUX_REPOSITORY}}
         --branch={{.FLUX_BRANCH}}
@@ -34,6 +33,8 @@ tasks:
         --gpg-passphrase=''
         --path=cluster/flux/
         --network-policy=false
+        --deploy-token-auth
+        --read-write-key
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
         msg: |

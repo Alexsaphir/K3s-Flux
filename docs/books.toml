@@ -9,7 +9,7 @@ description = "Document my homelab"
 [output.html]
 default-theme = "rust"
 preferred-dark-theme = "rust"
-git-repository-url = "https://gitlab.alexsaphir.com/Alexsaphir/K3s-Flux"
+git-repository-url = "https://gitlab.alexsaphir.com/Homelab/K3s-Flux"
 git-repository-icon = "fa-gitlab"
 no-section-label = true
 git-branch = "main"
