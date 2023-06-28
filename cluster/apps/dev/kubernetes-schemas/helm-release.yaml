@@ -31,7 +31,7 @@ spec:
       replicas: 2
       strategy: RollingUpdate
     image:
-      repository: registry.alexsaphir.com/alexsaphir/k3s-flux/kubernetes-schemas-web
+      repository: registry.alexsaphir.com/homelab/k3s-flux/kubernetes-schemas-web
       tag: latest
     service:
       main:
