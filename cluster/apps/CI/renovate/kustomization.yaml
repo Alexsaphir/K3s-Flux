@@ -9,7 +9,7 @@ configMapGenerator:
   - name: renovate-config
     files:
       - config=config/config.js
-      - RENOVATE_ONBOARDING_CONFIG=config/onboardingConfig.js
+      - RENOVATE_ONBOARDING_CONFIG=config/onboardingConfig.json5
 
 generatorOptions:
   disableNameSuffixHash: true
