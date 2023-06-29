@@ -126,7 +126,7 @@ spec:
         cacheTimeout: 3600
 
         isAdminDn: 'ou=netbox-admin,ou=groups,dc=home,dc=arpa'
-        isSuperUserDn: 'cn=Alexsaphir,ou=people,ou=users,dc=home,dc=arpa'
+        isSuperUserDn: 'ou=netbox-superuser,ou=groups,dc=home,dc=arpa'
 
         attrFirstName: 'givenName'
         attrLastName: 'sn'
