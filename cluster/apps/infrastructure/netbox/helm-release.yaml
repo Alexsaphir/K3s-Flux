@@ -57,10 +57,13 @@ spec:
       kind: Secret
       name: database-netbox
       valuesKey: LOGIN
+    - targetPath: remoteAuth.ldap
+      kind: Secret
+      name: database-netbox
+      valuesKey: LOGIN
 
   # https://github.com/bootc/netbox-chart/blob/develop/values.yaml
   values:
-
     replicaCount: 1
 
     image:
@@ -73,6 +76,30 @@ spec:
     worker:
       enabled: false
 
+    remoteAuth:
+      enabled: true
+      backend: netbox.authentication.LDAPBackend
+      ldap:
+        serverUri: "ldap://glauth.network-system.svc.cluster.local:389"
+        startTls: false
+        ignoreCertErrors: false
+        bindDn: 'cn=search_netbox,ou=svcaccts,dc=home,dc=arpa'
+        userDnTemplate: null
+        userSearchBaseDn: 'ou=people,ou=users,dc=home,dc=arpa'
+        userSearchAttr: 'uid'
+        groupSearchBaseDn: 'ou=netbox,ou=groups,dc=home,dc=arpa'
+        groupSearchClass: 'ou'
+        groupType: 'GroupOfUniqueNamesType'
+        requireGroupDn: ''
+        findGroupPerms: true
+        mirrorGroups: true
+        mirrorGroupsExcept: null
+        cacheTimeout: 3600
+        isAdminDn: 'ou=netbox-admin,ou=groups,dc=home,dc=arpa'
+        isSuperUserDn: 'cn=Alexsaphir,ou=people,ou=users,dc=home,dc=arpa'
+        attrFirstName: 'givenName'
+        attrLastName: 'sn'
+        attrMail: 'mail'
     # plugins:
     #  - netbox_topology_views
     #  - netbox_ipcalculator
