@@ -32,72 +32,72 @@ stages:
     - arkade get kubectl
     - export PATH=$PATH:$HOME/.arkade/bin/
 
-'create-oci':
-  stage: oci
-  extends:
-    - .arkade
-  script:
-    - kubectl get nodes
-    - |
-      wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
-      unzip crd-extractor.zip
-    - export HOME=$CI_PROJECT_DIR
-    - bash crd-extractor.sh
-    - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/
-    - |
-      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
-      --path=$CI_PROJECT_DIR/crdSchemas \
-      --source=${CI_REPOSITORY_URL} \
-      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
-      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
-  artifacts:
-    paths:
-      - crdSchemas/
-
-kubeconform:
-  stage: quality
-  extends:
-    - .arkade
-  script:
-    - arkade get kubeconform kustomize flux
-    - bash ./.gitlab/scripts/kubeconform.sh
-      cluster
-      crdSchemas
-
-'publish-oci':
-  stage: deploy
-  extends:
-    - .arkade
-  only:
-    - tags
-  script:
-    - |
-      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
-      --path=$CI_PROJECT_DIR/crdSchemas \
-      --source=${CI_REPOSITORY_URL} \
-      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
-      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
-
-'publish-oci-web':
-  stage: deploy
-  image:
-    name: gcr.io/kaniko-project/executor:v1.12.0-debug
-    entrypoint: [ "" ]
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  script:
-    - |
-      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
-      FROM ghcr.io/nginxinc/nginx-unprivileged:latest
-      COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
-      USER nginx
-      EOF
-    - cat $CI_PROJECT_DIR/crdSchemas/Dockerfile
-    - /kaniko/executor
-      --context $CI_PROJECT_DIR/crdSchemas
-      --dockerfile $CI_PROJECT_DIR/crdSchemas/Dockerfile
-      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:latest
-#      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:${CI_COMMIT_SHA}
+# 'create-oci':
+#  stage: oci
+#  extends:
+#    - .arkade
+#  script:
+#    - kubectl get nodes
+#    - |
+#      wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
+#      unzip crd-extractor.zip
+#    - export HOME=$CI_PROJECT_DIR
+#    - bash crd-extractor.sh
+#    - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/
+#    - |
+#      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
+#      --path=$CI_PROJECT_DIR/crdSchemas \
+#      --source=${CI_REPOSITORY_URL} \
+#      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
+#      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
+#  artifacts:
+#    paths:
+#      - crdSchemas/
+#
+# kubeconform:
+#  stage: quality
+#  extends:
+#    - .arkade
+#  script:
+#    - arkade get kubeconform kustomize flux
+#    - bash ./.gitlab/scripts/kubeconform.sh
+#      cluster
+#      crdSchemas
+#
+# 'publish-oci':
+#  stage: deploy
+#  extends:
+#    - .arkade
+#  only:
+#    - tags
+#  script:
+#    - |
+#      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
+#      --path=$CI_PROJECT_DIR/crdSchemas \
+#      --source=${CI_REPOSITORY_URL} \
+#      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
+#      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
+#
+# 'publish-oci-web':
+#  stage: deploy
+#  image:
+#    name: gcr.io/kaniko-project/executor:v1.12.0-debug
+#    entrypoint: [ "" ]
+#  rules:
+#    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+#  script:
+#    - |
+#      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
+#      FROM ghcr.io/nginxinc/nginx-unprivileged:latest
+#      COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
+#      USER nginx
+#      EOF
+#    - cat $CI_PROJECT_DIR/crdSchemas/Dockerfile
+#    - /kaniko/executor
+#      --context $CI_PROJECT_DIR/crdSchemas
+#      --dockerfile $CI_PROJECT_DIR/crdSchemas/Dockerfile
+#      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:latest
+##      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:${CI_COMMIT_SHA}
 
 pages:
   stage: deploy
