@@ -76,6 +76,18 @@ spec:
     worker:
       enabled: false
 
+    logging:
+      disable_existing_loggers: false
+      handlers:
+        console:
+          class: logging.StreamHandler
+      loggers:
+        netbox.authentication.*:
+          handlers:
+            - console
+          level: INFO
+      version: 1
+
     remoteAuth:
       enabled: true
       backend: netbox.authentication.LDAPBackend
@@ -87,7 +99,7 @@ spec:
         userDnTemplate: null
         userSearchBaseDn: 'ou=people,ou=users,dc=home,dc=arpa'
         userSearchAttr: 'uid'
-        groupSearchBaseDn: 'ou=netbox,ou=groups,dc=home,dc=arpa'
+        groupSearchBaseDn: 'ou=groups,dc=home,dc=arpa'
         groupSearchClass: 'ou'
         groupType: 'GroupOfUniqueNamesType'
         requireGroupDn: ''
