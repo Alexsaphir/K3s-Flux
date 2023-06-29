@@ -64,6 +64,8 @@ spec:
 
   # https://github.com/bootc/netbox-chart/blob/develop/values.yaml
   values:
+    debug: true
+
     replicaCount: 1
 
     image:
@@ -76,16 +78,26 @@ spec:
     worker:
       enabled: false
 
+    extraEnvs:
+      - name: DJANGO_LOG_LEVEL
+        value: DEBUG
+      - name: DEBUG
+        value: 'true'
+
+
     logging:
       disable_existing_loggers: false
       handlers:
-        console:
-          class: logging.StreamHandler
+        netbox_auth_log:
+          level: DEBUG
+          class: logging.FileHandler
+          filename: '/tmp/django-ldap-debug.log'
+
       loggers:
-        netbox.authentication.*:
+        django_auth_ldap:
           handlers:
-            - console
-          level: INFO
+            - netbox_auth_log
+          level: DEBUG
       version: 1
 
     remoteAuth:
@@ -96,22 +108,30 @@ spec:
         startTls: false
         ignoreCertErrors: false
         bindDn: 'cn=search_netbox,ou=svcaccts,dc=home,dc=arpa'
-        userDnTemplate: null
+
+        userDnTemplate: "cn=%(user)s,ou=people,ou=users,dc=home,dc=arpa"
+
         userSearchBaseDn: 'ou=people,ou=users,dc=home,dc=arpa'
         userSearchAttr: 'uid'
+
         groupSearchBaseDn: 'ou=groups,dc=home,dc=arpa'
-        groupSearchClass: 'ou'
+        groupSearchClass: 'groupOfUniqueNames'
+
         groupType: 'GroupOfUniqueNamesType'
-        requireGroupDn: ''
+        requireGroupDn: 'ou=netbox,ou=groups,dc=home,dc=arpa'
         findGroupPerms: true
+
         mirrorGroups: true
         mirrorGroupsExcept: null
         cacheTimeout: 3600
+
         isAdminDn: 'ou=netbox-admin,ou=groups,dc=home,dc=arpa'
         isSuperUserDn: 'cn=Alexsaphir,ou=people,ou=users,dc=home,dc=arpa'
+
         attrFirstName: 'givenName'
         attrLastName: 'sn'
         attrMail: 'mail'
+
     # plugins:
     #  - netbox_topology_views
     #  - netbox_ipcalculator
