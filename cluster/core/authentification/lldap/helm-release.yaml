@@ -57,14 +57,19 @@ spec:
 
     service:
       main:
+        ports:
+          http:
+            port: *http-port
+          ldap:
+            enabled: true
+            port: *ldap-port
+      ext-ldap:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/address-pool: metallb-pool
         ports:
-          http:
-            port: *http-port
-          ldap:
+          ldap-metal:
             enabled: true
             port: *ldap-port
 
