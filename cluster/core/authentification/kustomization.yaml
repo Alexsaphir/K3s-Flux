@@ -5,3 +5,4 @@ resources:
   - postgres.yaml
   - authelia
   - glauth
+  - lldap
