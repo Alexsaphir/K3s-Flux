@@ -38,7 +38,7 @@ spec:
         reloader.stakater.com/reload: "zigbee2mqtt-secrets"
     image:
       repository: ghcr.io/koenkk/zigbee2mqtt
-      tag: 1.31.2
+      tag: 1.32.0
     env:
       TZ: "${CONFIG_TIMEZONE}"
       ZIGBEE2MQTT_DATA: /config
