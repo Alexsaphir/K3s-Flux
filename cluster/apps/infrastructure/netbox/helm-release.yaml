@@ -78,11 +78,11 @@ spec:
     worker:
       enabled: false
 
-    extraEnvs:
-      - name: DJANGO_LOG_LEVEL
-        value: DEBUG
-      - name: DEBUG
-        value: 'true'
+    #    extraEnvs:
+    #      - name: DJANGO_LOG_LEVEL
+    #        value: DEBUG
+    #      - name: DEBUG
+    #        value: 'true'
     #      - name: REMOTE_AUTH_ENABLED
     #        value: "True"
     #      - name: REMOTE_AUTH_BACKEND
@@ -120,58 +120,58 @@ spec:
     #        value: "false"
 
 
-    logging:
-      disable_existing_loggers: false
-      handlers:
-        netbox_auth_log:
-          level: DEBUG
-          class: logging.FileHandler
-          filename: '/tmp/django-ldap-debug.log'
+    #    logging:
+    #      disable_existing_loggers: false
+    #      handlers:
+    #        netbox_auth_log:
+    #          level: DEBUG
+    #          class: logging.FileHandler
+    #          filename: '/tmp/django-ldap-debug.log'
+    #
+    #      loggers:
+    #        #        django:
+    #        #          handlers:
+    #        #            - netbox_auth_log
+    #        #          level: DEBUG
+    #        netbox.authentication.*:
+    #          handlers:
+    #            - netbox_auth_log
+    #          level: DEBUG
+    #        django_auth_ldap:
+    #          handlers:
+    #            - netbox_auth_log
+    #          level: DEBUG
+    #      version: 1
 
-      loggers:
-        #        django:
-        #          handlers:
-        #            - netbox_auth_log
-        #          level: DEBUG
-        netbox.authentication.*:
-          handlers:
-            - netbox_auth_log
-          level: DEBUG
-        django_auth_ldap:
-          handlers:
-            - netbox_auth_log
-          level: DEBUG
-      version: 1
-
-    remoteAuth:
-      enabled: true
-      backend: netbox.authentication.LDAPBackend
-      ldap:
-        serverUri: "ldap://glauth.network-system.svc.cluster.local:389"
-        startTls: false
-        ignoreCertErrors: false
-        bindDn: 'cn=search_netbox,ou=svcaccts,dc=home,dc=arpa'
-
-        userSearchBaseDn: 'ou=people,ou=users,dc=home,dc=arpa'
-        userSearchAttr: 'uid'
-
-        groupSearchBaseDn: 'ou=groups,dc=home,dc=arpa'
-        groupSearchClass: 'groupOfUniqueNames'
-
-        groupType: 'GroupOfUniqueNamesType'
-        requireGroupDn: 'cn=netbox'
-        findGroupPerms: true
-
-        mirrorGroups: true
-        # mirrorGroupsExcept: null
-        cacheTimeout: 3600
-
-        isAdminDn: 'cn=netbox-admin'
-        isSuperUserDn: 'cn=netbox-superuser'
-
-        attrFirstName: 'givenName'
-        attrLastName: 'sn'
-        attrMail: 'mail'
+    #    remoteAuth:
+    #      enabled: true
+    #      backend: netbox.authentication.LDAPBackend
+    #      ldap:
+    #        serverUri: "ldap://glauth.network-system.svc.cluster.local:389"
+    #        startTls: false
+    #        ignoreCertErrors: false
+    #        bindDn: 'cn=search_netbox,ou=svcaccts,dc=home,dc=arpa'
+    #
+    #        userSearchBaseDn: 'ou=people,ou=users,dc=home,dc=arpa'
+    #        userSearchAttr: 'uid'
+    #
+    #        groupSearchBaseDn: 'ou=groups,dc=home,dc=arpa'
+    #        groupSearchClass: 'groupOfUniqueNames'
+    #
+    #        groupType: 'GroupOfUniqueNamesType'
+    #        requireGroupDn: 'ou=netbox'
+    #        findGroupPerms: true
+    #
+    #        mirrorGroups: true
+    #        # mirrorGroupsExcept: null
+    #        cacheTimeout: 3600
+    #
+    #        isAdminDn: 'cn=netbox-admin'
+    #        isSuperUserDn: 'cn=netbox-superuser'
+    #
+    #        attrFirstName: 'givenName'
+    #        attrLastName: 'sn'
+    #        attrMail: 'mail'
 
     # plugins:
     #  - netbox_topology_views
