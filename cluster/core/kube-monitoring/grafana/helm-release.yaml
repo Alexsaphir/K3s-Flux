@@ -201,27 +201,35 @@ spec:
         node-exporter-full:
           gnetId: 1860
           revision: 23
+          datasource: Prometheus
 
       networking:
         calico:
           gnetId: 12175
           revision: 5
+          datasource: Prometheus
 
         metallb:
           gnetId: 14127
           revision: 1
+          datasource: Prometheus
 
       kubernetes:
         api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+          datasource: Prometheus
         # coredns:
         #   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
         #   datasource: Prometheus
         global:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+          datasource: Prometheus
         namespaces:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+          datasource: Prometheus
         nodes:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+          datasource: Prometheus
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          datasource: Prometheus
