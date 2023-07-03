@@ -64,7 +64,7 @@ spec:
 
   # https://github.com/bootc/netbox-chart/blob/develop/values.yaml
   values:
-    debug: true
+    debug: false
 
     replicaCount: 1
 
