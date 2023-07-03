@@ -44,7 +44,7 @@ spec:
           instances: 2
           storage:
             size: 10Gi
-            storageClass: longhorn
+            storageClass: local-path
 
           monitoring:
             enablePodMonitor: true
