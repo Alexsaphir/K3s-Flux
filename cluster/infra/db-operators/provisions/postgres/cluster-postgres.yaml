@@ -41,6 +41,8 @@ spec:
             kyverno.io/ignore: "true"
 
         spec:
+          imageName: ghcr.io/cloudnative-pg/postgresql:15.3@sha256:38cebd739daea35a85f9d2265a76c23edf763639867c88fef6d35d9d660a92dd
+
           instances: 2
           storage:
             size: 10Gi
