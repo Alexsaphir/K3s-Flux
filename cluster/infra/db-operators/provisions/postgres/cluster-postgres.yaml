@@ -61,9 +61,10 @@ spec:
 
               destinationPath: 's3://cloudnativepg-backup/'
               endpointURL: 'https://s3.alexsaphir.com'
-              accessKeyId:
-                name: postgres-backup-secret
-                key: ACCESS_KEY_ID
-              secretAccessKey:
-                name: postgres-backup-secret
-                key: ACCESS_SECRET_KEY
+              s3Credentials:
+                accessKeyId:
+                  name: postgres-backup-secret
+                  key: ACCESS_KEY_ID
+                secretAccessKey:
+                  name: postgres-backup-secret
+                  key: ACCESS_SECRET_KEY
