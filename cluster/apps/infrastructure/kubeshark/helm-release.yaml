@@ -1,0 +1,110 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app kubeshark
+  namespace: &namespace default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kubeshark
+      version: '41.2'
+      sourceRef:
+        kind: HelmRepository
+        name: kubeshark
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  valuesFrom:
+    - kind: Secret
+      name: kubeshark-secret
+      valuesKey: license
+      targetPath: license
+
+  values:
+    tap:
+      docker:
+        registry: docker.io/kubeshark
+        tag: latest
+        imagepullpolicy: Always
+        imagepullsecrets: [ ]
+
+      proxy:
+        worker:
+          srvport: 8897
+        hub:
+          port: 8898
+          srvport: 8898
+        front:
+          port: 8899
+          srvport: 8899
+        host: 127.0.0.1
+      regex: .*
+      namespaces: [ ]
+      release:
+        repo: https://helm.kubeshark.co
+        name: *app
+        namespace: *namespace
+      persistentstorage: false
+      storagelimit: 200Mi
+      storageclass: longhorn
+      dryrun: false
+      pcap: ""
+      resources:
+        worker:
+          limits:
+            cpu: 750m
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+        hub:
+          limits:
+            cpu: 750m
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+      servicemesh: true
+      tls: true
+      packetcapture: libpcap
+      ignoretainted: false
+      labels: { }
+      annotations: { }
+      nodeselectorterms: [ ]
+      ingress:
+        enabled: true
+        classname: traefik
+        host: kubeshark.${SECRET_DOMAIN_NAME}
+        auth:
+          approveddomains: [ ]
+      debug: false
+
+    logs:
+      file: ""
+
+    kube:
+      configpath: ""
+      context: ""
+
+    dumplogs: false
+    headless: false
+
+    # license: ""
+
+    scripting:
+      env: { }
+      source: ""
+      watchScripts: true

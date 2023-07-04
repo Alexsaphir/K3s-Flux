@@ -18,8 +18,8 @@ resources:
   - descheduler.yaml
   - docker-mailserver.yaml
   - dysnix.yaml
-  - external-secrets.yaml
   - emqx.yaml
+  - external-secrets.yaml
   - fairwinds.yaml
   - falco.yaml
   - grafana.yaml
@@ -30,16 +30,17 @@ resources:
   - intel.yaml
   - jetstack.yaml
   - jupyterhub.yaml
-  - kubereboot.yaml
   - kube-vip.yaml
+  - kubereboot.yaml
+  - kubeshark.yaml
   - kyverno-reporter.yaml
   - kyverno.yaml
   - longhorn.yaml
   - metallb.yaml
   - metric-server.yaml
   - minio.yaml
-  - movetokube.yaml
   - morremeyer.yaml
+  - movetokube.yaml
   - node-feature-discovery.yaml
   - opstree.yaml
   - ori-edge.yaml
@@ -51,10 +52,10 @@ resources:
   - spotahome.yaml
   - stakater.yaml
   - stefanprodan.yaml
-  - weaveworks.yaml
   - traefik.yaml
   - trivy-exporter.yaml
   - trivy-operator-polr-adapter.yaml
   - trivy.yaml
   - vector.yaml
   - victoria-metrics.yaml
+  - weaveworks.yaml
