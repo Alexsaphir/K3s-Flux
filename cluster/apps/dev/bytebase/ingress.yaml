@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bytebase
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+    hajimari.io/icon: mdi:ansible
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: bytebase.${SECRET_DOMAIN_NAME}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bytebase-entrypoint
+                port:
+                  number: 8080

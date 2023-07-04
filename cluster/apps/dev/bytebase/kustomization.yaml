@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - postgres.yaml
   - helm-release.yaml
+  - ingress.yaml
