@@ -36,12 +36,6 @@ spec:
   values:
     installCRDs: true
 
-    image:
-      tag: upgrade-to-flux-2-rc-1-d3949b9e
-    runner:
-      image:
-        tag: upgrade-to-flux-2-rc-1-d3949b9e
-
     metrics:
       enabled: true
       serviceMonitor:
