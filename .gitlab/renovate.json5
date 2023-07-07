@@ -1,7 +1,7 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'config:base',
+    'config:recommended',
     'docker:enableMajor',
     ':disableRateLimiting',
     ':dependencyDashboard',
@@ -12,7 +12,7 @@
     'local>Homelab/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/semanticCommits.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/groups.json5',
-    'local>Homelab/K3s-Flux//.gitlab/renovate/labels.json5'
+    'local>Homelab/K3s-Flux//.gitlab/renovate/labels.json5',
   ],
   enabled: true,
   prConcurrentLimit: 3,
@@ -22,64 +22,64 @@
   dependencyDashboardTitle: 'Renovate Dashboard',
   gitLabIgnoreApprovals: true,
   suppressNotifications: [
-    'prIgnoreNotification'
+    'prIgnoreNotification',
   ],
   rebaseWhen: 'behind-base-branch',
   lockFileMaintenance: {
-    enabled: false
+    enabled: false,
   },
   poetry: {
     enabled: true,
     automerge: true,
-    rangeStrategy: "bump"
+    rangeStrategy: 'bump',
   },
   'pre-commit': {
     enabled: true,
-    automerge: true
+    automerge: true,
   },
   flux: {
     fileMatch: [
-      'cluster/.+\\.ya?ml$'
-    ]
+      'cluster/.+\\.ya?ml$',
+    ],
   },
   'helm-values': {
     fileMatch: [
-      'cluster/.+\\.ya?ml$'
-    ]
+      'cluster/.+\\.ya?ml$',
+    ],
   },
   kubernetes: {
     fileMatch: [
       'cluster/.+\\.ya?ml$',
-      'provision/ansible/.+\\.ya?ml.j2$'
-    ]
+      'provision/ansible/.+\\.ya?ml.j2$',
+    ],
   },
-  "regexManagers": [
+  regexManagers: [
     {
-      "description": "Process custom dependencies",
-      "fileMatch": [
-        "ansible/.+\\.ya?ml$",
-        "cluster/.+\\.ya?ml$"
+      description: 'Process custom dependencies',
+      fileMatch: [
+        'ansible/.+\\.ya?ml$',
+        'cluster/.+\\.ya?ml$',
       ],
-      "matchStrings": [
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
+      matchStrings: [
+        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?"(?<currentValue>.*)"\n',
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    }
+      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}',
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
+    },
   ],
   packageRules: [
     {
       matchPackageNames: [
         'kube-prometheus-stack',
-        'kube-prometheus-stack-crds'
+        'kube-prometheus-stack-crds',
       ],
-      groupName: 'kube-prometheus-stack'
+      groupName: 'kube-prometheus-stack',
     },
     {
-      "matchPackagePatterns": [
-        "^intel-device-plugins"
+      matchPackagePatterns: [
+        '^intel-device-plugins',
       ],
-      groupName: 'intel-device-plugins'
-    }
-  ]
+      groupName: 'intel-device-plugins',
+    },
+  ],
 }
