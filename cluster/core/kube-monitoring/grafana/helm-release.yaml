@@ -193,6 +193,11 @@ spec:
       #    datasource: victoriametrics
 
       system:
+        longhorn:
+          gnetId: 17626
+          revision: 1
+          datasource: Prometheus
+
         1-node-exporter:
           gnetId: 11074
           revision: 9
