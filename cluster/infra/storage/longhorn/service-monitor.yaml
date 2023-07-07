@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn-service-monitor
+  namespace: longhorn-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: raw
+      version: v0.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: dysnix
+        namespace: flux-charts
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
+
+    - name: longhorn
+      namespace: longhorn-system
+
+  values:
+    resources:
+      - apiVersion: monitoring.coreos.com/v1
+        kind: ServiceMonitor
+        metadata:
+          name: longhorn-prometheus-servicemonitor
+          namespace: longhorn-system
+          labels:
+            name: longhorn-prometheus-servicemonitor
+        spec:
+          selector:
+            matchLabels:
+              app: longhorn-manager
+          namespaceSelector:
+            matchNames:
+              - longhorn-system
+          endpoints:
+            - port: manager

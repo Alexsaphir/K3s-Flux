@@ -6,3 +6,4 @@ resources:
   - secrets.sops.yaml
   - helm-release.yaml
   - patch-local-path.yaml
+  - service-monitor.yaml
