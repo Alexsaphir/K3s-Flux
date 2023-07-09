@@ -53,7 +53,7 @@ spec:
 
           bootstrap:
             recovery:
-              source: postgres-v1
+              source: &source postgres-v1
 
           backup:
             retentionPolicy: 30d
@@ -74,17 +74,17 @@ spec:
                   key: ACCESS_SECRET_KEY
 
           externalClusters:
-            barmanObjectStore:
-              serverName: postgres-v1
-              wal:
-                compression: bzip2
-                maxParallel: 4
-              destinationPath: 's3://cloudnativepg-backup/'
-              endpointURL: 'https://s3.alexsaphir.com'
-              s3Credentials:
-                accessKeyId:
-                  name: postgres-backup-secret
-                  key: ACCESS_KEY_ID
-                secretAccessKey:
-                  name: postgres-backup-secret
-                  key: ACCESS_SECRET_KEY
+            - name: *source
+              barmanObjectStore:
+                wal:
+                  compression: bzip2
+                  maxParallel: 4
+                destinationPath: 's3://cloudnativepg-backup/'
+                endpointURL: 'https://s3.alexsaphir.com'
+                s3Credentials:
+                  accessKeyId:
+                    name: postgres-backup-secret
+                    key: ACCESS_KEY_ID
+                  secretAccessKey:
+                    name: postgres-backup-secret
+                    key: ACCESS_SECRET_KEY
