@@ -37,11 +37,15 @@ spec:
     installCRDs: true
     replicaCount: 2
     leaderElect: true
+
+    extraArgs:
+      loglevel: debug
+
     serviceMonitor:
-      enabled: false
+      enabled: true
     webhook:
       serviceMonitor:
-        enabled: false
+        enabled: true
     certController:
       serviceMonitor:
-        enabled: false
+        enabled: true

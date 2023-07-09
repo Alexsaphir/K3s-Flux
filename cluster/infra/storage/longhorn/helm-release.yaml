@@ -35,6 +35,7 @@ spec:
 
   # https://github.com/longhorn/longhorn/blob/v1.4.2/chart/values.yaml
   values:
+    pspEnable: false
     persistence:
       defaultClass: true
       defaultFsType: ext4

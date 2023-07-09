@@ -30,9 +30,12 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: snapshot-validation-webhook
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
 
   # https://github.com/piraeusdatastore/helm-charts/blob/main/charts/snapshot-controller/values.yaml
   values:
+    replicaCount: 1
+
     serviceMonitor:
       create: true
