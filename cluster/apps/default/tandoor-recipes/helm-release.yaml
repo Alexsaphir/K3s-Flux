@@ -35,11 +35,6 @@ spec:
       - secretRef:
           name: tandoor-recipes-secret
     env:
-      SECRET_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: tandoor-recipes-secret
-            key: secret-key
       TIMEZONE: '${CONFIG_TIMEZONE}'
 
       ALLOWED_HOSTS: &host recipes.${SECRET_DOMAIN_NAME}
