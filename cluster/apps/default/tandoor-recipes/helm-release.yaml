@@ -82,9 +82,9 @@ spec:
       SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
 
       # Default settings for spaces
-      SPACE_DEFAULT_MAX_RECIPES: 0 # 0=unlimited recipes
-      SPACE_DEFAULT_MAX_USERS: 2048 # 0=unlimited users per space
-      SPACE_DEFAULT_MAX_FILES: 2048 # Maximum file storage for space in MB. 0 for unlimited, -1 to disable file upload.
+      SPACE_DEFAULT_MAX_RECIPES: 5000 # 0=unlimited recipes
+      SPACE_DEFAULT_MAX_USERS: 0 # 0=unlimited users per space
+      SPACE_DEFAULT_MAX_FILES: 512 # Maximum file storage for space in MB. 0 for unlimited, -1 to disable file upload.
       SPACE_DEFAULT_ALLOW_SHARING: 1 # Allow users to share recipes with public links
 
       SORT_TREE_BY_NAME: 1
