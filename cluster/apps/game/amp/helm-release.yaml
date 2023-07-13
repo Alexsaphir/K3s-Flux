@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: mitchtalmadge/amp-dockerized
-      tag: latest@sha256:9d4980ccec2bb41b92d3e9005f46c6dea667e321f29c6d8d3b533ad948b15509
+      tag: latest@sha256:a528f541b0c759462713ace2202a8a95fd3a8677c58eb8aac344f02636aa7c9a
 
     podAnnotations:
       reloader.stakater.com/auto: "true"
