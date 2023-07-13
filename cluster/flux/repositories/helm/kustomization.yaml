@@ -39,7 +39,7 @@ resources:
   - metallb.yaml
   - metric-server.yaml
   - minio.yaml
-  - morremeyer.yaml
+  - community-tooling.yaml
   - movetokube.yaml
   - node-feature-discovery.yaml
   - opstree.yaml

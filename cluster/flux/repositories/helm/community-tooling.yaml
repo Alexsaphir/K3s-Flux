@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: morremeyer
+  name: community-tooling
   namespace: flux-charts
 spec:
   interval: 1h
-  url: https://morremeyer.github.io/charts
+  url: https://community-tooling.github.io/charts/
   timeout: 3m
