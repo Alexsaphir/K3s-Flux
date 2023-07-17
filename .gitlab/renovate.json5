@@ -76,6 +76,13 @@
       groupName: 'kube-prometheus-stack',
     },
     {
+      matchPackageNames: [
+        'snapshot-controller',
+        'snapshot-validation-webhook',
+      ],
+      groupName: 'piraeus-snapshot',
+    },
+    {
       matchPackagePatterns: [
         '^intel-device-plugins',
       ],
