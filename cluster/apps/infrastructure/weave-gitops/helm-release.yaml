@@ -26,12 +26,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  valuesFrom:
-    - kind: Secret
-      name: weave-gitops
-      valuesKey: adminPassword
-      targetPath: adminUser.passwordHash
-
   # https://github.com/weaveworks/weave-gitops/blob/main/charts/gitops-server/values.yaml
   values:
     adminUser:
