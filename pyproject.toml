@@ -18,6 +18,9 @@ ansible-inventory-grapher = "^2.5.0"
 prettier = "^0.0.7"
 yamllint = "^1.32.0"
 
+[tool.poetry.group.ci.dependencies]
+flux-local = "^3.0.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
