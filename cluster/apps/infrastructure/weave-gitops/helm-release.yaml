@@ -36,6 +36,7 @@ spec:
   values:
     adminUser:
       create: true
+      createSecret: false
       username: admin
 
     metrics:
