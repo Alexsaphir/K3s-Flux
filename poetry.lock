@@ -49,7 +49,6 @@ files = [
 
 [package.dependencies]
 cryptography = "*"
-importlib-resources = {version = ">=5.0,<5.1", markers = "python_version < \"3.10\""}
 jinja2 = ">=3.0.0"
 packaging = "*"
 PyYAML = ">=5.1"
@@ -223,20 +222,6 @@ files = [
 ]
 
 [[package]]
-name = "exceptiongroup"
-version = "1.1.2"
-description = "Backport of PEP 654 (exception groups)"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "exceptiongroup-1.1.2-py3-none-any.whl", hash = "sha256:e346e69d186172ca7cf029c8c1d16235aa0e04035e5750b4b95039e65204328f"},
-    {file = "exceptiongroup-1.1.2.tar.gz", hash = "sha256:12c3e887d6485d16943a309616de20ae5582633e0a2eda17f4e10fd61c1e8af5"},
-]
-
-[package.extras]
-test = ["pytest (>=6)"]
-
-[[package]]
 name = "filelock"
 version = "3.12.2"
 description = "A platform independent file lock."
@@ -253,13 +238,13 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "diff-cover (>=7.5)", "p
 
 [[package]]
 name = "flux-local"
-version = "3.0.0"
+version = "3.1.0"
 description = "flux-local is a python library and set of tools for managing a flux gitops repository, with validation steps to help improve quality of commits, PRs, and general local testing."
 optional = false
-python-versions = "*"
+python-versions = ">=3.10"
 files = [
-    {file = "flux-local-3.0.0.tar.gz", hash = "sha256:862d57fe5095d9876f334eebce47d8bf454dd23ca856ffaf5c7d4e5b680e4d23"},
-    {file = "flux_local-3.0.0-py3-none-any.whl", hash = "sha256:e5e6aa67006f5d3d07c1aa5148a77404a667f856d200161d486cd5e1e26be7a7"},
+    {file = "flux-local-3.1.0.tar.gz", hash = "sha256:adf7533c7917c1900451f0edd615a3314e266886cfdd1fb2f797fd48ccf68b8d"},
+    {file = "flux_local-3.1.0-py3-none-any.whl", hash = "sha256:0a05d306090aadc15c85fa92af2f1bea23f03a8d463b0a00792f07917281d1a5"},
 ]
 
 [package.dependencies]
@@ -313,21 +298,6 @@ files = [
 
 [package.extras]
 license = ["ukkonen"]
-
-[[package]]
-name = "importlib-resources"
-version = "5.0.7"
-description = "Read resources from Python packages"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "importlib_resources-5.0.7-py3-none-any.whl", hash = "sha256:2238159eb743bd85304a16e0536048b3e991c531d1cd51c4a834d1ccf2829057"},
-    {file = "importlib_resources-5.0.7.tar.gz", hash = "sha256:4df460394562b4581bb4e4087ad9447bd433148fba44241754ec3152499f1d1b"},
-]
-
-[package.extras]
-docs = ["jaraco.packaging (>=8.2)", "rst.linker (>=1.9)", "sphinx"]
-testing = ["pytest (>=3.5,!=3.7.3)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=1.2.3)", "pytest-cov", "pytest-enabler", "pytest-flake8", "pytest-mypy"]
 
 [[package]]
 name = "iniconfig"
@@ -678,11 +648,9 @@ files = [
 
 [package.dependencies]
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
-exceptiongroup = {version = ">=1.0.0rc8", markers = "python_version < \"3.11\""}
 iniconfig = "*"
 packaging = "*"
 pluggy = ">=0.12,<2.0"
-tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 
 [package.extras]
 testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
@@ -827,17 +795,6 @@ files = [
 ]
 
 [[package]]
-name = "tomli"
-version = "2.0.1"
-description = "A lil' TOML parser"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
-    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
-]
-
-[[package]]
 name = "typing-extensions"
 version = "4.7.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -850,13 +807,13 @@ files = [
 
 [[package]]
 name = "virtualenv"
-version = "20.24.0"
+version = "20.24.1"
 description = "Virtual Python Environment builder"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "virtualenv-20.24.0-py3-none-any.whl", hash = "sha256:18d1b37fc75cc2670625702d76849a91ebd383768b4e91382a8d51be3246049e"},
-    {file = "virtualenv-20.24.0.tar.gz", hash = "sha256:e2a7cef9da880d693b933db7654367754f14e20650dc60e8ee7385571f8593a3"},
+    {file = "virtualenv-20.24.1-py3-none-any.whl", hash = "sha256:01aacf8decd346cf9a865ae85c0cdc7f64c8caa07ff0d8b1dfc1733d10677442"},
+    {file = "virtualenv-20.24.1.tar.gz", hash = "sha256:2ef6a237c31629da6442b0bcaa3999748108c7166318d1f55cc9f8d7294e97bd"},
 ]
 
 [package.dependencies]
@@ -888,5 +845,5 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 
 [metadata]
 lock-version = "2.0"
-python-versions = ">3.9, <3.12"
-content-hash = "a4af599dd53c392c92068aafe7c2f6e5d62ed52c939aca9fff07427ddb67b38d"
+python-versions = "^3.11"
+content-hash = "953aa635908588c9a122d858508cf5e3ff1b36034af67193a45ca603d5894139"
