@@ -60,7 +60,7 @@ spec:
       GATUS_CONFIG_PATH: /config
 
     gatus:
-      custom-web-port: &port 80
+      customWebPort: &port 80
 
     service:
       main:
@@ -138,9 +138,8 @@ spec:
         enabled: true
         data:
           config.yaml: |
-            ---
             web:
-              port:  {{ .Values.gatus.custom-web-port }}
+              port:  {{ .Values.gatus.customWebPort }}
             storage:
               type: postgres
               path: {{ .Values.gatus.postgresURL }}
