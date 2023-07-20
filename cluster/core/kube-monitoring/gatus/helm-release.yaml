@@ -160,6 +160,6 @@ spec:
                 url: https://status.${SECRET_DOMAIN_NAME}
                 interval: 1m
                 client:
-                  dns-resolver: tcp://1.1.1.1:53
+                  dns-resolver: tcp://192.168.0.56:53
                 conditions:
                   - "[STATUS] == 200"
