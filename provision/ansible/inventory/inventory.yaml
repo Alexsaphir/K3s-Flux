@@ -1,8 +1,16 @@
 ---
-cube:
+all:
   vars:
     ansible_connection: ssh
     ansible_ssh_port: 22
+
+ungrouped:
+  hosts:
+    minerva:
+      ansible_host: 192.168.0.56
+
+cube:
+  vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
     global_k8s_labels:
       - "topology.kubernetes.io/region=homelab"
