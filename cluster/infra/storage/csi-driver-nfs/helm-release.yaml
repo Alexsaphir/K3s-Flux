@@ -30,7 +30,7 @@ spec:
     - name: snapshot-controller
       namespace: kube-system
 
-  # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.2.0/charts/v4.2.0/csi-driver-nfs/values.yaml
+  # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.4.0/charts/v4.4.0/csi-driver-nfs/values.yaml
   values:
     kubeletDir: /var/lib/kubelet
 
@@ -47,3 +47,5 @@ spec:
 
     externalSnapshotter:
       enabled: false
+      customResourceDefinitions:
+        enabled: false
