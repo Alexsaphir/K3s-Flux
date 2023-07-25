@@ -30,6 +30,7 @@ resources:
   - intel.yaml
   - jetstack.yaml
   - jupyterhub.yaml
+  - kepler.yaml
   - kube-vip.yaml
   - kubereboot.yaml
   - kubeshark.yaml
