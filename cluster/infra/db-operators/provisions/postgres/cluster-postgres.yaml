@@ -44,6 +44,11 @@ spec:
           imageName: ghcr.io/cloudnative-pg/postgresql:15.3@sha256:38cebd739daea35a85f9d2265a76c23edf763639867c88fef6d35d9d660a92dd
 
           instances: 2
+
+          resources:
+            requests:
+              memory: "2Gi"
+
           storage:
             size: 10Gi
             storageClass: local-path
