@@ -41,12 +41,10 @@ spec:
 
   # https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-47.0.0/charts/kube-prometheus-stack/values.yaml
   values:
-    fullnameOverride: prometheus
     cleanPrometheusOperatorObjectNames: true
 
 
     alertmanager:
-      enabled: false
       ingress:
         enabled: true
         annotations:
