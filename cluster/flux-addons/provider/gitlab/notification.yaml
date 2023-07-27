@@ -1,0 +1,27 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+  name: gitlab-provider
+  namespace: flux-system
+spec:
+  type: gitlab
+  address: https://gitlab.alexsaphir.com/Homelab/K3s-Flux
+  secretRef:
+    name: gitlab-provider-token
+
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: gitlab
+  namespace: flux-system
+spec:
+  providerRef:
+    name: gitlab-provider
+  eventSeverity: info
+  eventSources:
+    - kind: HelmRelease
+      name: "*"
+    - kind: Kustomization
+      name: "*"
