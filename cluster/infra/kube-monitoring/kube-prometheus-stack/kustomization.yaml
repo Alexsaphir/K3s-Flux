@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: alertmanager-config-tpl
     files:
-      - alertmanager.yaml=./config/alertmanager.yaml
+      - alertmanager.yaml=config/alertmanager.yaml
 generatorOptions:
   disableNameSuffixHash: true

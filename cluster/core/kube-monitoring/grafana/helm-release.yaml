@@ -65,6 +65,8 @@ spec:
         provisioning: /etc/grafana/provisioning
       analytics:
         check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
       log:
         mode: console
       grafana_net:
@@ -123,18 +125,13 @@ spec:
         apiVersion: 1
         # list of datasources that should be deleted from the database
         deleteDatasources:
+          - name: Alertmanager
+            orgId: 1
           - name: Loki
             orgId: 1
+          - name: Prometheus
+            orgId: 1
         datasources:
-          # - name: victoriametrics
-          #   type: prometheus
-          #   orgId: 1
-          #   url: http://vmselect-victoria.flux-monitoring.svc.cluster.local:8481/select/0/prometheus
-          #   access: proxy
-          #   isDefault: true
-          #   updateIntervalSeconds: 10
-          #   editable: false
-
           - name: Prometheus
             type: prometheus
             uid: prometheus
