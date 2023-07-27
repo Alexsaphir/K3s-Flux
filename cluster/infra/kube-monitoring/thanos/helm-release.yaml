@@ -65,7 +65,7 @@ spec:
     objstoreConfig:
       type: s3
       config:
-        insecure: true
+        insecure: false
 
     queryFrontend:
       enabled: true
@@ -73,6 +73,8 @@ spec:
       ingress:
         enabled: true
         ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hostname: &host thanos-query-frontend.${SECRET_DOMAIN_NAME}
         tls: false
 
