@@ -6,3 +6,6 @@ resources:
   - kube-prometheus-stack-crds
   - metrics-server
   - kube-prometheus-stack # kube-victoria
+  - kube-state-metrics
+  - node-exporter
+  - thanos

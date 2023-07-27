@@ -1,0 +1,21 @@
+---
+global:
+  resolve_timeout: 5m
+route:
+  group_by: [ "alertname", "job" ]
+  group_interval: 10m
+  group_wait: 1m
+  receiver: pushover
+  repeat_interval: 12h
+  routes:
+    - receiver: "null"
+      matchers:
+        - alertname =~ "InfoInhibitor"
+inhibit_rules:
+  - equal: [ "alertname", "namespace" ]
+    source_matchers:
+      - severity = "critical"
+    target_matchers:
+      - severity = "warning"
+receivers:
+  - name: "null"
