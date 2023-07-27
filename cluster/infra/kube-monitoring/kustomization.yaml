@@ -5,8 +5,8 @@ resources:
   - namespace.yaml
   - kube-prometheus-stack-crds
   - metrics-server
-  - kube-prometheus-stack # kube-victoria
   - kube-state-metrics
   - node-exporter
+  - kube-prometheus-stack # kube-victoria
   - thanos
   - loki
