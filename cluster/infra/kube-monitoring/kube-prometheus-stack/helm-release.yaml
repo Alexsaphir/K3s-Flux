@@ -46,6 +46,7 @@ spec:
 
 
     alertmanager:
+      enabled: false
       ingress:
         enabled: true
         annotations:

@@ -4,9 +4,11 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - kube-prometheus-stack-crds
+
   - metrics-server
   - kube-state-metrics
   - node-exporter
+
   - kube-prometheus-stack # kube-victoria
   - thanos
   - loki
