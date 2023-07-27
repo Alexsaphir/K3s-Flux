@@ -12,3 +12,6 @@ resources:
   - kube-prometheus-stack # kube-victoria
   - thanos
   - loki
+  - vector
+
+  - grafana
