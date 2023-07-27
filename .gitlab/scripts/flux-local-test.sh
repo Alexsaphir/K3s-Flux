@@ -1,7 +1,7 @@
 INPUTS_PATH=cluster
 #INPUTS_SOURCES='cluster=./cluster/'
 
-LOG_LEVEL=DEBUG # DEBUG or INFO
+LOG_LEVEL=INFO # DEBUG or INFO
 
 # Path to the root of the flux cluster GitRepository and Kustomization.
 INPUTS_PATH=${INPUTS_PATH:?Variable not set or empty}
