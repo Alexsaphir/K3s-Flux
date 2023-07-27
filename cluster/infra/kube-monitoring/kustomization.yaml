@@ -9,3 +9,4 @@ resources:
   - kube-state-metrics
   - node-exporter
   - thanos
+  - loki
