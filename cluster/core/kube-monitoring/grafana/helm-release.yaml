@@ -137,16 +137,27 @@ spec:
 
           - name: Prometheus
             type: prometheus
+            uid: prometheus
             access: proxy
-            url: http://prometheus-prometheus.flux-monitoring.svc.cluster.local:9090/
+            url: http://thanos-query-frontend.flux-monitoring.svc.cluster.local:9090
+            jsonData:
+              prometheusType: Thanos
             isDefault: true
+
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki-gateway.flux-monitoring.svc.cluster.local
+            jsonData:
+              maxLines: 250
 
           - name: AlertManager
             type: alertmanager
             access: proxy
             url: http://alertmanager-operated.flux-monitoring.svc.cluster.local:9093
             jsonData:
-              implementation: "prometheus"
+              implementation: prometheus
 
     dashboardProviders:
       dashboardproviders.yaml:
