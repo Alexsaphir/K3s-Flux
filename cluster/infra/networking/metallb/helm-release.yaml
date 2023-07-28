@@ -39,7 +39,7 @@ spec:
       enabled: true
 
     prometheus:
-      serviceAccount: 'prometheus-prometheus'
+      serviceAccount: 'kube-prometheus-stack-prometheus'
       namespace: 'flux-monitoring'
 
       podMonitor:
