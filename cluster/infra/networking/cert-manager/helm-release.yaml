@@ -76,7 +76,7 @@ spec:
       servicemonitor:
         enabled: true
         namespace: cert-manager
-        prometheusInstance: kube-prometheus-stack
+        prometheusInstance: flux-monitoring # kube-prometheus-stack
 
     resources:
       requests:
