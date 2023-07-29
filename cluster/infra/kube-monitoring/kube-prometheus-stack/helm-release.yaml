@@ -103,7 +103,7 @@ spec:
             regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
 
     kubeControllerManager:
-      enabled: true
+      enabled: false
       service:
         enabled: true
         port: 10257
@@ -119,7 +119,7 @@ spec:
       enabled: false
 
     kubeScheduler:
-      enabled: true
+      enabled: false
       serviceMonitor:
         metricRelabelings:
           # Remove duplicate labels provided by k3s
