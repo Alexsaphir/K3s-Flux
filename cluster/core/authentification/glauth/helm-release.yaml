@@ -65,15 +65,15 @@ spec:
             key: PASSWORD
 
     service:
-      ldap:
-        type: LoadBalancer
-        externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/address-pool: metallb-pool
-        ports:
-          ldap-ext:
-            enabled: true
-            port: 389
+      # ldap:
+      #  type: LoadBalancer
+      #  externalTrafficPolicy: Local
+      #  annotations:
+      #    metallb.universe.tf/address-pool: metallb-pool
+      #  ports:
+      #    ldap-ext:
+      #      enabled: true
+      #      port: 389
       main:
         ports:
           http:
