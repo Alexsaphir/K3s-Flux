@@ -132,12 +132,6 @@ spec:
       supplementalGroups:
         - 20 # dialout for /dev/ttyUSB0
 
-    persistence:
-      usb:
-        enabled: true
-        type: hostPath
-        hostPath: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
-
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -172,9 +166,15 @@ spec:
                 name: mosquitto-secrets
                 key: zigbee2mqtt_password
 
-    volumeClaimTemplates:
-      - name: config
+
+    persistence:
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
+
+      config:
+        enabled: true
+        type: pvc
         mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: longhorn
+        existingClaim: zigbe2mqtt-data
