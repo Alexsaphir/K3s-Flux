@@ -34,7 +34,14 @@ spec:
       namespace: cert-manager
 
   values:
+    skipCRDs: false
+
     image:
       repository: ghcr.io/emqx/emqx-operator
 
-    fullnameOverride: "emqx-operator"
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 40Mi
