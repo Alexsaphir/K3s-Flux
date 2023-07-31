@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - influxdb
+  - emqx
   - mosquitto
   - zigbee2mqtt
   # - home-assistant
