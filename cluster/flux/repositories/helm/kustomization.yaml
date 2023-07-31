@@ -22,6 +22,7 @@ resources:
   - external-secrets.yaml
   - fairwinds.yaml
   - falco.yaml
+  - gitlab.yaml
   - grafana.yaml
   - hajimari.yaml
   - hashicorp.yaml
