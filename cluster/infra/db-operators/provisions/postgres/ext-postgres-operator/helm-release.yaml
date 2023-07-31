@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: movetokube-cluster-postgres
-  namespace: operators-system
+  namespace: database
 spec:
   interval: 15m
   chart:
@@ -31,7 +31,7 @@ spec:
 
   dependsOn:
     - name: cluster-postgres
-      namespace: operators-system
+      namespace: database
 
   valuesFrom:
     - kind: Secret
@@ -50,7 +50,7 @@ spec:
     # watchNamespace: "default"
 
     postgres:
-      host: postgres-rw.operators-system.svc.cluster.local
+      host: postgres-rw.database.svc.cluster.local
       default_database: "postgres"
 
     resources:
