@@ -99,6 +99,9 @@ spec:
           metrics:
             enabled: true
             port: 8080
+          websocket:
+            enabled: true
+            port: 9000
 
     serviceMonitor:
       main:

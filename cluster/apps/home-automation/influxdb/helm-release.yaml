@@ -29,21 +29,35 @@ spec:
 
   # https://github.com/influxdata/helm-charts/blob/master/charts/influxdb2/values.yaml
   values:
+    image:
+      repository: influxdb
+      tag: 2.6.1
+
+    adminUser:
+      organization: influxdata
+      bucket: default
+      user: admin
+      retention_policy: 0s
+      existingSecret: influxdb-secret
+
+    persistence:
+      enabled: true
+      useExisting: true
+      name: influxdb-data
+
     env:
       - name: TZ
         value: "${CONFIG_TIMEZONE}"
 
-    persistence:
-      enabled: true
-      size: 20Gi
-      storageClass: longhorn
-
     ingress:
       enabled: true
       className: traefik
-      hostname: influx.${SECRET_DOMAIN_NAME}
+      hostname: influxdb.${SECRET_DOMAIN_NAME}
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hajimari.io/enable: "true"
         hajimari.io/icon: "database"
       path: /
+
+    pdb:
+      create: false
