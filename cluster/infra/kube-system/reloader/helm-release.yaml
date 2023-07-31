@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: reloader
-  namespace: kube-system
+  namespace: &namespace kube-system
 spec:
   interval: 15m
   chart:
@@ -27,11 +27,18 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+      namespace: flux-monitoring
+
   # https://github.com/stakater/Reloader/blob/v1.0.12/deployments/kubernetes/chart/reloader/values.yaml
   values:
     fullnameOverride: reloader
+
     reloader:
       reloadStrategy: annotations
-      reloadOnCreate: false
+      reloadOnCreate: true
+      syncAfterRestart: true
       podMonitor:
-        enabled: false
+        enabled: true
+        namespace: *namespace
