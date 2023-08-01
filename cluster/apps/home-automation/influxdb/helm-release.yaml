@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: influxdb
-      tag: 2.6.1
+      tag: 2.7.1
 
     adminUser:
       organization: influxdata
