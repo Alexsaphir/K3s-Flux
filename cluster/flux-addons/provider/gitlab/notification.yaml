@@ -21,7 +21,5 @@ spec:
     name: gitlab-provider
   eventSeverity: info
   eventSources:
-    - kind: HelmRelease
-      name: "*"
     - kind: Kustomization
       name: "*"
