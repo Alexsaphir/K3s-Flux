@@ -18,6 +18,7 @@ resources:
   - descheduler.yaml
   - docker-mailserver.yaml
   - dysnix.yaml
+  - emberstack.yaml
   - emqx.yaml
   - external-secrets.yaml
   - fairwinds.yaml
