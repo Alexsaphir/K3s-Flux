@@ -42,7 +42,8 @@ spec:
 
     codecovConfig:
       setup:
-        codecov_url: "https://codecov.${SECRET_DOMAIN_NAME}"
+        codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
+        codecov_api_url: *codecov_url
 
         timeseries:
           enabled: 'false'
@@ -117,7 +118,8 @@ spec:
     ingress:
       enabled: true
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        # traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        auth.home.arpa/disabled: "true"
         hajimari.io/enable: "true"
       name: codecov-ingress
       pathtype: ImplementationSpecific
