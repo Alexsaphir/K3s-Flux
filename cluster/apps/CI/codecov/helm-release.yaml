@@ -131,7 +131,7 @@ spec:
           - name: CODECOV_IA_HOST
             value: *host
           - name: CODECOV_SCHEME
-            value: http
+            value: https
         resources:
           #      limits:
           #        cpu: 1000m
