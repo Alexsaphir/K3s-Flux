@@ -71,15 +71,7 @@ spec:
       enabled: false
 
     codecovConfig:
-      setup:
-        codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
-        codecov_api_url: *codecov_url
-
-        admins:
-          - service: gitlab_enterprise
-            username: Saphir
-          - service: gitlab_enterprise
-            username: Alexsaphir
+      github: null
 
       gitlab_enterprise:
         global_upload_token: 'glab-sph'
@@ -93,7 +85,15 @@ spec:
           verify_ssl: true
 
         redis_url: redis://codecov-redis-standalone.codecov.svc.cluster.local:6379
+      setup:
+        codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
+        codecov_api_url: *codecov_url
 
+        admins:
+          - service: gitlab_enterprise
+            username: Saphir
+          - service: gitlab_enterprise
+            username: Alexsaphir
     ingress:
       enabled: true
       annotations:
@@ -170,30 +170,6 @@ spec:
     worker:
       deployment:
         replicas: 2
-
-        #        env:
-        #          - name: SERVICES__MINIO__ACCESS_KEY_ID
-        #            valueFrom:
-        #              secretKeyRef:
-        #                name: codecov-s3-secret
-        #                key: access_key
-        #          - name: SERVICES__MINIO__SECRET_ACCESS_KEY
-        #            valueFrom:
-        #              secretKeyRef:
-        #                name: codecov-s3-secret
-        #                key: secret_key
-        #
-        #          - name: MINIO_ACCESS_KEY
-        #            valueFrom:
-        #              secretKeyRef:
-        #                name: codecov-s3-secret
-        #                key: access_key
-        #          - name: MINIO_SECRET_KEY
-        #            valueFrom:
-        #              secretKeyRef:
-        #                name: codecov-s3-secret
-        #                key: secret_key
-
         resources:
           limits:
             cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
