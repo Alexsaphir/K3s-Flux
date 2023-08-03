@@ -93,14 +93,6 @@ spec:
       - name: CODECOV_FRONTEND_IPV6_DISABLED
         value: 'true'
 
-      - name: CODECOV_BASE_HOST
-        value: *host
-      - name: CODECOV_API_HOST
-        value: *host
-      - name: CODECOV_IA_HOST
-        value: *host
-      - name: CODECOV_SCHEME
-        value: http
 
       - name: SERVICES__DATABASE_URL
         valueFrom:
@@ -144,6 +136,15 @@ spec:
     frontend:
       deployment:
         replicas: &replica-count 2
+        env:
+          - name: CODECOV_BASE_HOST
+            value: *host
+          - name: CODECOV_API_HOST
+            value: *host
+          - name: CODECOV_IA_HOST
+            value: *host
+          - name: CODECOV_SCHEME
+            value: http
         resources:
           #      limits:
           #        cpu: 1000m
