@@ -49,17 +49,20 @@ spec:
     - kind: Secret
       name: codecov-s3-secret
       valuesKey: access_key
-      targetPath: codecovConfig.services.minio.access_key
+      targetPath: codecovConfig.services.minio.access_key_id
     - kind: Secret
       name: codecov-s3-secret
       valuesKey: secret_key
-      targetPath: codecovConfig.services.minio.secret_key
+      targetPath: codecovConfig.services.minio.secret_access_key
 
     - kind: Secret
       name: database-codecov
       valuesKey: POSTGRES_URL
       targetPath: codecovConfig.services.database_url
-
+    - kind: Secret
+      name: database-codecov-timeseries
+      valuesKey: POSTGRES_URL
+      targetPath: codecovConfig.services.timeseries_database_url
 
   values:
     codecovVersion: latest-stable
@@ -72,23 +75,15 @@ spec:
         codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
         codecov_api_url: *codecov_url
 
-        timeseries:
-          enabled: 'false'
-
-        guest_access: off
-
         admins:
           - service: gitlab_enterprise
             username: Saphir
           - service: gitlab_enterprise
             username: Alexsaphir
 
-      github: nil
-
       gitlab_enterprise:
         global_upload_token: 'glab-sph'
-        url: https://gitlab.alexsaphir.com
-
+        url: 'https://gitlab.alexsaphir.com'
 
       services:
         minio:
@@ -96,7 +91,6 @@ spec:
           bucket: codecov
           region: us-east-1
           verify_ssl: true
-          port: 443
 
         redis_url: redis://codecov-redis-standalone.codecov.svc.cluster.local:6379
 
@@ -177,28 +171,28 @@ spec:
       deployment:
         replicas: 2
 
-        env:
-          - name: SERVICES__MINIO__ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                name: codecov-s3-secret
-                key: access_key
-          - name: SERVICES__MINIO__SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: codecov-s3-secret
-                key: secret_key
-
-          - name: MINIO_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: codecov-s3-secret
-                key: access_key
-          - name: MINIO_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: codecov-s3-secret
-                key: secret_key
+        #        env:
+        #          - name: SERVICES__MINIO__ACCESS_KEY_ID
+        #            valueFrom:
+        #              secretKeyRef:
+        #                name: codecov-s3-secret
+        #                key: access_key
+        #          - name: SERVICES__MINIO__SECRET_ACCESS_KEY
+        #            valueFrom:
+        #              secretKeyRef:
+        #                name: codecov-s3-secret
+        #                key: secret_key
+        #
+        #          - name: MINIO_ACCESS_KEY
+        #            valueFrom:
+        #              secretKeyRef:
+        #                name: codecov-s3-secret
+        #                key: access_key
+        #          - name: MINIO_SECRET_KEY
+        #            valueFrom:
+        #              secretKeyRef:
+        #                name: codecov-s3-secret
+        #                key: secret_key
 
         resources:
           limits:
