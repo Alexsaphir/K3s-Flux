@@ -37,8 +37,35 @@ spec:
       valuesKey: cookie_secret
       targetPath: codecovConfig.setup.http.cookie_secret
 
+    - kind: Secret
+      name: codecov-gitlab-secret
+      valuesKey: client_id
+      targetPath: codecovConfig.gitlab_enterprise.client_id
+    - kind: Secret
+      name: codecov-gitlab-secret
+      valuesKey: client_secret
+      targetPath: codecovConfig.gitlab_enterprise.client_secret
+
+    - kind: Secret
+      name: codecov-s3-secret
+      valuesKey: access_key
+      targetPath: codecovConfig.services.minio.access_key
+    - kind: Secret
+      name: codecov-s3-secret
+      valuesKey: secret_key
+      targetPath: codecovConfig.services.minio.secret_key
+
+    - kind: Secret
+      name: database-codecov
+      valuesKey: POSTGRES_URL
+      targetPath: codecovConfig.services.database_url
+
+
   values:
     codecovVersion: latest-stable
+
+    demo:
+      enabled: false
 
     codecovConfig:
       setup:
@@ -60,8 +87,7 @@ spec:
       gitlab_enterprise:
         global_upload_token: 'glab-sph'
         url: https://gitlab.alexsaphir.com
-        client_id: "Application Id"
-        client_secret: "Secret"
+
 
       services:
         minio:
@@ -70,6 +96,7 @@ spec:
           region: us-east-1
           verify_ssl: true
           port: 443
+
         redis_url: redis://codecov-redis-standalone.codecov.svc.cluster.local:6379
 
     ingress:
@@ -92,46 +119,6 @@ spec:
     extraEnvs:
       - name: CODECOV_FRONTEND_IPV6_DISABLED
         value: 'true'
-
-
-      - name: SERVICES__DATABASE_URL
-        valueFrom:
-          secretKeyRef:
-            name: database-codecov
-            key: POSTGRES_URL
-
-      - name: SERVICES__MINIO__ACCESS_KEY_ID
-        valueFrom:
-          secretKeyRef:
-            name: codecov-s3-secret
-            key: access_key
-      - name: SERVICES__MINIO__SECRET_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: codecov-s3-secret
-            key: secret_key
-
-      - name: MINIO_ACCESS_KEY
-        valueFrom:
-          secretKeyRef:
-            name: codecov-s3-secret
-            key: access_key
-      - name: MINIO_SECRET_KEY
-        valueFrom:
-          secretKeyRef:
-            name: codecov-s3-secret
-            key: secret_key
-
-      - name: GITLAB_ENTERPRISE__CLIENT_ID
-        valueFrom:
-          secretKeyRef:
-            name: codecov-gitlab-secret
-            key: client_id
-      - name: GITLAB_ENTERPRISE__CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: codecov-gitlab-secret
-            key: client_secret
 
     frontend:
       deployment:
