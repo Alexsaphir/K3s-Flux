@@ -11,10 +11,6 @@ spec:
     updateStrategy:
       type: RollingUpdate
 
-    redisSecret:
-      name: codecov-redis-standalone-secret
-      key: redisSecret
-
   storage:
     volumeClaimTemplate:
       spec:

@@ -1,0 +1,287 @@
+codecovVersion: latest-stable
+# Codecov can be configured here and with env vars https://docs.codecov.com/docs/configuration#overview
+# The below entry will be placed in a configmap and mounted as the codecov.yml file
+codecovConfig:
+  setup:
+    codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
+    codecov_api_url: *codecov_url
+    # enterprise_license: "YOUR-ENTERPRISE-LICENSE-KEY"
+    # http:
+    #  cookie_secret: "dnVvY0VrdnVlamVrcGVhZwo="
+  github:
+    client_id: "client-id"
+    client_secret: "client-secret"
+  services:
+    minio:
+      host: s3.alexsaphir.com
+      bucket: codecov
+      region: us-east-1
+      verify_ssl: true
+      port: 443
+      access_key_id:
+      secret_access_key:
+    redis_url: redis://redis:6379
+# Enable secretFiles.enabled and place secrets to load in the location provided by secretFile.location. These will be included as k8s secrets and mounted to the api and worker pods.
+secretFiles:
+  enabled: false
+  location: "secrets/*"
+imagePullSecrets: []
+imagePullPolicy: "IfNotPresent"
+configmap:
+  name: codecov-yml
+
+podSecurityContext: {}
+
+securityContext: {}
+
+ingress:
+  enabled: false
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  name: codecov-ingress
+  pathtype: ImplementationSpecific
+  # className: "nginx"
+  paths:
+    root:
+      path: /
+      service: gateway
+      port: 8080
+  hosts:
+    - codecov.yourdomain.com
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+frontend:
+  name: frontend
+  image: codecov/enterprise-frontend
+  deployment:
+    annotations: {}
+    env: []
+    replicas: 2
+    port: 8080
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    livenessProbe:
+      httpGet:
+        path: /
+        port: http
+      initialDelaySeconds: 30
+      failureThreshold: 3
+      periodSeconds: 10
+      timeoutSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: /
+        port: http
+      initialDelaySeconds: 10
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+      timeoutSeconds: 2
+    updateStrategy:
+      type: RollingUpdate
+      maxSurge: 25%
+      maxUnavailable: 25%
+    resources:
+#      limits:
+#        cpu: 1000m
+#        memory: 2048M
+      requests:
+        cpu: 250m
+        memory: 256M
+  service:
+    annotations: {}
+    port: 8080
+    type: NodePort
+gateway:
+  name: gateway
+  image: codecov/enterprise-gateway
+  deployment:
+    env: []
+    annotations: {}
+    replicas: 2
+    port: 8080
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    livenessProbe:
+      httpGet:
+        path: /gateway_health
+        port: http
+      initialDelaySeconds: 30
+      failureThreshold: 3
+      periodSeconds: 10
+      timeoutSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: /gateway_health
+        port: http
+      initialDelaySeconds: 10
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+      timeoutSeconds: 2
+    updateStrategy:
+      type: RollingUpdate
+      maxSurge: 25%
+      maxUnavailable: 25%
+    resources:
+      #      limits:
+      #        cpu: 1000m
+      #        memory: 2048M
+      requests:
+        cpu: 250m
+        memory: 256M
+  service:
+    annotations: {}
+    port: 8080
+    type: NodePort
+api:
+  name: api
+  image: codecov/enterprise-api
+  deployment:
+    annotations: {}
+    env: []
+    replicas: 2
+    port: 8000
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    livenessProbe:
+      httpGet:
+        path: /
+        port: http
+      initialDelaySeconds: 30
+      failureThreshold: 3
+      periodSeconds: 10
+      timeoutSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: /
+        port: http
+      initialDelaySeconds: 10
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 10
+      timeoutSeconds: 2
+    updateStrategy:
+      type: RollingUpdate
+      maxSurge: 25%
+      maxUnavailable: 25%
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2048M
+      requests:
+        cpu: 250m
+        memory: 256M
+  service:
+    annotations: {}
+    port: 8000
+    type: NodePort
+
+
+# worker deployment resources
+worker:
+  name: worker
+  image: codecov/enterprise-worker
+  deployment:
+    args:
+      - worker
+      - --queue
+      - celery,uploads
+      - --concurrency
+      - "1"
+    replicas: 2
+    annotations: {}
+    env: []
+    nodeSelector: {}
+    tolerations: []
+# Example of tolerating a taint for worker
+#      - key: "dedicated"
+#        operator: "Equal"
+#        value: "worker"
+#        effect: "NoSchedule"
+    affinity: {}
+# Example of only scheduling one worker per node
+#      podAntiAffinity:
+#        requiredDuringSchedulingIgnoredDuringExecution:
+#          - labelSelector:
+#              matchExpressions:
+#                - key: app
+#                  operator: In
+#                  values:
+#                    - worker
+#            topologyKey: kubernetes.io/hostname
+# Example of preferring to schedule worker replicas on GKE preemptible nodes
+#      nodeAffinity:
+#        preferredDuringSchedulingIgnoredDuringExecution:
+#          - preference:
+#              matchExpressions:
+#                - key: cloud.google.com/gke-preemptible
+#                  operator: Exists
+#            weight: 100
+    updateStrategy:
+      type: RollingUpdate
+      maxSurge: 25%
+      maxUnavailable: 25%
+    resources:
+      limits:
+        cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
+        memory: 4096M
+      requests:
+        cpu: 500m
+        memory: 1024M
+
+# optional tags which are set as annotations on the web and worker deployments
+tags:
+  application: codecov
+
+labels: {}
+
+secretMounts: []
+#  - name: scm-ca-cert
+#    secretName: scm-ca-cert
+#    path: /cert
+
+extraVolumes: []
+# - name: extras
+#   emptyDir: {}
+
+extraVolumeMounts: []
+# - name: extras
+#   mountPath: /usr/share/extras
+#   readOnly:
+
+# Allows you to load extra env vars from secrets or k/v pairs such as your statsd deployment
+extraEnvs: []
+#  - name: "SERVICES__DATABASE_URL"
+#    valueFrom:
+#      secretKeyRef:
+#        name: codecov-database-url
+#        key: url
+#  - name: "SERVICES__REDIS_URL"
+#    valueFrom:
+#      secretKeyRef:
+#        name: codecov-redis-url
+#        key: url
+#  - name: STATSD_HOST
+#    value: statsd
+#  - name: STATSD_PORT
+#    value: "8125"
+#  - name: "SETUP__TASKS__NOTIFY__SOFT_TIMELIMIT"
+#    value: "400"
+#  - name: "SETUP__TASKS__NOTIFY__HARD_TIMELIMIT"
+#    value: "480"
+# Allows you to load environment variables from kubernetes secret or config map
+envFrom: []
+# - secretRef:
+#     name: env-secret
+# - configMapRef:
+#     name: config-map
+
+demo:
+  enabled: false

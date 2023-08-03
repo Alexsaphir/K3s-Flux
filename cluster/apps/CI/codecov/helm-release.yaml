@@ -1,0 +1,176 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: codecov
+  namespace: codecov
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: codecov
+      version: 5.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: codecov
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  valuesFrom:
+    - kind: Secret
+      name: codecov-secret
+      valuesKey: enterprise_license
+      targetPath: codecovConfig.setup.enterprise_license
+    - kind: Secret
+      name: codecov-secret
+      valuesKey: cookie_secret
+      targetPath: codecovConfig.setup.http.cookie_secret
+
+  values:
+    codecovVersion: latest-stable
+
+    codecovConfig:
+      setup:
+        codecov_url: "https://codecov.${SECRET_DOMAIN_NAME}"
+
+        timeseries:
+          enabled: 'false'
+
+        guest_access: off
+
+        admins:
+          - service: gitlab_enterprise
+            username: Saphir
+          - service: gitlab_enterprise
+            username: Alexsaphir
+
+
+      gitlab_enterprise:
+        global_upload_token: 'glab-sph'
+        url: https://gitlab.alexsaphir.com
+        client_id: "Application Id"
+        client_secret: "Secret"
+
+      services:
+        minio:
+          host: s3.alexsaphir.com
+          bucket: codecov
+          region: us-east-1
+          verify_ssl: true
+          port: 443
+        redis_url: redis://codecov-redis-standalone.codecov.svc.cluster.local:6379
+
+    extraEnvs:
+      - name: CODECOV_FRONTEND_IPV6_DISABLED
+        value: 'true'
+
+      - name: SERVICES__DATABASE_URL
+        valueFrom:
+          secretKeyRef:
+            name: database-codecov
+            key: POSTGRES_URL
+
+      - name: SERVICES__MINIO_ACCESS__KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: codecov-s3-secret
+            key: access_key
+      - name: SERVICES__MINIO_SECRET__ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: codecov-s3-secret
+            key: secret_key
+
+      - name: GITLAB_ENTERPRISE__CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: client_id
+      - name: GITLAB_ENTERPRISE__CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: client_secret
+
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hajimari.io/enable: "true"
+      name: codecov-ingress
+      pathtype: ImplementationSpecific
+      className: traefik
+      paths:
+        root:
+          path: /
+          service: gateway
+          port: 8080
+      hosts:
+        - codecov.${SECRET_DOMAIN_NAME}
+
+
+    frontend:
+      deployment:
+        replicas: &replica-count 2
+        resources:
+          #      limits:
+          #        cpu: 1000m
+          #        memory: 2048M
+          requests:
+            cpu: 250m
+            memory: 256M
+      service:
+        annotations: { }
+        port: 8080
+        type: &service-type ClusterIP
+    gateway:
+      deployment:
+        replicas: *replica-count
+        resources:
+          #      limits:
+          #        cpu: 1000m
+          #        memory: 2048M
+          requests:
+            cpu: 250m
+            memory: 256M
+      service:
+        annotations: { }
+        port: 8080
+        type: *service-type
+    api:
+      deployment:
+        replicas: *replica-count
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2048M
+          requests:
+            cpu: 250m
+            memory: 256M
+      service:
+        annotations: { }
+        port: 8000
+        type: *service-type
+
+    worker:
+      deployment:
+        replicas: 2
+
+        resources:
+          limits:
+            cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
+            memory: 4096M
+          requests:
+            cpu: 500m
+            memory: 1024M

@@ -10,6 +10,7 @@ resources:
   - bytebase.yaml
   - calico.yaml
   - cloudnative-pg.yaml
+  - codecov.yaml
   - containeroo.yaml
   - csi-driver-nfs.yaml
   - csi-driver-secrets-store.yaml
