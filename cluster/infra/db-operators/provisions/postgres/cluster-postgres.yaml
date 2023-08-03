@@ -57,6 +57,10 @@ spec:
           monitoring:
             enablePodMonitor: true
 
+          postgresql:
+            shared_preload_libraries:
+              - timescaledb
+
           bootstrap:
             recovery:
               source: &source postgres-v1
