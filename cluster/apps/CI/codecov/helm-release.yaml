@@ -92,6 +92,17 @@ spec:
             name: codecov-s3-secret
             key: secret_key
 
+      - name: MINIO_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: codecov-s3-secret
+            key: access_key
+      - name: MINIO_SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: codecov-s3-secret
+            key: secret_key
+
       - name: GITLAB_ENTERPRISE__CLIENT_ID
         valueFrom:
           secretKeyRef:
