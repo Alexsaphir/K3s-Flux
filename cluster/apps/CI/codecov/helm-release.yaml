@@ -83,6 +83,7 @@ spec:
           - service: gitlab_enterprise
             username: Alexsaphir
 
+      github: nil
 
       gitlab_enterprise:
         global_upload_token: 'glab-sph'
