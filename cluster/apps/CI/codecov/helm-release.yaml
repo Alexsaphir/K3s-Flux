@@ -81,12 +81,12 @@ spec:
             name: database-codecov
             key: POSTGRES_URL
 
-      - name: SERVICES__MINIO_ACCESS__KEY_ID
+      - name: SERVICES__MINIO__ACCESS_KEY_ID
         valueFrom:
           secretKeyRef:
             name: codecov-s3-secret
             key: access_key
-      - name: SERVICES__MINIO_SECRET__ACCESS_KEY
+      - name: SERVICES__MINIO__SECRET_ACCESS_KEY
         valueFrom:
           secretKeyRef:
             name: codecov-s3-secret
