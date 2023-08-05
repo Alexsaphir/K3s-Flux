@@ -36,6 +36,10 @@ spec:
       name: codecov-secret
       valuesKey: cookie_secret
       targetPath: codecovConfig.setup.http.cookie_secret
+    - kind: Secret
+      name: codecov-secret
+      valuesKey: bot
+      targetPath: codecovConfig.site.bot
 
     - kind: Secret
       name: codecov-gitlab-secret
@@ -66,6 +70,8 @@ spec:
 
   values:
     codecovVersion: latest-stable
+    configmap:
+      name: &configmap-name codecov-yml
 
     demo:
       enabled: false
@@ -94,6 +100,9 @@ spec:
             username: Saphir
           - service: gitlab_enterprise
             username: Alexsaphir
+
+      site: {}
+
     ingress:
       enabled: true
       annotations:
@@ -114,6 +123,9 @@ spec:
     extraEnvs:
       - name: CODECOV_FRONTEND_IPV6_DISABLED
         value: 'true'
+
+    tags:
+      'configmap.reloader.stakater.com/reload': *configmap-name
 
     frontend:
       deployment:
