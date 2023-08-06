@@ -7,4 +7,3 @@ resources:
   - intel-gpu-plugin
   - intel-gpu-exporter
   - kured
-  - hierarchical-namespaces
