@@ -36,10 +36,6 @@ spec:
       name: codecov-secret
       valuesKey: cookie_secret
       targetPath: codecovConfig.setup.http.cookie_secret
-    - kind: Secret
-      name: codecov-secret
-      valuesKey: bot
-      targetPath: codecovConfig.site.bot
 
     - kind: Secret
       name: codecov-gitlab-secret
@@ -100,8 +96,11 @@ spec:
             username: Saphir
           - service: gitlab_enterprise
             username: Alexsaphir
+          - service: gitlab_enterprise
+            username: &codecov-bot Codecov
 
-      site: {}
+      site:
+        bot: *codecov-bot
 
     ingress:
       enabled: true
