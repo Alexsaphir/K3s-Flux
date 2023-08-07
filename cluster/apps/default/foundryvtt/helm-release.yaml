@@ -34,7 +34,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/felddy/foundryvtt
-      tag: 11.306.0
+      tag: 11.307.0
 
     env:
       TIMEZONE: "${CONFIG_TIMEZONE}"
