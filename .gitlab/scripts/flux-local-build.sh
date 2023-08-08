@@ -30,11 +30,9 @@ INPUTS_SOURCES=${INPUTS_SOURCES:-''}
 
 flux-local \
   --log-level $LOG_LEVEL \
-  test \
+  build \
   --enable-helm \
   --no-skip-secrets \
-  --no-enable-kyverno \
   --api-versions "$INPUTS_API_VERSIONS" \
   --kustomize-build-flags="$INPUTS_KUSTOMIZE_BUILD_FLAGS" \
-  --sources "$INPUTS_SOURCES" \
-  --path $INPUTS_PATH
+  $INPUTS_PATH
