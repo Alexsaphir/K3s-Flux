@@ -3,15 +3,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
-  - kube-prometheus-stack-crds
 
-  - metrics-server
-  - kube-state-metrics
-  - node-exporter
-
-  - kube-prometheus-stack # kube-victoria
-  - thanos
-  - loki
-  - vector
-
-  - grafana
+  - grafana/ks.yaml
+  - gatus/ks.yaml
+  - kepler/ks.yaml
+  - kube-prometheus-stack-crds/ks.yaml
+  - kube-prometheus-stack/ks.yaml
+  - kube-state-metrics/ks.yaml
+  - loki/ks.yaml
+  - metrics-server/ks.yaml
+  - node-exporter/ks.yaml
+  - smartctl-exporter/ks.yaml
+  - thanos/ks.yaml
+  - vector/ks.yaml

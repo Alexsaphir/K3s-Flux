@@ -12,6 +12,7 @@ resources:
   - cloudnative-pg.yaml
   - codecov.yaml
   - containeroo.yaml
+  - coredns.yaml
   - csi-driver-nfs.yaml
   - csi-driver-secrets-store.yaml
   - datashim.yaml

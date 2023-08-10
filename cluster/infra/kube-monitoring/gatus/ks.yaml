@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-gatus
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+
+  dependsOn:
+    - name: cluster-infra-kube-prometheus-stack-crds
+    - name: cluster-infra-postgres-ext-postgres-operator
+
+  path: ./cluster/infra/kube-monitoring/gatus
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

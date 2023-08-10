@@ -170,5 +170,4 @@ spec:
       config:
         enabled: true
         type: pvc
-        mountPath: /config
-        existingClaim: zigbe2mqtt-data
+        existingClaim: zigbee2mqtt-data

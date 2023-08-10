@@ -29,16 +29,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
-    - name: thanos
-      namespace: flux-monitoring
-
-    - name: longhorn
-      namespace: longhorn-system
-
   # https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-47.0.0/charts/kube-prometheus-stack/values.yaml
   values:
     cleanPrometheusOperatorObjectNames: true
@@ -62,6 +52,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
+              storageClassName: local-path
               resources:
                 requests:
                   storage: 1Gi

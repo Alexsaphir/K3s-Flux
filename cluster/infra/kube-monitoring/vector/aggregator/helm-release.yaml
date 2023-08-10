@@ -26,9 +26,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: loki
-
   values:
     initContainers:
       01-init-geoip:

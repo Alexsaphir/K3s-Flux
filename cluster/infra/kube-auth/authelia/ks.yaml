@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-authelia
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+  wait: true
+
+  dependsOn:
+    - name: cluster-infra-kube-prometheus-stack-crds
+    - name: cluster-infra-postgres-ext-postgres-operator
+    - name: cluster-infra-glauth
+
+  path: ./cluster/infra/kube-auth/authelia
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

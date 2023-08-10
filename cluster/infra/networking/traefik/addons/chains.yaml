@@ -1,64 +1,31 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
 metadata:
-  name: traefik-chains
+  name: whitelisted-ips-only
   namespace: network-system
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: raw
-      version: v0.3.2
-      sourceRef:
-        kind: HelmRepository
-        name: dysnix
-        namespace: flux-charts
-
-  maxHistory: 3
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
-
-  dependsOn:
-    - name: traefik-middlewares
-      namespace: network-system
-
-  values:
-    resources:
-      - apiVersion: traefik.io/v1alpha1
-        kind: Middleware
-        metadata:
-          name: whitelisted-ips-only
-          namespace: network-system
-        spec:
-          chain:
-            middlewares:
-              - name: whitelisted-ips
-
-      - apiVersion: traefik.io/v1alpha1
-        kind: Middleware
-        metadata:
-          name: external
-          namespace: network-system
-        spec:
-          chain:
-            middlewares:
-              - name: whitelisted-ips-only
-
-      - apiVersion: traefik.io/v1alpha1
-        kind: Middleware
-        metadata:
-          name: internal
-          namespace: network-system
-        spec:
-          chain:
-            middlewares:
-              - name: rfc1918-ips
-              - name: error-pages
+  chain:
+    middlewares:
+      - name: whitelisted-ips
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: external
+  namespace: network-system
+spec:
+  chain:
+    middlewares:
+      - name: whitelisted-ips-only
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: internal
+  namespace: network-system
+spec:
+  chain:
+    middlewares:
+      - name: rfc1918-ips
+      - name: error-pages

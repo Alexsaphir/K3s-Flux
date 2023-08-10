@@ -27,10 +27,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
   # https://github.com/kubernetes-sigs/metrics-server/blob/metrics-server-helm-chart-3.8.4/charts/metrics-server/values.yaml
   values:
     args:

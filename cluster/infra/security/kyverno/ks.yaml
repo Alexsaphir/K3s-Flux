@@ -1,0 +1,58 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-kyverno
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+  wait: true
+
+  dependsOn:
+    - name: cluster-infra-kube-prometheus-stack-crds
+
+  path: ./cluster/infra/security/kyverno/operator
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-kyverno-policies
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+  wait: true
+
+  dependsOn:
+    - name: cluster-infra-kyverno
+
+  path: ./cluster/infra/security/kyverno/policies
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-kyverno-reporter
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+
+  dependsOn:
+    - name: cluster-infra-kyverno
+
+  path: ./cluster/infra/security/kyverno/reporter
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

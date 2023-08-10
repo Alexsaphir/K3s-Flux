@@ -27,13 +27,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
-    - name: longhorn
-      namespace: longhorn-system
-
   valuesFrom:
     - targetPath: objstoreConfig.config.bucket
       kind: Secret
@@ -75,7 +68,7 @@ spec:
         ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-        hostname: &host thanos-query-frontend.${SECRET_DOMAIN_NAME}
+        hostname: thanos-query-frontend.${SECRET_DOMAIN_NAME}
         tls: false
 
     query:

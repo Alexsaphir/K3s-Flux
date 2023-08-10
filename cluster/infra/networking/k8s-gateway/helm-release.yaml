@@ -27,10 +27,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: metallb
-      namespace: metallb-system
-
   # https://github.com/ori-edge/k8s_gateway/blob/master/charts/k8s-gateway/values.yaml
   values:
     replicaCount: 2

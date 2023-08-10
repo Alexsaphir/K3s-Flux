@@ -29,10 +29,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
   # https://github.com/aquasecurity/trivy-operator/blob/v0.12.0/deploy/helm/values.yaml
   values:
     excludeNamespaces: "{{ .Release.Namespace }},longhorn-system,calico-system"

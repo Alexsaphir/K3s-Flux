@@ -5,3 +5,4 @@ metadata:
   name: longhorn-system
   labels:
     app.kubernetes.io/component: longhorn-system
+    kustomize.toolkit.fluxcd.io/prune: disabled

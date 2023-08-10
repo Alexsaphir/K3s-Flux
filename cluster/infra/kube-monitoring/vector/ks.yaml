@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-vector-aggregator
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+  wait: true
+
+  dependsOn:
+    - name: cluster-infra-kube-prometheus-stack-crds
+    - name: cluster-infra-loki
+
+  path: ./cluster/infra/kube-monitoring/vector/aggregator
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-vector-agent
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+
+  dependsOn:
+    - name: cluster-infra-vector-aggregator
+
+  path: ./cluster/infra/kube-monitoring/vector/agent
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

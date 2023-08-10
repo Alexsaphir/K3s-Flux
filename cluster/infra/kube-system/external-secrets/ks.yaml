@@ -1,0 +1,38 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-external-secrets
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+  wait: true
+
+  dependsOn:
+    - name: cluster-infra-kube-prometheus-stack-crds
+
+  path: ./cluster/infra/kube-system/external-secrets/app
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-external-secrets-stores
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+
+  dependsOn:
+    - name: cluster-infra-external-secrets
+
+  path: ./cluster/infra/kube-system/external-secrets/stores
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

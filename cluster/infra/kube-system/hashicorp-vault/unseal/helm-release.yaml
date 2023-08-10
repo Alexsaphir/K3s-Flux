@@ -27,10 +27,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: hashicorp-vault
-      namespace: kube-system
-
   values:
     podAnnotations:
       secret.reloader.stakater.com/reload: 'vault-root-token,vault-keys'

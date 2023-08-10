@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-infra-flux-addons-providers
+  namespace: flux-system
+spec:
+  interval: 10m
+  retryInterval: 5m
+  prune: true
+  wait: false
+
+  path: ./cluster/infra/flux-system/addons/provider
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

@@ -29,11 +29,7 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
-  # https://github.com/longhorn/longhorn/blob/v1.4.2/chart/values.yaml
+  # https://github.com/longhorn/longhorn/blob/v1.5.1/chart/values.yaml
   values:
     pspEnable: false
     persistence:
@@ -44,7 +40,7 @@ spec:
       migratable: true
 
     defaultSettings:
-      createDefaultDiskLabeledNodes: true
+      createDefaultDiskLabeledNodes: false
 
       orphanAutoDeletion: true
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod

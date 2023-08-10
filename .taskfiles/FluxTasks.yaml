@@ -46,8 +46,6 @@ tasks:
       - flux reconcile source git flux-system
       - flux reconcile kustomization flux-system
       - flux reconcile kustomization infra
-      - flux reconcile kustomization flux-addons
-      - flux reconcile kustomization core
       - flux reconcile kustomization apps
 
   logs:

@@ -6,3 +6,5 @@ resources:
   - middlewares-authelia.yaml
   - chains.yaml
   - dashboard-ingress.yaml
+commonLabels:
+  app.kubernetes.io/component: traefik

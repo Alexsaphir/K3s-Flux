@@ -27,10 +27,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  dependsOn:
-    - name: kube-prometheus-stack-crds
-      namespace: flux-monitoring
-
   # https://github.com/stakater/Reloader/blob/v1.0.12/deployments/kubernetes/chart/reloader/values.yaml
   values:
     fullnameOverride: reloader
