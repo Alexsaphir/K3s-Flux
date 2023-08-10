@@ -40,8 +40,6 @@ spec:
       migratable: true
 
     defaultSettings:
-      createDefaultDiskLabeledNodes: false
-
       orphanAutoDeletion: true
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
 
