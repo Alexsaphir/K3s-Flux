@@ -29,12 +29,7 @@ spec:
 
   # https://github.com/stakater/Reloader/blob/v1.0.12/deployments/kubernetes/chart/reloader/values.yaml
   values:
-    fullnameOverride: reloader
-
     reloader:
-      reloadStrategy: annotations
-      reloadOnCreate: true
-      syncAfterRestart: true
       podMonitor:
-        enabled: true
+        enabled: false
         namespace: *namespace
