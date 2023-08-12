@@ -88,7 +88,7 @@ spec:
       extraFlags:
         - --compact.concurrency=4
         - --delete-delay=30m
-      retentionResolutionRaw: 30d
+      retentionResolutionRaw: 7d
       retentionResolution5m: 30d
       retentionResolution1h: 2y
       persistence:
