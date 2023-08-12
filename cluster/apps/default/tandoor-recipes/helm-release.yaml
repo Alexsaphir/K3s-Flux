@@ -91,7 +91,7 @@ spec:
 
       # LDAP auth
       LDAP_AUTH: 1
-      AUTH_LDAP_SERVER_URI: ldap://glauth.network-system.svc.cluster.local:389
+      AUTH_LDAP_SERVER_URI: ldap://glauth.kube-auth.svc.cluster.local:389
       AUTH_LDAP_BIND_DN: cn=search_recipes,ou=svcaccts,dc=home,dc=arpa
       AUTH_LDAP_USER_SEARCH_BASE_DN: ou=people,ou=users,dc=home,dc=arpa
 

@@ -66,7 +66,7 @@ spec:
 
         LDAPAuthenticator:
           server_hosts:
-            - 'glauth.network-system.svc.cluster.local'
+            - 'glauth.kube-auth.svc.cluster.local'
           server_use_ssl: false
 
           bind_user_dn: 'cn=search_jupyter,ou=svcaccts,dc=home,dc=arpa'

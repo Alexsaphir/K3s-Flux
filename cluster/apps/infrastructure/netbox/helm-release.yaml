@@ -88,7 +88,7 @@ spec:
     #      - name: REMOTE_AUTH_BACKEND
     #        value: "netbox.authentication.LDAPBackend"
     #      - name: AUTH_LDAP_SERVER_URI
-    #        value: "ldap://glauth.network-system.svc.cluster.local:389"
+    #        value: "ldap://glauth.kube-auth.svc.cluster.local:389"
     #      - name: AUTH_LDAP_BIND_DN
     #        value: "cn=netbox,ou=services,dc=domain,dc=com"
     #      - name: AUTH_LDAP_BIND_PASSWORD
@@ -147,7 +147,7 @@ spec:
     #      enabled: true
     #      backend: netbox.authentication.LDAPBackend
     #      ldap:
-    #        serverUri: "ldap://glauth.network-system.svc.cluster.local:389"
+    #        serverUri: "ldap://glauth.kube-auth.svc.cluster.local:389"
     #        startTls: false
     #        ignoreCertErrors: false
     #        bindDn: 'cn=search_netbox,ou=svcaccts,dc=home,dc=arpa'

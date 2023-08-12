@@ -45,7 +45,7 @@ spec:
       SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
 
       SEMAPHORE_LDAP_ACTIVATED: 'no'
-      SEMAPHORE_LDAP_HOST: glauth.network-system.svc.cluster.local
+      SEMAPHORE_LDAP_HOST: glauth.kube-auth.svc.cluster.local
       SEMAPHORE_LDAP_PORT: 389
       SEMAPHORE_LDAP_NEEDTLS: false
       SEMAPHORE_LDAP_DN_BIND: cn=search_semaphore,ou=svcaccts,dc=home,dc=arpa

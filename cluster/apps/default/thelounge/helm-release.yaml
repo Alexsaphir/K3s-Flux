@@ -61,7 +61,7 @@ spec:
       leaveMessage: "The Lounge - https://thelounge.chat"
       ldap:
         enable: true
-        url: "ldap://glauth.network-system.svc.cluster.local:389"
+        url: "ldap://glauth.kube-auth.svc.cluster.local:389"
         primaryKey: "uid"
         bindDn: "cn=search_thelounge,ou=svcaccts,dc=home,dc=arpa"
         # bindPassword:
