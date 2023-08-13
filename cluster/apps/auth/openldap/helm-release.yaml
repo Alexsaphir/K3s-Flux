@@ -49,7 +49,7 @@ spec:
 
       ENABLE_READONLY_USER: false
 
-      SCHEMA_TYPE: 'nis'
+      SCHEMA_TYPE: 'rfc2307bis'
 
       ENABLE_BACKUP: false
       ENABLE_ZABBIX: false
