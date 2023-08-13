@@ -1,0 +1,105 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app openldap
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controller:
+      replicas: 1
+      strategy: RollingUpdate
+
+    image:
+      repository: ghcr.io/tiredofit/docker-openldap-fusiondirectory
+      tag: 2.6-1.4-7.6.3
+
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+
+    env:
+      HOSTNAME: &host ldap.${SECRET_DOMAIN_NAME}
+      LOG_LEVEL: 256
+
+      DOMAIN: home.arpa
+      BASE_DN: dc=home,dc=arpa
+      ORGANIZATION: 'SPH Org'
+
+      ENABLE_READONLY_USER: false
+
+      SCHEMA_TYPE: 'nis'
+
+      ENABLE_BACKUP: false
+      ENABLE_ZABBIX: false
+
+      ENABLE_TLS: false
+
+      CONFIG_PATH: /etc/openldap
+      DB_PATH: /var/lib/openldap
+
+      PLUGIN_AUDIT: true
+      PLUGIN_DNS: true
+      PLUGIN_DSA: true
+      PLUGIN_GPG: true
+      PLUGIN_MAIL: true
+      PLUGIN_PERSONAL: true
+      PLUGIN_PPOLICY: true
+      PLUGIN_SSH: true
+      PLUGIN_SYSTEMS: true
+
+    envFrom:
+      - secretRef:
+          name: openldap-secret
+
+    service:
+      main:
+        ports:
+          http:
+            enabled: false
+          ldap:
+            enabled: true
+            port: 389
+
+    probes:
+      liveness:
+        enabled: true
+        type: TCP
+      readiness:
+        enabled: true
+        type: TCP
+      startup:
+        enabled: false
+
+    persistence:
+      data:
+        enabled: true
+        type: pvc
+        existingClaim: openldap-data
+        mountPath: /var/lib/openldap
+      config:
+        enabled: true
+        type: pvc
+        existingClaim: openldap-config
+        mountPath: /etc/openldap/slapd.d
