@@ -1,0 +1,98 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: py-kms
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+
+    image:
+      repository: ghcr.io/py-kms-organization/py-kms
+      tag: python3@sha256:80cb8d20b51eb8b4662afc185889ab19ee1b937fca82e80a3c55d642a70a27a4
+
+    envFrom:
+      - secretRef:
+          name: py-kms-secret
+    env:
+      TIMEZONE: '${CONFIG_TIMEZONE}'
+      IP: "::"
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+      kms:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/address-pool: metallb-pool
+        ports:
+          kms:
+            port: 1688
+            protocol: TCP
+
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /livez
+            port: http
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /readyz
+            port: http
+      startup:
+        enabled: false
+
+    persistence:
+      db:
+        enabled: true
+        type: pvc
+        existingClaim: py-kms-data
+        mountPath: /home/py-kms/db
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: py-kms.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                pathType: Prefix

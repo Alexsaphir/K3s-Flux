@@ -10,4 +10,5 @@ resources:
   - tandoor-recipes
   - thelounge
   - foundryvtt
+  - py-kms
   # - paperless
