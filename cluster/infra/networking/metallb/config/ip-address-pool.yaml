@@ -3,7 +3,6 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: metallb-pool
-  namespace: metallb-system
 spec:
   addresses:
     - ${CONFIG_METALLB_LB_IP_RANGE}

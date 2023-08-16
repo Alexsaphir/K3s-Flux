@@ -3,7 +3,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: felix-metrics
-  namespace: calico-system
   labels:
     k8s-app: calico-node
 spec:

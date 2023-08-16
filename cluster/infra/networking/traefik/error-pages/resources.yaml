@@ -3,7 +3,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: error-pages
-  namespace: network-system
 spec:
   entryPoints:
     - web
@@ -25,7 +24,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: error-pages
-  namespace: network-system
 spec:
   errors:
     status:

@@ -3,7 +3,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: whitelisted-ips-only
-  namespace: network-system
 spec:
   chain:
     middlewares:
@@ -13,7 +12,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: external
-  namespace: network-system
 spec:
   chain:
     middlewares:
@@ -23,7 +21,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: internal
-  namespace: network-system
 spec:
   chain:
     middlewares:

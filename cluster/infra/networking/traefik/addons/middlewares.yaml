@@ -3,7 +3,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: https-redirect
-  namespace: network-system
 spec:
   redirectScheme:
     scheme: https
@@ -14,7 +13,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: rfc1918
-  namespace: network-system
 spec:
   ipWhiteList:
     sourceRange:
@@ -27,7 +25,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: whitelisted-ips
-  namespace: network-system
 spec:
   # https://www.cloudflare.com/ips/
   ipWhiteList:

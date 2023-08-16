@@ -3,7 +3,6 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: server-plan
-  namespace: system-upgrade
 spec:
   serviceAccountName: system-upgrade
   concurrency: 1

@@ -3,7 +3,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app codecov
-  namespace: codecov
 spec:
   database: *app # db name in postgres cluster
 ---
@@ -11,7 +10,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app codecov-timeseries
-  namespace: codecov
 spec:
   database: *app # db name in postgres cluster
 
@@ -21,7 +19,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app codecov
-  namespace: codecov
 spec:
   role: *app
   database: *app # references the CR
@@ -32,7 +29,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app codecov-timeseries
-  namespace: codecov
 spec:
   role: *app
   database: *app # references the CR

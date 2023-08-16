@@ -3,7 +3,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: &app gatus
-  namespace: flux-monitoring
 spec:
   database: *app # db name in postgres cluster
 
@@ -12,7 +11,6 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
 metadata:
   name: &app gatus
-  namespace: flux-monitoring
 spec:
   role: *app
   database: *app # references the CR

@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: &app openldap
-  namespace: default
 spec:
   interval: 15m
   chart:
@@ -30,7 +29,6 @@ spec:
   values:
     controller:
       replicas: 1
-      strategy: RollingUpdate
 
     image:
       repository: ghcr.io/tiredofit/docker-openldap-fusiondirectory
