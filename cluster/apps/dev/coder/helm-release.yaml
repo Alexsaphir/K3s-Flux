@@ -83,6 +83,8 @@ spec:
           value: "://gitlab.alexsaphir.com/oauth/authorize"
         - name: CODER_GITAUTH_0_TOKEN_URL
           value: "https://gitlab.alexsaphir.com/oauth/token"
+        - name: CODER_GITAUTH_0_REGEX
+          value: gitlab.alexsaphir.com
 
       ingress:
         enable: true
