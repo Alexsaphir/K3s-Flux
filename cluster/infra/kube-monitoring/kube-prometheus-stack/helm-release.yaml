@@ -28,6 +28,26 @@ spec:
   uninstall:
     keepHistory: false
 
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              # Ignore these objects from Flux diff as they are mutated from chart hooks
+              kind: (ValidatingWebhookConfiguration|MutatingWebhookConfiguration)
+              name: kube-prometheus-stack-admission
+            patch: |
+              - op: add
+                path: /metadata/annotations/helm.toolkit.fluxcd.io~1driftDetection
+                value: disabled
+          - target:
+              # Ignore these objects from Flux diff as they are mutated at apply time but not
+              # at dry-run time
+              kind: PrometheusRule
+            patch: |
+              - op: add
+                path: /metadata/annotations/helm.toolkit.fluxcd.io~1driftDetection
+                value: disabled
+
   # https://github.com/prometheus-community/helm-charts/blob/kube-prometheus-stack-47.0.0/charts/kube-prometheus-stack/values.yaml
   values:
     cleanPrometheusOperatorObjectNames: true
