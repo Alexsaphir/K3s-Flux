@@ -1,0 +1,86 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: coder
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: coder
+      version: 2.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: coder
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    coder:
+      env:
+        # DB
+        - name: CODER_PG_CONNECTION_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-coder
+              key: POSTGRES_URL
+
+        - name: CODER_ACCESS_URL
+          value: https://coder.${SECRET_DOMAIN_NAME}
+
+        - name: CODER_DISABLE_PASSWORD_AUTH
+          value: 'true'
+
+
+        - name: CODER_OIDC_ISSUER_URL
+          value: https://gitlab.alexsaphir.com
+        - name: CODER_OIDC_EMAIL_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: coder-oidc-secret
+              key: CODER_OIDC_EMAIL_DOMAIN
+
+        - name: CODER_OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: coder-oidc-secret
+              key: CODER_OIDC_CLIENT_ID
+        - name: CODER_OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: coder-oidc-secret
+              key: CODER_OIDC_CLIENT_SECRET
+
+
+        - name: CODER_GITAUTH_0_ID
+          value: primary-gitlab
+        - name: CODER_GITAUTH_0_TYPE
+          value: gitlab
+        - name: CODER_GITAUTH_0_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: coder-gitauth-secret
+              key: CODER_GITAUTH_0_CLIENT_ID
+        - name: CODER_GITAUTH_0_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: coder-gitauth-secret
+              key: CODER_GITAUTH_0_CLIENT_SECRET
+
+      ingress:
+        enable: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        host: coder.${SECRET_DOMAIN_NAME}

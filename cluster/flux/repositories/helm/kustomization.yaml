@@ -11,6 +11,7 @@ resources:
   - calico.yaml
   - cloudnative-pg.yaml
   - codecov.yaml
+  - coder.yaml
   - containeroo.yaml
   - coredns.yaml
   - csi-driver-nfs.yaml
