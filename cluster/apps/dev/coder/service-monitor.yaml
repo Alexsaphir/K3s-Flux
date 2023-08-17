@@ -1,0 +1,13 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: coder-metrics
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: coder
+  endpoints:
+    - port: prometheus-http
+      path: /
+      interval: 15s
