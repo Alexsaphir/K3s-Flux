@@ -77,6 +77,12 @@ spec:
             secretKeyRef:
               name: coder-gitauth-secret
               key: CODER_GITAUTH_0_CLIENT_SECRET
+        - name: CODER_GITAUTH_0_VALIDATE_URL
+          value: "https://gitlab.alexsaphir.com/oauth/token/info"
+        - name: CODER_GITAUTH_0_AUTH_URL
+          value: "://gitlab.alexsaphir.com/oauth/authorize"
+        - name: CODER_GITAUTH_0_TOKEN_URL
+          value: "https://gitlab.alexsaphir.com/oauth/token"
 
       ingress:
         enable: true
