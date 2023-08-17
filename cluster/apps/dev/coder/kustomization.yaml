@@ -7,3 +7,4 @@ resources:
   - secret.sops.yaml
   - postgres.yaml
   - helm-release.yaml
+  - dashboard
