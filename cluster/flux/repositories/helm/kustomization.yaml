@@ -39,6 +39,7 @@ resources:
   - kube-vip.yaml
   - kubereboot.yaml
   - kubeshark.yaml
+  - kubeview.yaml
   - kyverno-reporter.yaml
   - kyverno.yaml
   - longhorn.yaml
