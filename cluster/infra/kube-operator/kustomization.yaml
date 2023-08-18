@@ -10,3 +10,5 @@ resources:
   - redis-opstree-operator/ks.yaml
 
   - postgres/ks.yaml
+
+  - volcano/ks.yaml
