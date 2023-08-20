@@ -37,8 +37,10 @@ spec:
     podAnnotations:
       reloader.stakater.com/auto: "true"
 
+    hostname: &host openldap
+
     env:
-      HOSTNAME: &host ldap.${SECRET_DOMAIN_NAME}
+      HOSTNAME: *host
       LOG_LEVEL: 256
 
       DOMAIN: home.arpa
