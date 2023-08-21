@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - netbox
   - kubeview
-  - helm-dashboard
