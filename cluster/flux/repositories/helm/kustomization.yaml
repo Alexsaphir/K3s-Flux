@@ -36,6 +36,7 @@ resources:
   - jetstack.yaml
   - jupyterhub.yaml
   - kepler.yaml
+  - komodorio.yaml
   - kube-vip.yaml
   - kubereboot.yaml
   - kubeshark.yaml
