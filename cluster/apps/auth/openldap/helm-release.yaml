@@ -68,6 +68,7 @@ spec:
       PLUGIN_PPOLICY: true
       PLUGIN_SSH: true
       PLUGIN_SYSTEMS: true
+      PLUGIN_MIXEDGROUPS: true
 
     envFrom:
       - secretRef:
