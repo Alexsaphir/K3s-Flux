@@ -1,0 +1,9 @@
+---
+os_timezone: "Europe/Paris"
+github_username: Alexsaphir
+
+cluster_cidr: "10.42.0.0/16"
+service_cidr: "10.43.0.0/16"
+node_cidr: "192.168.0.0/24"
+
+kube_vip_addr: "192.168.0.251"

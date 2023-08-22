@@ -11,12 +11,15 @@ packages = []
 python = ">=3.10,<3.12"
 pre-commit = "^3.3.3"
 
+prettier = "^0.0.7"
+yamllint = "^1.32.0"
 
+[tool.poetry.group.ansible.dependencies]
 ansible = "^8.3.0"
 ansible-inventory-grapher = "^2.5.0"
 
-prettier = "^0.0.7"
-yamllint = "^1.32.0"
+jmespath = "^1.0.1"
+netaddr = "^0.8.0"
 
 [tool.poetry.group.ci.dependencies]
 flux-local = "^3.1.1"

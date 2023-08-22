@@ -1,25 +1,25 @@
 ---
-# (string) Timezone for the servers
-os_timezone: "Europe/Paris"
-
-# (list) Additional ssh public keys to add to the nodes
-os_ssh_authorized_keys:
-
 os_packages_install:
+  - apt-transport-https
   - bash-completion
+  - ca-certificates
   - curl
   - hdparm
   - htop
   - intel-gpu-tools
+  - i965-va-driver-shaders
   - iotop
+  - iptables
   - iputils-ping
   - ipvsadm
+  - libseccomp2
   - jq
   - lm-sensors
   - multipath-tools
   - nano
   - ncdu
   - net-tools
+  - nfs-common
   - nload
   - nvme-cli
   - open-iscsi

@@ -21,7 +21,6 @@ tasks:
     cmds:
       - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yaml
       - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml
-      - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/tigera-ownership.yaml
 
   nuke:
     desc: Uninstall Kubernetes on the nodes

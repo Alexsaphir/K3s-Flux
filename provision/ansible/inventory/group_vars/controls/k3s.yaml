@@ -1,51 +1,36 @@
 ---
-# https://rancher.com/docs/k3s/latest/en/installation/install-options/server-config/
-# https://github.com/PyratLabs/ansible-role-k3s
-
 k3s_control_node: true
-
 k3s_server:
   node-ip: "{{ ansible_host }}"
+  tls-san:
+    - "{{ kube_vip_addr }}"
+  https-listen-port: 6443
 
-  # Disable Docker - this will use the default containerd CRI
   docker: false
-
-  # Disable flannel - this will be replaced by calico
   flannel-backend: 'none'
 
   disable-network-policy: true
   disable-cloud-controller: true
+  disable-kube-proxy: true
 
   disable:
-    # Disable flannel - replaced with Calico
     - flannel
-    # Disable traefik - replaced with ingress-nginx
-    - traefik
-    # Disable servicelb - replaced with metallb and install with Flux
-    - servicelb
-    # Disable metrics-server - installed with Flux
     - metrics-server
-    # Disable local-path-provider - replaced with longhorn (but also installed with helm)
-    # - local-storage
+    - servicelb
+    - traefik
 
-  # Cluster-internal IP ranges for pods and services
-  cluster-cidr: "10.42.0.0/16"
-  service-cidr: "10.43.0.0/16"
+  cluster-cidr: "{{ cluster_cidr }}"
+  service-cidr: "{{ service_cidr }}"
 
   write-kubeconfig-mode: '0644'
 
   kube-controller-manager-arg:
-    - "bind-address=0.0.0.0"
+    - bind-address=0.0.0.0
   kube-proxy-arg:
-    - "metrics-bind-address=0.0.0.0"
+    - metrics-bind-address=0.0.0.0
   kube-scheduler-arg:
-    - "bind-address=0.0.0.0"
+    - bind-address=0.0.0.0
   kube-apiserver-arg:
-    - "anonymous-auth=true"
+    - anonymous-auth=true
 
   node-label: "{{ global_k8s_labels + (k8s_labels | default([])) }}"
-
-
-  # Stop k3s control plane having workloads scheduled on them
-  # node-taint:
-  #  - "k3s-controlplane=true:NoExecute"

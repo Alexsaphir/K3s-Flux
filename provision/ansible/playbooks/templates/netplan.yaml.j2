@@ -3,12 +3,12 @@ network:
   ethernets:
     enp2s0:
       addresses:
-      - {{ ansible_host }}/24
+        - {{ ansible_host }}/24
       nameservers:
         addresses:
-        - 192.168.0.56
-        search: []
+          - 192.168.0.56
+        search: [ ]
       routes:
-      - to: default
-        via: 192.168.0.254
+        - to: default
+          via: 192.168.0.254
   version: 2
