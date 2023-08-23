@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: cert-manager
 resources:
   - namespace.yaml
+  - secret.sops.yaml
   - helm-release.yaml
   - prometheus-rule.yaml
