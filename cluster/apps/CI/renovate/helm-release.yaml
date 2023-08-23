@@ -55,6 +55,11 @@ spec:
       RENOVATE_AUTODISCOVER: 'true'
       RENOVATE_ONBOARDING: 'true'
 
+      RENOVATE_REDIS_URL: 'redis://redis.{{ .Release.Namespace }}.svc.cluster.local:6379/0'
+      RENOVATE_REPOSITORY_CACHE: 'enabled'
+      RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate'
+      RENOVATE_X_S3_PATH_STYLE: 'true'
+
     envFrom:
       - configMapRef:
           name: renovate-config

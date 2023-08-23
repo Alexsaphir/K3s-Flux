@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: flux-ci
 resources:
   - secret.sops.yaml
+  - redis.yaml
   - helm-release.yaml
 configMapGenerator:
   - name: renovate-config
