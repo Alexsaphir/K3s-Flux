@@ -28,8 +28,8 @@ tasks:
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
     cmds:
-      - flux reconcile source git flux-system
-      - flux reconcile kustomization flux-system
+      - flux reconcile source git home-kubernetes
+      - flux reconcile kustomization cluster
       - flux reconcile kustomization infra
       - flux reconcile kustomization apps
 

@@ -5,6 +5,6 @@ metadata:
   name: metallb-pool
 spec:
   addresses:
-    - ${CONFIG_METALLB_LB_IP_RANGE}
+    - ${METALLB_LB_IP_RANGE}
   autoAssign: true
   avoidBuggyIPs: true
