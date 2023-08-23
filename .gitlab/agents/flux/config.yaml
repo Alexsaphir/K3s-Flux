@@ -1,0 +1,11 @@
+---
+ci_access:
+  projects:
+    - id: Homelab/K3s-Flux
+
+user_access:
+  access_as:
+    agent: { }
+
+  projects:
+    - id: Homelab/K3s-Flux
