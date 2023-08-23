@@ -8,6 +8,7 @@ ungrouped:
   hosts:
     minerva:
       ansible_host: 192.168.0.56
+      ansible_user: minerva
 
 cube:
   vars:

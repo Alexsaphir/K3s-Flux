@@ -10,16 +10,12 @@
       ansible.builtin.pause:
         seconds: 2
   tasks:
-    - name: Stop Kubernetes # noqa: ignore-errors
-      ignore_errors: true
-      block:
-        - name: Stop Kubernetes
-          ansible.builtin.include_role:
-            name: xanmanning.k3s
-            public: true
-          vars:
-            k3s_state: stopped
-
+    - name: Uninstall k3s
+      ansible.builtin.include_role:
+        name: xanmanning.k3s
+        public: true
+      vars:
+        k3s_state: uninstalled
 
     # https://github.com/k3s-io/docs/blob/main/docs/installation/network-options.md
     - name: Networking
@@ -45,13 +41,6 @@
             path: /etc/cni/net.d
             state: absent
 
-
-    - name: Uninstall k3s
-      ansible.builtin.include_role:
-        name: xanmanning.k3s
-        public: true
-      vars:
-        k3s_state: uninstalled
 
     - name: Stale Containers
       ansible.builtin.include_tasks: tasks/stale_containers.yaml

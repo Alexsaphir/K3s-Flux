@@ -8,6 +8,7 @@ k3s_server:
 
   docker: false
   flannel-backend: 'none'
+  egress-selector-mode: disabled
 
   disable-network-policy: true
   disable-cloud-controller: true
@@ -19,8 +20,8 @@ k3s_server:
     - servicelb
     - traefik
 
-  cluster-cidr: "{{ cluster_cidr }}"
-  service-cidr: "{{ service_cidr }}"
+  cluster-cidr: "{{ k3s_cluster_cidr }}"
+  service-cidr: "{{ k3s_service_cidr }}"
 
   write-kubeconfig-mode: '0644'
 

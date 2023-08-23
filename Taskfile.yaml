@@ -5,7 +5,8 @@ vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible/kubernetes"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/cluster"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
   VAGRANT_DIR: "{{.PROJECT_DIR}}/provision/vagrant"
 

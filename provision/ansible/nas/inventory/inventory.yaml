@@ -1,0 +1,10 @@
+---
+all:
+  vars:
+    ansible_connection: ssh
+    ansible_ssh_port: 22
+
+hosts:
+  minerva:
+    ansible_host: 192.168.0.56
+    ansible_user: minerva
