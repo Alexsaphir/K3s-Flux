@@ -15,5 +15,5 @@ spec:
   resources:
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
-      name: flux-system
+      name: home-kubernetes
       namespace: flux-system
