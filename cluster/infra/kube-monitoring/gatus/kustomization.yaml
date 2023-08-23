@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: flux-monitoring
 resources:
   - postgres.yaml
+  - rbac-secret.sops.yaml
   - rbac.yaml
   - helm-release.yaml
