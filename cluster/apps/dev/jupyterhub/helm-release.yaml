@@ -86,6 +86,27 @@ spec:
       nodeSelector:
         kubernetes.io/arch: amd64
 
+      networkPolicy:
+        enabled: false # BUG: Should enable the netpol, fix what's wrong with the dns
+        egress:
+          - to:
+              - namespaceSelector:
+                  matchLabels:
+                    name: kube-system
+            ports:
+              - protocol: UDP
+                port: 53
+          - ports:
+              - protocol: TCP
+                port: 5432
+            to:
+              - namespaceSelector:
+                  matchLabels:
+                    name: database
+              - podSelector:
+                  matchLabels:
+                    cnpg.io/cluster: postgres
+
     singleuser:
       defaultUrl: "/lab"
 
@@ -99,7 +120,7 @@ spec:
           default: true
           kubespawner_override:
             image: registry.alexsaphir.com/homelab/containers/jupyter/notebook@sha256:7362cfeb403cc3c56febf45eaf1a6080c9aa3fe9d504d7f12365cdbb0418d10c
-            node_selector: { 'node.kubernetes.io/instance-type': 'm3.large' }
+            # node_selector: { 'node.kubernetes.io/instance-type': 'm3.large' }
 
 
       # - display_name: "Minimal environment"
