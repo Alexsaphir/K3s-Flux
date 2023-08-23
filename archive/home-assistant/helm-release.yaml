@@ -54,7 +54,7 @@ spec:
                 pathType: Prefix
 
     env:
-      TZ: "${CONFIG_TIMEZONE}"
+      TZ: "${TIMEZONE}"
       HASS_EXTERNAL_URL: "https://ha.${SECRET_DOMAIN_NAME}"
       POSTGRES_DB:
         valueFrom:

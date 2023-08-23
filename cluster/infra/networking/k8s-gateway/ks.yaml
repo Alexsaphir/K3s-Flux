@@ -9,10 +9,7 @@ spec:
   retryInterval: 5m
   prune: true
 
-  dependsOn:
-    - name: cluster-infra-metallb
-
   path: ./cluster/infra/networking/k8s-gateway
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

@@ -15,4 +15,4 @@ spec:
   path: ./cluster/infra/kube-system/node-problem-detector
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

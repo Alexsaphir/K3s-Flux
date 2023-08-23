@@ -40,7 +40,7 @@ spec:
       - secretRef:
           name: py-kms-secret
     env:
-      TIMEZONE: '${CONFIG_TIMEZONE}'
+      TIMEZONE: '${TIMEZONE}'
       IP: "::"
 
     service:
@@ -53,7 +53,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/address-pool: metallb-pool
+          metallb.universe.tf/loadBalancerIPs: ${LB_PY_KMS}
         ports:
           kms:
             port: 1688

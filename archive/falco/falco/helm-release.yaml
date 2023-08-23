@@ -29,7 +29,7 @@ spec:
 
   # https://github.com/falcosecurity/charts/blob/master/falco/values.yaml
   values:
-    timezone: ${CONFIG_TIMEZONE}
+    timezone: ${TIMEZONE}
 
     tty: true
 

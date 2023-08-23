@@ -189,7 +189,7 @@ spec:
       username: napalm
 
     preferIPv4: true
-    timeZone: "${CONFIG_TIMEZONE}"
+    timeZone: "${TIMEZONE}"
     powerFeedDefaultAmperage: 15
     powerFeedDefaultVoltage: 230
     powerFeedMaxUtilisation: 80

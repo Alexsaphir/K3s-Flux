@@ -18,4 +18,4 @@ spec:
   path: ./cluster/infra/storage/csi-driver-nfs
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

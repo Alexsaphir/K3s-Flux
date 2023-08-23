@@ -40,7 +40,7 @@ spec:
       tag: latest-alpine
 
     env:
-      TZ: "${CONFIG_TIMEZONE}"
+      TZ: "${TIMEZONE}"
       LLDAP_HTTP_PORT: &http-port 80
       LLDAP_LDAP_PORT: &ldap-port 389
       LLDAP_HTTP_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN_NAME}

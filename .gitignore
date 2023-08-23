@@ -358,7 +358,8 @@ fabric.properties
 .vagrant
 .monokle
 
-kubeconfig**
+kubeconfig
+kubeconfig-*
 
 **.pgp
 .secrets

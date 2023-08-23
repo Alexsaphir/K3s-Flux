@@ -45,7 +45,7 @@ tasks:
         k9s
         krew
         kubeconform
-        kubernetes-cli
+        kubescape
         kubeval
         kustomize
         sops
@@ -70,6 +70,7 @@ tasks:
       - kubectl krew install topology
       - kubectl krew install minio
       - kubectl krew install kyverno
+      - kubectl krew install neat
   #      - kubectl krew install kots
 
   .poetry:

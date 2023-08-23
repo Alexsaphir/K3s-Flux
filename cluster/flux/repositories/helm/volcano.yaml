@@ -3,8 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: volcano
-  namespace: flux-charts
 spec:
   interval: 1h
   url: https://volcano-sh.github.io/helm-charts
-  timeout: 3m

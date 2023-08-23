@@ -15,4 +15,4 @@ spec:
   path: ./cluster/infra/kube-system/kured
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

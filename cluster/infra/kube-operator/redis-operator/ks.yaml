@@ -17,4 +17,4 @@ spec:
   path: ./cluster/infra/kube-operator/redis-operator
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

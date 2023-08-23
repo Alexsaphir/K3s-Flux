@@ -16,4 +16,4 @@ spec:
   path: ./cluster/infra/storage/volsync
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

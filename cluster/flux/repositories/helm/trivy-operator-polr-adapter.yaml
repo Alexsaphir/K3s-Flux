@@ -3,8 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: trivy-operator-polr-adapter
-  namespace: flux-charts
 spec:
   interval: 1h
   url: https://fjogeleit.github.io/trivy-operator-polr-adapter
-  timeout: 3m

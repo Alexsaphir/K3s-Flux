@@ -16,7 +16,7 @@ spec:
   path: ./cluster/infra/networking/cert-manager/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -36,7 +36,7 @@ spec:
   path: ./cluster/infra/networking/cert-manager/issuers
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -56,4 +56,4 @@ spec:
   path: ./cluster/infra/networking/cert-manager/certificates
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

@@ -42,7 +42,7 @@ spec:
       reloader.stakater.com/auto: "true"
 
     env:
-      TZ: "${CONFIG_TIMEZONE}"
+      TZ: "${TIMEZONE}"
       LOG_FORMAT: json
 
       ACCEPT_WHITESOURCE_TOS: 'y'

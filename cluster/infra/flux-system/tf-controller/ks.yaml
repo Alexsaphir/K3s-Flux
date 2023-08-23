@@ -16,7 +16,7 @@ spec:
   path: ./cluster/infra/flux-system/tf-controller/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -36,4 +36,4 @@ spec:
   path: ./cluster/infra/flux-system/tf-controller/terraforms
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

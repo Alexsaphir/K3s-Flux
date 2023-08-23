@@ -15,4 +15,4 @@ spec:
   path: ./cluster/infra/kube-monitoring/smartctl-exporter
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

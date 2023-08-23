@@ -3,8 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: codecov
-  namespace: flux-charts
 spec:
   interval: 1h
   url: https://helm.codecov.io
-  timeout: 3m

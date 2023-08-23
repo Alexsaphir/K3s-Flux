@@ -8,5 +8,4 @@ resources:
   - cert-manager-csi-driver/ks.yaml
   - k8s-gateway/ks.yaml
   - metallb/ks.yaml
-  - tigera-operator/ks.yaml
   - traefik/ks.yaml

@@ -15,4 +15,4 @@ spec:
   path: ./cluster/infra/kube-system/reflector
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

@@ -19,7 +19,7 @@ spec:
   path: ./cluster/infra/networking/traefik/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -38,7 +38,7 @@ spec:
   path: ./cluster/infra/networking/traefik/addons
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -57,4 +57,4 @@ spec:
   path: ./cluster/infra/networking/traefik/error-pages
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

@@ -13,7 +13,7 @@ spec:
   path: ./cluster/infra/kube-system/node-feature-discovery/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -32,4 +32,4 @@ spec:
   path: ./cluster/infra/kube-system/node-feature-discovery/rules
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

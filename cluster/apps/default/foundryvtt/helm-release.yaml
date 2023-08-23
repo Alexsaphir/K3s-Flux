@@ -36,7 +36,7 @@ spec:
       tag: 11.307.0
 
     env:
-      TIMEZONE: "${CONFIG_TIMEZONE}"
+      TIMEZONE: "${TIMEZONE}"
       CONTAINER_CACHE: /data/container_cache
       CONTAINER_PATCHES: /data/container_patches
       CONTAINER_VERBOSE: "true"

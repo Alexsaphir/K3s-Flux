@@ -16,4 +16,4 @@ spec:
   path: ./cluster/infra/kube-system/csi-driver-secrets-store
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

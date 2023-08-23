@@ -55,7 +55,7 @@ spec:
       tag: v5.5.1
 
     env:
-      TZ: "${CONFIG_TIMEZONE}"
+      TZ: "${TIMEZONE}"
       GATUS_CONFIG_PATH: /config
 
     gatus:

@@ -13,7 +13,7 @@ spec:
   path: ./cluster/infra/system-upgrade/operator
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 
 ---
@@ -34,4 +34,4 @@ spec:
   path: ./cluster/infra/system-upgrade/plans
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

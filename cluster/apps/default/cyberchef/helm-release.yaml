@@ -36,7 +36,7 @@ spec:
       tag: v10.5.2
 
     env:
-      TZ: ${CONFIG_TIMEZONE}
+      TZ: ${TIMEZONE}
 
     service:
       main:

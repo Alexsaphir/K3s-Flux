@@ -34,7 +34,7 @@ spec:
       replicas: 1
     nameOverride: error-pages
     env:
-      TZ: ${CONFIG_TIMEZONE}
+      TZ: ${TIMEZONE}
       TEMPLATE_NAME: shuffle
       SHOW_DETAILS: true
     service:

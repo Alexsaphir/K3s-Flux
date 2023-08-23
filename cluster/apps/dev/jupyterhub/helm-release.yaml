@@ -148,7 +148,7 @@ spec:
       service:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.0.230
+          metallb.universe.tf/loadBalancerIPs: ${LB_JUPYTER}
     scheduling:
       userScheduler:
         enabled: false

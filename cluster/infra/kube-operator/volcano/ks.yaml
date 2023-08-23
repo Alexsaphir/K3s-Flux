@@ -16,4 +16,4 @@ spec:
   path: ./cluster/infra/kube-operator/volcano
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

@@ -13,4 +13,4 @@ spec:
   path: ./cluster/infra/kube-monitoring/kube-prometheus-stack-crds
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

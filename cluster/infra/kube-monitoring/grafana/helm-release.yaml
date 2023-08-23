@@ -255,15 +255,6 @@ spec:
           datasource: Prometheus
 
       networking:
-        calico:
-          gnetId: 12175
-          revision: 5
-          datasource: Prometheus
-
-        metallb:
-          gnetId: 14127
-          revision: 1
-          datasource: Prometheus
 
       kubernetes:
         kubernetes-api-server:

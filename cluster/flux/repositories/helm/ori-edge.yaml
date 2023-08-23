@@ -3,8 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: ori-edge
-  namespace: flux-charts
 spec:
   interval: 1h
   url: https://ori-edge.github.io/k8s_gateway
-  timeout: 3m

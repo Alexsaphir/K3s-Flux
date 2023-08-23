@@ -17,4 +17,4 @@ spec:
   path: ./cluster/infra/kube-auth/glauth
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

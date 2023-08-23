@@ -3,25 +3,35 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: flux-system
+  name: home-kubernetes
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 30m
   ref:
     branch: main
-  secretRef:
-    name: flux-system
   url: https://gitlab.alexsaphir.com/Homelab/K3s-Flux.git
+  ignore: |
+    # exclude all
+    /*
+    # include kubernetes directory
+    !/cluster
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-system
+  name: cluster
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 30m
   path: ./cluster/flux
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-settings
+      - kind: Secret
+        name: cluster-secrets

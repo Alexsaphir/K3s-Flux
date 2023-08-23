@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: flux-monitoring
   labels:
-    app.kubernetes.io/component: kube-prometheus-stack
+    kustomize.toolkit.fluxcd.io/prune: disabled

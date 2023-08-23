@@ -14,27 +14,12 @@ tasks:
   install:
     desc: Install Flux into your cluster
     cmds:
-      - cmd: kubectl create namespace flux-system
-        ignore_error: true
+      - kubectl apply --kustomize {{.KUBERNETES_DIR}}/bootstrap
       - cmd: cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=identity.agekey=/dev/stdin
         ignore_error: true
-      # Multiline command with space for each \n
-      - >
-        flux bootstrap gitlab
-        --hostname={{.FLUX_HOST}}
-        --ssh-hostname={{.FLUX_SSH_HOSTNAME}}
-        --owner={{.FLUX_OWNER}}
-        --repository={{.FLUX_REPOSITORY}}
-        --branch={{.FLUX_BRANCH}}
-        --commit-message-appendix='chore(flux):'
-        --author-email={{.FLUX_AUTHOR_EMAIL}}
-        --gpg-key-id={{.FLUX_GPG_ID}}
-        --gpg-key-ring={{.FLUX_GPG_RING}}
-        --gpg-passphrase=''
-        --path=cluster/flux/
-        --network-policy=false
-        --deploy-token-auth
-        --read-write-key
+      - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f -
+      - kubectl apply -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      - kubectl apply --kustomize {{.KUBERNETES_DIR}}/flux/config
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
         msg: |

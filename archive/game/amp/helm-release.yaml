@@ -41,7 +41,7 @@ spec:
       "cni.projectcalico.org/hwAddr": "02:42:AC:AC:CB:89"
 
     env:
-      TZ: "${CONFIG_TIMEZONE}"
+      TZ: "${TIMEZONE}"
       MODULE: ADS
 
       USERNAME:

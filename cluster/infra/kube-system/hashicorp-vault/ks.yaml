@@ -18,7 +18,7 @@ spec:
   path: ./cluster/infra/kube-system/hashicorp-vault/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -37,4 +37,4 @@ spec:
   path: ./cluster/infra/kube-system/hashicorp-vault/unseal
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

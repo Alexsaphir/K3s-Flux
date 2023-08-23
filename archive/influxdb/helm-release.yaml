@@ -47,7 +47,7 @@ spec:
 
     env:
       - name: TZ
-        value: "${CONFIG_TIMEZONE}"
+        value: "${TIMEZONE}"
 
     ingress:
       enabled: true

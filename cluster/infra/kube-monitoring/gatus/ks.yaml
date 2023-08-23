@@ -16,4 +16,4 @@ spec:
   path: ./cluster/infra/kube-monitoring/gatus
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

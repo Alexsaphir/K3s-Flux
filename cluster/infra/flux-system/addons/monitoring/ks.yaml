@@ -16,4 +16,4 @@ spec:
   path: ./cluster/infra/flux-system/addons/monitoring
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

@@ -16,7 +16,7 @@ spec:
   path: ./cluster/infra/security/trivy/operator
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -35,7 +35,7 @@ spec:
   path: ./cluster/infra/security/trivy/exporter
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -54,7 +54,7 @@ spec:
   path: ./cluster/infra/security/trivy/polr-adapter
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -73,4 +73,4 @@ spec:
   path: ./cluster/infra/security/trivy/dashboard
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

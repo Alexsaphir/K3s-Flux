@@ -16,7 +16,7 @@ spec:
   path: ./cluster/infra/kube-system/external-secrets/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -35,4 +35,4 @@ spec:
   path: ./cluster/infra/kube-system/external-secrets/stores
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

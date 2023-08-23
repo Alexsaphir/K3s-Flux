@@ -46,7 +46,7 @@ spec:
       host: &host firefly.${SECRET_DOMAIN_NAME}
 
     env:
-      TZ: ${CONFIG_TIMEZONE}
+      TZ: ${TIMEZONE}
       APP_ENV: 'local' # TODO: This should be switch to production
       DEFAULT_LANGUAGE: en_US
 

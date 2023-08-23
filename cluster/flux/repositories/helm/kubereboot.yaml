@@ -3,8 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: kubereboot
-  namespace: flux-charts
 spec:
   interval: 1h
   url: https://kubereboot.github.io/charts
-  timeout: 3m

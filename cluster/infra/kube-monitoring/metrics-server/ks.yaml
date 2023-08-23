@@ -15,4 +15,4 @@ spec:
   path: ./cluster/infra/kube-monitoring/metrics-server
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes

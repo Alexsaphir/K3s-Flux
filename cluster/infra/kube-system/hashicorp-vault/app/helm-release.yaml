@@ -73,7 +73,7 @@ spec:
         configmap.reloader.stakater.com/reload: hashicorp-vault-config
 
       extraEnvironmentVars:
-        TZ: ${CONFIG_TIMEZONE}
+        TZ: ${TIMEZONE}
 
       #      extraVolumes:
       #        - type: secret
