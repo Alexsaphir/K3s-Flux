@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: glauth
+  namespace: flux-charts
 spec:
   interval: 1h
   url: https://glauth.github.io/helm-glauth
