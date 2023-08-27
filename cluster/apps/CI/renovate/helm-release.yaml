@@ -36,7 +36,7 @@ spec:
     image:
       # renovate: datasource=github-releases depName=mend/renovate-on-prem
       repository: whitesource/renovate
-      tag: '5.0.0'
+      tag: '5.0.1'
 
     podAnnotations:
       reloader.stakater.com/auto: "true"
