@@ -79,6 +79,11 @@ spec:
                 - create
                 - update
                 - delete
+      container:
+        resources:
+          limits:
+            memory: 1Gi
+
 
       topologySpreadConstraints:
         - maxSkew: 1
