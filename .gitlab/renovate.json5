@@ -11,7 +11,6 @@
     'github>whitesource/merge-confidence:beta',
     'local>Homelab/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/semanticCommits.json5',
-    'local>Homelab/K3s-Flux//.gitlab/renovate/groups.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/labels.json5',
   ],
   enabled: true,
@@ -26,16 +25,11 @@
   ],
   rebaseWhen: 'behind-base-branch',
   lockFileMaintenance: {
-    enabled: false,
+    enabled: true,
   },
   poetry: {
     enabled: true,
-    automerge: true,
     rangeStrategy: 'bump',
-  },
-  'pre-commit': {
-    enabled: true,
-    automerge: true,
   },
   flux: {
     fileMatch: [
@@ -62,9 +56,11 @@
       ],
       matchStrings: [
         // Example: `k3s_release_version: "v1.27.3+k3s1"`
-        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n',
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
         // Example: `- https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml`
-        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n'
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n",
+        // Example: apiVersion=helm.cattle.io/v1 kind=HelmChart
+        "datasource=(?<datasource>\\S+)\n.*?repo: (?<registryUrl>\\S+)\n.*?chart: (?<depName>\\S+)\n.*?version: (?<currentValue>\\S+)\n"
       ],
       datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}',
       versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
