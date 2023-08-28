@@ -3,7 +3,7 @@ version: "3"
 
 vars:
   ANSIBLE_REQUIREMENTS: "{{.ANSIBLE_DIR}}/requirements.yaml"
-  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/kubernetes/playbooks"
 
 env:
   ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
@@ -33,6 +33,11 @@ tasks:
     cmds:
       - task: prepare
       - task: install
+
+  kube-vip:
+    desc: Apply latest settings to kube vip.
+    cmds:
+      - ansible-playbook {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-kube-vip.yaml
 
   nuke:
     desc: Uninstall Kubernetes on the nodes
