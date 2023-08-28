@@ -13,7 +13,12 @@ workflow:
 default:
   interruptible: true
 
+include:
+  - template: Jobs/SAST-IaC.gitlab-ci.yml
+
+
 stages:
+  - test
   - oci
   - quality
   - deploy
