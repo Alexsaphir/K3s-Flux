@@ -121,6 +121,8 @@ spec:
     extraEnvs:
       - name: CODECOV_FRONTEND_IPV6_DISABLED
         value: 'true'
+      - name: RUN_ENV
+        value: ENTERPRISE
 
     tags:
       'configmap.reloader.stakater.com/reload': *configmap-name
