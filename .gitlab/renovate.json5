@@ -12,6 +12,7 @@
     'local>Homelab/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/semanticCommits.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/labels.json5',
+    'local>Homelab/K3s-Flux//.gitlab/renovate/groups.json5',
   ],
   enabled: true,
   prConcurrentLimit: 3,
@@ -85,13 +86,6 @@
         'kube-prometheus-stack-crds',
       ],
       groupName: 'kube-prometheus-stack',
-    },
-    {
-      matchPackageNames: [
-        'snapshot-controller',
-        'snapshot-validation-webhook',
-      ],
-      groupName: 'piraeus-snapshot',
     },
     {
       matchPackagePatterns: [
