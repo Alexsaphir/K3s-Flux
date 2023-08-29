@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: default
+resources:
+  - postgres.yaml
+  - helm-release.yaml
+
+configMapGenerator:
+  - name: backstage-config
+    files:
+      - app-config.extra.yaml=config.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true

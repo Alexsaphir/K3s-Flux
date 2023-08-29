@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: backstage
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: backstage
+      version: 1.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: backstage
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    # -- Enable diagnostic mode in the Deployment
+    diagnosticMode:
+      enabled: false
+
+
+    ingress:
+      enabled: true
+      className: traefik
+      annotations: { }
+      host: backstage.${SECRET_DOMAIN_NAME}
+
+
+    # -- Backstage parameters
+    # @default -- See below
+    backstage:
+      replicas: 1
+      revisionHistoryLimit: 0
+
+      image:
+        registry: ghcr.io
+        repository: backstage/backstage
+        tag: 1.17.0-next.2
+        pullPolicy: IfNotPresent
+
+        debug: false
+
+
+      # -- Backstage container environment variables
+      extraEnvVars:
+        - name: POSTGRES_HOST
+          valueFrom:
+            secretKeyRef:
+              name: database-backstage
+              key: HOST
+        - name: POSTGRES_PORT
+          value: '5432'
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: database-backstage
+              key: LOGIN
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-backstage
+              key: PASSWORD
+
+      extraAppConfig:
+        - filename: app-config.extra.yaml
+          configMapRef: backstage-config
+
+      podAnnotations: { }
+
+
+    # -- Metrics configuration
+    metrics:
+      serviceMonitor:
+        enabled: true
