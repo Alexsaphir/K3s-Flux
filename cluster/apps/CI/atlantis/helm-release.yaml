@@ -1,0 +1,123 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: atlantis
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: atlantis
+      version: 4.15.0
+      sourceRef:
+        kind: HelmRepository
+        name: atlantis
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    atlantisUrl: https://atlantis.${SECRET_DOMAIN_NAME}
+
+    # Replace this with your own repo allowlist:
+    orgAllowlist: '*'
+
+    # logLevel: "debug"
+
+    image:
+      repository: ghcr.io/runatlantis/atlantis
+      # if not set appVersion field from Chart.yaml is used
+      tag: "v0.25.0"
+      pullPolicy: IfNotPresent
+
+    allowForkPRs: false
+    allowDraftPRs: false
+    hidePrevPlanComments: false
+    hideUnchangedPlanComments: false
+    # defaultTFVersion: 0.12.0
+    disableApply: false
+    disableApplyAll: false
+    disableRepoLocking: false
+    enableDiffMarkdownFormat: true
+
+    service:
+      type: ClusterIP
+      targetPort: 4141
+
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        traefik.ingress.kubernetes.io/affinity: "true"
+        hajimari.io/icon: simple-icons:terraform
+      pathType: Prefix
+      hosts:
+        - host: atlantis.${SECRET_DOMAIN_NAME}
+          paths:
+            - /
+
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: 100m
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+
+    volumeClaim:
+      enabled: true
+      dataStorage: 5Gi
+      storageClassName: longhorn
+
+
+    environment:
+      ATLANTIS_DEFAULT_TF_VERSION: v1.3.8
+      ATLANTIS_WRITE_GIT_CREDS: "true"
+      ATLANTIS_GITLAB_HOSTNAME: gitlab.alexsaphir.com
+      ATLANTIS_GITLAB_USER: Atlantis
+
+    environmentSecrets:
+      - name: ATLANTIS_GITLAB_TOKEN
+        secretKeyRef:
+          name: &secret atlantis-secret
+          key: gitlabToken
+      - name: ATLANTIS_GITLAB_WEBHOOK_SECRET
+        secretKeyRef:
+          name: *secret
+          key: webhookSecret
+      - name: ATLANTIS_REDIS_PASSWORD
+        secretKeyRef:
+          name: *secret
+          key: redisSecret
+
+    commonLabels:
+      app.kubernetes.io/name: atlantis
+      app.kubernetes.io/instance: atlantis
+    podTemplate:
+      annotations:
+        secret.reloader.stakater.com/reload: *secret
+
+
+    readinessProbe:
+      periodSeconds: 5
+      initialDelaySeconds: 10
+
+    lockingDbType: redis
+
+    redis:
+      host: atlantis-redis.atlantis.svc.cluster.local
+      port: 6379
+      db: 0
+      tlsEnabled: false
+      insecureSkipVerify: false
