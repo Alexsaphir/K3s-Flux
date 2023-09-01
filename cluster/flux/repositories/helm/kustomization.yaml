@@ -51,6 +51,7 @@ resources:
   - minio.yaml
   - community-tooling.yaml
   - movetokube.yaml
+  - nfs-provisioner.yaml
   - node-feature-discovery.yaml
   - opstree.yaml
   - ori-edge.yaml
