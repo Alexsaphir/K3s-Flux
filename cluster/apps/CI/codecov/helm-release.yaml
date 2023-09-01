@@ -85,7 +85,7 @@ spec:
           region: us-east-1
           verify_ssl: true
 
-        redis_url: redis://codecov-redis-standalone.codecov.svc.cluster.local:6379
+        redis_url: redis://codecov-redis.codecov.svc.cluster.local:6379
       setup:
         codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
         codecov_api_url: *codecov_url
