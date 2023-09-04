@@ -28,7 +28,7 @@ data:
   LB_JUPYTER: '192.168.0.230'
 
   # `letsencrypt-production` or `letsencrypt-staging`
-  CONFIG_CERTIFICATE_ISSUER: 'letsencrypt-production1'
+  CONFIG_CERTIFICATE_ISSUER: 'letsencrypt-production'
 
   CONFIG_NFS_SERVER_IP_ADDRESS: '192.168.0.56'
   CONFIG_NFS_SERVER_PATH: '/NFS'
