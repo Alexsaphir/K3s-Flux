@@ -28,11 +28,17 @@ spec:
 
   # https://github.com/deliveryhero/helm-charts/blob/200aa7fcf6b5aa22dcb8a7d9491ea73e48df3319/stable/node-problem-detector/values.yaml
   values:
+    image:
+      repository: registry.k8s.io/node-problem-detector/node-problem-detector
+
+    settings:
+      # https://github.com/kubernetes/node-problem-detector/tree/master/config
+      log_monitors:
+        - /config/kernel-monitor.json
+      custom_plugin_monitors:
+        - /config/network-problem-monitor.json
+
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-      prometheusRule:
-        enabled: false
-        defaultRules:
-          create: true
