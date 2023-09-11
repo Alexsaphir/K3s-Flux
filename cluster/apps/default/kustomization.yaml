@@ -11,4 +11,5 @@ resources:
   - thelounge
   - foundryvtt
   - py-kms
+  - immich
   # - paperless
