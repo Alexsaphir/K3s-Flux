@@ -15,7 +15,7 @@ prettier = "^0.0.7"
 yamllint = "^1.32.0"
 
 [tool.poetry.group.ansible.dependencies]
-ansible = "^8.3.0"
+ansible = "^8.4.0"
 ansible-inventory-grapher = "^2.5.0"
 
 jmespath = "^1.0.1"
