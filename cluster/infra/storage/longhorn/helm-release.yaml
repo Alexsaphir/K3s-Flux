@@ -52,7 +52,7 @@ spec:
       defaultDataPath: /var/lib/longhorn
       defaultReplicaCount: 2
 
-      backupTarget: 's3://longhorn@us-east-1/backupstore'
+      backupTarget: s3://longhorn@us-east-1/backupstore
       backupTargetCredentialSecret: longhorn-backup-secrets
 
     csi:
