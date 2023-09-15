@@ -31,7 +31,7 @@ spec:
       tag: v4.0.2
     nfs:
       server: ${CONFIG_NFS_SERVER_IP_ADDRESS}
-      path: ${CONFIG_NFS_SERVER_PATH}
+      path: ${CONFIG_NFS_SERVER_PROVISION_PATH}
     storageClass:
       provisionerName: nfs-provisioner
       create: false
