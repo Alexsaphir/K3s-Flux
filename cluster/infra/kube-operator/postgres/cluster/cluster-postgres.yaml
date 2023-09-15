@@ -32,12 +32,12 @@ spec:
 
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v3
+      source: &previousCluster postgres-v4
 
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
-      serverName: postgres-v4
+      serverName: postgres-v5
       wal:
         compression: &compression bzip2
         maxParallel: &maxParallel 4
