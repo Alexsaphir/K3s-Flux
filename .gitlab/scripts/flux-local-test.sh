@@ -22,7 +22,7 @@ INPUTS_KYVERNO_VERSION=${INPUTS_KYVERNO_VERSION:-v1.9.0}
 INPUTS_KUSTOMIZE_BUILD_FLAGS=${INPUTS_KUSTOMIZE_BUILD_FLAGS:-''}
 
 # OCIRepository source mappings like `cluster=./kubernetes/`.
-INPUTS_SOURCES=${INPUTS_SOURCES:-''}
+INPUTS_SOURCES=${INPUTS_SOURCES:-'home-kubernetes'}
 
 # matrix:
 #        path: ["kubernetes"]
@@ -31,6 +31,7 @@ INPUTS_SOURCES=${INPUTS_SOURCES:-''}
 flux-local \
   --log-level $LOG_LEVEL \
   test \
+  --verbose \
   --enable-helm \
   --no-skip-secrets \
   --no-enable-kyverno \
