@@ -4,7 +4,10 @@ kind: Kustomization
 namespace: immich
 resources:
   - namespace.yaml
-  - postgres.yaml
-  - redis.yaml
-  - pvc.yaml
-  - configmap.yaml
+  - basic
+  - typesense
+  - machine-learning
+  - microservices
+  - proxy
+  - web
+  - server

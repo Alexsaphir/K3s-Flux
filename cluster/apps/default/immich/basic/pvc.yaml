@@ -18,13 +18,14 @@ spec:
   accessModes: [ "ReadWriteMany" ]
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: $CONFIG_NFS_SERVER_IP_ADDRESS
+    server: '192.168.0.56'
     path: /srv/nfs/immich
   mountOptions:
-    - nfsvers=4.2
+    - nfsvers=4
     - nconnect=8
-    - hard
-    - noatime
+    - nolock
+    - soft
+    - rw
     - rsize=131072
     - wsize=131072
 ---
