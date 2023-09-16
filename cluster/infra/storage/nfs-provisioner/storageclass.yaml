@@ -13,7 +13,7 @@ parameters:
   pathPattern: ${.PVC.namespace}-${.PVC.name}
   onDelete: retain
 mountOptions:
-  - nfsvers=4
+  - nfsvers=3
   - nolock
   - soft
   - rw
