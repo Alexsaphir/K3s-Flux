@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/larivierec/bitwarden-cli
-      tag: v0.0.7
+      tag: v0.0.8
 
     podAnnotations:
       reloader.stakater.com/auto: "true"
