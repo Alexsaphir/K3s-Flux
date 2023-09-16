@@ -5,3 +5,4 @@ namespace: nfs-system
 resources:
   - namespace.yaml
   - helm-release.yaml
+  - storageclass.yaml
