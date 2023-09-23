@@ -32,7 +32,7 @@ spec:
       strategy: RollingUpdate
       annotations:
         configmap.reloader.stakater.com/reload: authelia-configmap
-        secret.reloader.stakater.com/reload: authelia-secret,redis-standalone,database-authelia,glauth-search
+        secret.reloader.stakater.com/reload: authelia-secret,authelia-oauth-secret,redis-standalone,database-authelia,glauth-search
 
     enableServiceLinks: false
 
@@ -45,7 +45,8 @@ spec:
     envFrom:
       - secretRef:
           name: authelia-secret
-    start_tls: false
+      - secretRef:
+          name: authelia-oauth-secret
 
     env:
       SECRET_DOMAIN_NAME: ${SECRET_DOMAIN_NAME}
@@ -72,8 +73,7 @@ spec:
 
       AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
       AUTHELIA_DEFAULT_REDIRECTION_URL: https://auth.${SECRET_DOMAIN_NAME}
-      AUTHELIA_DUO_API_DISABLE: "true"
-      AUTHELIA_LOG_LEVEL: debug
+      AUTHELIA_DUO_API_DISABLE: "false"
 
       # AUTHELIA_NOTIFIER_SMTP_DISABLE_REQUIRE_TLS: "true"
       # AUTHELIA_NOTIFIER_SMTP_HOST:
@@ -88,11 +88,14 @@ spec:
       AUTHELIA_SESSION_REDIS_DATABASE_INDEX: 1
       AUTHELIA_SESSION_REDIS_HOST: authelia-redis.kube-auth.svc.cluster.local
       AUTHELIA_SESSION_REDIS_PORT: 6379
+
       AUTHELIA_TELEMETRY_METRICS_ADDRESS: "tcp://0.0.0.0:8080"
       AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
+
+      AUTHELIA_LOG_LEVEL: info
       AUTHELIA_THEME: grey
       AUTHELIA_TOTP_ISSUER: authelia.com
-      AUTHELIA_WEBAUTHN_DISABLE: "true"
+      AUTHELIA_WEBAUTHN_DISABLE: "false"
 
 
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD:
@@ -135,7 +138,15 @@ spec:
           metrics:
             enabled: true
             port: 8080
-
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     probes:
       liveness: &probes
         enabled: true
