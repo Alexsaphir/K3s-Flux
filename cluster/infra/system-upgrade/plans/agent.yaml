@@ -6,7 +6,6 @@ metadata:
 spec:
   serviceAccountName: system-upgrade
   concurrency: 1
-  cordon: false
   nodeSelector:
     matchExpressions:
       - key: node-role.kubernetes.io/control-plane
