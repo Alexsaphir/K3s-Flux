@@ -70,7 +70,7 @@ spec:
     persistence:
       library:
         enabled: true
-        existingClaim: immich
+        existingClaim: immich-data
         mountPath: /usr/src/app/upload
       geocoding-dump:
         enabled: true
