@@ -21,6 +21,10 @@ access_control:
       policy: bypass
 
     - domain:
+        - "photos.${SECRET_DOMAIN_NAME}"
+      policy: bypass
+
+    - domain:
         - "jupyter.${SECRET_DOMAIN_NAME}"
       policy: bypass
 
