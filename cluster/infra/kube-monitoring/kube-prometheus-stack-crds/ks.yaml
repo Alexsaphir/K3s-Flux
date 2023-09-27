@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 10m
   retryInterval: 5m
-  prune: true
+  prune: false
   wait: true
 
   path: ./cluster/infra/kube-monitoring/kube-prometheus-stack-crds
