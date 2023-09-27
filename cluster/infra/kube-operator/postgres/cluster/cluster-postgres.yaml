@@ -32,12 +32,12 @@ spec:
 
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v4
+      source: &previousCluster postgres-v5
 
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
-      serverName: postgres-v5
+      serverName: postgres-v6
       wal:
         compression: &compression bzip2
         maxParallel: &maxParallel 4
@@ -46,11 +46,11 @@ spec:
       endpointURL: &endpoint 'https://s3.alexsaphir.com'
       s3Credentials:
         accessKeyId:
-          name: postgres-backup-secret
-          key: ACCESS_KEY_ID
+          name: &s3Credentials-secret postgres-backup-secret
+          key: &s3Credentials-accessKeyId-key ACCESS_KEY_ID
         secretAccessKey:
-          name: postgres-backup-secret
-          key: ACCESS_SECRET_KEY
+          name: *s3Credentials-secret
+          key: &s3Credentials-secretAccessKey-key ACCESS_SECRET_KEY
 
   externalClusters:
     - name: *previousCluster
@@ -62,8 +62,8 @@ spec:
         endpointURL: *endpoint
         s3Credentials:
           accessKeyId:
-            name: postgres-backup-secret
-            key: ACCESS_KEY_ID
+            name: *s3Credentials-secret
+            key: *s3Credentials-accessKeyId-key
           secretAccessKey:
-            name: postgres-backup-secret
-            key: ACCESS_SECRET_KEY
+            name: *s3Credentials-secret
+            key: *s3Credentials-secretAccessKey-key
