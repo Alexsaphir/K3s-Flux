@@ -20,6 +20,8 @@ tasks:
       - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f -
       - kubectl apply -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
       - kubectl apply --kustomize {{.KUBERNETES_DIR}}/flux/config
+      - sleep 30s
+      - flux suspend kustomization apps
     preconditions:
       - sh: test -f {{.SOPS_AGE_KEY_FILE}}
         msg: |
