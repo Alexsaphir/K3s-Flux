@@ -9,7 +9,7 @@ resources:
   - descheduler/ks.yaml
   - external-secrets/ks.yaml
   - hashicorp-vault/ks.yaml
-  - intel-device/ks.yaml
+  # - intel-device/ks.yaml
   # - kured/ks.yaml
   - node-feature-discovery/ks.yaml
   - node-problem-detector/ks.yaml

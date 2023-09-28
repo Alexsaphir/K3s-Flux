@@ -19,6 +19,16 @@ spec:
     kind: GitRepository
     name: home-kubernetes
 
+  healthChecks:
+    - apiVersion: v1
+      kind: Pod
+      name: postgres-1
+      namespace: &ns-pod database
+    - apiVersion: v1
+      kind: Pod
+      name: postgres-2
+      namespace: *ns-pod
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
