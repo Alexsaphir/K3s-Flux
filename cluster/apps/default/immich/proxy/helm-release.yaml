@@ -29,7 +29,6 @@ spec:
   dependsOn:
     - name: immich-server
     - name: immich-web
-    - name: immich-microservices
 
   values:
     controller:
