@@ -32,6 +32,12 @@ spec:
       createSecret: false
       username: admin
 
+    envVars:
+      - name: WEAVE_GITOPS_FEATURE_TENANCY
+        value: 'true'
+      - name: WEAVE_GITOPS_FEATURE_CLUSTER
+        value: 'true'
+
     metrics:
       enabled: true
 
