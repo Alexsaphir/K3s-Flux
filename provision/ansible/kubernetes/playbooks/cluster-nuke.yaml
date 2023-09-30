@@ -10,6 +10,13 @@
       ansible.builtin.pause:
         seconds: 2
   tasks:
+    - name: Uninstall Kubernetes
+      ansible.builtin.include_role:
+        name: xanmanning.k3s
+        public: true
+      vars:
+        k3s_state: uninstalled
+
     # https://github.com/k3s-io/docs/blob/main/docs/installation/network-options.md
     - name: Networking
       block:
@@ -33,13 +40,6 @@
           ansible.builtin.file:
             path: /etc/cni/net.d
             state: absent
-
-    - name: Uninstall Kubernetes
-      ansible.builtin.include_role:
-        name: xanmanning.k3s
-        public: true
-      vars:
-        k3s_state: uninstalled
 
     - name: Stale Containers
       ansible.builtin.include_tasks: tasks/stale_containers.yaml
