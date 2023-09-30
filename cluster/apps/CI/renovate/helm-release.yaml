@@ -34,20 +34,30 @@ spec:
         reloader.stakater.com/auto: "true"
 
     image:
-      # renovate: datasource=github-releases depName=mend/renovate-on-prem
-      repository: whitesource/renovate
-      tag: '5.1.0'
+      repository: ghcr.io/mend/renovate-ce
+      tag: '6.0.0-full'
 
     podAnnotations:
       reloader.stakater.com/auto: "true"
 
+    envFrom:
+      - configMapRef:
+          name: renovate-config
+      - secretRef:
+          name: &renovate-secret renovate-secret
+
     env:
       TZ: "${TIMEZONE}"
       LOG_FORMAT: json
+      LOG_LEVEL: debug
 
-      ACCEPT_WHITESOURCE_TOS: 'y'
-      RENOVATE_PLATFORM: 'gitlab'
-      SCHEDULER_CRON: '0 */2 * * *'
+      MEND_RNV_ACCEPT_TOS: 'y'
+      MEND_RNV_PLATFORM: 'gitlab'
+      MEND_RNV_ENDPOINT: 'https://gitlab.alexsaphir.com/api/v4/'
+      MEND_RNV_CRON_JOB_SCHEDULER: '0 */2 * * *'
+
+      MEND_RNV_ADMIN_API_ENABLED: 'true'
+      # MEND_RNV_SQLITE_FILE_PATH: '/db/renovate-ce.sqlite'
 
       RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
       RENOVATE_ALLOW_PLUGINS: 'false'
@@ -60,11 +70,11 @@ spec:
       RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate'
       RENOVATE_X_S3_PATH_STYLE: 'true'
 
-    envFrom:
-      - configMapRef:
-          name: renovate-config
-      - secretRef:
-          name: renovate-secret
+      LICENSE_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: *renovate-secret
+            key: MEND_RNV_LICENSE_KEY
 
     service:
       main:
@@ -85,6 +95,10 @@ spec:
                 pathType: Prefix
 
     persistence:
+      data:
+        enabled: true
+        existingClaim: renovate
+        mountPath: /db
       cache-persistence:
         enabled: true
         type: emptyDir
