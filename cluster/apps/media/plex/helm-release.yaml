@@ -69,7 +69,7 @@ spec:
         type: nfs
         server: '192.168.0.130'
         path: /mnt/user/Media
-        mountPath: /data
+        mountPath: /MediaCloud
 
       tmp:
         enabled: true
