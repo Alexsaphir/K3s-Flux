@@ -9,4 +9,4 @@ resources:
   - patch-local-path.yaml
   - service-monitor.yaml
   - volume-snapshot-class.yaml
-  - storageclass.yaml
+  - storageclass
