@@ -59,7 +59,6 @@ resources:
   - portainer.yaml
   - prometheus-community.yaml
   - pytoshka-vault-autounseal.yaml
-  - renovate-on-prem.yaml
   - spotahome.yaml
   - stakater.yaml
   - stefanprodan.yaml

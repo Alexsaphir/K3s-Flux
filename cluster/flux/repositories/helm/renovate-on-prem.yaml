@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: renovate-on-prem
-  namespace: flux-charts
-spec:
-  interval: 1h
-  url: https://mend.github.io/renovate-on-prem
