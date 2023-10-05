@@ -31,6 +31,10 @@ spec:
       repository: ghcr.io/onedr0p/plex
       tag: 1.32.6.7557-1cf77d501@sha256:0d5a12bddc5ab41e0f055254335cbe09374972d04c147209321060e59f2cd506
 
+    env:
+      TZ: ${TIMEZONE}
+      ADVERTISE_IP: 'https://plex.${SECRET_DOMAIN_NAME}'
+
     service:
       main:
         ports:
