@@ -29,7 +29,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/tautulli
-      tag: 2.13.1@sha256:0a995c25a9c56b609c80dedfd9432c006b0d4835bd4fa2ba911ed112b50c5034
+      tag: 2.13.1@sha256:0b64ad690d9ec47fe5ef2dcf8771b6e4012e8e0825a226061a9773f55abc5ca9
 
     service:
       main:
