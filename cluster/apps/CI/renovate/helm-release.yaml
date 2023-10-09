@@ -35,7 +35,7 @@ spec:
 
     image:
       repository: ghcr.io/mend/renovate-ce
-      tag: '6.1.1-full'
+      tag: '6.2.0-full'
 
     podAnnotations:
       reloader.stakater.com/auto: "true"
