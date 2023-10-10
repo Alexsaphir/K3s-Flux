@@ -29,6 +29,7 @@ spec:
                 - kube-system
                 - longhorn-system
                 - jupyterhub
+                - gitlab-runner
           - resources:
               annotations:
                 naked.home.arpa/disabled: "true"
@@ -42,6 +43,7 @@ spec:
           - key: "{{request.operation || 'BACKGROUND'}}"
             operator: NotEquals
             value: DELETE
+
       validate:
         message: "Naked Pods are not allowed. They must be created by Pod controllers."
         deny:
