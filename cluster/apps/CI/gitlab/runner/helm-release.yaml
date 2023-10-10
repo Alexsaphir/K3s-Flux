@@ -1,0 +1,104 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitlab-runner
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: gitlab-runner
+      version: 0.57.1
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: gitlab-runner-secret, gitlab-runner-s3access-secret
+
+    revisionHistoryLimit: 1
+
+    gitlabUrl: https://gitlab.alexsaphir.com/
+
+    replicas: 1
+
+    concurrent: 4
+    checkInterval: 10
+    logLevel: info  # debug, info, warn, error, fatal, panic
+    logFormat: json
+    sessionServer:
+      enabled: false
+
+    rbac:
+      create: true
+      clusterWideAccess: false
+      rules:
+        - apiGroups: [ "" ]
+          resources: [ "*" ]
+          verbs: [ "*" ]
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+    runners:
+      config: |
+        [[runners]]
+          [runners.cache]
+            Type = "s3"
+            Shared = true
+            [runners.cache.s3]
+              ServerAddress = "s3.alexsaphir.com"
+              BucketName = "gitlab-runner"
+              BucketLocation = "us-east-1"
+              AuthenticationType = "access-key"
+          [runners.kubernetes]
+            namespace = "gitlab-runner"
+            image = "ubuntu:22.04"
+
+            [[runners.kubernetes.pod_spec]]
+              name = "ephemeral-builds"
+              patch_type = "strategic"
+              patch = '''
+                containers:
+                - name: build
+                  volumeMounts:
+                  - name: builds
+                    mountPath: /builds
+                - name: helper
+                  volumeMounts:
+                  - name: builds
+                    mountPath: /builds
+                volumes:
+                - name: builds
+                  ephemeral:
+                    volumeClaimTemplate:
+                      spec:
+                        accessModes: [ ReadWriteOnce ]
+                        resources:
+                          requests:
+                            storage: 32Gi
+              '''
+          [runners.feature_flags]
+            FF_USE_ADVANCED_POD_SPEC_CONFIGURATION = true
+
+      executor: kubernetes
+
+      secret: gitlab-runner-secret
+      cache:
+        secretName: gitlab-runner-s3access-secret
