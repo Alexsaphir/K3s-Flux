@@ -7,10 +7,12 @@ metadata:
     kyverno.io/ignore: "true"
 
 spec:
-  # imageName: ghcr.io/cloudnative-pg/postgresql:15.3@sha256:38cebd739daea35a85f9d2265a76c23edf763639867c88fef6d35d9d660a92dd
-  imageName: ghcr.io/imusmanmalik/timescaledb-postgis:15-3.3@sha256:02b0ba90173ad791b3b599f908d215f46d75abd49411834d0f69606c5b32204f
+  # imageName: ghcr.io/cloudnative-pg/postgresql
+  imageName: ghcr.io/imusmanmalik/timescaledb-postgis:15-3.4@sha256:b5217294471d4dacc1383e7093787d822207557344520785395a5ff2a922e702
 
   instances: 2
+
+  enableSuperuserAccess: true
 
   resources:
     requests:
