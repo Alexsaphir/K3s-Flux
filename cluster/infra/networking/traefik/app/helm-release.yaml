@@ -129,7 +129,8 @@ spec:
 
       # Entrypoints
       web:
-        redirectTo: websecure
+        redirectTo:
+          port: websecure
         advertisedPort: 80
 
       websecure:
