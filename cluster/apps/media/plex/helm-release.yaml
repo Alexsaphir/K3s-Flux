@@ -60,6 +60,7 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups:
         - 44
+        - 104
         - 109
         - 100
 
