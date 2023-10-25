@@ -29,6 +29,7 @@ access_control:
       policy: bypass
 
     - domain:
+        - 'coder.${SECRET_DOMAIN_NAME}'
         - 'jupyter.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
