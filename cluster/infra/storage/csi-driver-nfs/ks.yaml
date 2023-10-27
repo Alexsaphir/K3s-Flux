@@ -12,8 +12,7 @@ spec:
 
   dependsOn:
     - name: cluster-infra-kube-prometheus-stack-crds
-    - name: cluster-infra-snapshot-controller
-    - name: cluster-infra-snapshot-validation-webhook
+    - name: cluster-infra-snapshot
 
   path: ./cluster/infra/storage/csi-driver-nfs
   sourceRef:
