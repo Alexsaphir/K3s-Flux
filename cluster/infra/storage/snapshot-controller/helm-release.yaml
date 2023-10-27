@@ -30,7 +30,17 @@ spec:
 
   # https://github.com/piraeusdatastore/helm-charts/blob/main/charts/snapshot-controller/values.yaml
   values:
-    replicaCount: 1
+    controller:
+      enabled: true
+      replicaCount: 1
 
-    serviceMonitor:
-      create: true
+      serviceMonitor:
+        create: true
+
+    webhook:
+      enabled: true
+      replicaCount: 1
+
+      webhook:
+        timeoutSeconds: 2
+        failurePolicy: Fail
