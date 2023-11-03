@@ -26,6 +26,7 @@ access_control:
     - domain:
         - 'photos.${SECRET_DOMAIN_NAME}'
         - 'recipes.${SECRET_DOMAIN_NAME}'
+        - 'foundry.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
     - domain:
