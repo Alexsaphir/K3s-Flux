@@ -10,9 +10,12 @@
     ':enableVulnerabilityAlerts',
     'github>whitesource/merge-confidence:beta',
     'local>Homelab/K3s-Flux//.gitlab/renovate/commitMessage.json5',
-    'local>Homelab/K3s-Flux//.gitlab/renovate/semanticCommits.json5',
-    'local>Homelab/K3s-Flux//.gitlab/renovate/labels.json5',
+    'local>Homelab/K3s-Flux//.gitlab/renovate/customDatasources.json5',
+    'local>Homelab/K3s-Flux//.gitlab/renovate/customManagers.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/groups.json5',
+    'local>Homelab/K3s-Flux//.gitlab/renovate/labels.json5',
+    'local>Homelab/K3s-Flux//.gitlab/renovate/packageRules.json5',
+    'local>Homelab/K3s-Flux//.gitlab/renovate/semanticCommits.json5',
   ],
   enabled: true,
   prConcurrentLimit: 3,
@@ -52,62 +55,4 @@
       '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
     ],
   },
-  regexManagers: [
-    {
-      description: 'Process custom dependencies',
-      fileMatch: [
-        '(^|/)ansible/.+\\.ya?ml(\\.j2)?$',
-        '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
-      ],
-      matchStrings: [
-        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?"(?<currentValue>.*)"\n',
-        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?-\\s(.*?)/(?<currentValue>[^/]+)/[^/]+\n',
-        'datasource=(?<datasource>\\S+)\n.*?repo: (?<registryUrl>\\S+)\n.*?chart: (?<depName>\\S+)\n.*?version: (?<currentValue>\\S+)\n',
-      ],
-      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}',
-      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
-    },
-    {
-      description: 'Process CloudnativePG Postgresql version',
-      fileMatch: [
-        '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
-      ],
-      matchStrings: [
-        'imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)',
-      ],
-      datasourceTemplate: 'docker',
-      versioningTemplate: 'redhat',
-    },
-  ],
-  packageRules: [
-    {
-      matchPackageNames: [
-        'kube-prometheus-stack',
-        'kube-prometheus-stack-crds',
-      ],
-      groupName: 'kube-prometheus-stack',
-    },
-    {
-      matchPackagePatterns: [
-        '^intel-device-plugins',
-      ],
-      groupName: 'intel-device-plugins',
-    },
-    {
-      description: 'Use custom versioning for Minio',
-      matchDatasources: [
-        'docker',
-      ],
-      versioning: 'regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$',
-      matchPackagePatterns: [
-        'minio',
-      ],
-    },
-    {
-      "description": "Loose versioning for non-semver packages",
-      "matchDatasources": ["docker"],
-      "versioning": "loose",
-      "matchPackagePatterns": ["plex"]
-    }
-  ],
 }
