@@ -9,9 +9,6 @@ spec:
   retryInterval: 5m
   prune: true
 
-  dependsOn:
-    - name: cluster-infra-metallb-config
-
   path: ./cluster/infra/networking/k8s-gateway
   sourceRef:
     kind: GitRepository
