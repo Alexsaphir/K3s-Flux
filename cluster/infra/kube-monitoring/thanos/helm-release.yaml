@@ -72,6 +72,8 @@ spec:
 
     query:
       enabled: true
+      extraFlags:
+        - --query.auto-downsampling
       replicaCount: *replicaCount
       replicaLabel: [ "__replica__" ]
       dnsDiscovery:
