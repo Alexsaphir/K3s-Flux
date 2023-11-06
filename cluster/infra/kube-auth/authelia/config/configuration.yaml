@@ -2,15 +2,65 @@
 ---
 log:
   level: info
+  format: json
 
 notifier:
+  disable_startup_check: true
   filesystem:
     filename: /tmp/notification.txt
+
+authentication_backend:
+  refresh_interval: 1m
+  password_reset:
+    disable: true
+
+  ldap:
+    implementation: custom
+    timeout: 5s
+    start_tls: false
+    base_dn: dc=home,dc=arpa
+    additional_users_dn: ou=people,ou=users
+    users_filter: (&({username_attribute}={input})(objectClass=posixAccount))
+
+    additional_groups_dn: ou=authelia,ou=groups
+    groups_filter: (&(uniqueMember={dn})(objectClass=groupOfUniqueNames))
+    group_search_mode: filter
+
+    attributes:
+      username: uid
+      display_name: givenName
+      mail: mail
+      member_of: memberOf
+      group_name: cn
+
+totp:
+  disable: false
+  issuer: authelia.com
+
+webauthn:
+  disable: true
+
+duo_api:
+  disable: true
 
 regulation:
   max_retries: 3
   find_time: 2m
   ban_time: 5m
+
+session:
+  same_site: lax
+  inactivity: 5m
+  expiration: 1h
+  remember_me: 1M
+  cookies:
+    - name: authelia-k3s
+      domain: ${SECRET_DOMAIN_NAME}
+      authelia_url: https://auth.${SECRET_DOMAIN_NAME}
+      default_redirection_url: https://${SECRET_DOMAIN_NAME}
+  redis:
+    host: authelia-redis.kube-auth.svc.cluster.local
+    database_index: 1
 
 access_control:
   default_policy: one_factor

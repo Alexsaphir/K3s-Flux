@@ -4,7 +4,7 @@ kind: Kustomization
 configMapGenerator:
   - name: authelia-configmap
     files:
-      - configuration.yml
+      - configuration.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

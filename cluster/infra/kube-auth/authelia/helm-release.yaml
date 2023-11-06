@@ -38,9 +38,7 @@ spec:
 
     image:
       repository: ghcr.io/authelia/authelia
-      # TODO: Switch to release tag on next release
-      tag: master@sha256:a3647c3dd136402745c7639e446944004145630c822f27e22f999c414c234d2f
-      args: [ "--config", "/config/configuration.yml" ]
+      tag: v4.38.0-beta3@sha256:755b7efded2eefe12d6df9ead9c0821c69afa7e74a0b99a9b327027c2645aa18
 
     envFrom:
       - secretRef:
@@ -51,52 +49,20 @@ spec:
     env:
       SECRET_DOMAIN_NAME: ${SECRET_DOMAIN_NAME}
 
+      AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
+      AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:80
+      AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
+      AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
+      AUTHELIA_THEME: grey
+
+      X_AUTHELIA_CONFIG: /config/configuration.yaml
       X_AUTHELIA_CONFIG_FILTERS: expand-env
 
       # Configure LDAP
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_URL: "ldap://glauth.kube-auth.svc.cluster.local:389"
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_BASE_DN: dc=home,dc=arpa
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDRESS: "ldap://glauth.kube-auth.svc.cluster.local:389"
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USER: cn=search_authelia,ou=svcaccts,dc=home,dc=arpa
 
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_DISPLAY_NAME_ATTRIBUTE: givenName
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_MAIL_ATTRIBUTE: mail
-
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=people,ou=users
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERNAME_ATTRIBUTE: uid
-      # Enable email login with (&(|({username_attribute}={input})({mail_attribute}={input}))
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: "(&({username_attribute}={input})(objectClass=posixAccount))"
-
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=authelia,ou=groups
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUP_NAME_ATTRIBUTE: cn
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUPS_FILTER: "(&(uniqueMember={dn})(objectClass=groupOfUniqueNames))"
-      # LDAP Done
-
-      AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
-      AUTHELIA_DEFAULT_REDIRECTION_URL: https://auth.${SECRET_DOMAIN_NAME}
-      AUTHELIA_DUO_API_DISABLE: "false"
-
-      # AUTHELIA_NOTIFIER_SMTP_DISABLE_REQUIRE_TLS: "true"
-      # AUTHELIA_NOTIFIER_SMTP_HOST:
-      # AUTHELIA_NOTIFIER_SMTP_PORT: 25
-      # AUTHELIA_NOTIFIER_SMTP_SENDER:
-      # AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: "true"
-
-      AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
-      AUTHELIA_SERVER_ADDRESS: 0.0.0.0:80
-      AUTHELIA_SESSION_DOMAIN: ${SECRET_DOMAIN_NAME}
-      AUTHELIA_SESSION_NAME: authelia-k3s
-      AUTHELIA_SESSION_REDIS_DATABASE_INDEX: 1
-      AUTHELIA_SESSION_REDIS_HOST: authelia-redis.kube-auth.svc.cluster.local
-      AUTHELIA_SESSION_REDIS_PORT: 6379
-
-      AUTHELIA_TELEMETRY_METRICS_ADDRESS: "tcp://0.0.0.0:8080"
-      AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
-
-      AUTHELIA_THEME: grey
-      AUTHELIA_TOTP_ISSUER: authelia.com
-      AUTHELIA_WEBAUTHN_DISABLE: "false"
-
-
+      # Set secrets
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD:
         valueFrom:
           secretKeyRef:
@@ -113,7 +79,7 @@ spec:
           secretKeyRef:
             name: database-authelia
             key: DATABASE_NAME
-      AUTHELIA_STORAGE_POSTGRES_HOST:
+      AUTHELIA_STORAGE_POSTGRES_ADDRESS:
         valueFrom:
           secretKeyRef:
             name: database-authelia
@@ -191,8 +157,8 @@ spec:
         enabled: true
         type: configMap
         name: authelia-configmap
-        subPath: configuration.yml
-        mountPath: /config/configuration.yml
+        subPath: configuration.yaml
+        mountPath: /config/configuration.yaml
         readOnly: false
 
     topologySpreadConstraints:
