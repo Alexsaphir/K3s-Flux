@@ -4,7 +4,7 @@
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(container)! "
+      "commitMessagePrefix": "feat(container)!: "
     },
     {
       "matchDatasources": ["docker"],
@@ -27,7 +27,7 @@
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(helm)! "
+      "commitMessagePrefix": "feat(helm)!: "
     },
     {
       "matchDatasources": ["helm"],
@@ -45,7 +45,7 @@
     {
       "matchDatasources": ["galaxy", "galaxy-collection"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(ansible)! "
+      "commitMessagePrefix": "feat(ansible)!: "
     },
     {
       "matchDatasources": ["galaxy", "galaxy-collection"],
@@ -63,7 +63,7 @@
     {
       "matchDatasources": ["terraform-provider"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(terraform)! "
+      "commitMessagePrefix": "feat(terraform)!: "
     },
     {
       "matchDatasources": ["terraform-provider"],
@@ -80,7 +80,7 @@
     {
       "matchDatasources": ["github-releases", "github-tags"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(github-release)! "
+      "commitMessagePrefix": "feat(github-release)!: "
     },
     {
       "matchDatasources": ["github-releases", "github-tags"],
@@ -97,7 +97,7 @@
     {
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(github-action)! "
+      "commitMessagePrefix": "feat(github-action)!: "
     },
     {
       "matchManagers": ["github-actions"],
