@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: kube-auth
 resources:
   - secret.sops.yaml
-  - secret-oauth.sops.yaml
+  - oauth-secret
   - postgres.yaml
   - redis.yaml
   - config

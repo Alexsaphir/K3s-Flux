@@ -63,7 +63,7 @@ session:
     database_index: 1
 
 access_control:
-  default_policy: one_factor
+  default_policy: two_factor
   networks:
     - name: internal
       networks: [ '192.168.0.0/16' ]
@@ -97,14 +97,25 @@ access_control:
 identity_providers:
   oidc:
     cors:
-      endpoints: [ 'authorization', 'token', 'revocation', 'introspection' ]
+      endpoints: [ 'authorization', 'token', 'revocation', 'introspection', 'userinfo' ]
       allowed_origins_from_client_redirect_uris: true
     clients:
+      - id: grafana
+        description: Grafana
+        secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: [ "openid", "profile", "groups", "email" ]
+        redirect_uris:
+          [ "https://grafana.${SECRET_DOMAIN_NAME}/login/generic_oauth" ]
+        userinfo_signing_algorithm: none
+
       - id: immich
         description: Immich
         secret: '${IMMICH_OAUTH_CLIENT_SECRET}'
         public: false
-        authorization_policy: one_factor
+        authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'email' ]
         redirect_uris: [ 'https://photos.${SECRET_DOMAIN_NAME}/auth/login', 'app.immich:/' ]
