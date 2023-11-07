@@ -109,7 +109,7 @@ identity_providers:
         scopes: [ "openid", "profile", "groups", "email" ]
         redirect_uris:
           [ "https://grafana.${SECRET_DOMAIN_NAME}/login/generic_oauth" ]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
 
       - id: immich
         description: Immich
@@ -119,4 +119,4 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'email' ]
         redirect_uris: [ 'https://photos.${SECRET_DOMAIN_NAME}/auth/login', 'app.immich:/' ]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
