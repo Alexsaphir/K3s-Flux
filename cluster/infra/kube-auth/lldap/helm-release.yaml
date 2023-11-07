@@ -82,7 +82,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: traefik
         hosts:
           - host: '{{ .Release.Name }}.${SECRET_DOMAIN_NAME}'
             paths:
