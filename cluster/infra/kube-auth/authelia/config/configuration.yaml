@@ -15,19 +15,22 @@ authentication_backend:
     disable: true
 
   ldap:
-    implementation: custom
+    implementation: lldap
     timeout: 5s
     start_tls: false
     base_dn: dc=home,dc=arpa
-    additional_users_dn: ou=people,ou=users
-    users_filter: (&({username_attribute}={input})(objectClass=posixAccount))
+    additional_users_dn: ou=people
+    users_filter: (&({username_attribute}={input})(objectClass=person))
 
-    groups_filter: (&(uniqueMember={dn})(objectClass=posixGroup))
+    additional_groups_dn: ou=groups
+    groups_filter: (member={dn})
     group_search_mode: filter
+
+    user: uid=search,ou=people,dc=home,dc=arpa
 
     attributes:
       username: uid
-      display_name: givenName
+      display_name: displayName
       mail: mail
       member_of: memberOf
       group_name: cn

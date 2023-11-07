@@ -59,14 +59,13 @@ spec:
       X_AUTHELIA_CONFIG_FILTERS: expand-env
 
       # Configure LDAP
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDRESS: "ldap://glauth.kube-auth.svc.cluster.local:389"
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USER: cn=search_authelia,ou=svcaccts,dc=home,dc=arpa
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDRESS: "ldap://lldap.kube-auth.svc.cluster.local:389"
 
       # Set secrets
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD:
         valueFrom:
           secretKeyRef:
-            name: authelia-ldap-search
+            name: search-user-secret
             key: password
       AUTHELIA_SESSION_REDIS_PASSWORD:
         valueFrom:
