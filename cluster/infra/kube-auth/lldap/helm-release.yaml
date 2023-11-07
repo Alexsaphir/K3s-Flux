@@ -53,7 +53,9 @@ spec:
                     name: database-lldap
                     key: POSTGRES_URL
 
-            envFrom: lldap-secret
+            envFrom:
+              - secretRef:
+                  name: lldap-secret
             resources:
               requests:
                 cpu: 5m
