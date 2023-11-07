@@ -11,6 +11,7 @@ spec:
 
   dependsOn:
     - name: cluster-infra-kube-prometheus-stack-crds
+    - name: cluster-infra-authelia
 
   path: ./cluster/infra/kube-monitoring/grafana
   sourceRef:

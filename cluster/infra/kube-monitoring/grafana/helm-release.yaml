@@ -47,10 +47,34 @@ spec:
       GF_SECURITY_COOKIE_SAMESITE: grafana-k3s
       GF_SERVER_ROOT_URL: https://grafana.monitoring.${SECRET_DOMAIN_NAME}
 
+      GF_DATABASE_SSL_MODE: disable
+      GF_DATABASE_TYPE: postgres
+
       GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.${SECRET_DOMAIN_NAME}/api/oidc/userinfo
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${SECRET_DOMAIN_NAME}/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.${SECRET_DOMAIN_NAME}/api/oidc/token
+
+    envFromSecrets:
+      - name: grafana-oauth
+
+    envValueFrom:
+      GF_DATABASE_NAME:
+        secretKeyRef:
+          name: database-grafana
+          key: DATABASE_NAME
+      GF_DATABASE_HOST:
+        secretKeyRef:
+          name: database-grafana
+          key: HOST
+      GF_DATABASE_USER:
+        secretKeyRef:
+          name: database-grafana
+          key: LOGIN
+      GF_DATABASE_PASSWORD:
+        secretKeyRef:
+          name: database-grafana
+          key: PASSWORD
 
     admin:
       existingSecret: grafana-admin
