@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://gist.githubusercontent.com/james-d-elliott/756de37a4398b3445072a60d674905c6/raw/ce90833b1ce145cb701184557dd964fa7546f19a/jsonschema.json
 ---
 log:
-  level: info
+  level: trace
   format: json
 
 notifier:
@@ -22,8 +22,7 @@ authentication_backend:
     additional_users_dn: ou=people,ou=users
     users_filter: (&({username_attribute}={input})(objectClass=posixAccount))
 
-    additional_groups_dn: ou=authelia,ou=groups
-    groups_filter: (&(uniqueMember={dn})(objectClass=groupOfUniqueNames))
+    groups_filter: (&(uniqueMember={dn})(objectClass=posixGroup))
     group_search_mode: filter
 
     attributes:
