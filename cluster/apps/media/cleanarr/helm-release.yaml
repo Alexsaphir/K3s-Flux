@@ -29,7 +29,7 @@ spec:
   values:
     image:
       repository: selexin/cleanarr
-      tag: v2.4.0
+      tag: v2.4.3
 
     service:
       main:
