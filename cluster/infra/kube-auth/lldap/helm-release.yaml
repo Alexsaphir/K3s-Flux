@@ -45,7 +45,7 @@ spec:
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
 
-              LLDAP_VERBOSE: 'true'
+              LLDAP_VERBOSE: 'false'
 
               LLDAP_DATABASE_URL:
                 valueFrom:
