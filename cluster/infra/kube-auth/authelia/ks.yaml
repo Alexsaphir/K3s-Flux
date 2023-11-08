@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: cluster-infra-kube-prometheus-stack-crds
     - name: cluster-infra-postgres-ext-postgres-operator
-    - name: cluster-infra-glauth
+    - name: cluster-infra-lldap
 
   path: ./cluster/infra/kube-auth/authelia
   sourceRef:
