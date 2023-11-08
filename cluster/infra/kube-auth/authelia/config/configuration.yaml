@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://gist.githubusercontent.com/james-d-elliott/756de37a4398b3445072a60d674905c6/raw/ce90833b1ce145cb701184557dd964fa7546f19a/jsonschema.json
 ---
 log:
-  level: trace
+  level: info
   format: json
 
 notifier:
@@ -15,7 +15,7 @@ authentication_backend:
     disable: true
 
   ldap:
-    implementation: lldap
+    implementation: custom
     timeout: 5s
     start_tls: false
     base_dn: dc=home,dc=arpa
