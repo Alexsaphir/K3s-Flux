@@ -24,7 +24,7 @@ spec:
             storage: 1Gi
 
   redisExporter:
-    image: quay.io/opstree/redis-exporter:v1.44.0
+    image: quay.io/opstree/redis-exporter:v1.45.0
     enabled: true
 
   podSecurityContext:
