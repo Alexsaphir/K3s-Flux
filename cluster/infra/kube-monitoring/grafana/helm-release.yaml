@@ -103,7 +103,7 @@ spec:
       auth.generic_oauth.group_mapping:
         org_id: 1
         role_attribute_path: |
-          contains(groups[*], 'authelia-admin') && 'Admin' || contains(groups[*], 'authelia-dev') && 'Viewer'
+          contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-viewer') && 'Viewer'
       auth.basic:
         enabled: false
       auth.anonymous:
