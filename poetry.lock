@@ -24,13 +24,13 @@ files = [
 
 [[package]]
 name = "ansible"
-version = "8.6.0"
+version = "8.6.1"
 description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ansible-8.6.0-py3-none-any.whl", hash = "sha256:6adf5a8f3f13127c2a1e3554d484aac169c41427507f73f9b6340864cada37ea"},
-    {file = "ansible-8.6.0.tar.gz", hash = "sha256:95f4e593274d59d53f36f62207535b7d272adc2701ac7a0ed7af6a6d81637a60"},
+    {file = "ansible-8.6.1-py3-none-any.whl", hash = "sha256:222735c32d2d2749f207e55ef740638bb97c7aaaa8b63bb7c7592d447da47584"},
+    {file = "ansible-8.6.1.tar.gz", hash = "sha256:18b397580c1f05ce5de1fe238508dd81218d278667956d2f7709320176c3ed4a"},
 ]
 
 [package.dependencies]
@@ -912,4 +912,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "6b4908a9ac8ca4584c59ac7c3cd5a1afc4f81d2379e20e82f63a4d49e2027805"
+content-hash = "45b11791d4a549ac295fb4a2a8aba07959ac41778e38d643c5d43d1e853b5959"
