@@ -62,8 +62,9 @@ spec:
       adminPasswordSecretName: sonarqube-admin-secret
 
     plugins:
-      install: [ ]
-
+      install:
+        - https://marketplace.bitegarden.com/download/productArtifact?productName=bitegarden-sonarqube-upm&productVersion=1.6.2&productFileExt=jar&customerEmail=sonarplugins@gmail.com&customerName=sonarqube&customerSurnames=marketplace&customerCompany=bitegarden
+        - https://marketplace.bitegarden.com/download/productArtifact?productName=bitegarden-sonarqube-metrics-plugin&productVersion=1.2&productFileExt=jar&customerEmail=sonarplugins@gmail.com&customerName=sonarqube&customerSurnames=marketplace&customerCompany=bitegarden
     sonarProperties:
       sonar.forceAuthentication: true
       sonar.core.serverBaseURL: https://sonarqube.${SECRET_DOMAIN_NAME}
