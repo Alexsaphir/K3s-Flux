@@ -67,9 +67,15 @@ spec:
     sonarProperties:
       sonar.forceAuthentication: true
       sonar.core.serverBaseURL: https://sonarqube.${SECRET_DOMAIN_NAME}
+      sonar.plugins.risk.consent: ACCEPTED
+      sonar.auth.gitlab.url: https://gitlab.alexsaphir.com
+      sonar.auth.gitlab.groupsSync: true
+      sonar.auth.gitlab.enabled: true
+
+    sonarSecretProperties: sonarqube-properties-secret
 
     annotations:
-      secret.reloader.stakater.com/reload: sonarqube-secret,sonarqube-encryption-key-secret,sonarqube-admin-secret,database-sonarqube
+      secret.reloader.stakater.com/reload: sonarqube-secret,sonarqube-properties-secret,sonarqube-encryption-key-secret,sonarqube-admin-secret,database-sonarqube
 
     resources:
       limits:
