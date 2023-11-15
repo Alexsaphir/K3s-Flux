@@ -1,1 +1,2 @@
 cluster/apps/media/common/secret.sops.yaml:generic-api-key:6
+cluster/apps/CI/sonarqube/secret.sops.yaml:generic-api-key:21

@@ -1,0 +1,91 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarqube
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: sonarqube
+      version: 10.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: sonarqube
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  valuesFrom:
+    - targetPath: jdbcOverwrite.jdbcUrl
+      kind: Secret
+      name: database-sonarqube
+      valuesKey: POSTGRES_JDBC_URL
+    - targetPath: jdbcOverwrite.jdbcUsername
+      kind: Secret
+      name: database-sonarqube
+      valuesKey: LOGIN
+    - targetPath: jdbcOverwrite.jdbcPassword
+      kind: Secret
+      name: database-sonarqube
+      valuesKey: PASSWORD
+
+  values:
+    deploymentType: 'StatefulSet'
+
+    edition: 'community'
+
+    elasticsearch:
+      configureNode: false
+
+    postgresql:
+      enabled: false
+
+    jdbcOverwrite:
+      enable: true
+
+    monitoringPasscodeSecretName: sonarqube-secret
+    monitoringPasscodeSecretKey: monitoringPasscode
+    sonarSecretKey: sonarqube-encryption-key-secret
+
+    plugins:
+      install: [ ]
+
+    sonarProperties:
+      sonar.forceAuthentication: true
+      sonar.core.serverBaseURL: https://sonarqube.${SECRET_DOMAIN_NAME}
+
+    annotations:
+      secret.reloader.stakater.com/reload: sonarqube-secret,sonarqube-encryption-key-secret,database-sonarqube
+
+    resources:
+      limits:
+        cpu: 800m
+        memory: 4Gi
+      requests:
+        cpu: 400m
+        memory: 2Gi
+
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      hosts:
+        - name: sonarqube.${SECRET_DOMAIN_NAME}
+      annotations: { }
+
+    persistence:
+      enabled: true
+      existingClaim: sonarqube
+
+    prometheusExporter:
+      enabled: true
