@@ -58,6 +58,9 @@ spec:
     monitoringPasscodeSecretKey: monitoringPasscode
     sonarSecretKey: sonarqube-encryption-key-secret
 
+    account:
+      adminPasswordSecretName: sonarqube-admin-secret
+
     plugins:
       install: [ ]
 
