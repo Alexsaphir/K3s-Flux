@@ -43,7 +43,7 @@ spec:
   values:
     deploymentType: 'StatefulSet'
 
-    edition: 'community'
+    edition: 'developer'
 
     elasticsearch:
       configureNode: false
