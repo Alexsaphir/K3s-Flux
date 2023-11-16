@@ -64,7 +64,7 @@ spec:
       targetPath: codecovConfig.services.timeseries_database_url
 
   values:
-    codecovVersion: latest-stable
+    codecovVersion: 23.11.2
     configmap:
       name: &configmap-name codecov-yml
 
@@ -89,6 +89,9 @@ spec:
       setup:
         codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
         codecov_api_url: *codecov_url
+
+        guest_access: off
+
 
         admins:
           - service: gitlab_enterprise
@@ -128,6 +131,7 @@ spec:
       'configmap.reloader.stakater.com/reload': *configmap-name
 
     frontend:
+      image: codecov/self-hosted-frontend
       deployment:
         replicas: &replica-count 2
         env:
@@ -151,8 +155,12 @@ spec:
         port: 8080
         type: &service-type ClusterIP
     gateway:
+      image: codecov/self-hosted-gateway
       deployment:
         replicas: *replica-count
+        env:
+          - name: CODECOV_GATEWAY_MINIO_ENABLED
+            value: 'true'
         resources:
           #      limits:
           #        cpu: 1000m
@@ -165,6 +173,7 @@ spec:
         port: 8080
         type: *service-type
     api:
+      image: codecov/self-hosted-api
       deployment:
         replicas: *replica-count
         resources:
@@ -180,6 +189,7 @@ spec:
         type: *service-type
 
     worker:
+      image: codecov/self-hosted-worker
       deployment:
         replicas: 2
         resources:
