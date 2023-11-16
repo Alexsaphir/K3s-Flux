@@ -192,6 +192,7 @@ spec:
       image: codecov/self-hosted-worker
       deployment:
         replicas: 2
+        args: [ ]
         resources:
           limits:
             cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
