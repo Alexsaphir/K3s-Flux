@@ -5,6 +5,6 @@ resources:
   - namespace.yaml
   - renovate
   - gitlab
-  - codecov
+  # - codecov
   - atlantis
   - sonarqube
