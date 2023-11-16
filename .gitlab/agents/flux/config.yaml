@@ -18,3 +18,6 @@ remote_development:
 
 container_scanning:
   cadence: '0 13 * * *' # Daily at 13:00 (Kubernetes cluster time)
+
+cilium:
+  hubble_relay_address: hubble-relay.kube-system.svc.cluster.local:80
