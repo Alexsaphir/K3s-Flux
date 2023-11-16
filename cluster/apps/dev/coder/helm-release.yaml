@@ -98,6 +98,9 @@ spec:
         - name: CODER_OIDC_GROUP_AUTO_CREATE
           value: 'true'
 
+      service:
+        type: ClusterIP
+
       ingress:
         enable: true
         className: traefik
