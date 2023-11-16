@@ -62,9 +62,10 @@ spec:
       adminPasswordSecretName: sonarqube-admin-secret
 
     plugins:
+      netrcCreds: sonarqube-netrc-secret
       install:
-        - "https://marketplace.bitegarden.com/download/productArtifact?productName=bitegarden-sonarqube-upm&productVersion=1.6.2&productFileExt=jar&customerEmail=sonarplugins@gmail.com&customerName=sonarqube&customerSurnames=marketplace&customerCompany=bitegarden"
-        - "https://marketplace.bitegarden.com/download/productArtifact?productName=bitegarden-sonarqube-metrics-plugin&productVersion=1.2&productFileExt=jar&customerEmail=sonarplugins@gmail.com&customerName=sonarqube&customerSurnames=marketplace&customerCompany=bitegarden"
+        - https://eurymedon.feralhosting.com/alexsaphir/public/plugins/bitegarden-sonarqube-metrics-plugin-1.2.jar
+        - https://eurymedon.feralhosting.com/alexsaphir/public/plugins/bitegarden-sonarqube-upm-1.6.2.jar
     sonarProperties:
       sonar.forceAuthentication: true
       sonar.core.serverBaseURL: https://sonarqube.${SECRET_DOMAIN_NAME}
@@ -76,7 +77,7 @@ spec:
     sonarSecretProperties: sonarqube-properties-secret
 
     annotations:
-      secret.reloader.stakater.com/reload: sonarqube-secret,sonarqube-properties-secret,sonarqube-encryption-key-secret,sonarqube-admin-secret,database-sonarqube
+      secret.reloader.stakater.com/reload: sonarqube-secret,sonarqube-netrc-secret,sonarqube-properties-secret,sonarqube-encryption-key-secret,sonarqube-admin-secret,database-sonarqube
 
     resources:
       limits:
