@@ -29,6 +29,7 @@ resources:
   - fairwinds.yaml
   - falco.yaml
   - gitlab.yaml
+  - gitlab-workspace.yaml
   - grafana.yaml
   - hajimari.yaml
   - hashicorp.yaml

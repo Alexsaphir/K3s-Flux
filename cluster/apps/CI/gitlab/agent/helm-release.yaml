@@ -31,5 +31,9 @@ spec:
       kasAddress: 'wss://gitlab.alexsaphir.com/-/kubernetes-agent/'
       secretName: gitlab-agent-secret
 
+      remote_development:
+        gitlab_workspaces_proxy:
+          namespace: gitlab-workspace
+
     serviceMonitor:
       enabled: true

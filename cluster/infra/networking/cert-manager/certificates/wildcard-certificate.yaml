@@ -16,3 +16,4 @@ spec:
     - "*.monitoring.${SECRET_DOMAIN_NAME}"
     - "*.jupyter.${SECRET_DOMAIN_NAME}"
     - "*.gitlab.${SECRET_DOMAIN_NAME}"
+    - "*.workspace.${SECRET_DOMAIN_NAME}"

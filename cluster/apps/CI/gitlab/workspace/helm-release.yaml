@@ -1,0 +1,81 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitlab-workspace
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: gitlab-workspaces-proxy
+      version: 0.1.10
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab-workspace
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  valuesFrom:
+    - kind: Secret
+      name: gitlab-workspace-secret
+      valuesKey: client_id
+      targetPath: auth.client_id
+    - kind: Secret
+      name: gitlab-workspace-secret
+      valuesKey: client_secret
+      targetPath: auth.client_secret
+    - kind: Secret
+      name: gitlab-workspace-secret
+      valuesKey: signing_key
+      targetPath: auth.signing_key
+    - kind: Secret
+      name: gitlab-workspace-secret
+      valuesKey: host_key
+      targetPath: ssh.host_key
+
+  values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: gitlab-workspace-secret
+
+    service:
+      http:
+        type: ClusterIP
+        port: 80
+        labels: { }
+        annotations: { }
+      ssh:
+        type: LoadBalancer
+        loadBalancerIP: "" # Leave this empty to allocate a new IP address.
+        port: 22
+        labels: { }
+        annotations: { }
+
+    ingress:
+      enabled: true
+      host:
+        workspaceDomain: "workspace.${SECRET_DOMAIN_NAME}"
+        wildcardDomain: "*.workspace.${SECRET_DOMAIN_NAME}"
+      className: traefik
+      annotations: { }
+
+    auth:
+      host: https://gitlab.alexsaphir.com/
+      redirect_uri: https://workspace.${SECRET_DOMAIN_NAME}/auth/callback
+      protocol: https
+    log_level: info
+    ssh:
+      enabled: true
+      port: 22
+      backend_port: 60022
+      backend_username: "gitlab-workspaces"
