@@ -9,3 +9,9 @@ user_access:
 
   projects:
     - id: Homelab/K3s-Flux
+
+remote_development:
+  enabled: true
+  dns_zone: "workspace.k3s.alexsaphir.com"
+  gitlab_workspaces_proxy:
+    namespace: gitlab-workspace
