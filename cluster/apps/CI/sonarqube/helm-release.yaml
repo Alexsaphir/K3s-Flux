@@ -99,3 +99,8 @@ spec:
 
     prometheusExporter:
       enabled: true
+
+    prometheusMonitoring:
+      podMonitor:
+        enabled: true
+        namespace: sonarqube
