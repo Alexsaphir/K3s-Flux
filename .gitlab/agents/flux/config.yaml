@@ -15,3 +15,6 @@ remote_development:
   dns_zone: "workspace.k3s.alexsaphir.com"
   gitlab_workspaces_proxy:
     namespace: gitlab-workspace
+
+container_scanning:
+  cadence: '0 13 * * *' # Daily at 13:00 (Kubernetes cluster time)
