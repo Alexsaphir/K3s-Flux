@@ -44,6 +44,9 @@ spec:
         compression: &compression bzip2
         maxParallel: &maxParallel 4
 
+      data:
+        compression: *compression
+
       destinationPath: &destinationPath 's3://cloudnativepg-backup/'
       endpointURL: &endpoint 'https://s3.alexsaphir.com'
       s3Credentials:
@@ -60,6 +63,9 @@ spec:
         wal:
           compression: *compression
           maxParallel: *maxParallel
+        data:
+          compression: *compression
+
         destinationPath: *destinationPath
         endpointURL: *endpoint
         s3Credentials:
