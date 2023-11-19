@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,54 +27,57 @@ spec:
     keepHistory: false
 
   values:
-    controller:
-      replicas: 1
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
 
-    image:
-      repository: ghcr.io/mend/renovate-ce
-      tag: '6.6.0-full'
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
 
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            nameOverride: renovate
+            image:
+              repository: ghcr.io/mend/renovate-ce
+              tag: '6.6.0-full'
 
-    envFrom:
-      - configMapRef:
-          name: renovate-config
-      - secretRef:
-          name: &renovate-secret renovate-secret
+            envFrom:
+              - secretRef:
+                  name: &renovate-secret renovate-secret
+            env:
+              TZ: "${TIMEZONE}"
+              LOG_FORMAT: json
+              LOG_LEVEL: debug
 
-    env:
-      TZ: "${TIMEZONE}"
-      LOG_FORMAT: json
-      LOG_LEVEL: debug
+              MEND_RNV_ACCEPT_TOS: 'y'
+              MEND_RNV_PLATFORM: 'gitlab'
+              MEND_RNV_ENDPOINT: 'https://gitlab.alexsaphir.com/api/v4/'
+              MEND_RNV_CRON_JOB_SCHEDULER: '0 */2 * * *'
 
-      MEND_RNV_ACCEPT_TOS: 'y'
-      MEND_RNV_PLATFORM: 'gitlab'
-      MEND_RNV_ENDPOINT: 'https://gitlab.alexsaphir.com/api/v4/'
-      MEND_RNV_CRON_JOB_SCHEDULER: '0 */2 * * *'
+              MEND_RNV_ADMIN_API_ENABLED: 'true'
+              # MEND_RNV_SQLITE_FILE_PATH: '/db/renovate-ce.sqlite'
 
-      MEND_RNV_ADMIN_API_ENABLED: 'true'
-      # MEND_RNV_SQLITE_FILE_PATH: '/db/renovate-ce.sqlite'
+              RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
+              RENOVATE_ALLOW_PLUGINS: 'false'
 
-      RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
-      RENOVATE_ALLOW_PLUGINS: 'false'
+              RENOVATE_AUTODISCOVER: 'true'
+              RENOVATE_ONBOARDING: 'true'
 
-      RENOVATE_AUTODISCOVER: 'true'
-      RENOVATE_ONBOARDING: 'true'
+              RENOVATE_REDIS_URL: 'redis://renovate-redis.{{ .Release.Namespace }}.svc.cluster.local:6379/0'
+              RENOVATE_REPOSITORY_CACHE: 'enabled'
+              RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate'
+              RENOVATE_X_S3_PATH_STYLE: 'true'
 
-      RENOVATE_REDIS_URL: 'redis://renovate-redis.{{ .Release.Namespace }}.svc.cluster.local:6379/0'
-      RENOVATE_REPOSITORY_CACHE: 'enabled'
-      RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate'
-      RENOVATE_X_S3_PATH_STYLE: 'true'
+              RENOVATE_ONBOARDING_CONFIG:
+                valueFrom:
+                  configMapKeyRef:
+                    name: &renovate-config renovate-config
+                    key: onboardingConfig
 
-      LICENSE_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: *renovate-secret
-            key: MEND_RNV_LICENSE_KEY
+              LICENSE_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: *renovate-secret
+                    key: MEND_RNV_LICENSE_KEY
 
     service:
       main:
@@ -85,7 +88,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           auth.home.arpa/disabled: "true"
         hosts:
@@ -93,14 +96,31 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: http
 
     persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: *renovate-config
+        advancedMounts:
+          main:
+            main:
+              - path: /usr/src/app/config.js
+                readOnly: true
+                subPath: config.js
+
       data:
         enabled: true
         existingClaim: renovate
-        mountPath: /db
+        globalMounts:
+          - path: /db
+
       cache-persistence:
         enabled: true
         type: emptyDir
         sizeLimit: 4Gi
-        mountPath: '/tmp/renovate'
+        globalMounts:
+          - path: '/tmp/renovate'

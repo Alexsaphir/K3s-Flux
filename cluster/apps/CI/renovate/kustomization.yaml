@@ -10,8 +10,8 @@ resources:
 configMapGenerator:
   - name: renovate-config
     files:
-      - config=config/config.js
-      - RENOVATE_ONBOARDING_CONFIG=config/onboardingConfig.json5
+      - config.js=config/config.js
+      - onboardingConfig=config/onboardingConfig.json5
 
 generatorOptions:
   disableNameSuffixHash: true
