@@ -38,7 +38,7 @@ spec:
 
     image:
       repository: ghcr.io/authelia/authelia
-      tag: v4.38.0-beta3@sha256:317445f44ec08070fab2608d9179ece543b91441726ca059ba9e1c2e983ec353
+      tag: v4.38.0-beta3@sha256:50776baaaabcff38ff1e5a47b7ddc77982d2945f2cf2295c550fa3e8c74f6627
 
     envFrom:
       - secretRef:
