@@ -12,7 +12,7 @@ commonLabels:
 configMapGenerator:
   - name: mosquitto-configmap
     files:
-      - config/mosquitto.conf
+      - mosquitto.conf=./config/mosquitto.conf
 
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./patches/kustomizeconfig.yaml

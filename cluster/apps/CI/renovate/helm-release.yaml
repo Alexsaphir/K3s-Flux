@@ -27,7 +27,6 @@ spec:
     keepHistory: false
 
   values:
-
     controllers:
       main:
         annotations:
@@ -95,7 +94,6 @@ spec:
           - host: renovate.${SECRET_DOMAIN_NAME}
             paths:
               - path: /
-                pathType: Prefix
                 service:
                   name: main
                   port: http

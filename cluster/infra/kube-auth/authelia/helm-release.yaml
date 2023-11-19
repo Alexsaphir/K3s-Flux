@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,81 +27,120 @@ spec:
     keepHistory: false
 
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        configmap.reloader.stakater.com/reload: authelia-configmap
-        secret.reloader.stakater.com/reload: authelia-secret,authelia-oauth-secret,redis-standalone,database-authelia,glauth-search
+    defaultPodOptions:
+      enableServiceLinks: false
 
-    enableServiceLinks: false
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
 
-    image:
-      repository: ghcr.io/authelia/authelia
-      tag: v4.38.0-beta3@sha256:50776baaaabcff38ff1e5a47b7ddc77982d2945f2cf2295c550fa3e8c74f6627
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
 
-    envFrom:
-      - secretRef:
-          name: authelia-secret
-      - secretRef:
-          name: authelia-oauth-secret
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          configmap.reloader.stakater.com/reload: authelia-configmap
+          secret.reloader.stakater.com/reload: authelia-secret,authelia-oauth-secret,redis-standalone,database-authelia,glauth-search
 
-    env:
-      SECRET_DOMAIN_NAME: ${SECRET_DOMAIN_NAME}
+        containers:
+          main:
+            image:
+              repository: ghcr.io/authelia/authelia
+              tag: v4.38.0-beta3@sha256:50776baaaabcff38ff1e5a47b7ddc77982d2945f2cf2295c550fa3e8c74f6627
 
-      AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
-      AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:80
-      AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
-      AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
-      AUTHELIA_THEME: grey
+            envFrom:
+              - secretRef:
+                  name: authelia-secret
+              - secretRef:
+                  name: authelia-oauth-secret
 
-      X_AUTHELIA_CONFIG: /config/configuration.yaml
-      X_AUTHELIA_CONFIG_FILTERS: expand-env
+            env:
+              SECRET_DOMAIN_NAME: ${SECRET_DOMAIN_NAME}
 
-      # Configure LDAP
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDRESS: "ldap://lldap.kube-auth.svc.cluster.local:389"
+              AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
+              AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:80
+              AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
+              AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
+              AUTHELIA_THEME: grey
 
-      # Set secrets
-      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: search-user-secret
-            key: password
-      AUTHELIA_SESSION_REDIS_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: redis-standalone
-            key: redisSecret
+              X_AUTHELIA_CONFIG: /config/configuration.yaml
+              X_AUTHELIA_CONFIG_FILTERS: expand-env
 
-      AUTHELIA_STORAGE_POSTGRES_DATABASE:
-        valueFrom:
-          secretKeyRef:
-            name: database-authelia
-            key: DATABASE_NAME
-      AUTHELIA_STORAGE_POSTGRES_ADDRESS:
-        valueFrom:
-          secretKeyRef:
-            name: database-authelia
-            key: HOST
-      AUTHELIA_STORAGE_POSTGRES_USERNAME:
-        valueFrom:
-          secretKeyRef:
-            name: database-authelia
-            key: LOGIN
-      AUTHELIA_STORAGE_POSTGRES_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: database-authelia
-            key: PASSWORD
+              # Configure LDAP
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDRESS: "ldap://lldap.kube-auth.svc.cluster.local:389"
+
+              # Set secrets
+              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: search-user-secret
+                    key: password
+              AUTHELIA_SESSION_REDIS_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: redis-standalone
+                    key: redisSecret
+
+              AUTHELIA_STORAGE_POSTGRES_DATABASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-authelia
+                    key: DATABASE_NAME
+              AUTHELIA_STORAGE_POSTGRES_ADDRESS:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-authelia
+                    key: HOST
+              AUTHELIA_STORAGE_POSTGRES_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-authelia
+                    key: LOGIN
+              AUTHELIA_STORAGE_POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-authelia
+                    key: PASSWORD
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10Mi
+              limits:
+                memory: 100Mi
 
     service:
       main:
         ports:
           http:
-            port: &port 80
+            port: *port
           metrics:
             enabled: true
             port: 8080
+
     serviceMonitor:
       main:
         enabled: true
@@ -111,26 +150,11 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /api/health
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
 
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           auth.home.arpa/disabled: "true"
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
@@ -139,38 +163,16 @@ spec:
           - host: "auth.${SECRET_DOMAIN_NAME}"
             paths:
               - path: /
-                pathType: Prefix
-
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: authelia-configmap
-      secret.reloader.stakater.com/reload: authelia-secret,redis-standalone,database-authelia,glauth-search
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
+                service:
+                  name: main
+                  port: http
 
     persistence:
       config:
         enabled: true
         type: configMap
         name: authelia-configmap
-        subPath: configuration.yaml
-        mountPath: /config/configuration.yaml
-        readOnly: false
-
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 100Mi
+        globalMounts:
+          - path: /config/configuration.yaml
+            subPath: configuration.yaml
+            readOnly: true

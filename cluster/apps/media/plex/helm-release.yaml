@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,13 +27,56 @@ spec:
     keepHistory: false
 
   values:
-    image:
-      repository: ghcr.io/onedr0p/plex-beta
-      tag: 1.32.8.7639-fb6452ebf@sha256:84c51a3abe3cec182d034cea58e65086b20f3dc49831d8a1fc16f67c85ca6e53
 
-    env:
-      TZ: ${TIMEZONE}
-      ADVERTISE_IP: 'https://plex.${SECRET_DOMAIN_NAME}'
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/plex-beta
+              tag: 1.32.8.7639-fb6452ebf@sha256:84c51a3abe3cec182d034cea58e65086b20f3dc49831d8a1fc16f67c85ca6e53
+
+            env:
+              TZ: ${TIMEZONE}
+              ADVERTISE_IP: 'https://plex.${SECRET_DOMAIN_NAME}'
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: 32400
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                cpu: 100m
+                memory: 2000Mi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 6000Mi
+
+        pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
+
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [ 44, 104, 109, 100 ]
 
     service:
       main:
@@ -44,26 +87,16 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           auth.home.arpa/disabled: "true"
         hosts:
           - host: plex.${SECRET_DOMAIN_NAME}
             paths:
               - path: /
-                pathType: Prefix
-
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 44
-        - 104
-        - 109
-        - 100
-
+                service:
+                  name: main
+                  port: http
     persistence:
       config:
         enabled: true
@@ -74,22 +107,11 @@ spec:
         type: nfs
         server: '192.168.0.130'
         path: /mnt/user/Media
-        mountPath: /MediaCloud
+        globalMounts:
+          - path: /MediaCloud
 
       tmp:
-        enabled: true
         type: emptyDir
         medium: Memory
       transcode:
-        enabled: true
         type: emptyDir
-
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-        cpu: 100m
-        memory: 2000Mi
-      limits:
-        gpu.intel.com/i915: 1
-        cpu: 2000m
-        memory: 6000Mi

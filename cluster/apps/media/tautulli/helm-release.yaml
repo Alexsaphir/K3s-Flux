@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,9 +27,31 @@ spec:
     keepHistory: false
 
   values:
-    image:
-      repository: ghcr.io/onedr0p/tautulli
-      tag: 2.13.2@sha256:960fef79051c992dcbb077dcf196f81afad9c5753cb04462910b59dbac3f21f6
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/tautulli
+              tag: 2.13.2@sha256:960fef79051c992dcbb077dcf196f81afad9c5753cb04462910b59dbac3f21f6
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
 
     service:
       main:
@@ -40,7 +62,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           auth.home.arpa/disabled: "true"
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
@@ -49,21 +71,11 @@ spec:
           - host: "tautulli.${SECRET_DOMAIN_NAME}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
 
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
         existingClaim: tautulli
-
-    resources:
-      requests:
-        cpu: 5m
-        memory: 324M
-      limits:
-        memory: 700M
