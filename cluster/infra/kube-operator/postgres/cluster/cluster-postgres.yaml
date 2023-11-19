@@ -28,6 +28,7 @@ spec:
   postgresql:
     parameters:
       max_connections: "800"
+      max_slot_wal_keep_size: 10GB
       shared_buffers: "512MB"
     shared_preload_libraries:
       - timescaledb
