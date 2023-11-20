@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,87 +27,95 @@ spec:
     keepHistory: false
 
   values:
-    image:
-      repository: ghcr.io/tandoorrecipes/recipes
-      tag: 1.5.6
-    envFrom:
-      - secretRef:
-          name: tandoor-recipes-secret
-    env:
-      TIMEZONE: '${TIMEZONE}'
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tandoorrecipes/recipes
+              tag: 1.5.6
 
-      ALLOWED_HOSTS: &host recipes.${SECRET_DOMAIN_NAME}
-      SESSION_COOKIE_DOMAIN: *host
-      SESSION_COOKIE_NAME: tandoor-recipes-sessionid
+            envFrom:
+              - secretRef:
+                  name: tandoor-recipes-secret
+            env:
+              TIMEZONE: '${TIMEZONE}'
 
-      DB_ENGINE: django.db.backends.postgresql
-      POSTGRES_HOST:
-        valueFrom:
-          secretKeyRef:
-            name: database-tandoor-recipes
-            key: HOST
-      POSTGRES_PORT: '5432'
-      POSTGRES_DB:
-        valueFrom:
-          secretKeyRef:
-            name: database-tandoor-recipes
-            key: DATABASE_NAME
-      POSTGRES_USER:
-        valueFrom:
-          secretKeyRef:
-            name: database-tandoor-recipes
-            key: LOGIN
-      POSTGRES_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: database-tandoor-recipes
-            key: PASSWORD
+              ALLOWED_HOSTS: &host recipes.${SECRET_DOMAIN_NAME}
+              SESSION_COOKIE_DOMAIN: *host
+              SESSION_COOKIE_NAME: tandoor-recipes-sessionid
 
-      # S3 storage
-      S3_BUCKET_NAME: recipes
-      S3_REGION_NAME: us-east-1
-      S3_QUERYSTRING_AUTH: 1
-      S3_QUERYSTRING_EXPIRE: 3600
+              DB_ENGINE: django.db.backends.postgresql
+              POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-tandoor-recipes
+                    key: HOST
+              POSTGRES_PORT: '5432'
+              POSTGRES_DB:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-tandoor-recipes
+                    key: DATABASE_NAME
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-tandoor-recipes
+                    key: LOGIN
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-tandoor-recipes
+                    key: PASSWORD
 
-      DEBUG: 0
-      GUNICORN_MEDIA: 0
-      ENABLE_SIGNUP: 0
-      ENABLE_METRICS: 1
-      ENABLE_PDF_EXPORT: 1
+              # S3 storage
+              S3_BUCKET_NAME: recipes
+              S3_REGION_NAME: us-east-1
+              S3_QUERYSTRING_AUTH: 1
+              S3_QUERYSTRING_EXPIRE: 3600
 
-      # Users default preference
-      FRACTION_PREF_DEFAULT: 1
-      COMMENT_PREF_DEFAULT: 1
-      SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
+              DEBUG: 0
+              GUNICORN_MEDIA: 0
+              ENABLE_SIGNUP: 0
+              ENABLE_METRICS: 1
+              ENABLE_PDF_EXPORT: 1
 
-      # Default settings for spaces
-      SPACE_DEFAULT_MAX_RECIPES: 5000 # 0=unlimited recipes
-      SPACE_DEFAULT_MAX_USERS: 0 # 0=unlimited users per space
-      SPACE_DEFAULT_MAX_FILES: 512 # Maximum file storage for space in MB. 0 for unlimited, -1 to disable file upload.
-      SPACE_DEFAULT_ALLOW_SHARING: 1 # Allow users to share recipes with public links
+              # Users default preference
+              FRACTION_PREF_DEFAULT: 1
+              COMMENT_PREF_DEFAULT: 1
+              SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
 
-      SORT_TREE_BY_NAME: 1
+              # Default settings for spaces
+              SPACE_DEFAULT_MAX_RECIPES: 5000 # 0=unlimited recipes
+              SPACE_DEFAULT_MAX_USERS: 0 # 0=unlimited users per space
+              SPACE_DEFAULT_MAX_FILES: 512 # Maximum file storage for space in MB. 0 for unlimited, -1 to disable file upload.
+              SPACE_DEFAULT_ALLOW_SHARING: 1 # Allow users to share recipes with public links
 
-      # LDAP auth
-      LDAP_AUTH: 1
-      AUTH_LDAP_SERVER_URI: ldap://lldap.kube-auth.svc.cluster.local:389
-      AUTH_LDAP_BIND_DN: uid=search,ou=people,dc=home,dc=arpa
-      AUTH_LDAP_USER_SEARCH_BASE_DN: ou=people,dc=home,dc=arpa
+              SORT_TREE_BY_NAME: 1
 
-      AUTH_LDAP_ALWAYS_UPDATE_USER: 1
-      AUTH_LDAP_CACHE_TIMEOUT: 3600
-      AUTH_LDAP_USER_ATTR_MAP: "{'first_name': 'givenName', 'last_name': 'sn', 'email': 'mail' }"
-      AUTH_LDAP_USER_SEARCH_FILTER_STR: "(&(&(objectclass=person)(memberOf=cn=recipes,ou=groups,dc=home,dc=arpa))(uid=%(user)s))"
+              # LDAP auth
+              LDAP_AUTH: 1
+              AUTH_LDAP_SERVER_URI: ldap://lldap.kube-auth.svc.cluster.local:389
+              AUTH_LDAP_BIND_DN: uid=search,ou=people,dc=home,dc=arpa
+              AUTH_LDAP_USER_SEARCH_BASE_DN: ou=people,dc=home,dc=arpa
+
+              AUTH_LDAP_ALWAYS_UPDATE_USER: 1
+              AUTH_LDAP_CACHE_TIMEOUT: 3600
+              AUTH_LDAP_USER_ATTR_MAP: "{'first_name': 'givenName', 'last_name': 'sn', 'email': 'mail' }"
+              AUTH_LDAP_USER_SEARCH_FILTER_STR: "(&(&(objectclass=person)(memberOf=cn=recipes,ou=groups,dc=home,dc=arpa))(uid=%(user)s))"
 
     service:
       main:
         ports:
           http:
             port: 8080
+
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/icon: mdi:cookie
@@ -115,12 +123,16 @@ spec:
           - host: *host
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
 
     persistence:
       static:
         enabled: true
-        mountPath: /opt/recipes/staticfiles
-        size: 20Gi
+
+        size: 1Gi
         storageClass: longhorn
         accessMode: ReadWriteOnce
+        globalMounts:
+          - path: /opt/recipes/staticfiles

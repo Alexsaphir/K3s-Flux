@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -27,71 +27,80 @@ spec:
     keepHistory: false
 
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    image:
-      repository: ghcr.io/py-kms-organization/py-kms
-      tag: python3@sha256:95a73f03dfea0f9f4a234e5fa529a68614257108fd3b15110d6b80ab737e377e
-
-    envFrom:
-      - secretRef:
-          name: py-kms-secret
-    env:
-      TIMEZONE: '${TIMEZONE}'
-      IP: "::"
-
     service:
       main:
         ports:
           http:
-            port: 8080
+            port: &port 8080
       kms:
         enabled: true
+        controller: main
+        primary: false
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/loadBalancerIPs: ${LB_PY_KMS}
         ports:
+          http:
+            enabled: false
           kms:
             port: 1688
             protocol: TCP
 
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /livez
-            port: http
-      readiness:
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /readyz
-            port: http
-      startup:
-        enabled: false
 
-    persistence:
-      db:
-        enabled: true
-        type: pvc
-        existingClaim: py-kms-data
-        mountPath: /home/py-kms/db
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/py-kms-organization/py-kms
+              tag: python3@sha256:95a73f03dfea0f9f4a234e5fa529a68614257108fd3b15110d6b80ab737e377e
+
+            envFrom:
+              - secretRef:
+                  name: py-kms-secret
+            env:
+              TIMEZONE: '${TIMEZONE}'
+              IP: "::"
+
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /livez
+                    port: *port
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: *port
+              startup:
+                enabled: false
+
 
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik
+        className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: py-kms.${SECRET_DOMAIN_NAME}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+
+    persistence:
+      db:
+        enabled: true
+        existingClaim: py-kms-data
+        globalMounts:
+          - path: /home/py-kms/db
