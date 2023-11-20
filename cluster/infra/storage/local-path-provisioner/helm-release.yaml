@@ -29,7 +29,7 @@ spec:
   values:
     image:
       repository: rancher/local-path-provisioner
-      tag: v0.0.24
+      tag: v0.0.25
       pullPolicy: IfNotPresent
 
     storageClass:
