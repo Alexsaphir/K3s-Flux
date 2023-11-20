@@ -61,6 +61,20 @@ spec:
           http:
             port: 3001
 
+    ingress:
+      main:
+        enabled: true
+        primary: true
+        ingressClassName: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+          hajimari.io/icon: mdi:camera
+        hosts:
+          - host: &host photos.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                pathType: Prefix
+
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568

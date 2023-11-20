@@ -7,6 +7,4 @@ resources:
   - typesense
   - machine-learning
   - microservices
-  - proxy
-  - web
   - server
