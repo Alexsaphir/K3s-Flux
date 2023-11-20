@@ -56,6 +56,9 @@ spec:
       serviceMonitor:
         enabled: true
 
+    service:
+      enabled: true
+
     runners:
       config: |
         [[runners]]
@@ -68,7 +71,7 @@ spec:
               BucketLocation = "us-east-1"
               AuthenticationType = "access-key"
           [runners.kubernetes]
-            namespace = "gitlab-runner"
+            namespace = "{{.Release.Namespace}}"
             image = "ubuntu:22.04"
 
             [[runners.kubernetes.pod_spec]]
@@ -98,7 +101,16 @@ spec:
             FF_USE_ADVANCED_POD_SPEC_CONFIGURATION = true
 
       executor: kubernetes
+      name: k3s-runner
 
       secret: gitlab-runner-secret
       cache:
         secretName: gitlab-runner-s3access-secret
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: control-plane
+                    operator: DoesNotExist
