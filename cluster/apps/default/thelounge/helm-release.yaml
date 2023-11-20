@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.2.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -33,18 +33,6 @@ spec:
       targetPath: thelounge.ldap.bindPassword
 
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-
-    image:
-      repository: ghcr.io/thelounge/thelounge
-      tag: 4.4.1
-
-    env:
-      THELOUNGE_HOME: /config
-
     thelounge:
       public: false
       reverseProxy: true
@@ -60,56 +48,34 @@ spec:
       leaveMessage: "The Lounge - https://thelounge.chat"
       ldap:
         enable: true
-        url: "ldap://glauth.kube-auth.svc.cluster.local:389"
+        url: "ldap://lldap.kube-auth.svc.cluster.local:389"
         primaryKey: "uid"
-        bindDn: "cn=search_thelounge,ou=svcaccts,dc=home,dc=arpa"
+        bindDn: "uid=search,ou=people,dc=home,dc=arpa"
         # bindPassword:
-        filter: "(objectClass=posixAccount)(memberOf=ou=thelounge,ou=groups,dc=home,dc=arpa)"
-        searchSuffix: "ou=people,ou=users,dc=home,dc=arpa"
+        filter: "(memberOf=cn=thelounge,ou=groups,dc=home,dc=arpa)"
+        searchSuffix: "ou=people,dc=home,dc=arpa"
         scope: "sub"
 
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: 9000
-
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: traefik
         annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-          hajimari.io/enable: 'true'
-          hajimari.io/icon: 'mdi:forum'
-        hosts:
-          - host: thelounge.${SECRET_DOMAIN_NAME}
-            paths:
-              - path: /
-                pathType: Prefix
+          reloader.stakater.com/auto: "true"
 
-    persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: thelounge-config
-        subPath: config.js
-        mountPath: /config/config.js
-        readOnly: true
+        containers:
+          main:
+            image:
+              repository: ghcr.io/thelounge/thelounge
+              tag: 4.4.1
 
-    volumeClaimTemplates:
-      - name: config-vol
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: longhorn
+            env:
+              THELOUNGE_HOME: /config
 
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 500Mi
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 500Mi
 
     configMaps:
       config:
@@ -176,3 +142,40 @@ spec:
                 raw: false,
               },
             };
+
+    service:
+      main:
+        ports:
+          http:
+            port: 9000
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+          hajimari.io/enable: 'true'
+          hajimari.io/icon: 'mdi:forum'
+        hosts:
+          - host: thelounge.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: thelounge-config
+        globalMounts:
+          - path: /config/config.js
+            subPath: config.js
+            readOnly: true
+
+      config-vol:
+        existingClaim: thelounge
+        globalMounts:
+          - path: /config
