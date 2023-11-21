@@ -31,6 +31,25 @@ spec:
       namespace: home-automation
 
   values:
+    persistence:
+      usb:
+        enabled: true
+        type: hostPath
+        hostPathType: CharDevice
+        hostPath: &hostPath /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
+        advancedMounts:
+          main:
+            main:
+              - path: *hostPath
+
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt-data
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+
     defaultPodOptions:
       securityContext:
         supplementalGroups:
@@ -77,7 +96,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: *hostPath
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ezsp
 
             envFrom:
@@ -155,17 +174,3 @@ spec:
                 service:
                   name: main
                   port: http
-
-    persistence:
-      usb:
-        enabled: true
-        type: hostPath
-        hostPathType: CharDevice
-        globalMounts:
-          - path: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
-
-      config:
-        enabled: true
-        existingClaim: zigbee2mqtt-data
-        globalMounts:
-          - path: /config
