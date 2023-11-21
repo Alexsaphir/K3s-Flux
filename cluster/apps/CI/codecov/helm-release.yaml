@@ -65,7 +65,6 @@ spec:
       name: database-codecov
       valuesKey: PASSWORD
       targetPath: codecovConfig.database.password
-
     - kind: Secret
       name: database-codecov
       valuesKey: DATABASE_NAME
@@ -83,7 +82,6 @@ spec:
       name: database-codecov-timeseries
       valuesKey: PASSWORD
       targetPath: codecovConfig.timeseries.password
-
     - kind: Secret
       name: database-codecov
       valuesKey: DATABASE_NAME
@@ -97,8 +95,10 @@ spec:
     codecovConfig:
       codecovBot: Codecov
 
-      database: { }
-      timeseries: { }
+      database:
+        port: '5432'
+      timeseries:
+        port: '5432'
 
       setup:
         http: { }
@@ -208,8 +208,8 @@ spec:
               bot: {{.Values.codecovConfig.codecovBot}}
             setup:
               codecov_url: https://{{.Values.codecovHost}}
-
-              enterprise_license: {{.Values.codecovConfig.setup.enterprise_license}}
+              codecov_api_url: https://{{.Values.codecovHost}}
+              enterprise_license: {{.Values.codecovConfig.setup.enterprise_license | quote}}
 
               guest_access: off
               admins:
@@ -219,7 +219,7 @@ spec:
                   username: Alexsaphir
 
               http:
-                cookie_secret: {{.Values.codecovConfig.setup.http.cookie_secret}}
+                cookie_secret: {{.Values.codecovConfig.setup.http.cookie_secret | quote}}
 
               timeseries:
                 enabled: true
@@ -229,21 +229,22 @@ spec:
             gitlab_enterprise:
               global_upload_token: 'glab-sph'
               url: 'https://gitlab.alexsaphir.com'
-              client_id: {{.Values.codecovConfig.gitlab_enterprise.client_id}}
-              client_secret: {{.Values.codecovConfig.gitlab_enterprise.client_secret}}
+              client_id: {{.Values.codecovConfig.gitlab_enterprise.client_id | quote }}
+              client_secret: {{.Values.codecovConfig.gitlab_enterprise.client_secret | quote}}
 
 
             services:
-              database_url: postgresql://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:5432/{{.Values.codecovConfig.database.db}}
-              timeseries_database_url: postgresql://{{.Values.codecovConfig.timeseries.login}}:{{.Values.codecovConfig.timeseries.password}}@{{.Values.codecovConfig.timeseries.host}}:5432/{{.Values.codecovConfig.timeseries.db}}
-              redis_url: redis://codecov-redis.codecov.svc.cluster.local:6379
+              database_url: 'postgres://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:{{.Values.codecovConfig.database.port}}/{{.Values.codecovConfig.database.db}}'
+              timeseries_database_url: 'postgres://{{.Values.codecovConfig.timeseries.login}}:{{.Values.codecovConfig.timeseries.password}}@{{.Values.codecovConfig.timeseries.host}}:{{.Values.codecovConfig.timeseries.port}}/{{.Values.codecovConfig.timeseries.db}}'
+              redis_url: "redis://codecov-redis.codecov.svc.cluster.local:6379"
               minio:
                 host: s3.alexsaphir.com
                 bucket: codecov
                 region: us-east-1
                 verify_ssl: true
-                access_key_id: {{.Values.codecovConfig.services.minio.access_key_id}}
-                secret_access_key: {{.Values.codecovConfig.services.minio.secret_access_key}}
+                port: '443'
+                access_key_id: {{.Values.codecovConfig.services.minio.access_key_id | quote}}
+                secret_access_key: {{.Values.codecovConfig.services.minio.secret_access_key | quote}}
 
     ingress:
       main:
@@ -269,4 +270,4 @@ spec:
         globalMounts:
           - path: /config/codecov.yml
             subPath: codecov.yml
-            readOnly: true
+            readOnly: false
