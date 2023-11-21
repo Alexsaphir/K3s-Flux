@@ -27,33 +27,6 @@ spec:
 
   valuesFrom:
     - kind: Secret
-      name: codecov-secret
-      valuesKey: enterprise_license
-      targetPath: codecovConfig.setup.enterprise_license
-    - kind: Secret
-      name: codecov-secret
-      valuesKey: cookie_secret
-      targetPath: codecovConfig.setup.http.cookie_secret
-
-    - kind: Secret
-      name: codecov-gitlab-secret
-      valuesKey: client_id
-      targetPath: codecovConfig.gitlab_enterprise.client_id
-    - kind: Secret
-      name: codecov-gitlab-secret
-      valuesKey: client_secret
-      targetPath: codecovConfig.gitlab_enterprise.client_secret
-
-    - kind: Secret
-      name: codecov-s3-secret
-      valuesKey: access_key
-      targetPath: codecovConfig.services.minio.access_key_id
-    - kind: Secret
-      name: codecov-s3-secret
-      valuesKey: secret_key
-      targetPath: codecovConfig.services.minio.secret_access_key
-
-    - kind: Secret
       name: database-codecov
       valuesKey: HOST
       targetPath: codecovConfig.database.host
@@ -83,9 +56,9 @@ spec:
       valuesKey: PASSWORD
       targetPath: codecovConfig.timeseries.password
     - kind: Secret
-      name: database-codecov
+      name: database-codecov-timeseries
       valuesKey: DATABASE_NAME
-      targetPath: codecovConfig.database.db
+      targetPath: codecovConfig.timeseries.db
 
   values:
     codecovVersion: &codecovVersion 23.11.2 # renovate: depName=codecov/self-hosted-gateway
@@ -93,23 +66,58 @@ spec:
 
 
     codecovConfig:
-      codecovBot: Codecov
-
       database:
         port: '5432'
       timeseries:
         port: '5432'
 
-      setup:
-        http: { }
-      gitlab_enterprise: { }
-      services:
-        minio: { }
+    env: &global_env
+      SITE__BOT: Codecov
+      SETUP__CODECOV_URL: *host
+      GITLAB_ENTERPRISE__URL: https://gitlab.alexsaphir.com
+      SERVICES__REDIS_URL: redis://codecov-redis.codecov.svc.cluster.local:6379
+      SERVICES__MINIO__HOST: s3.alexsaphir.com
+      SERVICES__MINIO__BUCKET: codecov
+      SERVICES__MINIO__REGION: us-east-1
+      SERVICES__MINIO__PORT: 443
+      SERVICES__MINIO__VERIFY_SSL: true
+      SETUP__ENTERPRISE_LICENSE:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-secret
+            key: enterprise_license
+      SETUP__HTTP__COOKIE_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-secret
+            key: cookie_secret
+      GITLAB_ENTERPRISE__CLIENT_ID:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: client_id
+      GITLAB_ENTERPRISE__CLIENT_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: client_secret
+      SERVICES__MINIO__ACCESS_KEY_ID:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-s3-secret
+            key: access_key
+      SERVICES__MINIO__SECRET_ACCESS_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-s3-secret
+            key: secret_key
+
 
     controllers:
       main:
         enabled: false
       gateway:
+        enabled: false
         replicas: 2
         containers:
           main:
@@ -119,11 +127,48 @@ spec:
             env:
               CODECOV_GATEWAY_MINIO_ENABLED: true
 
+              CODECOV_DEFAULT_HOST: frontend.codecov.svc.cluster.local
+              CODECOV_DEFAULT_PORT: 8080
+              CODECOV_DEFAULT_SCHEME: http
+              CODECOV_DEFAULT_HOST_HEADER: "%[req.hdr(Host)]"
+
+              <<: *global_env
+
+            ports:
+              - containerPort: &port_gateway 8080
+                name: http
+                protocol: TCP
+
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                httpGet:
+                  path: /gateway_health
+                  port: http
+                initialDelaySeconds: 30
+                failureThreshold: 3
+                periodSeconds: 10
+                timeoutSeconds: 5
+
+              readiness:
+                enabled: true
+                custom: true
+                httpGet:
+                  path: /gateway_health
+                  port: http
+                initialDelaySeconds: 10
+                failureThreshold: 3
+                successThreshold: 1
+                periodSeconds: 10
+                timeoutSeconds: 2
+
             resources:
               requests:
                 cpu: 250m
                 memory: 256M
       frontend:
+        enabled: false
         replicas: 2
         containers:
           main:
@@ -136,6 +181,35 @@ spec:
               CODECOV_IA_HOST: *host
               CODECOV_SCHEME: https
               CODECOV_FRONTEND_IPV6_DISABLED: true
+              <<: *global_env
+
+            ports:
+              - containerPort: &port_frontend 8080
+                name: http
+                protocol: TCP
+
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                httpGet:
+                  path: /
+                  port: http
+                initialDelaySeconds: 30
+                failureThreshold: 3
+                periodSeconds: 10
+                timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                httpGet:
+                  path: /
+                  port: http
+                initialDelaySeconds: 10
+                failureThreshold: 3
+                successThreshold: 1
+                periodSeconds: 10
+                timeoutSeconds: 2
 
             resources:
               requests:
@@ -149,6 +223,36 @@ spec:
               repository: codecov/self-hosted-api
               tag: *codecovVersion
 
+            env: *global_env
+
+            ports:
+              - containerPort: &port_api 8000
+                name: http
+                protocol: TCP
+
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                httpGet:
+                  path: /
+                  port: http
+                initialDelaySeconds: 30
+                failureThreshold: 3
+                periodSeconds: 10
+                timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                httpGet:
+                  path: /
+                  port: http
+                initialDelaySeconds: 10
+                failureThreshold: 3
+                successThreshold: 1
+                periodSeconds: 10
+                timeoutSeconds: 2
+
             resources:
               limits:
                 cpu: 1000m
@@ -157,6 +261,7 @@ spec:
                 cpu: 250m
                 memory: 256M
       worker:
+        enabled: false
         replicas: 2
         containers:
           main:
@@ -165,6 +270,7 @@ spec:
               tag: *codecovVersion
             env:
               RUN_ENV: ENTERPRISE
+              <<: *global_env
 
             resources:
               limits:
@@ -178,39 +284,33 @@ spec:
       main:
         enabled: false
       gateway:
-        enabled: true
+        enabled: false
         controller: gateway
         ports:
           http:
             enabled: true
-            port: 8080
+            port: *port_gateway
       frontend:
-        enabled: true
+        enabled: false
         controller: frontend
         ports:
           http:
             enabled: true
-            port: 8080
+            port: *port_frontend
       api:
         enabled: true
         controller: api
         ports:
           http:
             enabled: true
-            port: 8000
+            port: *port_api
 
     configMaps:
       config:
         enabled: true
         data:
           codecov.yml: |
-            site:
-              bot: {{.Values.codecovConfig.codecovBot}}
             setup:
-              codecov_url: https://{{.Values.codecovHost}}
-              codecov_api_url: https://{{.Values.codecovHost}}
-              enterprise_license: {{.Values.codecovConfig.setup.enterprise_license | quote}}
-
               guest_access: off
               admins:
                 - service: gitlab_enterprise
@@ -218,33 +318,13 @@ spec:
                 - service: gitlab_enterprise
                   username: Alexsaphir
 
-              http:
-                cookie_secret: {{.Values.codecovConfig.setup.http.cookie_secret | quote}}
-
               timeseries:
                 enabled: true
-
-            github: null
-
-            gitlab_enterprise:
-              global_upload_token: 'glab-sph'
-              url: 'https://gitlab.alexsaphir.com'
-              client_id: {{.Values.codecovConfig.gitlab_enterprise.client_id | quote }}
-              client_secret: {{.Values.codecovConfig.gitlab_enterprise.client_secret | quote}}
-
 
             services:
               database_url: 'postgres://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:{{.Values.codecovConfig.database.port}}/{{.Values.codecovConfig.database.db}}'
               timeseries_database_url: 'postgres://{{.Values.codecovConfig.timeseries.login}}:{{.Values.codecovConfig.timeseries.password}}@{{.Values.codecovConfig.timeseries.host}}:{{.Values.codecovConfig.timeseries.port}}/{{.Values.codecovConfig.timeseries.db}}'
-              redis_url: "redis://codecov-redis.codecov.svc.cluster.local:6379"
-              minio:
-                host: s3.alexsaphir.com
-                bucket: codecov
-                region: us-east-1
-                verify_ssl: true
-                port: '443'
-                access_key_id: {{.Values.codecovConfig.services.minio.access_key_id | quote}}
-                secret_access_key: {{.Values.codecovConfig.services.minio.secret_access_key | quote}}
+
 
     ingress:
       main:
