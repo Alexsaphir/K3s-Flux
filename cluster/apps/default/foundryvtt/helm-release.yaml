@@ -43,6 +43,7 @@ spec:
               CONTAINER_CACHE: /data/container_cache
               CONTAINER_PATCHES: /data/container_patches
               CONTAINER_VERBOSE: "true"
+              FOUNDRY_TELEMETRY: false
               FOUNDRY_HOSTNAME: &host "foundry.${SECRET_DOMAIN_NAME}"
               FOUNDRY_LOCAL_HOSTNAME: *host
               FOUNDRY_MINIFY_STATIC_FILES: "true"
