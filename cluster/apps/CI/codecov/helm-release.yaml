@@ -7,13 +7,12 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: codecov
-      version: 5.0.0
+      chart: app-template
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
-        name: codecov
+        name: bjw-s
         namespace: flux-charts
-      interval: 15m
 
   maxHistory: 3
   install:
@@ -56,147 +55,218 @@ spec:
 
     - kind: Secret
       name: database-codecov
-      valuesKey: POSTGRES_URL
-      targetPath: codecovConfig.services.database_url
+      valuesKey: HOST
+      targetPath: codecovConfig.database.host
+    - kind: Secret
+      name: database-codecov
+      valuesKey: LOGIN
+      targetPath: codecovConfig.database.login
+    - kind: Secret
+      name: database-codecov
+      valuesKey: PASSWORD
+      targetPath: codecovConfig.database.password
+
+    - kind: Secret
+      name: database-codecov
+      valuesKey: DATABASE_NAME
+      targetPath: codecovConfig.database.db
+
     - kind: Secret
       name: database-codecov-timeseries
-      valuesKey: POSTGRES_URL
-      targetPath: codecovConfig.services.timeseries_database_url
+      valuesKey: HOST
+      targetPath: codecovConfig.timeseries.host
+    - kind: Secret
+      name: database-codecov-timeseries
+      valuesKey: LOGIN
+      targetPath: codecovConfig.timeseries.login
+    - kind: Secret
+      name: database-codecov-timeseries
+      valuesKey: PASSWORD
+      targetPath: codecovConfig.timeseries.password
+
+    - kind: Secret
+      name: database-codecov
+      valuesKey: DATABASE_NAME
+      targetPath: codecovConfig.database.db
 
   values:
-    codecovVersion: 23.11.2
-    configmap:
-      name: &configmap-name codecov-yml
+    codecovVersion: &codecovVersion 23.11.2 # renovate: depName=codecov/self-hosted-gateway
+    codecovHost: &host codecov.${SECRET_DOMAIN_NAME}
 
-    demo:
-      enabled: false
 
     codecovConfig:
-      github: null
+      codecovBot: Codecov
 
-      gitlab_enterprise:
-        global_upload_token: 'glab-sph'
-        url: 'https://gitlab.alexsaphir.com'
+      database: { }
+      timeseries: { }
 
-      services:
-        minio:
-          host: s3.alexsaphir.com
-          bucket: codecov
-          region: us-east-1
-          verify_ssl: true
-
-        redis_url: redis://codecov-redis.codecov.svc.cluster.local:6379
       setup:
-        codecov_url: &codecov_url "https://codecov.${SECRET_DOMAIN_NAME}"
-        codecov_api_url: *codecov_url
+        http: { }
+      gitlab_enterprise: { }
+      services:
+        minio: { }
 
-        guest_access: off
+    controllers:
+      main:
+        enabled: false
+      gateway:
+        replicas: 2
+        containers:
+          main:
+            image:
+              repository: codecov/self-hosted-gateway
+              tag: *codecovVersion
+            env:
+              CODECOV_GATEWAY_MINIO_ENABLED: true
+
+            resources:
+              requests:
+                cpu: 250m
+                memory: 256M
+      frontend:
+        replicas: 2
+        containers:
+          main:
+            image:
+              repository: self-hosted-frontend
+              tag: *codecovVersion
+            env:
+              CODECOV_BASE_HOST: *host
+              CODECOV_API_HOST: *host
+              CODECOV_IA_HOST: *host
+              CODECOV_SCHEME: https
+              CODECOV_FRONTEND_IPV6_DISABLED: true
+
+            resources:
+              requests:
+                cpu: 250m
+                memory: 256M
+      api:
+        replicas: 2
+        containers:
+          main:
+            image:
+              repository: codecov/self-hosted-api
+              tag: *codecovVersion
+
+            resources:
+              limits:
+                cpu: 1000m
+                memory: 2048M
+              requests:
+                cpu: 250m
+                memory: 256M
+      worker:
+        replicas: 2
+        containers:
+          main:
+            image:
+              repository: codecov/self-hosted-worker
+              tag: *codecovVersion
+            env:
+              RUN_ENV: ENTERPRISE
+
+            resources:
+              limits:
+                cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
+                memory: 4096M
+              requests:
+                cpu: 500m
+                memory: 1024M
+
+    service:
+      main:
+        enabled: false
+      gateway:
+        enabled: true
+        controller: gateway
+        ports:
+          http:
+            enabled: true
+            port: 8080
+      frontend:
+        enabled: true
+        controller: frontend
+        ports:
+          http:
+            enabled: true
+            port: 8080
+      api:
+        enabled: true
+        controller: api
+        ports:
+          http:
+            enabled: true
+            port: 8000
+
+    configMaps:
+      config:
+        enabled: true
+        data:
+          codecov.yml: |
+            site:
+              bot: {{.Values.codecovConfig.codecovBot}}
+            setup:
+              codecov_url: https://{{.Values.codecovHost}}
+
+              enterprise_license: {{.Values.codecovConfig.setup.enterprise_license}}
+
+              guest_access: off
+              admins:
+                - service: gitlab_enterprise
+                  username: Saphir
+                - service: gitlab_enterprise
+                  username: Alexsaphir
+
+              http:
+                cookie_secret: {{.Values.codecovConfig.setup.http.cookie_secret}}
+
+              timeseries:
+                enabled: true
+
+            github: null
+
+            gitlab_enterprise:
+              global_upload_token: 'glab-sph'
+              url: 'https://gitlab.alexsaphir.com'
+              client_id: {{.Values.codecovConfig.gitlab_enterprise.client_id}}
+              client_secret: {{.Values.codecovConfig.gitlab_enterprise.client_secret}}
 
 
-        admins:
-          - service: gitlab_enterprise
-            username: Saphir
-          - service: gitlab_enterprise
-            username: Alexsaphir
-          - service: gitlab_enterprise
-            username: &codecov-bot Codecov
-
-      site:
-        bot: *codecov-bot
+            services:
+              database_url: postgresql://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:5432/{{.Values.codecovConfig.database.db}}
+              timeseries_database_url: postgresql://{{.Values.codecovConfig.timeseries.login}}:{{.Values.codecovConfig.timeseries.password}}@{{.Values.codecovConfig.timeseries.host}}:5432/{{.Values.codecovConfig.timeseries.db}}
+              redis_url: redis://codecov-redis.codecov.svc.cluster.local:6379
+              minio:
+                host: s3.alexsaphir.com
+                bucket: codecov
+                region: us-east-1
+                verify_ssl: true
+                access_key_id: {{.Values.codecovConfig.services.minio.access_key_id}}
+                secret_access_key: {{.Values.codecovConfig.services.minio.secret_access_key}}
 
     ingress:
-      enabled: true
-      annotations:
-        # traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-        auth.home.arpa/disabled: "true"
-        hajimari.io/enable: "true"
-      name: codecov-ingress
-      pathtype: ImplementationSpecific
-      className: traefik
-      paths:
-        root:
-          path: /
-          service: gateway
-          port: 8080
-      hosts:
-        - &host codecov.${SECRET_DOMAIN_NAME}
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          auth.home.arpa/disabled: "true"
+          hajimari.io/enable: "true"
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+                service:
+                  name: gateway
+                  port: http
 
-    extraEnvs:
-      - name: CODECOV_FRONTEND_IPV6_DISABLED
-        value: 'true'
-      - name: RUN_ENV
-        value: ENTERPRISE
-
-    tags:
-      'configmap.reloader.stakater.com/reload': *configmap-name
-
-    frontend:
-      image: codecov/self-hosted-frontend
-      deployment:
-        replicas: &replica-count 2
-        env:
-          - name: CODECOV_BASE_HOST
-            value: *host
-          - name: CODECOV_API_HOST
-            value: *host
-          - name: CODECOV_IA_HOST
-            value: *host
-          - name: CODECOV_SCHEME
-            value: https
-        resources:
-          #      limits:
-          #        cpu: 1000m
-          #        memory: 2048M
-          requests:
-            cpu: 250m
-            memory: 256M
-      service:
-        annotations: { }
-        port: 8080
-        type: &service-type ClusterIP
-    gateway:
-      image: codecov/self-hosted-gateway
-      deployment:
-        replicas: *replica-count
-        env:
-          - name: CODECOV_GATEWAY_MINIO_ENABLED
-            value: 'true'
-        resources:
-          #      limits:
-          #        cpu: 1000m
-          #        memory: 2048M
-          requests:
-            cpu: 250m
-            memory: 256M
-      service:
-        annotations: { }
-        port: 8080
-        type: *service-type
-    api:
-      image: codecov/self-hosted-api
-      deployment:
-        replicas: *replica-count
-        resources:
-          limits:
-            cpu: 1000m
-            memory: 2048M
-          requests:
-            cpu: 250m
-            memory: 256M
-      service:
-        annotations: { }
-        port: 8000
-        type: *service-type
-
-    worker:
-      image: codecov/self-hosted-worker
-      deployment:
-        replicas: 2
-        args: [ ]
-        resources:
-          limits:
-            cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
-            memory: 4096M
-          requests:
-            cpu: 500m
-            memory: 1024M
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: codecov-config
+        globalMounts:
+          - path: /config/codecov.yml
+            subPath: codecov.yml
+            readOnly: true
