@@ -317,7 +317,6 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          auth.home.arpa/disabled: "true"
           hajimari.io/enable: "true"
         hosts:
           - host: *host

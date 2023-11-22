@@ -83,6 +83,7 @@ access_control:
 
     - domain:
         - 'coder.${SECRET_DOMAIN_NAME}'
+        - 'codecov.${SECRET_DOMAIN_NAME}'
         - 'jupyter.${SECRET_DOMAIN_NAME}'
         - 'sonarqube.${SECRET_DOMAIN_NAME}'
         - 'workspace.${SECRET_DOMAIN_NAME}'
