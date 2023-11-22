@@ -171,7 +171,7 @@ spec:
         containers:
           main:
             image:
-              repository: self-hosted-frontend
+              repository: codecov/self-hosted-frontend
               tag: *codecovVersion
             env:
               CODECOV_BASE_HOST: *host
