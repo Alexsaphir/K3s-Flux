@@ -230,7 +230,7 @@ spec:
 
             probes:
               liveness:
-                enabled: true
+                enabled: false
                 custom: true
                 httpGet:
                   path: /
@@ -240,7 +240,7 @@ spec:
                 periodSeconds: 10
                 timeoutSeconds: 5
               readiness:
-                enabled: true
+                enabled: false
                 custom: true
                 httpGet:
                   path: /
