@@ -126,10 +126,10 @@ spec:
             env:
               CODECOV_GATEWAY_MINIO_ENABLED: true
 
-              CODECOV_API_HOST: &host_api api-service.codecov.svc.cluster.local
+              CODECOV_API_HOST: &host_api codecov-api-service.codecov.svc.cluster.local
               CODECOV_IA_HOST: *host_api
 
-              CODECOV_DEFAULT_HOST: frontend-service.codecov.svc.cluster.local
+              CODECOV_DEFAULT_HOST: codecov-frontend-service.codecov.svc.cluster.local
               CODECOV_DEFAULT_PORT: 8080
               CODECOV_DEFAULT_SCHEME: http
               CODECOV_DEFAULT_HOST_HEADER: "%[req.hdr(Host)]"
