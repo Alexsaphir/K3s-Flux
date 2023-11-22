@@ -134,7 +134,9 @@ spec:
               CODECOV_DEFAULT_SCHEME: http
               CODECOV_DEFAULT_HOST_HEADER: "%[req.hdr(Host)]"
 
-              <<: *global_env
+              CODECOV_MINIO_HOST: s3.alexsaphir.com
+              CODECOV_MINIO_PORT: 443
+
 
             ports:
               - containerPort: &port_gateway 8080
@@ -182,7 +184,6 @@ spec:
               CODECOV_IA_HOST: *host
               CODECOV_SCHEME: https
               CODECOV_FRONTEND_IPV6_DISABLED: true
-              <<: *global_env
 
             ports:
               - containerPort: &port_frontend 8080
