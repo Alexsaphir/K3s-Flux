@@ -25,41 +25,6 @@ spec:
   uninstall:
     keepHistory: false
 
-  valuesFrom:
-    - kind: Secret
-      name: database-codecov
-      valuesKey: HOST
-      targetPath: codecovConfig.database.host
-    - kind: Secret
-      name: database-codecov
-      valuesKey: LOGIN
-      targetPath: codecovConfig.database.login
-    - kind: Secret
-      name: database-codecov
-      valuesKey: PASSWORD
-      targetPath: codecovConfig.database.password
-    - kind: Secret
-      name: database-codecov
-      valuesKey: DATABASE_NAME
-      targetPath: codecovConfig.database.db
-
-    - kind: Secret
-      name: database-codecov-timeseries
-      valuesKey: HOST
-      targetPath: codecovConfig.timeseries.host
-    - kind: Secret
-      name: database-codecov-timeseries
-      valuesKey: LOGIN
-      targetPath: codecovConfig.timeseries.login
-    - kind: Secret
-      name: database-codecov-timeseries
-      valuesKey: PASSWORD
-      targetPath: codecovConfig.timeseries.password
-    - kind: Secret
-      name: database-codecov-timeseries
-      valuesKey: DATABASE_NAME
-      targetPath: codecovConfig.timeseries.db
-
   values:
     codecovVersion: &codecovVersion 23.11.2 # renovate: depName=codecov/self-hosted-gateway
     codecovHost: &host codecov.${SECRET_DOMAIN_NAME}
@@ -75,22 +40,38 @@ spec:
       SITE__BOT: Codecov
       SETUP__CODECOV_URL: https://{{.Values.codecovHost }}
       GITLAB_ENTERPRISE__URL: https://gitlab.alexsaphir.com
+
       SERVICES__REDIS_URL: redis://codecov-redis.codecov.svc.cluster.local:6379
+
       SERVICES__MINIO__HOST: s3.alexsaphir.com
       SERVICES__MINIO__BUCKET: codecov
       SERVICES__MINIO__REGION: us-east-1
       SERVICES__MINIO__PORT: 443
       SERVICES__MINIO__VERIFY_SSL: true
+
       SETUP__ENTERPRISE_LICENSE:
         valueFrom:
           secretKeyRef:
             name: codecov-secret
             key: enterprise_license
+
+      SERVICES__DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: database-codecov
+            key: POSTGRES_URL
+      SERVICES__TIMESERIES_DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: database-codecov-timeseries
+            key: POSTGRES_URL
+
       SETUP__HTTP__COOKIE_SECRET:
         valueFrom:
           secretKeyRef:
             name: codecov-secret
             key: cookie_secret
+
       GITLAB_ENTERPRISE__CLIENT_ID:
         valueFrom:
           secretKeyRef:
@@ -101,6 +82,7 @@ spec:
           secretKeyRef:
             name: codecov-gitlab-secret
             key: client_secret
+
       SERVICES__MINIO__ACCESS_KEY_ID:
         valueFrom:
           secretKeyRef:
@@ -312,6 +294,9 @@ spec:
         data:
           codecov.yml: |
             setup:
+              debug: no
+              loglvl: INFO
+
               guest_access: off
               admins:
                 - service: gitlab_enterprise
