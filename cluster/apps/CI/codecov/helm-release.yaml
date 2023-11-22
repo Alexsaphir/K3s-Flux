@@ -126,7 +126,7 @@ spec:
             env:
               CODECOV_GATEWAY_MINIO_ENABLED: true
 
-              CODECOV_DEFAULT_HOST: frontend.codecov.svc.cluster.local
+              CODECOV_DEFAULT_HOST: frontend-service.codecov.svc.cluster.local
               CODECOV_DEFAULT_PORT: 8080
               CODECOV_DEFAULT_SCHEME: http
               CODECOV_DEFAULT_HOST_HEADER: "%[req.hdr(Host)]"
@@ -230,7 +230,7 @@ spec:
 
             probes:
               liveness:
-                enabled: false
+                enabled: true
                 custom: true
                 httpGet:
                   path: /
@@ -240,7 +240,7 @@ spec:
                 periodSeconds: 10
                 timeoutSeconds: 5
               readiness:
-                enabled: false
+                enabled: true
                 custom: true
                 httpGet:
                   path: /
@@ -280,21 +280,21 @@ spec:
     service:
       main:
         enabled: false
-      gateway:
+      gateway-service:
         enabled: true
         controller: gateway
         ports:
           http:
             enabled: true
             port: *port_gateway
-      frontend:
+      frontend-service:
         enabled: true
         controller: frontend
         ports:
           http:
             enabled: true
             port: *port_frontend
-      api:
+      api-service:
         enabled: true
         controller: api
         ports:
@@ -336,7 +336,7 @@ spec:
               - path: /
                 pathType: ImplementationSpecific
                 service:
-                  name: gateway
+                  name: gateway-service
                   port: http
 
     persistence:
