@@ -73,7 +73,7 @@ spec:
 
     env: &global_env
       SITE__BOT: Codecov
-      SETUP__CODECOV_URL: *host
+      SETUP__CODECOV_URL: https://{{.Values.codecovHost }}
       GITLAB_ENTERPRISE__URL: https://gitlab.alexsaphir.com
       SERVICES__REDIS_URL: redis://codecov-redis.codecov.svc.cluster.local:6379
       SERVICES__MINIO__HOST: s3.alexsaphir.com
@@ -117,7 +117,6 @@ spec:
       main:
         enabled: false
       gateway:
-        enabled: false
         replicas: 2
         containers:
           main:
@@ -168,7 +167,6 @@ spec:
                 cpu: 250m
                 memory: 256M
       frontend:
-        enabled: false
         replicas: 2
         containers:
           main:
@@ -261,7 +259,6 @@ spec:
                 cpu: 250m
                 memory: 256M
       worker:
-        enabled: false
         replicas: 2
         containers:
           main:
@@ -284,14 +281,14 @@ spec:
       main:
         enabled: false
       gateway:
-        enabled: false
+        enabled: true
         controller: gateway
         ports:
           http:
             enabled: true
             port: *port_gateway
       frontend:
-        enabled: false
+        enabled: true
         controller: frontend
         ports:
           http:
