@@ -46,8 +46,8 @@ spec:
           reject_old_samples_max_age: 168h
           max_cache_freshness_per_query: 10m
           split_queries_by_interval: 15m
-          ingestion_rate_mb: 8
-          ingestion_burst_size_mb: 16
+          ingestion_rate_mb: 50
+          ingestion_burst_size_mb: 1000
           shard_streams:
             enabled: true
 
@@ -180,6 +180,10 @@ spec:
           installOperator: false
         lokiCanary:
           enabled: false
+
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
 
     test:
       enabled: false
