@@ -39,6 +39,8 @@ spec:
         grafana_folder: System
 
     backgroundController:
+      metricsService:
+        create: true
       serviceMonitor:
         enabled: true
       rbac:
@@ -57,15 +59,24 @@ spec:
                 - list
 
     cleanupController:
+      metricsService:
+        create: true
       serviceMonitor:
         enabled: true
 
     reportsController:
+      metricsService:
+        create: true
       serviceMonitor:
         enabled: true
+      resources:
+        limits:
+          memory: 512Mi
 
     admissionController:
       replicas: 1
+      metricsService:
+        create: true
       serviceMonitor:
         enabled: true
       rbac:
