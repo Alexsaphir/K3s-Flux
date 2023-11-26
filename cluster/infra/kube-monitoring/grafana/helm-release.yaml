@@ -31,7 +31,7 @@ spec:
   # https://github.com/grafana/helm-charts/blob/grafana-6.57.3/charts/grafana/values.yaml
   values:
     deploymentStrategy:
-      type: Recreate
+      type: RollingUpdate
 
     persistence:
       enabled: false
@@ -216,17 +216,60 @@ spec:
             orgId: 1
             folder: ""
             type: file
-            disableDeletion: false
-            editable: true
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
             options:
               path: /var/lib/grafana/dashboards/default
+
+          - name: apps
+            orgId: 1
+            folder: Applications
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/apps
+
+
+          - name: backup
+            orgId: 1
+            folder: Backup
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/backup
+
+          - name: storage
+            orgId: 1
+            folder: Storage
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/storage
+
+          - name: node
+            orgId: 1
+            folder: Node
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/node
 
           - name: flux
             orgId: 1
             folder: Flux
             type: file
-            disableDeletion: false
-            editable: true
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
             options:
               path: /var/lib/grafana/dashboards/flux
 
@@ -234,8 +277,9 @@ spec:
             orgId: 1
             folder: Kubernetes
             type: file
-            disableDeletion: false
-            editable: true
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
             options:
               path: /var/lib/grafana/dashboards/kubernetes
 
@@ -243,130 +287,159 @@ spec:
             orgId: 1
             folder: Thanos
             type: file
-            disableDeletion: false
-            editable: true
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
             options:
               path: /var/lib/grafana/dashboards/thanos
 
+          - name: loki
+            orgId: 1
+            folder: Loki
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/loki
+
+          - name: trivy
+            orgId: 1
+            folder: Trivy
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/trivy
 
           - name: system
             orgId: 1
             folder: System
             type: file
-            disableDeletion: false
-            allowUiUpdates: true
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
             options:
               path: /var/lib/grafana/dashboards/default
 
-          - name: networking
-            orgId: 1
-            folder: Networking
-            type: file
-            disableDeletion: false
-            editable: false
-            options:
-              path: /var/lib/grafana/dashboards/networking
-
     dashboards:
-      default:
+      backup:
+        cloudnative-pg:
+          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
+          datasource: &datasource
+            - name: DS_PROMETHEUS
+              value: Prometheus
+            - name: DS_LOKI
+              value: loki
+
+      system:
+        external-secrets:
+          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
+          datasource: *datasource
+
+
         external-dns:
           gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
           revision: 1
-          datasource: Prometheus
+          datasource: *datasource
 
+        cert-manager:
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          datasource: *datasource
+
+      node:
         node-exporter-full:
           gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
-          datasource: Prometheus
+          datasource: *datasource
 
         node-problem-detector:
           gnetId: 15549
           revision: 1
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-
-        cloudnative-pg:
-          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
-          datasource: Prometheus
-
-        cert-manager:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
-          datasource: Prometheus
-
-        external-secrets:
-          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-          datasource: Prometheus
-
-      system:
-        longhorn:
-          gnetId: 17626
-          revision: 1
-          datasource: Prometheus
+          datasource: *datasource
 
         1-node-exporter:
           gnetId: 11074
           revision: 9
-          datasource: Prometheus
+          datasource: *datasource
 
-      networking:
+      apps:
+        coder:
+          url: https://raw.githubusercontent.com/coder/coder/main/examples/monitoring/dashboards/grafana/dashboard.json
+          datasource: *datasource
+
+        sonarqube-dashboard:
+          url: https://raw.githubusercontent.com/SonarSource/helm-chart-sonarqube/sonarqube-10.3.0-sonarqube-dce-10.3.0/examples/grafana/sonarqube-dashboard.json
+          datasource: *datasource
+
+        sonarqube-dashboard-logs:
+          url: https://raw.githubusercontent.com/SonarSource/helm-chart-sonarqube/sonarqube-10.3.0-sonarqube-dce-10.3.0/examples/grafana/sonarqube-loki-dashboard.json
+          datasource: *datasource
+
+      storage:
+        longhorn:
+          gnetId: 17626
+          revision: 1
+          datasource: *datasource
 
       kubernetes:
         kubernetes-api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
-          datasource: Prometheus
+          datasource: *datasource
         kubernetes-coredns:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
-          datasource: Prometheus
+          datasource: *datasource
         kubernetes-global:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-          datasource: Prometheus
+          datasource: *datasource
         kubernetes-namespaces:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
-          datasource: Prometheus
+          datasource: *datasource
         kubernetes-nodes:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
-          datasource: Prometheus
+          datasource: *datasource
         kubernetes-pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
-          datasource: Prometheus
+          datasource: *datasource
 
       flux:
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
-          datasource: Prometheus
+          datasource: *datasource
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
-          datasource: Prometheus
+          datasource: *datasource
+
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
-          datasource: Loki
+          datasource: *datasource
 
       thanos:
         thanos-bucket-replicate:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-compact:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/compact.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-overview:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/overview.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-query:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-query-frontend:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query-frontend.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-receieve:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/receive.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-rule:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/rule.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-sidecar:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/sidecar.json
-          datasource: Prometheus
+          datasource: *datasource
         thanos-store:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
-          datasource: Prometheus
+          datasource: *datasource

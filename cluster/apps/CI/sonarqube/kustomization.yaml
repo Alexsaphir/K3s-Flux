@@ -8,4 +8,3 @@ resources:
   - postgres.yaml
   - pvc.yaml
   - helm-release.yaml
-  - dashboard
