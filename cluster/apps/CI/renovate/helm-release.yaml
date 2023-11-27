@@ -37,7 +37,7 @@ spec:
             nameOverride: renovate
             image:
               repository: ghcr.io/mend/renovate-ce
-              tag: '6.6.0-full'
+              tag: '6.7.0-full'
 
             envFrom:
               - secretRef:
