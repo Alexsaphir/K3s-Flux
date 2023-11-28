@@ -5,6 +5,12 @@ metadata:
   name: cluster-infra-system-upgrade
   namespace: flux-system
 spec:
+  targetNamespace: system-upgrade
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: system-upgrade-controller
+
+
   interval: 10m
   retryInterval: 5m
   prune: true
@@ -23,6 +29,11 @@ metadata:
   name: cluster-infra-system-upgrade-plans
   namespace: flux-system
 spec:
+  targetNamespace: system-upgrade
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: system-upgrade-plans
+
   interval: 10m
   retryInterval: 5m
   prune: true
