@@ -75,17 +75,39 @@ access_control:
         - 'auth.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
+    # Public media ingresses
+    - domain:
+        - 'plex.${SECRET_DOMAIN_NAME}'
+        - 'tautulli.${SECRET_DOMAIN_NAME}'
+      policy: bypass
+
+    # Public ingresses behind sso
     - domain:
         - 'photos.${SECRET_DOMAIN_NAME}'
         - 'recipes.${SECRET_DOMAIN_NAME}'
         - 'foundry.${SECRET_DOMAIN_NAME}'
+
+        - 'codecov.${SECRET_DOMAIN_NAME}'
+        - 'sonarqube.${SECRET_DOMAIN_NAME}'
+
+        - 'coder.${SECRET_DOMAIN_NAME}'
+        - 'jupyter.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
+    # Ingress for media protected by authelia
     - domain:
-        - 'coder.${SECRET_DOMAIN_NAME}'
-        - 'codecov.${SECRET_DOMAIN_NAME}'
-        - 'jupyter.${SECRET_DOMAIN_NAME}'
-        - 'sonarqube.${SECRET_DOMAIN_NAME}'
+        - 'cleanarr.${SECRET_DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'group:authelia-media-automation'
+
+    # Apps for authenticated users
+    - domain:
+        - 'cyberchef.${SECRET_DOMAIN_NAME}'
+      policy: two_factor
+
+    # Ingresses for gitlab
+    - domain:
         - 'workspace.${SECRET_DOMAIN_NAME}'
         - '*.workspace.${SECRET_DOMAIN_NAME}'
       policy: bypass
