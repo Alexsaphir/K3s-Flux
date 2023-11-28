@@ -21,7 +21,7 @@ INPUTS_KYVERNO_VERSION=${INPUTS_KYVERNO_VERSION:-v1.9.0}
 # Additional flags to pass to kustomize build.
 INPUTS_KUSTOMIZE_BUILD_FLAGS=${INPUTS_KUSTOMIZE_BUILD_FLAGS:-''}
 
-# OCIRepository source mappings like `cluster=./kubernetes/`.
+# OCIRepository source mappings like `cluster=./cluster/`.
 INPUTS_SOURCES=${INPUTS_SOURCES:-'home-kubernetes'}
 
 # matrix:

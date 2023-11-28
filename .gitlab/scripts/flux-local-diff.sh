@@ -34,7 +34,7 @@ INPUTS_LIMIT_BYTES=${INPUTS_LIMIT_BYTES:-10000}
 # Additional flags to pass to kustomize build
 INPUTS_KUSTOMIZE_BUILD_FLAGS=${INPUTS_KUSTOMIZE_BUILD_FLAGS:-''}
 
-# OCIRepository source mappings like `cluster=./kubernetes/`
+# OCIRepository source mappings like `cluster=./cluster/`
 INPUTS_SOURCES=${INPUTS_SOURCES:-''}
 
 # matrix:
