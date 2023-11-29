@@ -64,6 +64,7 @@ resources:
   - spotahome.yaml
   - stakater.yaml
   - stefanprodan.yaml
+  - spegel.yaml
   - traefik.yaml
   - trivy-exporter.yaml
   - trivy-operator-polr-adapter.yaml

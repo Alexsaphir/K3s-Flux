@@ -15,3 +15,4 @@ resources:
   - node-problem-detector/ks.yaml
   - reflector/ks.yaml
   - reloader/ks.yaml
+  - spegel/ks.yaml
