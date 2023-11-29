@@ -381,7 +381,9 @@ spec:
         longhorn:
           gnetId: 17626
           revision: 1
-          datasource: *datasource
+          datasource:
+            - name: DS_PROMETHEUS-LONGHORN
+              value: Prometheus
 
       kubernetes:
         kubernetes-api-server:
