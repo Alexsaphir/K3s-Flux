@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: spegel
+  name: xenitab
   namespace: flux-charts
 spec:
-  type: "oci"
-  interval: 1h
+  type: oci
+  interval: 5m
   url: oci://ghcr.io/xenitab/helm-charts

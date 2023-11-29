@@ -64,7 +64,6 @@ resources:
   - spotahome.yaml
   - stakater.yaml
   - stefanprodan.yaml
-  - spegel.yaml
   - traefik.yaml
   - trivy-exporter.yaml
   - trivy-operator-polr-adapter.yaml
@@ -73,3 +72,4 @@ resources:
   - victoria-metrics.yaml
   - volcano.yaml
   - weaveworks.yaml
+  - xenitab.yaml
