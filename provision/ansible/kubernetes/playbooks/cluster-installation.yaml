@@ -43,8 +43,8 @@
         wait_timeout: 360
       loop:
         - { name: cilium, kind: HelmChart, namespace: kube-system }
-        # - { name: policy, kind: CiliumL2AnnouncementPolicy }
-        # - { name: pool, kind: CiliumLoadBalancerIPPool }
+        - { name: policy, kind: CiliumL2AnnouncementPolicy }
+        - { name: pool, kind: CiliumLoadBalancerIPPool }
 
     - name: Cilium
       when: k3s_primary_control_node
@@ -57,4 +57,12 @@
     - name: Stale Containers
       ansible.builtin.include_tasks: tasks/stale_containers.yaml
       vars:
-        stale_containers_state: enabled
+        stale_containers_state: disabled
+
+    - name: Copy custom containerd configuration
+      ansible.builtin.copy:
+        src: files/config.toml.tmpl
+        dest: /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
+        owner: root
+        group: root
+        mode: "0644"
