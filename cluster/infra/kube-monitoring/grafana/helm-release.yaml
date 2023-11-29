@@ -321,7 +321,7 @@ spec:
             editable: false
             allowUiUpdates: false
             options:
-              path: /var/lib/grafana/dashboards/default
+              path: /var/lib/grafana/dashboards/system
 
     dashboards:
       backup:
@@ -332,6 +332,11 @@ spec:
               value: Prometheus
             - name: DS_LOKI
               value: loki
+
+      default:
+        sonarqube-logs:
+          url: https://raw.githubusercontent.com/SonarSource/helm-chart-sonarqube/sonarqube-10.3.0-sonarqube-dce-10.3.0/examples/grafana/sonarqube-loki-dashboard.json
+          datasource: *datasource
 
       system:
         external-secrets:
@@ -367,14 +372,12 @@ spec:
       apps:
         coder:
           url: https://raw.githubusercontent.com/coder/coder/main/examples/monitoring/dashboards/grafana/dashboard.json
-          datasource: *datasource
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
 
         sonarqube-dashboard:
           url: https://raw.githubusercontent.com/SonarSource/helm-chart-sonarqube/sonarqube-10.3.0-sonarqube-dce-10.3.0/examples/grafana/sonarqube-dashboard.json
-          datasource: *datasource
-
-        sonarqube-dashboard-logs:
-          url: https://raw.githubusercontent.com/SonarSource/helm-chart-sonarqube/sonarqube-10.3.0-sonarqube-dce-10.3.0/examples/grafana/sonarqube-loki-dashboard.json
           datasource: *datasource
 
       storage:
