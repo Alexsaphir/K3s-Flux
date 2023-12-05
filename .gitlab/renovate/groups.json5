@@ -5,7 +5,7 @@
       description: 'Flux Group',
       groupName: 'Flux',
       matchPackagePatterns: [
-        'flux'
+        'fluxcd'
       ],
       matchDatasources: [
         'docker',
@@ -14,6 +14,20 @@
       versioning: 'semver',
       group: {
         commitMessageTopic: '{{{groupName}}} group'
+      },
+      separateMinorPatch: true
+    },
+    {
+      description: 'Codecov Group',
+      groupName: 'Codecov',
+      matchPackagePatterns: [
+        'codecov'
+      ],
+      matchDatasources: [
+        'docker'
+      ],
+      group: {
+        'commitMessageTopic': '{{{groupName}}} group'
       },
       separateMinorPatch: true
     },
