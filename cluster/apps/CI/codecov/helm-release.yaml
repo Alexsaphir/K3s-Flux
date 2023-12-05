@@ -26,7 +26,7 @@ spec:
     keepHistory: false
 
   values:
-    codecovVersion: &codecovVersion 23.11.2 # renovate: depName=codecov/self-hosted-gateway
+    codecovVersion: &codecovVersion 23.12.4 # renovate: depName=codecov/self-hosted-gateway
     codecovHost: &host codecov.${SECRET_DOMAIN_NAME}
 
 
