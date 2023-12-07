@@ -1,18 +1,16 @@
 ---
 # aqua - Declarative CLI Version Manager
 # https://aquaproj.github.io/
-# checksum:
-#   # https://aquaproj.github.io/docs/reference/checksum/
-#   enabled: true
-#   require_checksum: true
 registries:
   - type: standard
     ref: v4.41.1 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: kubernetes/kubectl
-    version: v1.25.3
-  - name: ahmetb/kubectx@v0.9.5
-  - name: helm/helm@v3.12.3
-  - name: ahmetb/kubectx/kubens@v0.9.5
+  - name: kubernetes/kubectl@v1.28.4
+  - name: mozilla/sops@v3.8.1
+  - name: helm/helm@v3.13.2
   - name: kubernetes-sigs/kustomize@kustomize/v5.1.1
+  - name: ahmetb/kubectx@v0.9.5
+  - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.23.1
+  - name: FairwindsOps/nova@v3.7.0
+  - name: FairwindsOps/pluto@v5.18.6
