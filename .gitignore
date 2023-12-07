@@ -358,6 +358,9 @@ fabric.properties
 .vagrant
 .monokle
 
+.gitlab-ci-local
+.idea
+
 kubeconfig
 kubeconfig-*
 
