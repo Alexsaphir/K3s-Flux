@@ -25,7 +25,6 @@ spec:
   uninstall:
     keepHistory: false
 
-
   dependsOn:
     - name: mosquitto
       namespace: home-automation
@@ -99,10 +98,7 @@ spec:
                   name: zigbee2mqtt-secrets
 
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
-
+              privileged: true
               supplementalGroups:
                 - 20 # dialout for /dev/ttyUSB0
 
