@@ -35,3 +35,5 @@ k3s_server:
     - anonymous-auth=true
 
   node-label: "{{ global_k8s_labels + (k8s_labels | default([])) }}"
+  pause-image: registry.k8s.io/pause:3.9
+  secrets-encryption: true
