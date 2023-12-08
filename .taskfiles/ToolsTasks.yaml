@@ -29,30 +29,10 @@ tasks:
           Head over to https://brew.sh to get up and running.
     vars:
       TAPS: >-
-        weaveworks/tap
-        instrumenta/instrumenta
         raffis/gitops-zombies
       DEPS: >-
-        age
-        direnv
-        fluxcd/tap/flux
-        gitleaks
         gitops-zombies
-        go-task/tap/go-task
-        helm
         ipcalc
-        jq
-        k9s
-        krew
-        kubeconform
-        kubescape
-        kubeval
-        kustomize
-        sops
-        stern
-        terraform
-        tflint
-        yq
 
   .krew:
     desc: Following `https://github.com/ishantanu/awesome-kubectl-plugins`
