@@ -99,6 +99,7 @@ spec:
 
             securityContext:
               privileged: true
+              readOnlyRootFilesystem: true
               supplementalGroups:
                 - 20 # dialout for /dev/ttyUSB0
 
