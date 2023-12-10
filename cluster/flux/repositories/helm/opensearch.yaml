@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: opensearch
+  namespace: flux-charts
+spec:
+  interval: 1h
+  url: https://opensearch-project.github.io/opensearch-k8s-operator
+  timeout: 3m

@@ -54,6 +54,7 @@ resources:
   - movetokube.yaml
   - nfs-provisioner.yaml
   - node-feature-discovery.yaml
+  - opensearch.yaml
   - opstree.yaml
   - ori-edge.yaml
   - piraeus.yaml

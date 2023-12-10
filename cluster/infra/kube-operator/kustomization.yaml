@@ -12,3 +12,5 @@ resources:
   - postgres/ks.yaml
 
   - volcano/ks.yaml
+
+  - opensearch-operator/ks.yaml
