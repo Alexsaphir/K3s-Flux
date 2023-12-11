@@ -2,13 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      matchPackageNames: [
-        'kube-prometheus-stack',
-        'kube-prometheus-stack-crds',
-      ],
-      groupName: 'kube-prometheus-stack',
-    },
-    {
       matchPackagePatterns: [
         '^intel-device-plugins',
       ],
@@ -16,15 +9,23 @@
     },
     {
       "description": "Loose versioning for non-semver packages",
-      "matchDatasources": ["docker"],
+      "matchDatasources": [
+        "docker"
+      ],
       "versioning": "loose",
-      "matchPackagePatterns": ["plex",]
+      "matchPackagePatterns": [
+        "plex",
+      ]
     },
     {
       "description": "Use custom versioning for Minio",
-      "matchDatasources": ["docker"],
+      "matchDatasources": [
+        "docker"
+      ],
       "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
-      "matchPackagePatterns": ["minio"]
+      "matchPackagePatterns": [
+        "minio"
+      ]
     }
   ]
 }

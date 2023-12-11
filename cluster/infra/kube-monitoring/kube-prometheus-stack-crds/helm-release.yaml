@@ -7,15 +7,15 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: kube-prometheus-stack-crds
-      version: 50.3.1
+      chart: prometheus-operator-crds
+      version: 8.0.1
       sourceRef:
         kind: HelmRepository
-        name: community-tooling
+        name: prometheus-community
         namespace: flux-charts
       interval: 15m
 
-  maxHistory: 3
+  maxHistory: 1
   install:
     crds: CreateReplace
     remediation:
