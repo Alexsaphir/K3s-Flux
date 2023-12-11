@@ -92,10 +92,11 @@ spec:
                   ephemeral:
                     volumeClaimTemplate:
                       spec:
+                        storageClassName: local-path
                         accessModes: [ ReadWriteOnce ]
                         resources:
                           requests:
-                            storage: 32Gi
+                            storage: 8Gi
               '''
           [runners.feature_flags]
             FF_USE_ADVANCED_POD_SPEC_CONFIGURATION = true
