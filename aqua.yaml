@@ -21,7 +21,7 @@ packages:
   - name: kubernetes-sigs/kustomize@kustomize/v5.3.0
 
   - name: jqlang/jq@jq-1.7
-  - name: mikefarah/yq@v4.40.4
+  - name: mikefarah/yq@v4.40.5
 
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
