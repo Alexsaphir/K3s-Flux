@@ -8,7 +8,6 @@
     ':dependencyDashboard',
     ':enablePreCommit',
     ':semanticCommits',
-    ':enableVulnerabilityAlerts',
     'github>whitesource/merge-confidence:beta',
     'local>Homelab/K3s-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Homelab/K3s-Flux//.gitlab/renovate/customDatasources.json5',
@@ -26,25 +25,18 @@
   configMigration: true,
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard',
-  osvVulnerabilityAlerts: true,
-  dependencyDashboardOSVVulnerabilitySummary: 'all',
-  vulnerabilityAlerts: {
-    labels: [
-      "security"
-    ],
-    automerge: true,
-    automergeType: "branch",
-    schedule: [
-      "at any time"
-    ]
-  },
   gitLabIgnoreApprovals: true,
   suppressNotifications: [
+    'prEditedNotification',
     'prIgnoreNotification',
   ],
   rebaseWhen: 'behind-base-branch',
+  assigneesFromCodeOwners: true,
+  reviewersFromCodeOwners: true,
   ignorePaths: [
+    '**/*.sops.*',
     '**/archive/**',
+    '**/resources/**',
   ],
   lockFileMaintenance: {
     enabled: true,
