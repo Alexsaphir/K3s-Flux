@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: telepresence
+  namespace: flux-charts
+spec:
+  interval: 1h
+  url: https://app.getambassador.io
+  timeout: 3m

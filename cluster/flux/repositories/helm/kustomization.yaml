@@ -65,6 +65,7 @@ resources:
   - spotahome.yaml
   - stakater.yaml
   - stefanprodan.yaml
+  - telepresence.yaml
   - traefik.yaml
   - trivy-exporter.yaml
   - trivy-operator-polr-adapter.yaml
