@@ -16,7 +16,7 @@ packages:
   - name: terraform-linters/tflint@v0.49.0
 
   - name: fluxcd/flux2@v2.2.0
-  - name: kubernetes/kubectl@v1.28.4
+  - name: kubernetes/kubectl@v1.29.0
   - name: helm/helm@v3.13.2
   - name: kubernetes-sigs/kustomize@kustomize/v5.3.0
 
