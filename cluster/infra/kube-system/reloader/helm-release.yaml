@@ -26,9 +26,16 @@ spec:
   uninstall:
     keepHistory: false
 
-  # https://github.com/stakater/Reloader/blob/v1.0.12/deployments/kubernetes/chart/reloader/values.yaml
+  # https://github.com/stakater/Reloader/blob/v1.0.54/deployments/kubernetes/chart/reloader/values.yaml
   values:
     reloader:
+      enableHA: true
+
+      deployment:
+        replicas: 2
+
+      readOnlyRootFileSystem: true
+
       podMonitor:
-        enabled: false
+        enabled: true
         namespace: '{{ .Release.Namespace }}'
