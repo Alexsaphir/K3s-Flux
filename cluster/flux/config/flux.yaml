@@ -73,20 +73,6 @@ spec:
         kind: Deployment
         name: (kustomize-controller|helm-controller|source-controller)
 
-
-    # Enable drift detection for HelmReleases and set the log level to debug
-    # https://fluxcd.io/flux/components/helm/helmreleases/#drift-detection
-    - patch: |
-        - op: add
-          path: /spec/template/spec/containers/0/args/-
-          value: --feature-gates=DetectDrift=true,CorrectDrift=true
-        - op: add
-          path: /spec/template/spec/containers/0/args/-
-          value: --log-level=info
-      target:
-        kind: Deployment
-        name: helm-controller
-
     # Enable in-memory-kustomize builds
     # https://fluxcd.io/flux/installation/configuration/vertical-scaling/#enable-in-memory-kustomize-builds
     - patch: |
