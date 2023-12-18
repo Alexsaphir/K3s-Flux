@@ -12,4 +12,4 @@ resources:
   - foundryvtt
   - py-kms
   - immich
-  # - paperless
+  - kromgo

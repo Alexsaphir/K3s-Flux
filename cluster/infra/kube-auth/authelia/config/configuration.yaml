@@ -75,6 +75,11 @@ access_control:
         - 'auth.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
+    # Expose public metrics
+    - domain:
+        - 'kromgo.${SECRET_DOMAIN_NAME}'
+      policy: bypass
+
     # Public media ingresses
     - domain:
         - 'plex.${SECRET_DOMAIN_NAME}'

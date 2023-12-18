@@ -1,0 +1,102 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app kromgo
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/kashalls/kromgo
+              tag: 0.2.2@sha256:76581db1731ab682e11a422ba82b4fa2c46879f9ab88a61cabc8264fd17cf3e4
+
+            env:
+              PROMETHEUS_URL: http://thanos-query-frontend.flux-monitoring.svc.cluster.local:9090
+              PORT: &port 8000
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10M
+              limits:
+                memory: 64M
+
+        pod:
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            runAsNonRoot: true
+
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: &host "kromgo.${SECRET_DOMAIN_NAME}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config-file:
+        type: configMap
+        name: kromgo-configmap
+        globalMounts:
+          - path: /kromgo/config.yaml
+            subPath: config.yaml
+            readOnly: true
