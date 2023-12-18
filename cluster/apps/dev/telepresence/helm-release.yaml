@@ -16,7 +16,7 @@ spec:
       interval: 15m
 
   driftDetection:
-    mode: enabled
+    mode: warn
   maxHistory: 3
   install:
     remediation:
