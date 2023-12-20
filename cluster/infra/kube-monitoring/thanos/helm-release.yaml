@@ -28,6 +28,9 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: kube-prometheus-stack-crds
+
   valuesFrom:
     - targetPath: objstoreConfig.config.bucket
       kind: Secret

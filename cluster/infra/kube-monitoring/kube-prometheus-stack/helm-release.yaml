@@ -32,6 +32,7 @@ spec:
 
   dependsOn:
     - name: kube-prometheus-stack-crds
+    - name: thanos
 
   postRenderers:
     - kustomize:
