@@ -13,7 +13,7 @@ packages:
   - name: mozilla/sops@v3.8.1
 
   - name: hashicorp/terraform@v1.6.6
-  - name: terraform-linters/tflint@v0.49.0
+  - name: terraform-linters/tflint@v0.50.0
 
   - name: fluxcd/flux2@v2.2.2
   - name: kubernetes/kubectl@v1.29.0
