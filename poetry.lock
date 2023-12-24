@@ -241,20 +241,20 @@ typing = ["typing-extensions (>=4.8)"]
 
 [[package]]
 name = "flux-local"
-version = "4.2.0"
+version = "4.2.1"
 description = "flux-local is a python library and set of tools for managing a flux gitops repository, with validation steps to help improve quality of commits, PRs, and general local testing."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "flux-local-4.2.0.tar.gz", hash = "sha256:a7e44df1a759e3a3e6f955da4d8e33b5f414ba2a62cd483d8ef2e4a38eca10e2"},
-    {file = "flux_local-4.2.0-py3-none-any.whl", hash = "sha256:28668d76e2a35e85a427ce2b7813a0bba8dc4bea7b5f916a8ae665fefda4bf4a"},
+    {file = "flux-local-4.2.1.tar.gz", hash = "sha256:7b660c2b952207cae61ec65032fe7af8902a048372001997eaef5fd1387cf9c5"},
+    {file = "flux_local-4.2.1-py3-none-any.whl", hash = "sha256:5a6d84947b1292559c6cd436a3fc30a612e0eaa4c3bf7787f2a1d845705d66c2"},
 ]
 
 [package.dependencies]
 aiofiles = ">=22.1.0"
 GitPython = ">=3.1.30"
 nest-asyncio = ">=1.5.6"
-pydantic = ">=1.10.4"
+pydantic = ">=2.5.2"
 pytest = ">=7.2.1"
 pytest-asyncio = ">=0.20.3"
 python-slugify = ">=8.0.0"
@@ -911,4 +911,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "55edefb539e2219f38d54024bb5e3718819772f23736f8166b6835ecb845a82c"
+content-hash = "5b57749270d21e2f3b45315b64bd17bc123fba6203aeb60a408e77b073b91713"
