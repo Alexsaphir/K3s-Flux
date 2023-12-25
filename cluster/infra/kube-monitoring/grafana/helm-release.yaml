@@ -424,7 +424,7 @@ spec:
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
           gnetId: 15759
-          revision: 19
+          revision: 24
           datasource: *datasource
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
