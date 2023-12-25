@@ -116,10 +116,5 @@
       "semanticCommitType": "chore",
       "semanticCommitScope": "poetry"
     },
-    {
-      "matchDatasources": ["custom.grafana-dashboards"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "chore"
-    }
   ]
 }

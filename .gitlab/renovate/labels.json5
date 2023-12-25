@@ -45,9 +45,5 @@
       "matchDatasources": ["poetry"],
       "addLabels": ["renovate/poetry"]
     },
-    {
-      "matchDatasources": ["grafana-dashboards", "custom.grafana-dashboards"],
-      "addLabels": ["renovate/grafana-dashboard"]
-    }
   ]
 }
