@@ -119,7 +119,7 @@ spec:
 
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter
-              tag: 1.4.0
+              tag: 1.3.0
 
             env:
               - { name: LOG_LEVEL, value: DEBUG }
