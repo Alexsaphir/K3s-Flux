@@ -345,30 +345,39 @@ spec:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: *datasource
 
-
         external-dns:
-          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
+          # renovate: depName="External-dns"
+          gnetId: 15038
           revision: 1
           datasource: *datasource
 
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          datasource: Prometheus
+
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
+          revision: 1
           datasource: *datasource
 
       node:
         node-exporter-full:
-          gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
+          # renovate: depName="Node Exporter Full"
+          gnetId: 1860
           revision: 31
           datasource: *datasource
 
         node-problem-detector:
+          # renovate: depName="Node Problem Detector"
           gnetId: 15549
           revision: 1
           datasource: *datasource
 
         1-node-exporter:
-          gnetId: 11074
-          revision: 9
+          # renovate: depName="Node Exporter for Prometheus Dashboard based on 11074"
+          gnetId: 15172
+          revision: 6
           datasource: *datasource
 
       apps:
@@ -384,6 +393,7 @@ spec:
 
       storage:
         longhorn:
+          # renovate: depName= "Longhorn Example v1.4.0"
           gnetId: 17626
           revision: 1
           datasource:
@@ -392,23 +402,41 @@ spec:
 
       kubernetes:
         kubernetes-api-server:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 14
           datasource: *datasource
         kubernetes-coredns:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
+          revision: 13
           datasource: *datasource
         kubernetes-global:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 31
           datasource: *datasource
         kubernetes-namespaces:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 27
           datasource: *datasource
         kubernetes-nodes:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 19
           datasource: *datasource
         kubernetes-pods:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          # renovate: depName="Kubernetes / Views / Pods"
+          gNetId: 15760
+          revision: 21
           datasource: *datasource
+        kubernetes-volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
+          datasource: *datasource
+
 
       flux:
         flux-cluster:
