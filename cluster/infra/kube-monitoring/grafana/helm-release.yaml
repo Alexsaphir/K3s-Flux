@@ -347,8 +347,8 @@ spec:
 
         external-dns:
           # renovate: depName="External-dns"
-          gnetId: 15038
-          revision: 1
+          gnetId: 35038
+          revision: 3
           datasource: *datasource
 
         cert-manager:
