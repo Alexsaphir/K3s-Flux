@@ -7,7 +7,7 @@ metadata:
     kyverno.io/ignore: "true"
 
 spec:
-  imageName: ghcr.io/imusmanmalik/timescaledb-postgis:16-3.4@sha256:66f3a90d2b50b869148749a4fe61acbd804e999287cbdfd07cc5414da39e65f4
+  imageName: ghcr.io/imusmanmalik/timescaledb-postgis:15-3.4-27@sha256:b734f3304576a9880fb6913dafa870feb385a7cdd0dcc0b53b9bd1598e75e335
 
   instances: 2
 
@@ -41,12 +41,12 @@ spec:
 
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v6
+      source: &previousCluster postgres-v7
 
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
-      serverName: postgres-v7
+      serverName: &currentCluster postgres-v8
       wal:
         compression: &compression bzip2
         maxParallel: &maxParallel 4
@@ -67,6 +67,7 @@ spec:
   externalClusters:
     - name: *previousCluster
       barmanObjectStore:
+        serverName: *previousCluster
         wal:
           compression: *compression
           maxParallel: *maxParallel
