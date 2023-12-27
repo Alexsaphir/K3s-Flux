@@ -7,7 +7,7 @@ metadata:
     kyverno.io/ignore: "true"
 
 spec:
-  imageName: ghcr.io/bo0tzz/cnpgvecto.rs:16.1-v0.1.13@sha256:f6e942d137249c583262f62f8e785f1cbdf36ec66fc9bded6c02d8f91815f609
+  imageName: ghcr.io/bo0tzz/cnpgvecto.rs:16.1-v0.1.11@sha256:e79a68476ae81f2992a8ab4a77197d990eaff5940412e8f82090ed94ad328174
 
   instances: 2
 
