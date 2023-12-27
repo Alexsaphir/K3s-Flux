@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: immich
 resources:
   - basic
-  - typesense
   - machine-learning
   - microservices
   - server
