@@ -7,7 +7,7 @@ metadata:
     kyverno.io/ignore: "true"
 
 spec:
-  imageName: ghcr.io/imusmanmalik/timescaledb-postgis:15-3.4-27@sha256:b734f3304576a9880fb6913dafa870feb385a7cdd0dcc0b53b9bd1598e75e335
+  imageName: registry.alexsaphir.com/homelab/k3s-flux/cnpg:15.3
 
   instances: 2
 
@@ -38,6 +38,7 @@ spec:
       shared_buffers: "512MB"
     shared_preload_libraries:
       - timescaledb
+      - "vectors.so"
 
   bootstrap:
     recovery:

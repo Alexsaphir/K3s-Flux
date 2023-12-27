@@ -35,8 +35,6 @@ spec:
     codecovConfig:
       database:
         port: '5432'
-      timeseries:
-        port: '5432'
 
     env: &global_env
       SITE__BOT: Codecov
@@ -61,11 +59,6 @@ spec:
         valueFrom:
           secretKeyRef:
             name: database-codecov
-            key: POSTGRES_URL
-      SERVICES__TIMESERIES_DATABASE_URL:
-        valueFrom:
-          secretKeyRef:
-            name: database-codecov-timeseries
             key: POSTGRES_URL
 
       SETUP__HTTP__COOKIE_SECRET:
@@ -307,12 +300,10 @@ spec:
                   username: Alexsaphir
 
               timeseries:
-                enabled: true
+                enabled: false
 
             services:
               database_url: 'postgres://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:{{.Values.codecovConfig.database.port}}/{{.Values.codecovConfig.database.db}}'
-              timeseries_database_url: 'postgres://{{.Values.codecovConfig.timeseries.login}}:{{.Values.codecovConfig.timeseries.password}}@{{.Values.codecovConfig.timeseries.host}}:{{.Values.codecovConfig.timeseries.port}}/{{.Values.codecovConfig.timeseries.db}}'
-
 
     ingress:
       main:
