@@ -39,6 +39,7 @@ spec:
           - flux-ci
           - flux-monitoring
           - home-automation
+          - media
       name: "you"
       showAppGroups: true
 
