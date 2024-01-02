@@ -102,6 +102,12 @@ access_control:
     # Ingress for media protected by authelia
     - domain:
         - 'cleanarr.${SECRET_DOMAIN_NAME}'
+        - 'prowlarr.${SECRET_DOMAIN_NAME}'
+        - 'recyclarr.${SECRET_DOMAIN_NAME}'
+        - 'sonarr.${SECRET_DOMAIN_NAME}'
+        - 'radarr.${SECRET_DOMAIN_NAME}'
+        - 'lidarr.${SECRET_DOMAIN_NAME}'
+        - 'readarr.${SECRET_DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:authelia-media-automation'
