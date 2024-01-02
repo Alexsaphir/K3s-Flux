@@ -426,13 +426,13 @@ files = [
 
 [[package]]
 name = "netaddr"
-version = "0.10.0"
+version = "0.10.1"
 description = "A network address manipulation library for Python"
 optional = false
 python-versions = "*"
 files = [
-    {file = "netaddr-0.10.0-py2.py3-none-any.whl", hash = "sha256:8752f96c8fc24162edbf5b73d3e464b5d88e62869917582daa37b2695b65afb4"},
-    {file = "netaddr-0.10.0.tar.gz", hash = "sha256:4c30c54adf4ea4318b3c055ea3d8c7f6554a50aa2cd8aea4605a23caa0b0229e"},
+    {file = "netaddr-0.10.1-py2.py3-none-any.whl", hash = "sha256:9822305b42ea1020d54fee322d43cee5622b044c07a1f0130b459bb467efcf88"},
+    {file = "netaddr-0.10.1.tar.gz", hash = "sha256:f4da4222ca8c3f43c8e18a8263e5426c750a3a837fdfeccf74c68d0408eaa3bf"},
 ]
 
 [[package]]
@@ -911,4 +911,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "2d13308fcca83631173c220a98cb590ad8e207fee68e67e6e2704331a245a4a2"
+content-hash = "131af26e87efa09f84ebe93f85432bff116a4e42fd96614452acec57c59c5568"
