@@ -46,7 +46,7 @@ spec:
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: Enabled
               RADARR__INSTANCE_NAME: Radarr
-              RADARR__PORT: &port 8989
+              RADARR__PORT: &port 7878
               RADARR__LOG_LEVEL: info
               RADARR__THEME: light
               RADARR__ANALYTICS_ENABLED: 'false'
