@@ -8,3 +8,4 @@ resources:
   - readarr
   - sonarr
   - prowlarr
+  - recyclarr
