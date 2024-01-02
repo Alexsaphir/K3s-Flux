@@ -37,64 +37,34 @@ spec:
 
     deschedulerPolicy:
       profiles:
-        - name: ProfileName
+        - name: Default
           pluginConfig:
             - name: DefaultEvictor
               args:
-                evictSystemCriticalPods: true
                 evictFailedBarePods: true
                 evictLocalStoragePods: true
-            - name: RemovePodsHavingTooManyRestarts
-              args:
-                podRestartThreshold: 5
-                includingInitContainers: true
-            - name: RemovePodsViolatingTopologySpreadConstraint
-              args:
-                constraints:
-                  - DoNotSchedule
-            - name: PodLifeTime
-              args:
-                states:
-                  - Pending
-                  - PodInitializing
-                  - ContainerCreating
-                maxPodLifeTimeSeconds: 300
-            - name: RemoveFailedPods
-              args:
-                excludeOwnerKinds:
-                  - Job
-                includingInitContainers: true
-                minPodLifetimeSeconds: 300
-            - name: RemoveDuplicates
-            - name: RemovePodsViolatingNodeTaints
+                evictSystemCriticalPods: true
+                nodeFit: true
+            - name: RemovePodsViolatingInterPodAntiAffinity
             - name: RemovePodsViolatingNodeAffinity
               args:
                 nodeAffinityType:
                   - requiredDuringSchedulingIgnoredDuringExecution
-            - name: RemovePodsViolatingInterPodAntiAffinity
-            - name: LowNodeUtilization
+            - name: RemovePodsViolatingNodeTaints
+            - name: RemovePodsViolatingTopologySpreadConstraint
               args:
-                thresholds:
-                  cpu: 40
-                  pods: 30
-                targetThresholds:
-                  cpu: 45
-                  pods: 45
+                constraints:
+                  - DoNotSchedule
+                  - ScheduleAnyway
           plugins:
             balance:
               enabled:
-                - RemoveDuplicates
-                - LowNodeUtilization
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
-                - PodLifeTime
-                - RemoveFailedPods
-                - RemovePodsViolatingNodeTaints
-                - RemovePodsViolatingNodeAffinity
-                - RemovePodsHavingTooManyRestarts
                 - RemovePodsViolatingInterPodAntiAffinity
-
+                - RemovePodsViolatingNodeAffinity
+                - RemovePodsViolatingNodeTaints
     service:
       enabled: true
 
