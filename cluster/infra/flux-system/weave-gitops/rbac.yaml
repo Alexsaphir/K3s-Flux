@@ -4,7 +4,7 @@ kind: ClusterRoleBinding
 metadata:
   name: wego-admin-oidc # weave-gitops expects this name
 subjects:
-  - name: cluster-admins # configured in lldap
+  - name: cluster-admins # Name of the group in lldap
     apiGroup: rbac.authorization.k8s.io
     kind: Group
 roleRef:
