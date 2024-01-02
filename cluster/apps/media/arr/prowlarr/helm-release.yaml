@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: prowlarr
 spec:
   interval: 15m
   chart:
@@ -37,24 +37,23 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.0.748@sha256:f1b1826ccbea3868ff6b30690417fdc1a0f3329ebad0909d0d11ddd856f9f4dd
+              repository: ghcr.io/onedr0p/prowlarr-develop
+              tag: 1.11.4.4173@sha256:dc649d62dcd09882b7111bd73d9bc664a28ddf073108345063f368da041d29b0
 
             env:
               COMPlus_EnableDiagnostics: '0'
-              PUSHOVER_DEBUG: 'false'
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: Enabled
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 8989
-              SONARR__LOG_LEVEL: info
-              SONARR__THEME: light
-              SONARR__ANALYTICS_ENABLED: 'false'
+              PROWLARR__AUTHENTICATION_METHOD: External
+              PROWLARR__AUTHENTICATION_REQUIRED: Enabled
+              PROWLARR__INSTANCE_NAME: Prowlarr
+              PROWLARR__PORT: &port 8989
+              PROWLARR__PORT__LOG_LEVEL: info
+              PROWLARR__PORT__THEME: light
+              PROWLARR__PORT__ANALYTICS_ENABLED: 'false'
               TZ: ${TIMEZONE}
 
             envFrom:
               - secretRef:
-                  name: sonarr-secret
+                  name: prowlarr-secret
 
             probes:
               liveness: &probes
@@ -116,16 +115,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr
+        existingClaim: prowlarr
 
       tmp:
         type: emptyDir
-
-      media:
-        enabled: true
-        type: nfs
-        server: '192.168.0.130'
-        path: /mnt/user/Media
-        readOnly: false
-        globalMounts:
-          - path: /media

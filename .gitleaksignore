@@ -3,4 +3,6 @@ cluster/apps/CI/sonarqube/secret.sops.yaml:generic-api-key:21
 cluster/apps/CI/gitlab/workspace/secret.sops.yaml:generic-api-key:6
 cluster/apps/CI/gitlab/workspace/secret.sops.yaml:generic-api-key:7
 cluster/apps/CI/gitlab/workspace/secret.sops.yaml:private-key:10
+cluster/apps/media/arr/prowlarr/secret.sops.yaml:generic-api-key:6
 cluster/apps/media/arr/sonarr/secret.sops.yaml:generic-api-key:6
+cluster/apps/media/arr/radarr/secret.sops.yaml:generic-api-key:6
