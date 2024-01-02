@@ -5,7 +5,7 @@ metadata:
   name: immich-redis
 spec:
   kubernetesConfig:
-    image: quay.io/opstree/redis:v7.0.12
+    image: quay.io/opstree/redis:v7.2.3
     imagePullPolicy: IfNotPresent
     updateStrategy:
       type: RollingUpdate
