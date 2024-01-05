@@ -32,12 +32,11 @@ spec:
     controllers:
       main:
         type: cronjob
+        cronjob:
+          schedule: '@daily'
 
         annotations:
           reloader.stakater.com/auto: 'true'
-
-        cronjob:
-          schedule: '@daily'
 
         containers:
           main:
@@ -59,10 +58,6 @@ spec:
                   secretKeyRef:
                     name: radarr-secret
                     key: RADARR__API_KEY
-
-            envFrom:
-              - secretRef:
-                  name: recyclarr-secret
 
             args: [ 'sync' ]
 
