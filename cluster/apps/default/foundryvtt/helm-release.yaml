@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/felddy/foundryvtt
-              tag: 11.315.0
+              tag: 11.315.1
 
             env:
               TIMEZONE: "${TIMEZONE}"
