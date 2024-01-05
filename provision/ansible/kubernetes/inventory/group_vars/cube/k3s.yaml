@@ -14,7 +14,7 @@ k3s_cluster_cidr: "{{ cluster_cidr }}"
 k3s_service_cidr: "{{ service_cidr }}"
 
 k3s_server_manifests_urls:
-  - url: https://raw.githubusercontent.com/kube-vip/kube-vip/main/docs/manifests/rbac.yaml
+  - url: https://raw.githubusercontent.com/kube-vip/website/main/content/manifests/rbac.yaml
     filename: kube-vip-rbac.yaml
 
 k3s_server_manifests_templates:
