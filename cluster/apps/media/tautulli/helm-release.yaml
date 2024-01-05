@@ -41,6 +41,12 @@ spec:
               tag: 2.13.4@sha256:7682cdcf98dbdd236a21d1a7b7b380928dbd67283dce9a76398a7c1461b0f802
             env:
               TZ: "${TIMEZONE}"
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
             resources:
               requests:
                 cpu: 100m
@@ -81,3 +87,6 @@ spec:
       config:
         enabled: true
         existingClaim: tautulli
+
+      tmp:
+        type: emptyDir
