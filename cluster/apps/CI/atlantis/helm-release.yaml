@@ -34,12 +34,12 @@ spec:
     # Replace this with your own repo allowlist:
     orgAllowlist: '*'
 
-    # logLevel: "debug"
+    # logLevel: 'debug'
 
     image:
       repository: ghcr.io/runatlantis/atlantis
       # if not set appVersion field from Chart.yaml is used
-      tag: "v0.27.0"
+      tag: 'v0.27.0'
       pullPolicy: IfNotPresent
 
     allowForkPRs: false
@@ -61,7 +61,7 @@ spec:
       ingressClassName: traefik
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-        traefik.ingress.kubernetes.io/affinity: "true"
+        traefik.ingress.kubernetes.io/affinity: 'true'
         hajimari.io/icon: simple-icons:terraform
       pathType: Prefix
       hosts:
@@ -85,7 +85,7 @@ spec:
 
     environment:
       ATLANTIS_DEFAULT_TF_VERSION: v1.3.8
-      ATLANTIS_WRITE_GIT_CREDS: "true"
+      ATLANTIS_WRITE_GIT_CREDS: 'true'
       ATLANTIS_GITLAB_HOSTNAME: gitlab.alexsaphir.com
       ATLANTIS_GITLAB_USER: Atlantis
 

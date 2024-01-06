@@ -40,7 +40,7 @@ spec:
           - flux-monitoring
           - home-automation
           - media
-      name: "you"
+      name: 'you'
       showAppGroups: true
 
     ingress:
@@ -49,10 +49,10 @@ spec:
         ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "weather-sunset"
+          hajimari.io/enable: 'true'
+          hajimari.io/icon: 'weather-sunset'
         hosts:
-          - host: "hajimari.${SECRET_DOMAIN_NAME}"
+          - host: 'hajimari.${SECRET_DOMAIN_NAME}'
             paths:
               - path: /
                 pathType: Prefix
@@ -63,4 +63,4 @@ spec:
         existingClaim: hajimari-config
 
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "hajimari-settings"
+      configmap.reloader.stakater.com/reload: 'hajimari-settings'

@@ -49,9 +49,9 @@ spec:
       create: true
       clusterWideAccess: false
       rules:
-        - apiGroups: [ "" ]
-          resources: [ "*" ]
-          verbs: [ "*" ]
+        - apiGroups: [ '' ]
+          resources: [ '*' ]
+          verbs: [ '*' ]
 
     metrics:
       enabled: true

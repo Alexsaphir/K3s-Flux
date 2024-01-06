@@ -54,7 +54,7 @@ spec:
     controllers:
       main:
         annotations:
-          reloader.stakater.com/reload: "zigbee2mqtt-secrets"
+          reloader.stakater.com/reload: 'zigbee2mqtt-secrets'
         containers:
           main:
             order: 1
@@ -64,11 +64,11 @@ spec:
               tag: 1.35.0
 
             env:
-              TZ: "${TIMEZONE}"
+              TZ: '${TIMEZONE}'
               ZIGBEE2MQTT_DATA: /config
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
-              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
-              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: 'false'
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: 'false'
 
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
@@ -76,7 +76,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
 
-              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: 'false'
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
 
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"

@@ -29,11 +29,10 @@ spec:
     keepHistory: false
 
   values:
-
     controllers:
       main:
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
         containers:
           main:
             image:
@@ -71,7 +70,7 @@ spec:
 
         pod:
           nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
+            intel.feature.node.kubernetes.io/gpu: 'true'
 
           securityContext:
             runAsUser: 1000
@@ -91,7 +90,7 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          auth.home.arpa/disabled: "true"
+          auth.home.arpa/disabled: 'true'
         hosts:
           - host: plex.${SECRET_DOMAIN_NAME}
             paths:

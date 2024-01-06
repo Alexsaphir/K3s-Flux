@@ -109,7 +109,7 @@ spec:
               CODECOV_DEFAULT_HOST: codecov-frontend-service.codecov.svc.cluster.local
               CODECOV_DEFAULT_PORT: 8080
               CODECOV_DEFAULT_SCHEME: http
-              CODECOV_DEFAULT_HOST_HEADER: "%[req.hdr(Host)]"
+              CODECOV_DEFAULT_HOST_HEADER: '%[req.hdr(Host)]'
 
               CODECOV_MINIO_HOST: s3.alexsaphir.com
               CODECOV_MINIO_PORT: 443
@@ -310,7 +310,7 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          hajimari.io/enable: "true"
+          hajimari.io/enable: 'true'
         hosts:
           - host: *host
             paths:

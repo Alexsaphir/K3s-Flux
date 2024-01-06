@@ -109,41 +109,41 @@ spec:
                     cnpg.io/cluster: postgres
 
     singleuser:
-      defaultUrl: "/lab"
+      defaultUrl: '/lab'
 
       image:
         name: jupyter/scipy-notebook
         tag: 82ce73789ba4
 
       profileList:
-        - display_name: "Bloody env"
-          description: "Homelab."
+        - display_name: 'Bloody env'
+          description: 'Homelab.'
           default: true
           kubespawner_override:
             image: registry.alexsaphir.com/homelab/containers/jupyter/notebook@sha256:7362cfeb403cc3c56febf45eaf1a6080c9aa3fe9d504d7f12365cdbb0418d10c
             # node_selector: { 'node.kubernetes.io/instance-type': 'm3.large' }
 
 
-      # - display_name: "Minimal environment"
-      #   description: "To avoid too much bells and whistles: Python."
+      # - display_name: 'Minimal environment'
+      #   description: 'To avoid too much bells and whistles: Python.'
       #   kubespawner_override:
       #     image: jupyter/minimal-notebook:82ce73789ba4
 
-      # - display_name: "Datascience environment"
-      #   description: "If you want the additional bells and whistles: Python, R, and Julia."
+      # - display_name: 'Datascience environment'
+      #   description: 'If you want the additional bells and whistles: Python, R, and Julia.'
 
-      # - display_name: "Spark environment"
-      #   description: "The Jupyter Stacks spark image!"
+      # - display_name: 'Spark environment'
+      #   description: 'The Jupyter Stacks spark image!'
       #   kubespawner_override:
       #     image: jupyter/all-spark-notebook:2343e33dec46
 
-      #        - display_name: "Bloody TPU"
-      #          description: "Homelab."
+      #        - display_name: 'Bloody TPU'
+      #          description: 'Homelab.'
       #          default: true
       #          kubespawner_override:
       #            image: registry.alexsaphir.com/alexsaphir/k3s-flux/jupyter/notebook-tpu
       #            extra_resource_limits:
-      #              nvidia.com/gpu: "1"
+      #              nvidia.com/gpu: '1"
 
       # - display_name: "Haskell environment"
       #   description: "The Jupyter Stacks ihaskell"

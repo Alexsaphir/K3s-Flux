@@ -32,7 +32,7 @@ spec:
     controllers:
       main:
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
 
         containers:
           main:
@@ -45,7 +45,7 @@ spec:
               - secretRef:
                   name: &renovate-secret renovate-secret
             env:
-              TZ: "${TIMEZONE}"
+              TZ: '${TIMEZONE}'
               # LOG_FORMAT: json
               LOG_LEVEL: info
 
@@ -91,7 +91,7 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          auth.home.arpa/disabled: "true"
+          auth.home.arpa/disabled: 'true'
         hosts:
           - host: renovate.${SECRET_DOMAIN_NAME}
             paths:

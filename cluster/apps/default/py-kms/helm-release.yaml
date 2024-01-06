@@ -53,7 +53,7 @@ spec:
     controllers:
       main:
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
         containers:
           main:
             image:
@@ -65,7 +65,7 @@ spec:
                   name: py-kms-secret
             env:
               TIMEZONE: '${TIMEZONE}'
-              IP: "::"
+              IP: '::'
 
             probes:
               liveness:

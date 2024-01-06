@@ -85,24 +85,24 @@ spec:
     #      - name: DEBUG
     #        value: 'true'
     #      - name: REMOTE_AUTH_ENABLED
-    #        value: "True"
+    #        value: 'True'
     #      - name: REMOTE_AUTH_BACKEND
-    #        value: "netbox.authentication.LDAPBackend"
+    #        value: 'netbox.authentication.LDAPBackend'
     #      - name: AUTH_LDAP_SERVER_URI
-    #        value: "ldap://glauth.kube-auth.svc.cluster.local:389"
+    #        value: 'ldap://glauth.kube-auth.svc.cluster.local:389'
     #      - name: AUTH_LDAP_BIND_DN
-    #        value: "cn=netbox,ou=services,dc=domain,dc=com"
+    #        value: 'cn=netbox,ou=services,dc=domain,dc=com'
     #      - name: AUTH_LDAP_BIND_PASSWORD
     #        valueFrom:
     #          secretKeyRef:
     #            name: netbox-secret
     #            key: ldap_bind_password
     #      - name: AUTH_LDAP_USER_SEARCH_BASEDN
-    #        value: "ou=people,ou=users,dc=home,dc=arpa"
+    #        value: 'ou=people,ou=users,dc=home,dc=arpa'
     #      - name: AUTH_LDAP_GROUP_SEARCH_BASEDN
-    #        value: "ou=groups,dc=home,dc=arpa"
+    #        value: 'ou=groups,dc=home,dc=arpa'
     #      - name: AUTH_LDAP_REQUIRE_GROUP_DN
-    #        value: "cn=netbox" # or "cn=netbox,ou=groups,dc=domain,dc=com"
+    #        value: 'cn=netbox" # or "cn=netbox,ou=groups,dc=domain,dc=com"
     #      - name: AUTH_LDAP_IS_ADMIN_DN
     #        value: "cn=netbox-admin,ou=groups,dc=home,dc=arpa"
     #      - name: AUTH_LDAP_IS_SUPERUSER_DN

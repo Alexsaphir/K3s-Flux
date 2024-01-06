@@ -54,9 +54,9 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          hajimari.io/enable: "true"
+          hajimari.io/enable: 'true'
           hajimari.io/icon: hammer-wrench
-          hajimari.io/name: "Cyberchef"
+          hajimari.io/name: 'Cyberchef'
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: cyberchef.${SECRET_DOMAIN_NAME}

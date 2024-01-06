@@ -32,7 +32,7 @@ spec:
     controllers:
       main:
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
 
         containers:
           main:
@@ -40,12 +40,12 @@ spec:
               repository: ghcr.io/onedr0p/tautulli
               tag: 2.13.4@sha256:7682cdcf98dbdd236a21d1a7b7b380928dbd67283dce9a76398a7c1461b0f802
             env:
-              TZ: "${TIMEZONE}"
+              TZ: '${TIMEZONE}'
 
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
+              capabilities: { drop: [ 'ALL' ] }
 
             resources:
               requests:
@@ -72,11 +72,11 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          auth.home.arpa/disabled: "true"
+          auth.home.arpa/disabled: 'true'
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
           hajimari.io/icon: mdi:chart-bar
         hosts:
-          - host: "tautulli.${SECRET_DOMAIN_NAME}"
+          - host: 'tautulli.${SECRET_DOMAIN_NAME}'
             paths:
               - path: /
                 service:

@@ -39,7 +39,7 @@ spec:
       public: false
       reverseProxy: true
       maxHistory: 10000
-      theme: "default"
+      theme: 'default'
       prefetch: false
       prefetchStorage: false
       prefetchMaxImageSize: 2048
@@ -47,21 +47,21 @@ spec:
         enable: false
         maxFileSize: 10240
         baseUrl: null
-      leaveMessage: "The Lounge - https://thelounge.chat"
+      leaveMessage: 'The Lounge - https://thelounge.chat'
       ldap:
         enable: true
-        url: "ldap://lldap.kube-auth.svc.cluster.local:389"
-        primaryKey: "uid"
-        bindDn: "uid=search,ou=people,dc=home,dc=arpa"
+        url: 'ldap://lldap.kube-auth.svc.cluster.local:389'
+        primaryKey: 'uid'
+        bindDn: 'uid=search,ou=people,dc=home,dc=arpa'
         # bindPassword:
-        filter: "(memberOf=cn=thelounge,ou=groups,dc=home,dc=arpa)"
-        searchSuffix: "ou=people,dc=home,dc=arpa"
-        scope: "sub"
+        filter: '(memberOf=cn=thelounge,ou=groups,dc=home,dc=arpa)'
+        searchSuffix: 'ou=people,dc=home,dc=arpa'
+        scope: 'sub'
 
     controllers:
       main:
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
 
         containers:
           main:

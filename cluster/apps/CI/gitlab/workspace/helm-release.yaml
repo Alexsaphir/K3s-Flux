@@ -58,7 +58,7 @@ spec:
         annotations: { }
       ssh:
         type: LoadBalancer
-        loadBalancerIP: "" # Leave this empty to allocate a new IP address.
+        loadBalancerIP: '' # Leave this empty to allocate a new IP address.
         port: 22
         labels: { }
         annotations: { }
@@ -66,8 +66,8 @@ spec:
     ingress:
       enabled: true
       host:
-        workspaceDomain: "workspace.${SECRET_DOMAIN_NAME}"
-        wildcardDomain: "*.workspace.${SECRET_DOMAIN_NAME}"
+        workspaceDomain: 'workspace.${SECRET_DOMAIN_NAME}'
+        wildcardDomain: '*.workspace.${SECRET_DOMAIN_NAME}'
       className: traefik
       annotations: { }
 
@@ -80,4 +80,4 @@ spec:
       enabled: true
       port: 22
       backend_port: 60022
-      backend_username: "gitlab-workspaces"
+      backend_username: 'gitlab-workspaces'

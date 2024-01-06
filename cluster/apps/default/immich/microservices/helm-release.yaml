@@ -77,7 +77,7 @@ spec:
         mountPath: /usr/src/app/.transformers_cache
 
     #    nodeSelector:
-    #      intel.feature.node.kubernetes.io/gpu: "true"
+    #      intel.feature.node.kubernetes.io/gpu: 'true'
 
     podSecurityContext:
       runAsUser: 568
