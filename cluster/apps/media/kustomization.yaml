@@ -6,6 +6,7 @@ resources:
   - common
   - plex
   - cleanarr
+  - plex-image-cleanup
   - arr
   - ombi
   - tautulli
