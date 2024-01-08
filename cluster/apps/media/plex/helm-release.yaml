@@ -59,6 +59,11 @@ spec:
               startup:
                 enabled: false
 
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
             resources:
               requests:
                 gpu.intel.com/i915: 1
@@ -75,6 +80,7 @@ spec:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
+            runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [ 44, 104, 109, 100 ]
@@ -114,5 +120,6 @@ spec:
       tmp:
         type: emptyDir
         medium: Memory
+
       transcode:
         type: emptyDir
