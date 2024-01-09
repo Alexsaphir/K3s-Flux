@@ -33,6 +33,10 @@ spec:
     reloader:
       enableHA: true
 
+      reloadStrategy: annotations
+      reloadOnCreate: true
+      syncAfterRestart: true
+
       deployment:
         replicas: 2
 
