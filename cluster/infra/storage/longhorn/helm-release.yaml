@@ -41,7 +41,7 @@ spec:
       migratable: true
 
     defaultSettings:
-      orphanAutoDeletion: true
+      orphanAutoDeletion: false
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
 
       concurrentAutomaticEngineUpgradePerNodeLimit: 2
