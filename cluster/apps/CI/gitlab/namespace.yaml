@@ -3,13 +3,19 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: gitlab
+  labels:
+    goldilocks.fairwinds.com/enabled: 'true'
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: gitlab-runner
+  labels:
+    goldilocks.fairwinds.com/enabled: 'true'
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: gitlab-workspace
+  labels:
+    goldilocks.fairwinds.com/enabled: 'true'
