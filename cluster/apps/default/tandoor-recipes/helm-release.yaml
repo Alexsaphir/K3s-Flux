@@ -132,9 +132,5 @@ spec:
     persistence:
       static:
         enabled: true
-
-        size: 1Gi
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        globalMounts:
-          - path: /opt/recipes/staticfiles
+        existingClaim: tandoor-recipes-static
+        mountPath: /opt/recipes/staticfiles
