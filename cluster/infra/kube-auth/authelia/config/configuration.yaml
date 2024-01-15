@@ -37,7 +37,7 @@ authentication_backend:
 
 totp:
   disable: false
-  issuer: authelia.com
+  issuer: auth.${SECRET_DOMAIN_NAME}
 
 webauthn:
   disable: true
@@ -162,7 +162,7 @@ identity_providers:
           - https://photos.${SECRET_DOMAIN_NAME}/auth/login
           - https://photos.${SECRET_DOMAIN_NAME}/user-settings
           - app.immich:/
-        userinfo_signing_algorithm: RS256
+        userinfo_signing_algorithm: none
 
       - id: weave-gitops
         description: Weave GitOps
