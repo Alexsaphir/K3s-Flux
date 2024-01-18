@@ -27,6 +27,8 @@
 
     - name: Kubeconfig
       ansible.builtin.include_tasks: tasks/kubeconfig.yaml
+      vars:
+        repository_base: "{{ lookup('ansible.builtin.pipe', 'git rev-parse --show-toplevel') }}"
 
     - name: Wait for custom manifests to rollout
       when:
@@ -43,8 +45,6 @@
         wait_timeout: 360
       loop:
         - { name: cilium, kind: HelmChart, namespace: kube-system }
-        - { name: policy, kind: CiliumL2AnnouncementPolicy }
-        - { name: pool, kind: CiliumLoadBalancerIPPool }
 
     - name: Cilium
       when: k3s_primary_control_node
@@ -61,9 +61,16 @@
         mode: '0755'
 
     - name: Copy custom containerd configuration
+      notify: Restart Kubernetes
       ansible.builtin.copy:
         src: files/config.toml.tmpl
         dest: /var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl
         owner: root
         group: root
         mode: "0644"
+
+  handlers:
+    - name: Restart Kubernetes
+      ansible.builtin.systemd:
+        name: k3s
+        state: restarted
