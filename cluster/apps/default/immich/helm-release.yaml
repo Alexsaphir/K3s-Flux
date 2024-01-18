@@ -33,6 +33,7 @@ spec:
       securityContext:
         runAsUser: 568
         runAsGroup: 568
+        runAsNonRoot: false
         fsGroup: 568
         fsGroupChangePolicy: 'OnRootMismatch'
 
@@ -89,10 +90,6 @@ spec:
                 cpu: 100m
                 memory: 250Mi
 
-        pod:
-          securityContext:
-            runAsNonRoot: true
-
       microservices:
         type: deployment
         replicas: 1
@@ -135,7 +132,6 @@ spec:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: 'true'
           securityContext:
-            runAsNonRoot: true
             supplementalGroups:
               - 44
               - 109
@@ -166,10 +162,6 @@ spec:
               requests:
                 cpu: 100m
                 memory: 250Mi
-
-        pod:
-          securityContext:
-            runAsNonRoot: true
 
     service:
       main:
