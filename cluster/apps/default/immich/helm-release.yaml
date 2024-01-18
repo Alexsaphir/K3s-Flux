@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: immich
@@ -101,7 +101,7 @@ spec:
             order: 2
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.88.2
+              tag: v1.92.1
 
             command: /bin/sh
             args: [ 'start-microservices.sh' ]
@@ -148,7 +148,7 @@ spec:
             order: 3
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.88.2
+              tag: v1.92.1
 
             env:
               NODE_ENV: *node-env
