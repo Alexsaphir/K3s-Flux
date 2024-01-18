@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -28,40 +28,89 @@ spec:
   uninstall:
     keepHistory: false
 
-  valuesFrom:
-    - kind: Secret
-      name: database-gatus
-      valuesKey: POSTGRES_URL
-      targetPath: gatus.postgresURL
-
   values:
-    initContainers:
-      01-config-sync:
-        image: ghcr.io/kiwigrid/k8s-sidecar:1.25.3
-        imagePullPolicy: IfNotPresent
-        env:
-          - { name: FOLDER, value: /config }
-          - { name: LABEL, value: gatus.io/enabled }
-          - { name: NAMESPACE, value: ALL }
-          - { name: RESOURCE, value: both }
-          - { name: UNIQUE_FILENAMES, value: "true" }
-          - { name: METHOD, value: LIST }
-        volumeMounts:
-          - { name: config, mountPath: /config }
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          # TODO: Convert this to a proper 'sidecar' container someday
+          init-config:
+            order: 1
+            image: &configSyncImage
+              repository: ghcr.io/kiwigrid/k8s-sidecar
+              tag: 1.25.3@sha256:8dc0aca015bf7173378ee5987dd78d49f94ff9a5c3495b3664141750cc55f444
+            env: &configSyncEnv
+              FOLDER: /config
+              LABEL: gatus.io/enabled
+              NAMESPACE: ALL
+              RESOURCE: both
+              UNIQUE_FILENAMES: true
+              METHOD: LIST
+            resources: &resources
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
 
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/twin/gatus
-      tag: v5.7.0
+        containers:
+          main:
+            image:
+              repository: ghcr.io/twin/gatus
+              tag: v5.7.0@sha256:e077910eeda4c1369e20c74bd09853b141399103531d97d831d1ae58bd81537d
 
-    env:
-      TZ: "${TIMEZONE}"
-      GATUS_CONFIG_PATH: /config
+            env:
+              TZ: '${TIMEZONE}'
+              GATUS_CONFIG_PATH: /config
+              CUSTOM_WEB_PORT: &port 80
+              POSTGRES_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-gatus
+                    key: POSTGRES_URL
 
-    gatus:
-      customWebPort: &port 80
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: &path /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
+            resources: *resources
+
+          config-sync:
+            image: *configSyncImage
+            env:
+              <<: *configSyncEnv
+              METHOD: WATCH
+            securityContext: *securityContext
+            resources: *resources
+
+        pod:
+          dnsConfig:
+            options:
+              - { name: ndots, value: "1" }
+
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
 
     service:
       main:
@@ -72,12 +121,15 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+
+    serviceAccount:
+      create: true
+      name: gatus
+
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
 
     ingress:
       main:
@@ -86,81 +138,15 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: &host status.${SECRET_DOMAIN_NAME}
+          - host: status.${SECRET_DOMAIN_NAME}
             paths:
               - path: /
                 pathType: Prefix
 
-    serviceAccount:
-      create: true
-      name: gatus
-
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
       config-file:
-        enabled: true
         type: configMap
-        name: gatus-config
-        mountPath: /config/config.yaml
-        subPath: config.yaml
-        readOnly: true
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
-
-    sidecars:
-      config-sync:
-        image: ghcr.io/kiwigrid/k8s-sidecar:1.25.3
-        imagePullPolicy: IfNotPresent
-        env:
-          - { name: FOLDER, value: /config }
-          - { name: LABEL, value: gatus.io/enabled }
-          - { name: NAMESPACE, value: ALL }
-          - { name: RESOURCE, value: both }
-          - { name: UNIQUE_FILENAMES, value: "true" }
-          - { name: METHOD, value: WATCH }
-        volumeMounts:
-          - { name: config, mountPath: /config }
-
-    configMaps:
-      config:
-        enabled: true
-        data:
-          config.yaml: |
-            web:
-              port:  {{ .Values.gatus.customWebPort }}
-            storage:
-              type: postgres
-              path: {{ .Values.gatus.postgresURL }}
-              caching: true
-            metrics: true
-            debug: false
-            ui:
-              title: Status | Gatus
-              header: Status
-            alerting:
-            connectivity:
-              checker:
-                target: 1.1.1.1:53
-                interval: 1m
-            endpoints:
-              - name: status
-                group: external
-                url: https://status.${SECRET_DOMAIN_NAME}
-                interval: 1m
-                client:
-                  dns-resolver: tcp://192.168.0.56:53
-                conditions:
-                  - "[STATUS] == 200"
+        name: gatus-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true

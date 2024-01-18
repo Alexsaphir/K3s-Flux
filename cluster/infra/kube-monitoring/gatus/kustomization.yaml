@@ -4,6 +4,13 @@ kind: Kustomization
 namespace: flux-monitoring
 resources:
   - postgres.yaml
-  - rbac-secret.sops.yaml
   - rbac.yaml
   - helm-release.yaml
+
+configMapGenerator:
+  - name: gatus-configmap
+    files:
+      - config.yaml=resources/config.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
