@@ -1,0 +1,241 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: immich
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        fsGroup: 568
+        fsGroupChangePolicy: 'OnRootMismatch'
+
+    controllers:
+      main:
+        enabled: true
+        type: deployment
+        replicas: 1
+
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        initContainers:
+          01-init-permission:
+            image:
+              repository: busybox
+              tag: 1.36.1
+            imagePullPolicy: IfNotPresent
+            command:
+              - sh
+              - -c
+              - chown 568:568 /usr/src/app/upload
+            securityContext:
+              runAsUser: 0
+            volumeMounts:
+              - name: library
+                mountPath: /usr/src/app/upload
+
+        containers:
+          main:
+            order: 1
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.92.1
+
+            command: /bin/sh
+            args: [ 'start-server.sh' ]
+
+            env:
+              NODE_ENV: &node-env production
+
+              DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-immich
+                    key: POSTGRES_URL
+
+            envFrom:
+              - configMapRef:
+                  name: &configMap immich-configmap
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+
+      microservices:
+        type: deployment
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          main:
+            order: 2
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.88.2
+
+            command: /bin/sh
+            args: [ 'start-microservices.sh' ]
+
+            env:
+              TZ: ${TIMEZONE}
+              NODE_ENV: *node-env
+
+              DB_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-immich
+                    key: POSTGRES_URL
+
+            envFrom:
+              - configMapRef:
+                  name: *configMap
+
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                gpu.intel.com/i915: 1
+
+        pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: 'true'
+          securityContext:
+            supplementalGroups:
+              - 44
+              - 109
+
+      machine-learning:
+        enabled: true
+        type: deployment
+
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          main:
+            order: 3
+            image:
+              repository: ghcr.io/immich-app/immich-machine-learning
+              tag: v1.88.2
+
+            env:
+              NODE_ENV: *node-env
+              MACHINE_LEARNING_CACHE_FOLDER: /cache
+
+            envFrom:
+              - configMapRef:
+                  name: *configMap
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+
+    service:
+      main:
+        ports:
+          http:
+            port: &server-port 3001
+
+      machine-learning:
+        controller: machine-learning
+        ports:
+          http:
+            port: 3003
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+          hajimari.io/icon: mdi:camera
+        hosts:
+          - host: photos.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: *server-port
+
+    persistence:
+      library:
+        enabled: true
+        existingClaim: immich-data
+        globalMounts:
+          - path: /usr/src/app/upload
+
+      modelcache:
+        enabled: true
+        type: persistentVolumeClaim
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        retain: true
+        advancedMounts:
+          machine-learning:
+            main:
+              - path: /cache
+
+      geocoding-dump:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          microservices:
+            main:
+              - path: /usr/src/app/.reverse-geocoding-dump
+          machine-learning:
+            main:
+              - path: /usr/src/app/.reverse-geocoding-dump
+
+      geoname-dump:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          microservices:
+            main:
+              - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
+
+      transformers-cache:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          microservices:
+            main:
+              - path: /usr/src/app/.transformers_cache
+          machine-learning:
+            main:
+              - path: /usr/src/app/.transformers_cache
