@@ -55,7 +55,30 @@ spec:
               MEND_RNV_CRON_JOB_SCHEDULER: '0 */2 * * *'
 
               MEND_RNV_ADMIN_API_ENABLED: 'true'
-              # MEND_RNV_SQLITE_FILE_PATH: '/db/renovate-ce.sqlite'
+
+              MEND_RNV_DATA_HANDLER_TYPE: postgresql
+              PGDATABASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: &postgres-creds database-renovate
+                    key: DATABASE_NAME
+              PGUSER:
+                valueFrom:
+                  secretKeyRef:
+                    name: *postgres-creds
+                    key: LOGIN
+              PGPASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: *postgres-creds
+                    key: PASSWORD
+              PGHOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: *postgres-creds
+                    key: HOST
+              PGPORT: 5432
+
 
               RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
               RENOVATE_ALLOW_PLUGINS: 'false'
