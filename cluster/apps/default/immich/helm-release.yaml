@@ -27,7 +27,7 @@ spec:
 
   values:
     # renovate: datasource=github-releases depName=immich-app/immich
-    immichVersion: &immichVersion v1.92.1
+    immichVersion: &immichVersion v1.93.1
 
     defaultPodOptions:
       automountServiceAccountToken: false
