@@ -43,7 +43,7 @@ spec:
               - secretRef:
                   name: tandoor-recipes-secret
             env:
-              TIMEZONE: '${TIMEZONE}'
+              TZ: '${TIMEZONE}'
 
               ALLOWED_HOSTS: &host recipes.${SECRET_DOMAIN_NAME}
               SESSION_COOKIE_DOMAIN: *host
