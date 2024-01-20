@@ -35,9 +35,9 @@ spec:
     immich:
       # renovate: datasource=github-releases depName=immich-app/immich
       version: &immichVersion v1.93.2
-      logLevel: log
+      logLevel: 'log'
 
-      concurency:
+      concurrency:
         backgroundTask: 5
         smartSearch: 2
         metadataExtraction: 5
@@ -50,7 +50,6 @@ spec:
         videoConversion: 1
 
       machineLearning:
-        url: http://immich-machine-learning.{{.Release.Namespace}}.svc.cluster.local:3003
         clipModelName: ViT-B-32__openai
         facialRecognitionModelName: antelopev2
 
@@ -58,7 +57,6 @@ spec:
       oauth:
         issuerUrl: https://auth.${SECRET_DOMAIN_NAME}
         clientId: immich
-        clientSecret: ~
 
     defaultPodOptions:
       automountServiceAccountToken: false
@@ -235,8 +233,13 @@ spec:
         name: immich-settings
         advancedMounts:
           main:
-            - path: /usr/src/app/immich-config.json
-              subPath: immich-config.json
+            main:
+              - path: /usr/src/app/immich-config.json
+                subPath: immich-config.json
+          microservices:
+            main:
+              - path: /usr/src/app/immich-config.json
+                subPath: immich-config.json
 
       library:
         enabled: true
@@ -256,54 +259,22 @@ spec:
             main:
               - path: /cache
 
-      geocoding-dump:
-        enabled: true
-        type: emptyDir
-        advancedMounts:
-          microservices:
-            main:
-              - path: /usr/src/app/.reverse-geocoding-dump
-          machine-learning:
-            main:
-              - path: /usr/src/app/.reverse-geocoding-dump
-
-      geoname-dump:
-        enabled: true
-        type: emptyDir
-        advancedMounts:
-          microservices:
-            main:
-              - path: /usr/src/app/node_modules/local-reverse-geocoder/geonames_dump
-
-      transformers-cache:
-        enabled: true
-        type: emptyDir
-        advancedMounts:
-          microservices:
-            main:
-              - path: /usr/src/app/.transformers_cache
-          machine-learning:
-            main:
-              - path: /usr/src/app/.transformers_cache
-
     configMaps:
       config:
         enabled: true
         data:
-          LOG_LEVEL: {{.Values.immich.logLevel}}
+          LOG_LEVEL: '{{ .Values.immich.logLevel }}'
 
-          REDIS_HOSTNAME: immich-redis.{{.Release.Namespace}}.svc.cluster.local
-          REDIS_PORT: 6379
+          REDIS_HOSTNAME: immich-redis.{{ .Release.Namespace }}.svc.cluster.local
+          REDIS_PORT: '6379'
 
           IMMICH_CONFIG_FILE: /usr/src/app/immich-config.json
 
-          IMMICH_WEB_URL: http://immich-web.{{.Release.Namespace}}.svc.cluster.local:3000
-          IMMICH_SERVER_URL: http://immich-server.{{.Release.Namespace}}.svc.cluster.local:3001
-          IMMICH_MACHINE_LEARNING_URL: {{.Values.immich.machineLearning.url}}
+          IMMICH_WEB_URL: http://immich-web.{{ .Release.Namespace }}.svc.cluster.local:3000
+          IMMICH_SERVER_URL: http://immich-server.{{ .Release.Namespace }}.svc.cluster.local:3001
+          IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.{{ .Release.Namespace }}.svc.cluster.local:3003
 
           TRANSFORMERS_CACHE: /usr/src/app/.transformers_cache
-
-          IMMICH_REVERSE_GEOCODING_ROOT: /usr/src/app/.reverse-geocoding-dump
 
       settings:
         enabled: true
@@ -332,52 +303,52 @@ spec:
 
               "job": {
                 "backgroundTask": {
-                  "concurrency": {{.Values.immich.concurrency.backgroundTask}}
+                  "concurrency": {{ .Values.immich.concurrency.backgroundTask }}
                 },
                 "smartSearch": {
-                  "concurrency": {{.Values.immich.concurrency.smartSearch}}
+                  "concurrency": {{ .Values.immich.concurrency.smartSearch }}
                 },
                 "metadataExtraction": {
-                  "concurrency": {{.Values.immich.concurrency.metadataExtraction}}
+                  "concurrency": {{ .Values.immich.concurrency.metadataExtraction }}
                 },
                 "faceDetection": {
-                  "concurrency": {{.Values.immich.concurrency.faceDetection}}
+                  "concurrency": {{ .Values.immich.concurrency.faceDetection }}
                 },
                 "search": {
-                  "concurrency": {{.Values.immich.concurrency.search}}
+                  "concurrency": {{ .Values.immich.concurrency.search }}
                 },
                 "sidecar": {
-                  "concurrency": {{.Values.immich.concurrency.sidecar}}
+                  "concurrency": {{ .Values.immich.concurrency.sidecar }}
                 },
                 "library": {
-                  "concurrency": {{.Values.immich.concurrency.library}}
+                  "concurrency": {{ .Values.immich.concurrency.library }}
                 },
                 "migration": {
-                  "concurrency": {{.Values.immich.concurrency.migration}}
+                  "concurrency": {{ .Values.immich.concurrency.migration }}
                 },
                 "thumbnailGeneration": {
-                  "concurrency": {{.Values.immich.concurrency.thumbnailGeneration}}
+                  "concurrency": {{ .Values.immich.concurrency.thumbnailGeneration }}
                 },
                 "videoConversion": {
-                  "concurrency": {{.Values.immich.concurrency.videoConversion}}
+                  "concurrency": {{ .Values.immich.concurrency.videoConversion }}
                 }
               },
 
               "logging": {
                 "enabled": true,
-                "level": {{.Values.immich.logLevel | quote}}
+                "level": {{ .Values.immich.logLevel | quote }}
               },
 
               "machineLearning": {
                 "enabled": true,
-                "url": {{.Values.immich.machineLearning.url | quote}},
+                "url": "http://immich-machine-learning.{{ .Release.Namespace }}.svc.cluster.local:3003",
                 "clip": {
                   "enabled": true,
-                  "modelName": {{.Values.immich.machineLearning.clipModelName | quote}}
+                  "modelName": {{ .Values.immich.machineLearning.clipModelName | quote }}
                 },
                 "facialRecognition": {
                   "enabled": true,
-                  "modelName": {{.Values.immich.machineLearning.facialRecognitionModelName | quote}},
+                  "modelName": {{ .Values.immich.machineLearning.facialRecognitionModelName | quote }},
                   "minScore": 0.7,
                   "maxDistance": 0.6,
                   "minFaces": 2
@@ -399,9 +370,9 @@ spec:
 
               "oauth": {
                 "enabled": true,
-                "issuerUrl": {{.Values.immich.oauth.issuerUrl | quote}},
-                "clientId": {{.Values.immich.oauth.clientId | quote}},
-                "clientSecret": {{.Values.immich.oauth.clientSecret | quote}},
+                "issuerUrl": {{ .Values.immich.oauth.issuerUrl | quote }},
+                "clientId": {{ .Values.immich.oauth.clientId | quote }},
+                "clientSecret": {{ .Values.immich.oauth.clientSecret | quote }},
                 "mobileOverrideEnabled": false,
                 "mobileRedirectUri": "",
                 "scope": "openid profile email",
@@ -412,13 +383,13 @@ spec:
               },
 
               "passwordLogin": {
-                "enabled": {{.Values.immich.enablePasswordLogin}}
+                "enabled": {{ .Values.immich.enablePasswordLogin }}
               },
 
               "storageTemplate": {
                 "enabled": true,
                 "hashVerificationEnabled": true,
-                "template": "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}"
+                "template": "{{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}"
               },
 
               "thumbnail": {
