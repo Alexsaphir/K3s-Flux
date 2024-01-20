@@ -29,6 +29,8 @@ spec:
     keepHistory: false
 
   values:
+    nameOverride: gitlab-runner
+
     podAnnotations:
       secret.reloader.stakater.com/reload: gitlab-runner-secret, gitlab-runner-s3access-secret
 
@@ -37,6 +39,8 @@ spec:
     gitlabUrl: https://gitlab.alexsaphir.com/
 
     replicas: 1
+
+    unregisterRunners: true
 
     concurrent: 4
     checkInterval: 10
@@ -53,6 +57,9 @@ spec:
           resources: [ '*' ]
           verbs: [ '*' ]
 
+    env:
+      TZ: '${TIMEZONE}'
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -62,8 +69,22 @@ spec:
       enabled: true
 
     runners:
+
+      secret: gitlab-runner-secret
+      cache:
+        secretName: gitlab-runner-s3access-secret
+
+      executor: kubernetes
+      name: K3s
+
       config: |
         [[runners]]
+          environment = ["FF_GITLAB_REGISTRY_HELPER_IMAGE=true"]
+          builds_dir = "/builds"
+
+          [runners.feature_flags]
+            FF_USE_ADVANCED_POD_SPEC_CONFIGURATION = true
+
           [runners.cache]
             Type = "s3"
             Shared = true
@@ -72,6 +93,7 @@ spec:
               BucketName = "gitlab-runner"
               BucketLocation = "us-east-1"
               AuthenticationType = "access-key"
+
           [runners.kubernetes]
             namespace = "{{.Release.Namespace}}"
             image = "ubuntu:22.04"
@@ -100,15 +122,6 @@ spec:
                           requests:
                             storage: 8Gi
               '''
-          [runners.feature_flags]
-            FF_USE_ADVANCED_POD_SPEC_CONFIGURATION = true
-
-      executor: kubernetes
-      name: k3s-runner
-
-      secret: gitlab-runner-secret
-      cache:
-        secretName: gitlab-runner-s3access-secret
 
       affinity:
         nodeAffinity:
