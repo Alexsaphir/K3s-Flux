@@ -14,6 +14,7 @@ spec:
     - name: cluster-infra-kube-prometheus-stack-crds
     - name: cluster-infra-csi-driver-secrets-store
     - name: cluster-infra-longhorn
+    - name: cluster-infra-postgres-ext-postgres-operator
 
   path: ./cluster/infra/kube-system/hashicorp-vault/app
   sourceRef:
