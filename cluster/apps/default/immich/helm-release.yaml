@@ -301,9 +301,9 @@ spec:
           IMMICH_SERVER_URL: http://immich-server.{{.Release.Namespace}}.svc.cluster.local:3001
           IMMICH_MACHINE_LEARNING_URL: {{.Values.immich.machineLearning.url}}
 
-          TRANSFORMERS_CACHE: '/usr/src/app/.transformers_cache'
+          TRANSFORMERS_CACHE: /usr/src/app/.transformers_cache
 
-          DISABLE_REVERSE_GEOCODING: 'true'
+          IMMICH_REVERSE_GEOCODING_ROOT: /usr/src/app/.reverse-geocoding-dump
 
       settings:
         enabled: true
