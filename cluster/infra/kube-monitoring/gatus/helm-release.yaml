@@ -126,11 +126,6 @@ spec:
       create: true
       name: gatus
 
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
-
     ingress:
       main:
         enabled: true
@@ -141,7 +136,14 @@ spec:
           - host: status.${SECRET_DOMAIN_NAME}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
 
       config-file:
         type: configMap
