@@ -285,6 +285,15 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/kubernetes
 
+          - name: prometheus
+            orgId: 1
+            folder: Prometheus
+            type: file
+            disableDeletion: true
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/prometheus
+
           - name: thanos
             orgId: 1
             folder: Thanos
@@ -449,6 +458,13 @@ spec:
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: *datasource
+
+      prometheus:
+        prometheus:
+          # renovate: depName="Prometheus"
+          gnetId: 19105
+          revision: 2
+          datasource: Prometheus
 
       thanos:
         thanos-bucket-replicate:
