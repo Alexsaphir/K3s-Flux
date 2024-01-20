@@ -1,7 +1,7 @@
-# yaml-language-server: $schema=https://gist.githubusercontent.com/james-d-elliott/756de37a4398b3445072a60d674905c6/raw/ce90833b1ce145cb701184557dd964fa7546f19a/jsonschema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/authelia/authelia/40026701fdf604b874334166b9984f6ac003f0fa/docs/static/schemas/v4.38/json-schema/configuration.json
 ---
 log:
-  level: debug
+  level: info
   # format: json
 
 notifier:
@@ -149,7 +149,7 @@ identity_providers:
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris:
           [ 'https://grafana.monitoring.${SECRET_DOMAIN_NAME}/login/generic_oauth' ]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
 
       - id: immich
         description: Immich
@@ -162,7 +162,7 @@ identity_providers:
           - 'https://photos.${SECRET_DOMAIN_NAME}/auth/login'
           - 'https://photos.${SECRET_DOMAIN_NAME}/user-settings'
           - 'app.immich:/'
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
 
       - id: weave-gitops
         description: Weave GitOps
@@ -172,4 +172,4 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris: [ 'https://gitops.${SECRET_DOMAIN_NAME}/oauth2/callback' ]
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
