@@ -8,6 +8,5 @@ resources:
   - pvc.yaml
 
   - secret.sops.yaml
-  - configmap.yaml
 
   - helm-release.yaml

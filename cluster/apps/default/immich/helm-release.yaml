@@ -25,9 +25,40 @@ spec:
   uninstall:
     keepHistory: false
 
+  valuesFrom:
+    - kind: Secret
+      name: immich-secret
+      valuesKey: IMMICH_OAUTH_CLIENT_SECRET
+      targetPath: immich.oauth.clientSecret
+
   values:
-    # renovate: datasource=github-releases depName=immich-app/immich
-    immichVersion: &immichVersion v1.93.2
+    immich:
+      # renovate: datasource=github-releases depName=immich-app/immich
+      version: &immichVersion v1.93.2
+      logLevel: log
+
+      concurency:
+        backgroundTask: 5
+        smartSearch: 2
+        metadataExtraction: 5
+        faceDetection: 2
+        search: 5
+        sidecar: 5
+        library: 5
+        migration: 5
+        thumbnailGeneration: 5
+        videoConversion: 1
+
+      machineLearning:
+        url: http://immich-machine-learning.{{.Release.Namespace}}.svc.cluster.local:3003
+        clipModelName: ViT-B-32__openai
+        facialRecognitionModelName: antelopev2
+
+      enablePasswordLogin: false
+      oauth:
+        issuerUrl: https://auth.${SECRET_DOMAIN_NAME}
+        clientId: immich
+        clientSecret: ~
 
     defaultPodOptions:
       automountServiceAccountToken: false
@@ -47,7 +78,8 @@ spec:
         replicas: 1
 
         annotations:
-          reloader.stakater.com/auto: 'true'
+          configmap.reloader.stakater.com/reload: &config immich-config, immich-settings
+          secret.reloader.stakater.com/reload: &secret immich-secret
 
         initContainers:
           01-init-permission:
@@ -86,7 +118,7 @@ spec:
 
             envFrom:
               - configMapRef:
-                  name: &configMap immich-configmap
+                  name: &configMap immich-config
 
             resources:
               requests:
@@ -97,7 +129,8 @@ spec:
         type: deployment
         replicas: 1
         annotations:
-          reloader.stakater.com/auto: 'true'
+          configmap.reloader.stakater.com/reload: *config
+          secret.reloader.stakater.com/reload: *secret
 
         containers:
           main:
@@ -144,7 +177,8 @@ spec:
         type: deployment
 
         annotations:
-          reloader.stakater.com/auto: 'true'
+          configmap.reloader.stakater.com/reload: *config
+          secret.reloader.stakater.com/reload: *secret
 
         containers:
           main:
@@ -195,6 +229,15 @@ spec:
                   port: *server-port
 
     persistence:
+      settings:
+        enabled: true
+        type: configMap
+        name: immich-settings
+        advancedMounts:
+          main:
+            - path: /usr/src/app/immich-config.json
+              subPath: immich-config.json
+
       library:
         enabled: true
         existingClaim: immich-data
@@ -242,3 +285,171 @@ spec:
           machine-learning:
             main:
               - path: /usr/src/app/.transformers_cache
+
+    configMaps:
+      config:
+        enabled: true
+        data:
+          LOG_LEVEL: {{.Values.immich.logLevel}}
+
+          REDIS_HOSTNAME: immich-redis.{{.Release.Namespace}}.svc.cluster.local
+          REDIS_PORT: 6379
+
+          IMMICH_CONFIG_FILE: /usr/src/app/immich-config.json
+
+          IMMICH_WEB_URL: http://immich-web.{{.Release.Namespace}}.svc.cluster.local:3000
+          IMMICH_SERVER_URL: http://immich-server.{{.Release.Namespace}}.svc.cluster.local:3001
+          IMMICH_MACHINE_LEARNING_URL: {{.Values.immich.machineLearning.url}}
+
+          TRANSFORMERS_CACHE: '/usr/src/app/.transformers_cache'
+
+          DISABLE_REVERSE_GEOCODING: 'true'
+
+      settings:
+        enabled: true
+        data:
+          immich-config.json: |
+            {
+              "ffmpeg": {
+                "crf": 23,
+                "threads": 0,
+                "preset": "ultrafast",
+                "targetVideoCodec": "h264",
+                "targetAudioCodec": "aac",
+                "targetResolution": "720",
+                "maxBitrate": "0",
+                "bframes": -1,
+                "refs": 0,
+                "gopSize": 0,
+                "npl": 0,
+                "temporalAQ": false,
+                "cqMode": "auto",
+                "twoPass": false,
+                "transcode": "required",
+                "tonemap": "hable",
+                "accel": "disabled"
+              },
+
+              "job": {
+                "backgroundTask": {
+                  "concurrency": {{.Values.immich.concurrency.backgroundTask}}
+                },
+                "smartSearch": {
+                  "concurrency": {{.Values.immich.concurrency.smartSearch}}
+                },
+                "metadataExtraction": {
+                  "concurrency": {{.Values.immich.concurrency.metadataExtraction}}
+                },
+                "faceDetection": {
+                  "concurrency": {{.Values.immich.concurrency.faceDetection}}
+                },
+                "search": {
+                  "concurrency": {{.Values.immich.concurrency.search}}
+                },
+                "sidecar": {
+                  "concurrency": {{.Values.immich.concurrency.sidecar}}
+                },
+                "library": {
+                  "concurrency": {{.Values.immich.concurrency.library}}
+                },
+                "migration": {
+                  "concurrency": {{.Values.immich.concurrency.migration}}
+                },
+                "thumbnailGeneration": {
+                  "concurrency": {{.Values.immich.concurrency.thumbnailGeneration}}
+                },
+                "videoConversion": {
+                  "concurrency": {{.Values.immich.concurrency.videoConversion}}
+                }
+              },
+
+              "logging": {
+                "enabled": true,
+                "level": {{.Values.immich.logLevel | quote}}
+              },
+
+              "machineLearning": {
+                "enabled": true,
+                "url": {{.Values.immich.machineLearning.url | quote}},
+                "clip": {
+                  "enabled": true,
+                  "modelName": {{.Values.immich.machineLearning.clipModelName | quote}}
+                },
+                "facialRecognition": {
+                  "enabled": true,
+                  "modelName": {{.Values.immich.machineLearning.facialRecognitionModelName | quote}},
+                  "minScore": 0.7,
+                  "maxDistance": 0.6,
+                  "minFaces": 2
+                },
+                "classification": {
+                  "enabled": true
+                }
+              },
+
+              "map": {
+                "enabled": true,
+                "lightStyle": "",
+                "darkStyle": ""
+              },
+
+              "reverseGeocoding": {
+                "enabled": true
+              },
+
+              "oauth": {
+                "enabled": true,
+                "issuerUrl": {{.Values.immich.oauth.issuerUrl | quote}},
+                "clientId": {{.Values.immich.oauth.clientId | quote}},
+                "clientSecret": {{.Values.immich.oauth.clientSecret | quote}},
+                "mobileOverrideEnabled": false,
+                "mobileRedirectUri": "",
+                "scope": "openid profile email",
+                "storageLabelClaim": "preferred_username",
+                "buttonText": "Login with OAuth",
+                "autoRegister": true,
+                "autoLaunch": false
+              },
+
+              "passwordLogin": {
+                "enabled": {{.Values.immich.enablePasswordLogin}}
+              },
+
+              "storageTemplate": {
+                "enabled": true,
+                "hashVerificationEnabled": true,
+                "template": "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}"
+              },
+
+              "thumbnail": {
+                "webpSize": 250,
+                "jpegSize": 1440,
+                "quality": 80,
+                "colorspace": "p3"
+              },
+
+              "newVersionCheck": {
+                "enabled": true
+              },
+
+              "trash": {
+                "enabled": true,
+                "days": 30
+              },
+
+              "theme": {
+                "customCss": ""
+              },
+
+              "library": {
+                "scan": {
+                  "enabled": true,
+                  "cronExpression": "0 0 * * *"
+                }
+              },
+
+              "server": {
+                "externalDomain": "",
+                "loginPageMessage": ""
+              }
+            }
