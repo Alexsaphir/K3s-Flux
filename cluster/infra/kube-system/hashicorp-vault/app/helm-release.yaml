@@ -32,28 +32,48 @@ spec:
   # https://github.com/hashicorp/vault-helm/blob/main/values.yaml
   values:
     global:
-      enabled: false
+      serverTelemetry:
+        # Enable integration with the Prometheus Operator
+        # See the top level serverTelemetry section below before enabling this feature.
+        prometheusOperator: false
+
+    injector:
+      replicas: 1
+
+      # If true, will enable a node exporter metrics endpoint at /metrics.
+      metrics:
+        enabled: false
+      # Supported log levels include: trace, debug, info, warn, error
+      logLevel: 'info'
+
+      # Configures the log format of the injector. Supported log formats: 'standard', 'json'.
+      logFormat: 'standard'
+
+      # Configures all Vault Agent sidecars to revoke their token when shutting down
+      revokeOnShutdown: false
 
     server:
-      enabled: true
-      updateStrategyType: RollingUpdate
-
+      # Configure the logging verbosity for the Vault server.
       # Supported log levels include: trace, debug, info, warn, error
+      logLevel: 'info'
+
+      # Configure the logging format for the Vault server.
       # Supported log formats include: standard, json
-      logLevel: "info"
-      logFormat: "json"
+      logFormat: 'standard'
 
-      readinessProbe:
-        enabled: true
-        path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
+      extraLabels:
+        configmap.reloader.stakater.com/reload: hashicorp-vault-config
+        secrets.reloader.stakater.com/reload: database-vault
 
+      extraEnvironmentVars:
+        TZ: ${TIMEZONE}
 
       ingress:
         enabled: true
         ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-          hajimari.io/enable: "true"
+          hajimari.io/enable: 'true'
           hajimari.io/icon: shield-key
 
         hosts:
@@ -62,32 +82,21 @@ spec:
               - /
 
       dataStorage:
-        enabled: true
-        size: 10Gi
-        storageClass: longhorn
+        enabled: false
 
       auditStorage:
         enabled: false
-        size: 10Gi
-        storageClass: longhorn
 
-      extraLabels:
-        configmap.reloader.stakater.com/reload: hashicorp-vault-config
+      ha:
+        enabled: true
+        replicas: 2
 
-      extraEnvironmentVars:
-        TZ: ${TIMEZONE}
+        extraSecretEnvironmentVars:
+          - envName: VAULT_PG_CONNECTION_URL
+            secretName: database-vault
+            secretKey: POSTGRES_URL
 
-      #      extraVolumes:
-      #        - type: secret
-      #          name: kms-vault-unseal
-      #          path: /vault/userconfig
-
-      # Run Vault in "standalone" mode. This is the default mode that will deploy if
-      # no arguments are given to helm. This requires a PVC for data storage to use
-      # the "file" backend.  This mode is not highly available and should not be scaled
-      # past a single replica.
-      standalone:
-        enabled: "true"
+        # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
         config: |
           ui = true
 
@@ -98,21 +107,15 @@ spec:
             address = "[::]:8200"
             cluster_address = "[::]:8201"
           }
-          storage "file" {
-            path = "/vault/data"
+
+          service_registration "kubernetes" {}
+
+          storage "postgresql" {
+            ha_enabled = "true"
           }
 
-          # Example configuration for enabling Prometheus metrics in your config.
-          # Enable unauthenticated metrics access (necessary for Prometheus Operator)
-          #telemetry {
-          #  unauthenticated_metrics_access = "true"
-          #  prometheus_retention_time = "30s"
-          #  disable_hostname = true
-          #}
-
-    # Vault UI
     ui:
       enabled: true
-      serviceType: "ClusterIP"
+      serviceType: 'ClusterIP'
 
       externalTrafficPolicy: Cluster
