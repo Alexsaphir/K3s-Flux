@@ -68,6 +68,11 @@ spec:
       extraEnvironmentVars:
         TZ: ${TIMEZONE}
 
+      extraSecretEnvironmentVars:
+        - envName: VAULT_PG_CONNECTION_URL
+          secretName: database-vault
+          secretKey: POSTGRES_URL
+
       ingress:
         enabled: true
         ingressClassName: traefik
@@ -90,11 +95,6 @@ spec:
       ha:
         enabled: true
         replicas: 2
-
-        extraSecretEnvironmentVars:
-          - envName: VAULT_PG_CONNECTION_URL
-            secretName: database-vault
-            secretKey: POSTGRES_URL
 
         # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
         config: |
