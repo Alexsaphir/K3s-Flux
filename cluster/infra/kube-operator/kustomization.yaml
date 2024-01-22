@@ -6,7 +6,6 @@ resources:
 
   - cloudnative-pg/ks.yaml
   - emqx-operator/ks.yaml
-  - redis-operator/ks.yaml
   - redis-opstree-operator/ks.yaml
 
   - postgres/ks.yaml
