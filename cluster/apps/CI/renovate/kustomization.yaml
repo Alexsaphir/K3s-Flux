@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: flux-ci
 resources:
   - secret.sops.yaml
-  - pvc.yaml
   - postgres.yaml
   - redis.yaml
   - helm-release.yaml

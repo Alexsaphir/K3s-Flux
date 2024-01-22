@@ -135,12 +135,6 @@ spec:
                 readOnly: true
                 subPath: config.js
 
-      data:
-        enabled: true
-        existingClaim: renovate
-        globalMounts:
-          - path: /db
-
       cache-persistence:
         enabled: true
         type: emptyDir
