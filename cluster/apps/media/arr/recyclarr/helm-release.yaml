@@ -29,6 +29,10 @@ spec:
     keepHistory: false
 
   values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+
     controllers:
       main:
         type: cronjob
