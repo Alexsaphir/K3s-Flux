@@ -1,0 +1,131 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: lidarr
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/lidarr-develop
+              tag: 2.1.3.3927@sha256:437d38a8f53184721755772b7f1b0f5657ccee4c81a2f40b18a1b8a9ecf17b34
+
+            env:
+              COMPlus_EnableDiagnostics: '0'
+              PUSHOVER_DEBUG: 'false'
+              LIDARR__AUTHENTICATION_METHOD: External
+              LIDARR__AUTHENTICATION_REQUIRED: Enabled
+              LIDARR__INSTANCE_NAME: Lidarr
+              LIDARR__PORT: &port 8686
+              LIDARR__LOG_LEVEL: info
+              LIDARR__THEME: light
+              LIDARR__ANALYTICS_ENABLED: 'false'
+              TZ: ${TIMEZONE}
+
+            envFrom:
+              - secretRef:
+                  name: lidarr-secret
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+            resources:
+              limits: &resources
+                memory: 1Gi
+              requests:
+                <<: *resources
+                cpu: 10m
+
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+          hajimari.io/enable: 'true'
+        hosts:
+          - host: '{{ .Release.Name }}.${SECRET_DOMAIN_NAME}'
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: readarr
+
+      tmp:
+        type: emptyDir
+
+      media:
+        enabled: true
+        type: nfs
+        server: '192.168.0.130'
+        path: /mnt/user/Media
+        readOnly: true
+        globalMounts:
+          - path: /media
