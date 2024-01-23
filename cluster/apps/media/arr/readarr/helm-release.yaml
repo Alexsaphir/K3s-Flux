@@ -47,10 +47,11 @@ spec:
             env:
               COMPlus_EnableDiagnostics: '0'
               PUSHOVER_DEBUG: 'false'
-              READARR__AUTHENTICATION_METHOD: External
-              READARR__AUTHENTICATION_REQUIRED: Enabled
+              READARR__AUTHENTICATION_METHOD: None
+              # READARR__AUTHENTICATION_METHOD: External
+              # READARR__AUTHENTICATION_REQUIRED: Enabled
               READARR__INSTANCE_NAME: Readarr
-              READARR__PORT: &port 8686
+              READARR__PORT: &port 8787
               READARR__LOG_LEVEL: info
               READARR__THEME: light
               READARR__ANALYTICS_ENABLED: 'false'
