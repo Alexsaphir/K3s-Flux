@@ -47,6 +47,7 @@ resources:
   - kyverno-reporter.yaml
   - kyverno.yaml
   - longhorn.yaml
+  - mariadb-operator.yaml
   - metallb.yaml
   - metric-server.yaml
   - minio.yaml
