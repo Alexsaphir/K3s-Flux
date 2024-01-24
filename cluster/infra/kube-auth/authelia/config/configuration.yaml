@@ -124,6 +124,17 @@ access_control:
       policy: bypass
 
     - domain:
+        - 'hajimari.${SECRET_DOMAIN_NAME}'
+      policy: two_factor
+
+    - domain:
+        - 'lldap.${SECRET_DOMAIN_NAME}'
+        - 'longhorn.${SECRET_DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'group:cluster-admins'
+
+    - domain:
         - '*.${SECRET_DOMAIN_NAME}'
         - '*.monitoring.${SECRET_DOMAIN_NAME}'
       policy: deny
