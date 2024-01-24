@@ -130,6 +130,7 @@ access_control:
     - domain:
         - 'lldap.${SECRET_DOMAIN_NAME}'
         - 'longhorn.${SECRET_DOMAIN_NAME}'
+        - 'netbox.${SECRET_DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'
