@@ -109,6 +109,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/enable: 'true'
+          hajimari.io/icon: mdi:filmstrip
         hosts:
           - host: '{{ .Release.Name }}.${SECRET_DOMAIN_NAME}'
             paths:

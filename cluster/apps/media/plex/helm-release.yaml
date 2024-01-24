@@ -97,6 +97,8 @@ spec:
         className: traefik
         annotations:
           auth.home.arpa/disabled: 'true'
+          hajimari.io/enable: 'true'
+          hajimari.io/icon: mdi:plex
         hosts:
           - host: plex.${SECRET_DOMAIN_NAME}
             paths:

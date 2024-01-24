@@ -108,6 +108,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/enable: 'true'
+          hajimari.io/icon: mdi:cloud-search
         hosts:
           - host: '{{ .Release.Name }}.${SECRET_DOMAIN_NAME}'
             paths:
