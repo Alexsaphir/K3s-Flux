@@ -311,6 +311,7 @@ spec:
         className: traefik
         annotations:
           hajimari.io/enable: 'true'
+          hajimari.io/icon: mdi:source-branch-check
         hosts:
           - host: *host
             paths:

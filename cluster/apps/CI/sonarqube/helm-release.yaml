@@ -94,7 +94,9 @@ spec:
       ingressClassName: traefik
       hosts:
         - name: sonarqube.${SECRET_DOMAIN_NAME}
-      annotations: { }
+      annotations:
+        hajimari.io/enable: 'true'
+        hajimari.io/icon: mdi:source-branch-check
 
     persistence:
       enabled: true

@@ -229,6 +229,8 @@ spec:
       className: traefik
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hajimari.io/enable: 'true'
+        hajimari.io/icon: mdi:rhombus-split
       hosts:
         - host: &hostname netbox.${SECRET_DOMAIN_NAME}
           paths:
