@@ -28,6 +28,9 @@ spec:
   uninstall:
     keepHistory: false
 
+  dependsOn:
+    - name: plex
+
   values:
     controllers:
       main:
