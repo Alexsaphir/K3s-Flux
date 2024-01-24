@@ -30,7 +30,7 @@ spec:
   # https://github.com/weaveworks/weave-gitops/blob/main/charts/gitops-server/values.yaml
   values:
     adminUser:
-      create: false
+      create: true
       createSecret: false
       username: admin
 
