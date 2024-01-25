@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: cluster-infra-kube-prometheus-stack-crds
 
-  path: ./cluster/infra/kube-operator/volcano
+  path: ./cluster/infra/kube-operator/volcano-operator
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
