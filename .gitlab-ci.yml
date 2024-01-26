@@ -31,9 +31,8 @@ trigger_devcontainer:
     include: .gitlab/ci/devcontainer.yaml
   rules:
     - changes:
-        - .devcontainer/*
+        - .devcontainer/ci/*
         - .gitlab/ci/devcontainer.json
-        - aqua.yaml
         - pyproject.toml
         - poetry.lock
       if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

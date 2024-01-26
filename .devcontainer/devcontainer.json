@@ -1,3 +1,19 @@
 {
-  "image": "registry.alexsaphir.com/homelab/k3s-flux/devcontainer:latest"
+  "image": "registry.alexsaphir.com/homelab/k3s-flux/devcontainer:latest",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/usr/bin/fish"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "fish"
+      },
+      "extensions": [
+        "redhat.ansible",
+        "redhat.vscode-yaml"
+      ]
+    }
+  }
 }
