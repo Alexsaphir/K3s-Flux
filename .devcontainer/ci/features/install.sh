@@ -16,12 +16,14 @@ mkdir -p /home/vscode/.config/fish/completions
 mkdir -p /home/vscode/.config/fish/conf.d
 
 # Add hooks into fish
+tee /home/vscode/.config/fish/conf.d/aqua.fish > /dev/null <<EOF
+set -xg AQUA_ROOT_DIR /home/vscode/.aqua
+set -xg AQUA_GLOBAL_CONFIG ~/.aqua.yaml
+fish_add_path $AQUA_ROOT_DIR/bin
+EOF
+
 tee /home/vscode/.config/fish/conf.d/hooks.fish > /dev/null <<EOF
 if status is-interactive
-    set -xg AQUA_ROOT_DIR /home/vscode/.aqua
-    set -xg AQUA_GLOBAL_CONFIG ~/.aqua.yaml
-    fish_add_path $AQUA_ROOT_DIR/bin
-
     direnv hook fish | source
 end
 EOF

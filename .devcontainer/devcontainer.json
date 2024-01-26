@@ -1,5 +1,10 @@
 {
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "Flux GitOps",
   "image": "registry.alexsaphir.com/homelab/k3s-flux/devcontainer:latest",
+  "postCreateCommand": {
+    "setup": "fish ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
+  },
   "customizations": {
     "vscode": {
       "settings": {
