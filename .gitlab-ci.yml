@@ -21,9 +21,9 @@ include:
 
 stages:
   - test
-  - sonarqube
+  - sonarqube-check
+  - sonarqube-report
   - triggers
-
 
 trigger_devcontainer:
   stage: triggers
