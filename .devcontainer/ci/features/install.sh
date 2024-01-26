@@ -8,8 +8,11 @@ apk add --no-cache bash bind-tools ca-certificates curl \
 # Install aqua
 cd /home/vscode
 export AQUA_ROOT_DIR=/home/vscode/.aqua
+export AQUA_GLOBAL_CONFIG=/home/vscode/.aqua.yaml
 export PATH=$AQUA_ROOT_DIR/bin:$PATH
 curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v2.2.0/aqua-installer | bash
+
+aqua i
 
 # Create the fish configuration directory
 mkdir -p /home/vscode/.config/fish/completions
@@ -18,7 +21,7 @@ mkdir -p /home/vscode/.config/fish/conf.d
 # Add hooks into fish
 tee /home/vscode/.config/fish/conf.d/aqua.fish > /dev/null <<EOF
 set -xg AQUA_ROOT_DIR /home/vscode/.aqua
-set -xg AQUA_GLOBAL_CONFIG ~/.aqua.yaml
+set -xg AQUA_GLOBAL_CONFIG /home/vscode/.aqua.yaml
 fish_add_path $AQUA_ROOT_DIR/bin
 EOF
 
@@ -38,6 +41,12 @@ mkdir -p /home/vscode/.config/direnv
 tee /home/vscode/.config/direnv/direnv.toml > /dev/null <<EOF
 [whitelist]
 prefix = [ "/workspaces" ]
+EOF
+
+tee /home/vscode/.config/fish/conf.d/hooks.fish > /dev/null <<EOF
+if status is-interactive
+    direnv hook fish | source
+end
 EOF
 
 # Set ownership vscode .config directory to the vscode user

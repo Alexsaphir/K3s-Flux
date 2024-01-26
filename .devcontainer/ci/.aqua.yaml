@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+registries:
+  - type: standard
+    ref: v4.124.0 # renovate: depName=aquaproj/aqua-registry
+packages:
+  - name: direnv/direnv@v2.33.0
+  - name: go-task/task@v3.34.0
+  - name: FiloSottile/age@v1.1.1
+  - name: mozilla/sops@v3.8.1
+  - name: lsd-rs/lsd@v1.0.0
