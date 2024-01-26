@@ -11,7 +11,7 @@ packages:
   - name: cilium/cilium-cli@v0.15.20
   - name: helm/helm@v3.14.0
   - name: derailed/k9s@v0.31.7
-  - name: kubernetes/kubectl@v1.26.13
+  - name: kubernetes/kubectl@v1.29.1
   - name: kubernetes-sigs/kustomize@kustomize/v5.3.0
   - name: budimanjojo/talhelper@v1.17.1
   - name: siderolabs/talos@v1.6.3
