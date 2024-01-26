@@ -17,157 +17,23 @@ include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Jobs/SAST-IaC.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
+  - local: .gitlab/ci/sonarqube.yaml
 
 stages:
   - test
-  - sonarqube-check
-  - sonarqube-vulnerability-report
-  - oci
-  - quality
-  - deploy
+  - sonarqube
+  - triggers
 
-.arkade:
-  image: ubuntu
-  cache:
-    paths:
-      - .apt
-  before_script:
-    - rm -f /etc/apt/apt.conf.d/docker-clean
-    - mkdir .apt && mkdir /var/cache/apt/archives && mount --bind .apt /var/cache/apt/archives/
-    - apt update && apt install -qy curl python3 python3-yaml wget unzip tree
-    - curl -sLS https://get.arkade.dev | sh
-    - arkade get flux
-    - arkade get kubectl
-    - export PATH=$PATH:$HOME/.arkade/bin/
 
-# 'create-oci':
-#  stage: oci
-#  extends:
-#    - .arkade
-#  script:
-#    - kubectl get nodes
-#    - |
-#      wget https://github.com/datreeio/CRDs-catalog/releases/download/v0.0.11/crd-extractor.zip
-#      unzip crd-extractor.zip
-#    - export HOME=$CI_PROJECT_DIR
-#    - bash crd-extractor.sh
-#    - mv ${HOME}/.datree/crdSchemas $CI_PROJECT_DIR/
-#    - |
-#      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
-#      --path=$CI_PROJECT_DIR/crdSchemas \
-#      --source=${CI_REPOSITORY_URL} \
-#      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
-#      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
-#  artifacts:
-#    paths:
-#      - crdSchemas/
-#
-# kubeconform:
-#  stage: quality
-#  extends:
-#    - .arkade
-#  script:
-#    - arkade get kubeconform kustomize flux
-#    - bash ./.gitlab/scripts/kubeconform.sh
-#      cluster
-#      crdSchemas
-#
-# 'publish-oci':
-#  stage: deploy
-#  extends:
-#    - .arkade
-#  only:
-#    - tags
-#  script:
-#    - |
-#      flux push artifact oci://${CI_REGISTRY_IMAGE}/kubernetes-schemas-oci:${CI_COMMIT_SHA} \
-#      --path=$CI_PROJECT_DIR/crdSchemas \
-#      --source=${CI_REPOSITORY_URL} \
-#      --revision="${CI_COMMIT_REF_NAME}@sha1:${CI_COMMIT_SHA}" \
-#      --creds ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}
-#
-# 'publish-oci-web':
-#  stage: deploy
-#  image:
-#    name: gcr.io/kaniko-project/executor:v1.12.0-debug
-#    entrypoint: [ "" ]
-#  rules:
-#    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-#  script:
-#    - |
-#      cat <<EOF > $CI_PROJECT_DIR/crdSchemas/Dockerfile
-#      FROM ghcr.io/nginxinc/nginx-unprivileged:latest
-#      COPY --chown=nginx:nginx --chmod=755 . /usr/share/nginx/html
-#      USER nginx
-#      EOF
-#    - cat $CI_PROJECT_DIR/crdSchemas/Dockerfile
-#    - /kaniko/executor
-#      --context $CI_PROJECT_DIR/crdSchemas
-#      --dockerfile $CI_PROJECT_DIR/crdSchemas/Dockerfile
-#      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:latest
-##      --destination $CI_REGISTRY_IMAGE/kubernetes-schemas-web:${CI_COMMIT_SHA}
-
-pages:
-  stage: deploy
-  image: rust
-  variables:
-    CARGO_HOME: $CI_PROJECT_DIR/cargo
-  before_script:
-    - export PATH="$PATH:$CARGO_HOME/bin"
-    - |
-      mdbook --version || cargo install mdbook \
-                                        mdbook-open-git-repo \
-                                        mdbook-linkcheck \
-                                        mdbook-toc \
-                                        mdbook-emojicodes \
-                                        mdbook-linkcheck
-  script:
-    - mdbook build -d ../public docs
+trigger_devcontainer:
+  stage: triggers
+  trigger:
+    include: .gitlab/ci/devcontainer.yaml
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  artifacts:
-    paths:
-      - public
-  cache:
-    paths:
-      - $CARGO_HOME/bin
-
-sonarqube-check:
-  stage: sonarqube-check
-  image:
-    name: sonarsource/sonar-scanner-cli:5.0
-    entrypoint: [ "" ]
-  variables:
-    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
-    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
-  cache:
-    key: "${CI_JOB_NAME}"
-    paths:
-      - .sonar/cache
-  script:
-    - sonar-scanner
-  allow_failure: true
-  only:
-    - merge_requests
-    - master
-    - main
-    - develop
-
-sonarqube-vulnerability-report:
-  stage: sonarqube-vulnerability-report
-  image:
-    name: curlimages/curl:8.5.0
-  script:
-    - 'curl -u "${SONAR_TOKEN}:" "${SONAR_HOST_URL}/api/issues/gitlab_sast_export?projectKey=Homelab_K3s-Flux_AYvVRQzR8mQCs-Lh0qaN&branch=${CI_COMMIT_BRANCH}&pullRequest=${CI_MERGE_REQUEST_IID}" -o gl-sast-sonar-report.json'
-  allow_failure: true
-  only:
-    - merge_requests
-    - master
-    - main
-    - develop
-  artifacts:
-    expire_in: 1 day
-    reports:
-      sast: gl-sast-sonar-report.json
-  dependencies:
-    - sonarqube-check
+    - changes:
+        - .devcontainer/*
+        - .gitlab/ci/devcontainer.json
+        - aqua.yaml
+        - pyproject.toml
+        - poetry.lock
+      if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

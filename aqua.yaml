@@ -10,6 +10,8 @@ packages:
   - name: go-task/task@v3.33.1
   - name: gitleaks/gitleaks@v8.18.1
 
+  - name: firecow/gitlab-ci-local@4.46.0
+
   - name: FiloSottile/age@v1.1.1
   - name: mozilla/sops@v3.8.1
 
