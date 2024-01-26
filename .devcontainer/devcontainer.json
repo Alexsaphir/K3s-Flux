@@ -1,6 +1,3 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  }
+  "image": "registry.alexsaphir.com/homelab/k3s-flux/devcontainer:latest"
 }

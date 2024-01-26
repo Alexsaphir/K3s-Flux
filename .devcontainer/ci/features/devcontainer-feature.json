@@ -1,0 +1,6 @@
+{
+  "name": "Flux GitOps Env (Tools)",
+  "id": "flux-gitops-env",
+  "version": "1.0.0",
+  "description": "Install Tools"
+}

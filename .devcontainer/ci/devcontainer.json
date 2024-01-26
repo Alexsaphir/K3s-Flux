@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "Flux GitOps Env",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  }
+}

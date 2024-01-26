@@ -9,6 +9,6 @@ build:
     entrypoint: [ "" ]
   script:
     - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/.devcontainer/Dockerfile"
+      --context "${CI_PROJECT_DIR}/.devcontainer/ci"
+      --dockerfile "${CI_PROJECT_DIR}/.devcontainer/ci/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}/devcontainer:latest"
