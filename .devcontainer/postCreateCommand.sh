@@ -13,3 +13,9 @@ end
 
 stern --completion fish > /home/vscode/.config/fish/completions/stern.fish
 yq shell-completion fish > /home/vscode/.config/fish/completions/yq.fish
+
+tee /home/vscode/.config/fish/conf.d/hooks.fish > /dev/null <<EOF
+if status is-interactive
+    direnv hook fish | source
+end
+EOF

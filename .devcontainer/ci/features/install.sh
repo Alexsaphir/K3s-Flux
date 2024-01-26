@@ -22,12 +22,6 @@ set -xg AQUA_GLOBAL_CONFIG ~/.aqua.yaml
 fish_add_path $AQUA_ROOT_DIR/bin
 EOF
 
-tee /home/vscode/.config/fish/conf.d/hooks.fish > /dev/null <<EOF
-if status is-interactive
-    direnv hook fish | source
-end
-EOF
-
 # Add aliases into fish
 tee /home/vscode/.config/fish/conf.d/aliases.fish > /dev/null <<EOF
 alias ls lsd
