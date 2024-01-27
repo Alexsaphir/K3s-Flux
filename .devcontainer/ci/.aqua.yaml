@@ -7,7 +7,7 @@ registries:
     ref: v4.125.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.33.0
-  - name: go-task/task@v3.34.0
+  - name: go-task/task@v3.34.1
   - name: FiloSottile/age@v1.1.1
   - name: mozilla/sops@v3.8.1
   - name: lsd-rs/lsd@v1.0.0
