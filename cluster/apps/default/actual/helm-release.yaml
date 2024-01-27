@@ -1,0 +1,85 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: actual
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: 'OnRootMismatch'
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/actualbudget/actual-server
+              tag: 24.1.0
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 512M
+
+    service:
+      main:
+        ports:
+          http:
+            port: 5006
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          hajimari.io/enable: 'true'
+          hajimari.io/icon: hammer-wrench
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: actual.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+    persistence:
+      data:
+        enabled: true
+        existingClaim: actual
+        advancedMounts:
+          main:
+            main:
+              - path: /data
