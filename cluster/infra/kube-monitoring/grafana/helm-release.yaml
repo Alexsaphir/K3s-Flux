@@ -463,7 +463,7 @@ spec:
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
-          revision: 2
+          revision: 3
           datasource: Prometheus
 
       thanos:
