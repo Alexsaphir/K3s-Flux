@@ -1,0 +1,13 @@
+---
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: Grant
+metadata:
+  name: ombi
+spec:
+  mariaDbRef:
+    name: mariadb-media
+  privileges:
+    - 'ALL'
+  database: '*'
+  table: '*'
+  username: ombi
