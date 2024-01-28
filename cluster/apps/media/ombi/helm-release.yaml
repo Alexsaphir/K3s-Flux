@@ -107,7 +107,7 @@ spec:
         advancedMounts:
           main:
             main:
-              - path: /config/
+              - path: /config/database.json
                 subPath: database.json
       config:
         enabled: true
