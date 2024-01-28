@@ -84,6 +84,7 @@ access_control:
     - domain:
         - 'plex.${SECRET_DOMAIN_NAME}'
         - 'tautulli.${SECRET_DOMAIN_NAME}'
+        - 'ombi.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
     # Public ingresses behind sso
