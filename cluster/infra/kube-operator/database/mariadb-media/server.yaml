@@ -1,0 +1,40 @@
+---
+apiVersion: mariadb.mmontes.io/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-media
+spec:
+  rootPasswordSecretKeyRef:
+    name: mariadb-media-secret
+    key: password
+  port: 3306
+
+  image: 'mariadb:11.2.2'
+
+  replicas: 1
+  env:
+    - name: TZ
+      value: ${TIMEZONE}
+
+  volumeClaimTemplate:
+    storageClassName: longhorn
+    resources:
+      requests:
+        storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
+
+  metrics:
+    enabled: true
+
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  securityContext:
+    allowPrivilegeEscalation: false
+
+  service:
+    type: LoadBalancer
