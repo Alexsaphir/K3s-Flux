@@ -28,7 +28,16 @@ spec:
   uninstall:
     keepHistory: false
 
+  valuesFrom:
+    - kind: Secret
+      name: ombi-secret
+      targetPath: ombi.password
+      valuesKey: password
+
   values:
+    ombi:
+      host: mariadb-media.database.svc.cluster.local
+
     controllers:
       main:
         pod:
@@ -70,7 +79,36 @@ spec:
                   name: main
                   port: http
 
+    configMaps:
+      database:
+        enabled: true
+        data:
+          database.json: |
+            {
+              "OmbiDatabase": {
+                "Type": "MySQL",
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=Ombi;User=ombi;Password={{ .Values.ombi.password }}"
+              },
+              "SettingsDatabase": {
+                "Type": "MySQL",
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=Ombi;User=ombi;Password={{ .Values.ombi.password }}"
+              },
+              "ExternalDatabase": {
+                "Type": "MySQL",
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=Ombi;User=ombi;Password={{ .Values.ombi.password }}"
+              }
+            }
+
+
     persistence:
+      config-file:
+        type: configMap
+        name: ombi-database
+        advancedMounts:
+          main:
+            main:
+              - path: /config/
+                subPath: database.json
       config:
         enabled: true
         existingClaim: ombi
