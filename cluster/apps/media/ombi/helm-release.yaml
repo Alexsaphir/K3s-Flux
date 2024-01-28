@@ -101,15 +101,15 @@ spec:
 
 
     persistence:
-      config-file:
-        type: configMap
-        name: ombi-database
-        advancedMounts:
-          main:
-            main:
-              - path: /config/database.json.src
-                subPath: database.json
-                readOnly: false
+      # config-file:
+      #   type: configMap
+      #   name: ombi-database
+      #   advancedMounts:
+      #     main:
+      #       main:
+      #         - path: /config/database.json.src
+      #           subPath: database.json
+      #           readOnly: false
       config:
         enabled: true
         existingClaim: ombi
