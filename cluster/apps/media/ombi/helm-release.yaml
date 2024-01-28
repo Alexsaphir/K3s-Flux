@@ -87,29 +87,29 @@ spec:
             {
               "OmbiDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=Ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
               },
               "SettingsDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=Ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
               },
               "ExternalDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=Ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
               }
             }
 
 
     persistence:
-      # config-file:
-      #   type: configMap
-      #   name: ombi-database
-      #   advancedMounts:
-      #     main:
-      #       main:
-      #         - path: /config/database.json
-      #           subPath: database.json
-      #           readOnly: false
+      config-file:
+        type: configMap
+        name: ombi-database
+        advancedMounts:
+          main:
+            main:
+              - path: /config/database.json.src
+                subPath: database.json
+                readOnly: false
       config:
         enabled: true
         existingClaim: ombi
