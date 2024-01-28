@@ -109,6 +109,7 @@ spec:
             main:
               - path: /config/database.json
                 subPath: database.json
+                readOnly: false
       config:
         enabled: true
         existingClaim: ombi
