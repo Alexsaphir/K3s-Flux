@@ -44,6 +44,11 @@ spec:
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
+
+    enableRuntimeDeviceDetection: true
+    # Which devices trigger to reload
+    devices: enp2s0
+
     endpointRoutes:
       enabled: true
     hubble:
