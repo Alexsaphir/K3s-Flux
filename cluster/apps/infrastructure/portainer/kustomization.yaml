@@ -5,3 +5,4 @@ namespace: portainer
 resources:
   - namespace.yaml
   - pvc.yaml
+  - helm-release.yaml

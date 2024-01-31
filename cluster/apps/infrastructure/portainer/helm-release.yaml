@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: portainer
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          main:
+            image:
+              repository: portainer/portainer-ee
+              tag: 2.19.4
+
+            env:
+              TIMEZONE: '${TIMEZONE}'
+
+    service:
+      main:
+        ports:
+          http:
+            port: 9000
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+          hajimari.io/appName: "portainer"
+          hajimari.io/icon: "pier-crane"
+        hosts:
+          - host: "portainer.${SECRET_DOMAIN_NAME}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: portainer
+        globalMounts:
+          - path: /data
