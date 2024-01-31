@@ -70,10 +70,8 @@ spec:
 
     prometheus:
       enabled: true
-      servicemonitor:
+      podmonitor:
         enabled: true
-        namespace: cert-manager
-        prometheusInstance: flux-monitoring # kube-prometheus-stack
 
     resources:
       requests:
