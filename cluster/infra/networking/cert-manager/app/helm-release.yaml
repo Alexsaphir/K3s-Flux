@@ -33,10 +33,10 @@ spec:
   # https://github.com/cert-manager/cert-manager/blob/v1.11.0/deploy/charts/cert-manager/values.yaml
   values:
     installCRDs: true
-    replicaCount: 1
+    replicaCount: 2
 
     webhook:
-      replicaCount: 1
+      replicaCount: 2
       enabled: true
       resources:
       requests:
@@ -47,7 +47,7 @@ spec:
         memory: 65M
 
     cainjector:
-      replicaCount: 1
+      replicaCount: 2
       resources:
         requests:
           cpu: 15m
@@ -56,17 +56,20 @@ spec:
           # cpu: 15m
           memory: 447M
 
-    extraArgs:
-      - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
-      - --dns01-recursive-nameservers-only
-      - --enable-certificate-owner-ref=true
-      - --default-issuer-kind=ClusterIssuer
-      - --default-issuer-name=letsencrypt-production
+    enableCertificateOwnerRef: false
+
+    ingressShim:
+      defaultIssuerName: letsencrypt-production
+      defaultIssuerKind: ClusterIssuer
+
+    dns01RecursiveNameservers: 1.1.1.1:53,9.9.9.9:53
+    dns01RecursiveNameserversOnly: true
+
     podDnsPolicy: None
     podDnsConfig:
       nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
+        - '1.1.1.1'
+        - '9.9.9.9'
 
     prometheus:
       enabled: true
