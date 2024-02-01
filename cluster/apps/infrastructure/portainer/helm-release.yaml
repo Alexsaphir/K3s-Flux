@@ -45,7 +45,7 @@ spec:
               - --admin-password-file
               - /tmp/admin
               - --license-key
-              - $$PORTAINER_LICENSE_KEY
+              - $$(PORTAINER_LICENSE_KEY)
 
             env:
               TIMEZONE: '${TIMEZONE}'
