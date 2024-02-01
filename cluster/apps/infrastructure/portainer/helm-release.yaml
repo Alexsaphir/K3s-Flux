@@ -41,8 +41,17 @@ spec:
               repository: portainer/portainer-ee
               tag: 2.19.4
 
+            args:
+              - --admin-password-file
+              - /tmp/admin
+              - --license-key
+              - $$PORTAINER_LICENSE_KEY
+
             env:
               TIMEZONE: '${TIMEZONE}'
+            envFrom:
+              - secretRef:
+                  name: portainer-secret
 
     service:
       main:
@@ -72,3 +81,13 @@ spec:
         existingClaim: portainer
         globalMounts:
           - path: /data
+
+      admin:
+        enabled: true
+        type: secret
+        name: portainer-secret
+        globalMounts:
+          - path: /tmp/admin
+            subPath: PORTAINER_ADMIN_PASSWORD
+            readOnly: true
+        # Created with `openssl rand -base64 48 | paste --delimiters '' --serial`
