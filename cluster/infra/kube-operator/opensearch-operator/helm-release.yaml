@@ -44,6 +44,9 @@ spec:
       runAsNonRoot: true
 
     manager:
+      image:
+        repository: public.ecr.aws/opensearchproject/opensearch-operator
+
       securityContext:
         allowPrivilegeEscalation: false
 
