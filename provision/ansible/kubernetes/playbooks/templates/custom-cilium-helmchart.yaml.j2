@@ -14,39 +14,56 @@ spec:
   bootstrap: true
   valuesContent: |-
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
     bpf:
       masquerade: true
     bgp:
       enabled: false
     cluster:
-      name: kubernetes
+      name: home-cluster
       id: 1
+
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
+
+    enableRuntimeDeviceDetection: true
+    # Which devices trigger to reload
+    devices: enp2s0
+
     endpointRoutes:
       enabled: true
     hubble:
       enabled: false
     ipam:
       mode: kubernetes
+
     ipv4NativeRoutingCIDR: "{{ cluster_cidr }}"
     k8sServiceHost: 127.0.0.1
     k8sServicePort: 6444
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
     l2announcements:
       enabled: false
       leaseDuration: 120s
       leaseRenewDeadline: 60s
       leaseRetryPeriod: 1s
+
     loadBalancer:
       algorithm: maglev
       mode: dsr
+
     localRedirectPolicy: true
+
     operator:
       rollOutPods: true
+
     rollOutCiliumPods: true
+
     securityContext:
       privileged: true
-    tunnel: disabled
+
+    routingMode: native
