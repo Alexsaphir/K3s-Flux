@@ -5,5 +5,6 @@ namespace: portainer
 resources:
   - namespace.yaml
   - pvc.yaml
+  - rbac.yaml
   - secret.sops.yaml
   - helm-release.yaml

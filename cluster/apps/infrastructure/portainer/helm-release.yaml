@@ -59,6 +59,10 @@ spec:
           http:
             port: 9000
 
+    serviceAccount:
+      create: true
+      name: portainer
+
     ingress:
       main:
         enabled: true
