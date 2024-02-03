@@ -34,5 +34,5 @@ packages:
   - name: zegl/kube-score@v1.17.0
   - name: cilium/cilium-cli@v0.15.22
   - name: siderolabs/talos@v1.6.4
-  - name: budimanjojo/talhelper@v2.0.1
+  - name: budimanjojo/talhelper@v2.0.2
   - name: lsd-rs/lsd@v1.0.0
