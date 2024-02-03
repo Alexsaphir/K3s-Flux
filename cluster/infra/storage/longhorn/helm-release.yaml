@@ -51,10 +51,18 @@ spec:
 
       defaultLonghornStaticStorageClass: longhorn
       defaultDataPath: /var/lib/longhorn
+      defaultDataLocality: best-effort
       defaultReplicaCount: 2
 
       backupTarget: s3://longhorn@us-east-1/backupstore
       backupTargetCredentialSecret: longhorn-backup-secrets
+      backupstorePollInterval: 60
+      failedBackupTTL: 1440
+
+      snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: false
+      snapshotDataIntegrityCronjob: 0 8 */7 * *
+
+      upgradeChecker: false
 
     csi:
       attacherReplicaCount: 2
@@ -70,3 +78,7 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hajimari.io/enable: 'true'
         hajimari.io/icon: mdi:harddisk
+
+    metrics:
+      serviceMonitor:
+        enabled: true
