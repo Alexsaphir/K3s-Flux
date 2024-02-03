@@ -1,6 +1,6 @@
 ---
 # renovate: datasource=github-releases depName=k3s-io/k3s
-k3s_release_version: "v1.29.0+k3s1"
+k3s_release_version: "v1.29.1+k3s1"
 
 k3s_config_file: "/etc/rancher/k3s/config.yaml"
 k3s_install_hard_links: true
@@ -19,10 +19,8 @@ k3s_server_manifests_urls:
 
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
-  # - custom-cilium-l2.yaml.j2
-
-k3s_server_pod_manifests_templates:
-  - kube-vip-static-pod.yaml.j2
+  - kube-vip-ds.yaml.j2
+  - kube-vip-rbac.yaml.j2
 
 k3s_registries:
   configs:
@@ -30,3 +28,14 @@ k3s_registries:
       auth:
         username: "{{ secret_dockerhub_username }}"
         password: "{{ secret_dockerhub_apitoken }}"
+
+  mirrors:
+    docker.io:
+    gcr.io:
+    ghcr.io:
+    k8s.gcr.io:
+    lscr.io:
+    mcr.microsoft.com:
+    public.ecr.aws:
+    quay.io:
+    registry.k8s.io:
