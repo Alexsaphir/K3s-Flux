@@ -14,7 +14,7 @@ packages:
   - name: mozilla/sops@v3.8.1
   - name: hashicorp/terraform@v1.7.2
   - name: terraform-linters/tflint@v0.50.2
-  - name: fluxcd/flux2@v2.2.2
+  - name: fluxcd/flux2@v2.2.3
   - name: kubernetes/kubectl@v1.29.1
   - name: helm/helm@v3.14.0
   - name: kubernetes-sigs/kustomize@kustomize/v5.3.0
