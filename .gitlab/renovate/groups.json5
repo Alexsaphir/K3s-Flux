@@ -10,7 +10,7 @@
       matchDatasources: [
         'docker',
         'github-tags',
-        'github-release'
+        'github-releases'
       ],
       versioning: 'semver',
       group: {
@@ -25,50 +25,24 @@
         'codecov'
       ],
       matchDatasources: [
-        'docker'
-      ],
-      group: {
-        'commitMessageTopic': '{{{groupName}}} group'
-      },
-      separateMinorPatch: true
-    },
-    {
-      description: 'Immich Group',
-      groupName: 'Immich',
-      matchPackagePatterns: [
-        'immich'
-      ],
-      matchDatasources: [
-        'docker'
-      ],
-      group: {
-        'commitMessageTopic': '{{{groupName}}} group'
-      },
-      separateMinorPatch: true
-    },
-    {
-      description: 'Tekton Group',
-      groupName: 'Tekton',
-      matchPackagePatterns: [
-        'tektoncd'
-      ],
-      matchDatasources: [
+        'docker',
         'github-releases'
       ],
-      matchUpdateTypes: [
-        'minor',
-        'patch'
-      ],
       group: {
-        commitMessageTopic: '{{{groupName}}} group'
+        'commitMessageTopic': '{{{groupName}}} group'
       },
-      separateMinorPatch: false
+      separateMinorPatch: true
     },
     {
       "description": "System Upgrade Controller Group",
       "groupName": "System Upgrade Controller",
-      "matchPackagePatterns": ["rancher/system-upgrade-controller"],
-      "matchDatasources": ["docker", "github-releases"],
+      "matchPackagePatterns": [
+        "rancher/system-upgrade-controller"
+      ],
+      "matchDatasources": [
+        "docker",
+        "github-releases"
+      ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
@@ -82,13 +56,27 @@
       ],
       matchDatasources: [
         'docker',
-        'github-release'
+        'github-releases'
       ],
       versioning: 'semver',
       group: {
         commitMessageTopic: '{{{groupName}}}'
       },
       separateMinorPatch: true
+    },
+    {
+      description: "Aquaporj/aqua group",
+      groupName: 'Aqua',
+      matchFileNames: [
+        'aqua.yaml'
+      ]
+    },
+    {
+      description: "Pre-Commit",
+      groupName: 'Pre-Commit',
+      matchManagers: [
+        'pre-commit'
+      ]
     }
   ]
 }
