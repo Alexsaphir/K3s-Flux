@@ -84,7 +84,7 @@ spec:
 
 
     environment:
-      ATLANTIS_DEFAULT_TF_VERSION: v1.3.8
+      ATLANTIS_DEFAULT_TF_VERSION: v1.7.2
       ATLANTIS_WRITE_GIT_CREDS: 'true'
       ATLANTIS_GITLAB_HOSTNAME: gitlab.alexsaphir.com
       ATLANTIS_GITLAB_USER: Atlantis

@@ -103,9 +103,17 @@ access_control:
     # Webhook protected by secret
     - domain:
         - 'atlantis.${SECRET_DOMAIN_NAME}'
+      policy: bypass
+      resources:
+        - '^/events([/?].*)?$'
+    - domain:
         - 'flux-receiver.${SECRET_DOMAIN_NAME}'
+      policy: bypass
+    - domain:
         - 'renovate.${SECRET_DOMAIN_NAME}'
       policy: bypass
+      resources:
+        - '^/webhook([/?].*)?$'
 
     # Ingress for media protected by authelia
     - domain:
