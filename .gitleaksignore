@@ -11,3 +11,5 @@ cluster/apps/media/arr/readarr/secret.sops.yaml:generic-api-key:6
 cluster/apps/media/arr/sonarr/secret.sops.yaml:generic-api-key:6
 cluster/apps/media/common/secret.sops.yaml:generic-api-key:6
 cluster/infra/kube-operator/database/mariadb-media/secret.sops.yaml:generic-api-key:6
+provision/terraform/s3/minio-nas.sops.yaml:generic-api-key:2
+provision/terraform/s3/minio-nas.sops.yaml:generic-api-key:7
