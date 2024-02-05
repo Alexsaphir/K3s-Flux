@@ -100,6 +100,13 @@ access_control:
         - 'jupyter.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
+    # Webhook protected by secret
+    - domain:
+        - 'atlantis.${SECRET_DOMAIN_NAME}'
+        - 'flux-receiver.${SECRET_DOMAIN_NAME}'
+        - 'renovate.${SECRET_DOMAIN_NAME}'
+      policy: bypass
+
     # Ingress for media protected by authelia
     - domain:
         - 'cleanarr.${SECRET_DOMAIN_NAME}'

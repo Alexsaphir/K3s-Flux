@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: webhook-receiver
   annotations:
-    auth.home.arpa/disabled: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
