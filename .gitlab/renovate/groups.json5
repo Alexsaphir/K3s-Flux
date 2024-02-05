@@ -9,7 +9,8 @@
       ],
       matchDatasources: [
         'docker',
-        'github-tags'
+        'github-tags',
+        'github-release'
       ],
       versioning: 'semver',
       group: {
