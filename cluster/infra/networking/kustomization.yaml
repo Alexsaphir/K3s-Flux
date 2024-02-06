@@ -9,3 +9,5 @@ resources:
   - k8s-gateway/ks.yaml
   - metallb/ks.yaml
   - traefik/ks.yaml
+
+  - external-services
