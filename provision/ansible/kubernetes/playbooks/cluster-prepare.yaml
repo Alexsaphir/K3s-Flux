@@ -48,6 +48,21 @@
             mode: '0644'
           notify: Restart multipath
 
+    - name: Filesystem | Mount /dev/sda1
+      block:
+        - name: Ensure local mount points exist
+          ansible.builtin.file:
+            path: /mnt/longhorn-ssd
+            state: directory
+            mode: '0777'
+
+        - name: Mount /dev/sda1
+          ansible.posix.mount:
+            fstype: ext4
+            state: mounted
+            path: /mnt/longhorn-ssd
+            src: "{{ ssd_longhorn }}"
+            opts: noatime
 
     - name: Networking
       block:

@@ -17,11 +17,13 @@ cube:
       hosts:
         cube-control:
           ansible_host: 192.168.0.70
+          ssd_longhorn: UUID=48a5c14c-00f5-40fa-a19a-dbec1147ef08
 
     workers:
       hosts:
         cube-worker:
           ansible_host: 192.168.0.71
+          ssd_longhorn: UUID=41d2b1df-2b3a-4d8b-ba68-839d8702e132
 
 #        cube-jup:
 #          ansible_host: 192.168.0.80
