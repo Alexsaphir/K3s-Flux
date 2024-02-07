@@ -1,0 +1,107 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: minio
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    controllers:
+      main:
+        strategy: RollingUpdate
+
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        pod:
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: 'OnRootMismatch'
+
+        containers:
+          main:
+            image:
+              repository: quay.io/minio/minio
+              tag: RELEASE.2024-02-06T21-36-22Z
+
+            args: [ "server", "/data", "--console-address", ":9001" ]
+
+            env:
+              MINIO_UPDATE: 'off'
+              MINIO_BROWSER_REDIRECT_URL: 'https://minio.${SECRET_DOMAIN_NAME}'
+              MINIO_SERVER_URL: 'https://s3.${SECRET_DOMAIN_NAME}'
+
+            envFrom:
+              - secretRef:
+                  name: minio-secret
+
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+
+    service:
+      main:
+        enabled: true
+        ports:
+          http:
+            port: 9001
+          api:
+            enabled: true
+            port: 9000
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: minio.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+      s3:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: s3.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: api
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: minio-data
+        globalMounts:
+          - path: /data

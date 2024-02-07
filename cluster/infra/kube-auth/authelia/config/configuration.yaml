@@ -87,6 +87,13 @@ access_control:
         - 'ombi.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
+    # Minio
+    - domain:
+        - 'minio.${SECRET_DOMAIN_NAME}'
+        - 's3.${SECRET_DOMAIN_NAME}'
+      policy: bypass
+
+
     # Public ingresses behind sso
     - domain:
         - 'photos.${SECRET_DOMAIN_NAME}'
