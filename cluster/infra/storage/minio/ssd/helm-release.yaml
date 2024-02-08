@@ -50,13 +50,36 @@ spec:
             args: [ "server", "/data", "--console-address", ":9001" ]
 
             env:
+              TZ: '${TIMEZONE}'
+
               MINIO_UPDATE: 'off'
-              MINIO_BROWSER_REDIRECT_URL: 'https://minio.${SECRET_DOMAIN_NAME}'
-              MINIO_SERVER_URL: 'https://s3.${SECRET_DOMAIN_NAME}'
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN_NAME},https://s3.${SECRET_DOMAIN_NAME}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_NAME}
+              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN_NAME}
+
+              MINIO_PROMETHEUS_JOB_ID: minio
+              MINIO_PROMETHEUS_AUTH_TYPE: public
+              MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.flux-monitoring.svc.cluster.local:9090
 
             envFrom:
               - secretRef:
                   name: minio-secret
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /minio/health/live
+                    port: 9000
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 6
+              readiness: *probes
+              startup:
+                enabled: false
 
             resources:
               requests:
