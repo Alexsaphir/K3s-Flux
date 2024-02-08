@@ -61,6 +61,12 @@ spec:
               MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.flux-monitoring.svc.cluster.local:9090
 
+              MINIO_IDENTITY_OPENID_CONFIG_URL: https://auth.${SECRET_DOMAIN_NAME}/.well-known/openid-configuration
+              MINIO_IDENTITY_OPENID_CLIENT_ID: minio
+              MINIO_IDENTITY_OPENID_CLAIM_NAME: groups
+              MINIO_IDENTITY_OPENID_SCOPES: openid,profile,email,groups
+              MINIO_IDENTITY_OPENID_DISPLAY_NAME: "Login with Authelia"
+
             envFrom:
               - secretRef:
                   name: minio-secret

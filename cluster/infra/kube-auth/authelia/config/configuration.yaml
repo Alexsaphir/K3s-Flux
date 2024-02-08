@@ -216,3 +216,13 @@ identity_providers:
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris: [ 'https://portainer.${SECRET_DOMAIN_NAME}' ]
         userinfo_signed_response_alg: none
+
+      - id: minio
+        description: Minio
+        secret: "${MINIO_OAUTH_CLIENT_SECRET}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: [ 'openid', 'profile', 'groups', 'email' ]
+        redirect_uris: [ 'https://minio.${SECRET_DOMAIN_NAME}', 'https://s3.${SECRET_DOMAIN_NAME}' ]
+        userinfo_signed_response_alg: none
