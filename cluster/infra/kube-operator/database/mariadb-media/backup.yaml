@@ -15,10 +15,8 @@ spec:
   storage:
     s3:
       bucket: cloudmariadb-backup
-      endpoint: s3.alexsaphir.com
+      endpoint: nas.minio.svc.cluster.local:9000
       region: us-east-1
-      tls:
-        enabled: true
 
       accessKeyIdSecretKeyRef:
         name: mariadb-media-s3-secret

@@ -3,6 +3,7 @@ locals {
     "loki",
     "thanos",
     "backup-cloudnative",
+    "backup-mariadb-media",
     "backup-longhorn",
     "backup-volsync",
   ]
