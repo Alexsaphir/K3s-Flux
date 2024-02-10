@@ -7,7 +7,7 @@ locals {
     "backup-volsync",
   ]
   minio_buckets_k3s = [
-    "codecov",
+    "apps-codecov",
   ]
 }
 
