@@ -54,8 +54,8 @@ spec:
       data:
         compression: *compression
 
-      destinationPath: &destinationPath 's3://cloudnativepg-backup/'
-      endpointURL: &endpoint 'https://s3.alexsaphir.com'
+      destinationPath: &destinationPath 's3://backup-cloudnative/'
+      endpointURL: &endpoint 'http://nas.minio.svc.cluster.local'
       s3Credentials:
         accessKeyId:
           name: &s3Credentials-secret postgres-backup-secret
