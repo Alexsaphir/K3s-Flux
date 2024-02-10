@@ -158,6 +158,7 @@ access_control:
         - 'netbox.${SECRET_DOMAIN_NAME}'
         - 'portainer.${SECRET_DOMAIN_NAME}'
         - 'grafana.monitoring.${SECRET_DOMAIN_NAME}'
+        - 'atlantis.${SECRET_DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'
