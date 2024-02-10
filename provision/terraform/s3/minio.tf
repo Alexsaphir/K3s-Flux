@@ -7,7 +7,12 @@ locals {
     "backup-volsync",
   ]
   minio_buckets_k3s = [
-    "apps-codecov",
+    "codecov",
+    "ghost",
+    "monica",
+    "netbox",
+    "recipes",
+    "renovate"
   ]
 }
 
@@ -25,7 +30,7 @@ module "minio_bucket_nas" {
   bucket_name      = each.key
   is_public        = false
   owner_access_key = each.key
-  owner_secret_key = lookup(data.sops_file.minio-creds-nas, "${each.key}_secret_key", null)
+  owner_secret_key = data.sops_file.minio-creds-nas.data["${each.key}_secret_key"]
   providers        = { minio = minio.nas }
 }
 
@@ -40,7 +45,7 @@ module "minio_bucket" {
   bucket_name      = each.key
   is_public        = false
   owner_access_key = each.key
-  owner_secret_key = lookup(data.sops_file.minio-creds-k3s, "${each.key}_secret_key", null)
+  owner_secret_key = data.sops_file.minio-creds-k3s.data["${each.key}_secret_key"]
   providers        = { minio = minio.k3s }
 }
 
