@@ -54,7 +54,7 @@ spec:
       defaultDataLocality: best-effort
       defaultReplicaCount: 2
 
-      backupTarget: s3://longhorn@us-east-1/backupstore
+      backupTarget: s3://backup-longhorn@us-east-1/backupstore
       backupTargetCredentialSecret: longhorn-backup-secrets
       backupstorePollInterval: 60
       failedBackupTTL: 1440
