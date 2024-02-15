@@ -8,6 +8,7 @@ resources:
   - mariadb-operator/ks.yaml
   - emqx-operator/ks.yaml
   - redis-opstree-operator/ks.yaml
+  - mongodb-operator/ks.yaml
 
   - postgres/ks.yaml
 

@@ -51,6 +51,7 @@ resources:
   - metallb.yaml
   - metric-server.yaml
   - minio.yaml
+  - mongo-community.yaml
   - community-tooling.yaml
   - movetokube.yaml
   - nfs-provisioner.yaml
