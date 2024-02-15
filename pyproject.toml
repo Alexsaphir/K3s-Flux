@@ -19,7 +19,7 @@ ansible = "^9.2.0"
 ansible-inventory-grapher = "^2.5.0"
 
 jmespath = "^1.0.1"
-netaddr = "^1.0.0"
+netaddr = "^1.1.0"
 
 [tool.poetry.group.ci.dependencies]
 flux-local = "^4.3.1"
