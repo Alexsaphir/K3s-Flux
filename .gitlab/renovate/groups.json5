@@ -68,7 +68,8 @@
       description: "Aquaporj/aqua group",
       groupName: 'Aqua',
       matchFileNames: [
-        '**/aqua.yaml'
+        '**/aqua.yaml',
+        '**/.aqua.yaml'
       ]
     },
     {
