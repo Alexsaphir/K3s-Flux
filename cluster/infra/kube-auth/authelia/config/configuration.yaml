@@ -78,6 +78,7 @@ access_control:
     # Expose public metrics
     - domain:
         - 'kromgo.${SECRET_DOMAIN_NAME}'
+        - 'status.${SECRET_DOMAIN_NAME}'
       policy: bypass
 
     # Public media ingresses
