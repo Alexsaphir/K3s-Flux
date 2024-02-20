@@ -23,16 +23,9 @@ metrics:
       - { color: orange, min: 36, max: 75 }
       - { color: red, min: 76, max: 9999 }
 
-  - name: cluster_power_usage
-    query: round(avg_over_time(zigbee2mqtt_apparent_power[5m]))
-    suffix: "w"
-    colors:
-      - { color: "green", min: 0, max: 400 }
-      - { color: "orange", min: 401, max: 750 }
-      - { color: "red", min: 751, max: 9999 }
 
   - name: cluster_age_days
-    query: round((time() - max(kube_node_created{kubernetes_node=~"cube-[a-z]+"}) ) / 86400)
+    query: round((time() - min(kube_node_created{kubernetes_node=~"cube-[a-z]+"}) ) / 86400)
     suffix: "d"
     colors:
       - { color: "green", min: 0, max: 180 }
