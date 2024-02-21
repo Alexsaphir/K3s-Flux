@@ -30,7 +30,7 @@ spec:
   uninstall:
     keepHistory: false
 
-  # https://github.com/cert-manager/cert-manager/blob/v1.11.0/deploy/charts/cert-manager/values.yaml
+  # https://github.com/cert-manager/cert-manager/blob/v1.14.2/deploy/charts/cert-manager/values.yaml
   values:
     installCRDs: true
     replicaCount: 2
@@ -73,8 +73,9 @@ spec:
 
     prometheus:
       enabled: true
-      podmonitor:
+      servicemonitor:
         enabled: true
+        prometheusInstance: flux-monitoring
 
     resources:
       requests:
