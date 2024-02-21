@@ -35,7 +35,9 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      masquerade: false
+      masquerade: false # not beneficial for homelab, and tends to conflict with other networking stuff
+      tproxy: true # L7 netpols stuff
+    l7Proxy: true # enables L7 netpols
     bgp:
       enabled: false
     cgroup:
@@ -51,7 +53,7 @@ spec:
 
     enableRuntimeDeviceDetection: true
     # Which devices trigger to reload
-    devices: enp2s0
+    devices: enp+
 
     endpointRoutes:
       enabled: true
