@@ -5,7 +5,7 @@ resources:
   - namespace.yaml
 
   - cilium/ks.yaml
-  - csi-driver-secrets-store/ks.yaml
+  # - csi-driver-secrets-store/ks.yaml
   - descheduler/ks.yaml
   - external-secrets/ks.yaml
   - hashicorp-vault/ks.yaml
