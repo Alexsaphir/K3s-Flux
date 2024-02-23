@@ -159,9 +159,6 @@ spec:
 
 
     prometheus:
-      annotations:
-        secret.reloader.stakater.com/reload: thanos-objstore-secret
-
       ingress:
         enabled: false
         annotations:
@@ -191,11 +188,14 @@ spec:
           - auto-gomaxprocs
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
+        podMetadata:
+          annotations:
+            secret.reloader.stakater.com/reload: &secret thanos-objstore-secret
         thanos:
           image: quay.io/thanos/thanos:v0.34.1
           objectStorageConfig:
             existingSecret:
-              name: thanos-objstore-secret
+              name: *secret
               key: objstore.yml
         retention: 6h
         retentionSize: 15GB
