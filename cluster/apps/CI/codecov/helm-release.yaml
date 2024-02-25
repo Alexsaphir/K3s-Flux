@@ -44,7 +44,7 @@ spec:
       SERVICES__REDIS_URL: redis://codecov-redis.codecov.svc.cluster.local:6379
 
       SERVICES__MINIO__HOST: &minio-host minio.minio.svc.cluster.local
-      SERVICES__MINIO__BUCKET: apps-codecov
+      SERVICES__MINIO__BUCKET: codecov
       SERVICES__MINIO__REGION: us-east-1
       SERVICES__MINIO__PORT: &minio-port 9000
       SERVICES__MINIO__VERIFY_SSL: false
