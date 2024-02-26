@@ -34,14 +34,14 @@ repos:
       - id: forbid-bidi-controls
 
   - repo: https://github.com/python-poetry/poetry
-    rev: 1.8.0
+    rev: 1.8.1
     hooks:
       - id: poetry-check
       - id: poetry-check
         args: [ "--lock" ]
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 37.214.0
+    rev: 37.214.1
     hooks:
       - id: renovate-config-validator
 
