@@ -55,8 +55,8 @@
         'immich-app'
       ],
       matchDatasources: [
+        'github-releases',
         'docker',
-        'github-releases'
       ],
       versioning: 'semver',
       group: {
