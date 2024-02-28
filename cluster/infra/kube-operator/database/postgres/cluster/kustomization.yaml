@@ -7,6 +7,7 @@ resources:
   - cluster-postgres.yaml
   - service.yaml
   - scheduledbackup.yaml
+  - gatus.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: cloudnative-pg-cluster

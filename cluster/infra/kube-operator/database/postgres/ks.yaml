@@ -14,7 +14,7 @@ spec:
     - name: cluster-infra-kube-prometheus-stack-crds
     - name: cluster-infra-cloudnative-pg
 
-  path: ./cluster/infra/kube-operator/postgres/cluster
+  path: ./cluster/infra/kube-operator/database/postgres/cluster
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -44,7 +44,7 @@ spec:
   dependsOn:
     - name: cluster-infra-postgres-cluster
 
-  path: ./cluster/infra/kube-operator/postgres/ext-postgres-operator
+  path: ./cluster/infra/kube-operator/database/postgres/ext-postgres-operator
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

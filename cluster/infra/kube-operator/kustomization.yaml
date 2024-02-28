@@ -10,8 +10,6 @@ resources:
   - redis-opstree-operator/ks.yaml
   - mongodb-operator/ks.yaml
 
-  - postgres/ks.yaml
-
   - volcano-operator/ks.yaml
 
   - opensearch-operator/ks.yaml

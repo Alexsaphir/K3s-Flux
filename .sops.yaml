@@ -1,9 +1,16 @@
 ---
 creation_rules:
-  - path_regex: provision/.*\.sops\.ya?ml
-    unencrypted_regex: "^(kind)$"
-
-  - path_regex: cluster/.*\.sops\.ya?ml
+  - path_regex: cluster/.+\.sops\.ya?ml
+    input_type: yaml
     encrypted_regex: "^(data|stringData)$"
 
-  - path_regex: cluster/.*\.sops\.toml
+  - path_regex: provision/.+\.sops\.ya?ml
+    input_type: yaml
+    unencrypted_regex: "^(kind)$"
+
+  - path_regex: cluster/.+\.sops\.toml
+    input_type: toml
+
+stores:
+  yaml:
+    indent: 2
