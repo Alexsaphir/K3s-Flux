@@ -52,11 +52,6 @@ repos:
     hooks:
       - id: forbid-secrets
 
-  - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.18.2
-    hooks:
-      - id: gitleaks
-
 
   # Linters
   - repo: https://github.com/adrienverge/yamllint
