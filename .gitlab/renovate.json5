@@ -69,7 +69,5 @@
     'ghcr.io/fluxcd/kustomize-controller',
     'ghcr.io/fluxcd/notification-controller',
     'ghcr.io/fluxcd/source-controller',
-    'ghcr.io/immich-app/immich-machine-learning',
-    'ghcr.io/immich-app/immich-server'
   ]
 }

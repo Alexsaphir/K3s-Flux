@@ -56,6 +56,7 @@
       ],
       matchDatasources: [
         'github-releases',
+        'docker',
       ],
       versioning: 'semver',
       group: {
