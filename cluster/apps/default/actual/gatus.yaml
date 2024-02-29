@@ -2,17 +2,17 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "tautulli-gatus-ep"
+  name: "actual-gatus-ep"
   labels:
     gatus.io/enabled: "true"
 data:
   config.yaml: |
     endpoints:
-      - name: "tautulli"
-        group: 'Apps - Media'
-        url: "https://tautulli.${SECRET_DOMAIN_NAME}/"
+      - name: "actual"
+        group: 'Apps - SelfHosted'
+        url: "https://actual.${SECRET_DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
         conditions:
-          - "[STATUS] == 200"
+          - "[STATUS] == 401"

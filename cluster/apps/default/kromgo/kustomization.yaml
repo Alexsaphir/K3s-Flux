@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: flux-monitoring
 resources:
   - helm-release.yaml
+  - gatus.yaml
 
 configMapGenerator:
   - name: kromgo-configmap

@@ -9,7 +9,7 @@ data:
   config.yaml: |
     endpoints:
       - name: "ombi"
-        group: Media
+        group: 'Apps - Media'
         url: "https://ombi.${SECRET_DOMAIN_NAME}/"
         interval: 1m
         client:

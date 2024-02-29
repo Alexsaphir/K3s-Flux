@@ -7,3 +7,4 @@ resources:
   - postgres.yaml
   - secret.sops.yaml
   - helm-release.yaml
+  - gatus.yaml

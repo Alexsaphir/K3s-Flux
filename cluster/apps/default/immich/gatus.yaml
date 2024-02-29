@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "tautulli-gatus-ep"
+  name: "immich-gatus-ep"
   labels:
     gatus.io/enabled: "true"
 data:
   config.yaml: |
     endpoints:
-      - name: "tautulli"
-        group: 'Apps - Media'
-        url: "https://tautulli.${SECRET_DOMAIN_NAME}/"
+      - name: "immich"
+        group: 'Apps - SelfHosted'
+        url: "https://photos.${SECRET_DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

@@ -7,6 +7,7 @@ resources:
   - postgres.yaml
   - redis.yaml
   - helm-release.yaml
+  - gatus.yaml
 configMapGenerator:
   - name: renovate-config
     files:

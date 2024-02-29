@@ -9,7 +9,7 @@ data:
   config.yaml: |
     endpoints:
       - name: "authelia"
-        group: Authentication
+        group: 'Apps - Authentication'
         url: "https://auth.${SECRET_DOMAIN_NAME}/"
         interval: 1m
         client:

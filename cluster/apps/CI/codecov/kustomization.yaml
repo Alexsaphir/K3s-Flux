@@ -8,3 +8,4 @@ resources:
   - redis.yaml
   - postgres.yaml
   - helm-release.yaml
+  - gatus.yaml

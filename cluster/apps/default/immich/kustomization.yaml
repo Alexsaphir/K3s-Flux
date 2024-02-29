@@ -6,7 +6,6 @@ resources:
   - postgres.yaml
   - redis.yaml
   - pvc.yaml
-
   - secret.sops.yaml
-
   - helm-release.yaml
+  - gatus.yaml

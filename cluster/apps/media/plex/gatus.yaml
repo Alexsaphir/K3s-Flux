@@ -9,7 +9,7 @@ data:
   config.yaml: |
     endpoints:
       - name: "plex"
-        group: Media
+        group: 'Apps - Media'
         url: "https://plex.${SECRET_DOMAIN_NAME}/web/index.html"
         interval: 1m
         client:
