@@ -15,4 +15,4 @@ data:
         client:
           dns-resolver: tcp://1.1.1.1:53
         conditions:
-          - "[STATUS] == 200"
+          - "[STATUS] == 404"
