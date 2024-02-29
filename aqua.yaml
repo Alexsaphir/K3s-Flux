@@ -4,10 +4,10 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.144.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.145.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.33.0
-  - name: go-task/task@v3.34.1
+  - name: go-task/task@v3.35.0
   - name: gitleaks/gitleaks@v8.18.2
   - name: firecow/gitlab-ci-local@4.46.1
   - name: FiloSottile/age@v1.1.1
@@ -34,7 +34,7 @@ packages:
   - name: zegl/kube-score@v1.18.0
   - name: cilium/cilium-cli@v0.15.23
   - name: siderolabs/talos@v1.6.5
-  - name: budimanjojo/talhelper@v2.3.1
+  - name: budimanjojo/talhelper@v2.3.2
   - name: lsd-rs/lsd@v1.0.0
   - name: opentofu/opentofu@v1.6.2
   - name: runatlantis/atlantis@v0.27.1
