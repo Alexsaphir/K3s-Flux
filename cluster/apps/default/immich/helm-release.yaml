@@ -38,15 +38,15 @@ spec:
       logLevel: 'log'
 
       concurrency:
-        backgroundTask: 5
+        backgroundTask: 10
         smartSearch: 2
-        metadataExtraction: 5
+        metadataExtraction: 10
         faceDetection: 2
         search: 5
         sidecar: 5
         library: 5
         migration: 5
-        thumbnailGeneration: 5
+        thumbnailGeneration: 10
         videoConversion: 1
 
       machineLearning:
