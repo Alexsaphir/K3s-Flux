@@ -5,3 +5,4 @@ namespace: vaultwarden
 resources:
   - namespace.yaml
   - postgres.yaml
+  - pvc.yaml
