@@ -39,9 +39,9 @@ spec:
 
       concurrency:
         backgroundTask: 10
-        smartSearch: 2
+        smartSearch: 5
         metadataExtraction: 10
-        faceDetection: 2
+        faceDetection: 5
         search: 5
         sidecar: 5
         library: 5
