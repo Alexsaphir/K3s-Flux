@@ -1,0 +1,105 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: kube-vip
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+      interval: 15m
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  values:
+    controllers:
+      main:
+        type: daemonset
+        containers:
+          main:
+            image:
+              repository: ghcr.io/kube-vip/kube-vip
+              tag: v0.7.1@sha256:82698885b3b5f926cd940b7000549f3d43850cb6565a708162900c1475a83016
+              pullPolicy: IfNotPresent
+            args:
+              - manager
+            env:
+              address: ${KUBE_VIP_ADDR}
+              vip_arp: 'true'
+              lb_enable: 'true'
+              port: '6443'
+              vip_cidr: '32'
+              cp_enable: 'true'
+              cp_namespace: kube-system
+              vip_ddns: 'false'
+              svc_enable: 'false'
+              vip_leaderelection: 'true'
+              vip_leaseduration: '15'
+              vip_renewdeadline: '10'
+              vip_retryperiod: '2'
+              prometheus_server: :2112
+
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+                  - NET_RAW
+                  - SYS_TIME
+
+        pod:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: node-role.kubernetes.io/master
+                        operator: Exists
+                  - matchExpressions:
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: Exists
+          hostNetwork: true
+          tolerations:
+            - effect: NoSchedule
+              operator: Exists
+            - effect: NoExecute
+              operator: Exists
+
+    serviceAccount:
+      create: true
+
+    service:
+      main:
+        enabled: false
+      metrics:
+        enabled: true
+        controller: main
+        ports:
+          http:
+            port: 2112
+
+    serviceMonitor:
+      main:
+        enabled: true
+        serviceName: kube-vip-metrics
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
