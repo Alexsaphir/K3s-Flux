@@ -26,8 +26,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/influxdata/helm-charts/blob/master/charts/influxdb2/values.yaml
   values:

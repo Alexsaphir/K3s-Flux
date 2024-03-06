@@ -26,8 +26,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   values:
     autoDirectNodeRoutes: true

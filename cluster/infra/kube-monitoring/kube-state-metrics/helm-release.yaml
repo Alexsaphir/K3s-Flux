@@ -27,8 +27,6 @@ spec:
     crds: Skip
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   values:
     fullnameOverride: kube-state-metrics

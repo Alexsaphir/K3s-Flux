@@ -24,8 +24,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/kubernetes-csi/csi-driver-nfs/blob/v4.4.0/charts/v4.4.0/csi-driver-nfs/values.yaml
   values:

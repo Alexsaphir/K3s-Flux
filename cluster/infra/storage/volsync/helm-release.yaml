@@ -26,8 +26,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/backube/volsync/blob/main/helm/volsync/values.yaml
   values:

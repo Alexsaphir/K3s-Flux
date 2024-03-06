@@ -27,8 +27,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/aquasecurity/trivy-operator/blob/v0.12.0/deploy/helm/values.yaml
   values:

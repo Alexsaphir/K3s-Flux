@@ -24,8 +24,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/intel/helm-charts/blob/intel-device-plugins-gpu-0.26.0/charts/gpu-device-plugin/values.yaml
   values:

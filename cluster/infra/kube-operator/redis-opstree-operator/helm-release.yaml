@@ -27,8 +27,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/OT-CONTAINER-KIT/helm-charts/blob/main/charts/redis-operator/values.yaml
   values:

@@ -27,8 +27,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/kyverno/kyverno/blob/kyverno-policies-chart-2.7.1/charts/kyverno/values.yaml
   values:

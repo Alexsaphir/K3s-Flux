@@ -27,8 +27,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/longhorn/longhorn/blob/v1.5.1/chart/values.yaml
   values:

@@ -24,8 +24,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
 
   # https://github.com/prometheus-community/helm-charts/blob/prometheus-smartctl-exporter-0.4.3/charts/prometheus-smartctl-exporter/values.yaml
   values:
