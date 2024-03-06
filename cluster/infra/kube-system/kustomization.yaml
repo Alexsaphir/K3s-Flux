@@ -10,6 +10,7 @@ resources:
   - external-secrets/ks.yaml
   - hashicorp-vault/ks.yaml
   - intel-device/ks.yaml
+  - kube-vip/ks.yaml
   # - kured/ks.yaml
   - node-feature-discovery/ks.yaml
   - node-problem-detector/ks.yaml
