@@ -1,0 +1,35 @@
+---
+k3s_control_node: true
+k3s_server:
+  cluster-cidr: "{{ k3s_cluster_cidr }}"
+  service-cidr: "{{ k3s_service_cidr }}"
+
+  node-ip: "{{ ansible_host }}"
+  tls-san:
+    - "{{ kube_vip_addr }}"
+
+  disable: [ 'flannel', 'metrics-server', 'servicelb', 'traefik' ]
+  disable-cloud-controller: true
+  disable-kube-proxy: true
+  disable-network-policy: true
+
+  docker: false
+  embedded-registry: true
+  flannel-backend: 'none'
+
+  pause-image: registry.k8s.io/pause:3.9
+  secrets-encryption: true
+
+  write-kubeconfig-mode: '0644'
+
+  kube-apiserver-arg:
+    - anonymous-auth=true
+  kube-controller-manager-arg:
+    - bind-address=0.0.0.0
+  kube-scheduler-arg:
+    - bind-address=0.0.0.0
+  kubelet-arg:
+    - image-gc-low-threshold=50
+    - image-gc-high-threshold=55
+
+  node-label: "{{ global_k8s_labels + (k8s_labels | default([])) }}"

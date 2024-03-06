@@ -1,7 +1,6 @@
 ---
 - name: Nuke the cluster.
-  hosts:
-    - cube
+  hosts: kubernetes
   become: true
   gather_facts: true
   any_errors_fatal: true

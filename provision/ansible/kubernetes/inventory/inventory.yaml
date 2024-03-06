@@ -4,7 +4,7 @@ all:
     ansible_connection: ssh
     ansible_ssh_port: 22
 
-cube:
+kubernetes:
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
     global_k8s_labels:
@@ -13,7 +13,7 @@ cube:
       - "node.kubernetes.io/instance-type=m3.medium"
 
   children:
-    controls:
+    controllers:
       hosts:
         cube-control:
           ansible_host: 192.168.0.70
