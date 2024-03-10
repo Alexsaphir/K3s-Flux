@@ -8,10 +8,10 @@ spec:
     - # USB Barcode Reader
       name: barcode.reader
       labels:
-        reader.feature.node.kubernetes.io/barcode: "true"
+        reader.feature.node.kubernetes.io/barcode: 'true'
       matchFeatures:
         - feature: usb.device
           matchExpressions:
             vendor:
               op: In
-              value: [ "1234" ]
+              value: [ '1234' ]
