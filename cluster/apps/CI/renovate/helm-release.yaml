@@ -42,6 +42,7 @@ spec:
             envFrom:
               - secretRef:
                   name: &renovate-secret renovate-secret
+
             env:
               TZ: '${TIMEZONE}'
               # LOG_FORMAT: json
@@ -100,6 +101,13 @@ spec:
                   secretKeyRef:
                     name: *renovate-secret
                     key: MEND_RNV_LICENSE_KEY
+
+            probes:
+              liveness: &probe
+                type: HTTP
+                path: /health
+              readiness: *probe
+              startup: *probe
 
     service:
       main:
