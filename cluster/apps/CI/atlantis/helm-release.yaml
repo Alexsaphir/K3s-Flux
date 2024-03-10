@@ -36,8 +36,6 @@ spec:
 
     image:
       repository: ghcr.io/runatlantis/atlantis
-      # if not set appVersion field from Chart.yaml is used
-      tag: 'v0.27.1'
       pullPolicy: IfNotPresent
 
     allowForkPRs: false
