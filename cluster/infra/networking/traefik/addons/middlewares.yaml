@@ -14,7 +14,7 @@ kind: Middleware
 metadata:
   name: rfc1918
 spec:
-  ipWhiteList:
+  ipAllowList:
     sourceRange:
       - 10.0.0.0/8
       - 172.16.0.0/12
@@ -27,7 +27,7 @@ metadata:
   name: whitelisted-ips
 spec:
   # https://www.cloudflare.com/ips/
-  ipWhiteList:
+  ipAllowList:
     sourceRange:
       - 173.245.48.0/20
       - 103.21.244.0/22
