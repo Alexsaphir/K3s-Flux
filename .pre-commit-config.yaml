@@ -61,7 +61,7 @@ repos:
         args: [ '--config-file', '.gitlab/linters/.yamllint.yaml' ]
 
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v24.2.0
+    rev: v24.2.1
     hooks:
       - id: ansible-lint
         args: [ '-c', '.gitlab/linters/.ansible-lint.yaml' ]
