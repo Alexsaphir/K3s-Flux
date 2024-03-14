@@ -22,7 +22,7 @@ packages:
   - name: mikefarah/yq@v4.42.1
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
-  - name: bitnami-labs/sealed-secrets@v0.26.0
+  - name: bitnami-labs/sealed-secrets@v0.26.1
   - name: derailed/k9s@v0.32.3
   - name: FairwindsOps/nova@v3.7.0
   - name: FairwindsOps/pluto@v5.19.0
