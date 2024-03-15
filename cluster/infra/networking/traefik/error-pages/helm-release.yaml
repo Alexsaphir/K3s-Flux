@@ -29,9 +29,9 @@ spec:
 
   values:
     controllers:
-      main:
+      error-pages:
         containers:
-          main:
+          app:
             nameOverride: error-pages
             image:
               repository: ghcr.io/tarampampam/error-pages
@@ -48,7 +48,8 @@ spec:
                 memory: 500Mi
 
     service:
-      main:
+      app:
+        controller: error-pages
         ports:
           http:
             port: 8080

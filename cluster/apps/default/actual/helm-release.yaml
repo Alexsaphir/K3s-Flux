@@ -29,7 +29,7 @@ spec:
 
   values:
     controllers:
-      main:
+      actual:
         annotations:
           reloader.stakater.com/auto: 'true'
 
@@ -42,7 +42,7 @@ spec:
             fsGroupChangePolicy: 'OnRootMismatch'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/actualbudget/actual-server
               tag: 24.3.0
@@ -54,14 +54,14 @@ spec:
                 memory: 512M
 
     service:
-      main:
+      app:
+        controller: actual
         ports:
           http:
             port: 5006
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           hajimari.io/enable: 'true'
@@ -72,13 +72,14 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
+
     persistence:
       data:
         enabled: true
         existingClaim: actual
         advancedMounts:
-          main:
-            main:
+          actual:
+            app:
               - path: /data

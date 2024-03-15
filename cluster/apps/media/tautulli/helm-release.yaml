@@ -32,12 +32,12 @@ spec:
 
   values:
     controllers:
-      main:
+      tautulli:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/tautulli
               tag: 2.13.4@sha256:b3000c0063cc4c0c6f2436fb7174f4bcfd8d91eca05206731edccb8b643ea570
@@ -64,14 +64,14 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
+        controller: tautulli
         ports:
           http:
             port: 8181
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           auth.home.arpa/disabled: 'true'
@@ -82,7 +82,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:

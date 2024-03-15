@@ -38,13 +38,13 @@ spec:
       host: mariadb-media.database.svc.cluster.local
 
     controllers:
-      main:
+      ombi:
         pod:
           securityContext:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: lscr.io/linuxserver/ombi
               tag: 4.43.5
@@ -57,14 +57,14 @@ spec:
                 memory: 273Mi
 
     service:
-      main:
+      app:
+        controller: ombi
         ports:
           http:
             port: 3579
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -75,7 +75,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     configMaps:

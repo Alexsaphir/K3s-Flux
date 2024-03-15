@@ -33,12 +33,12 @@ spec:
       enableServiceLinks: false
 
     controllers:
-      main:
+      sonarr:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/sonarr
               tag: 4.0.2.1183@sha256:bbfcda0754272515ce12972924652699934074b46b11d27bc515c8ea5fb870f5
@@ -96,14 +96,14 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
+        controller: sonarr
         ports:
           http:
             port: *port
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -114,7 +114,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:
@@ -130,6 +130,6 @@ spec:
         type: nfs
         server: '192.168.0.130'
         path: /mnt/user/Media
-        readOnly: false
         globalMounts:
           - path: /media
+            readOnly: false

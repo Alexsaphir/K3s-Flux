@@ -29,12 +29,12 @@ spec:
 
   values:
     controllers:
-      main:
+      cyberchef:
         replicas: 1
         strategy: RollingUpdate
 
         containers:
-          main:
+          app:
             image:
               repository: docker.io/mpepping/cyberchef
               tag: v10.8.2
@@ -43,14 +43,14 @@ spec:
               TZ: ${TIMEZONE}
 
     service:
-      main:
+      app:
+        controller: cyberchef
         ports:
           http:
             port: 8000
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           hajimari.io/enable: 'true'
@@ -62,5 +62,5 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http

@@ -29,32 +29,30 @@ spec:
 
   values:
     service:
-      main:
+      app:
+        controller: py-kms
         ports:
           http:
             port: &port 8080
       kms:
-        enabled: true
-        controller: main
+        controller: py-kms
         primary: false
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/loadBalancerIPs: ${LB_PY_KMS}
         ports:
-          http:
-            enabled: false
           kms:
             port: 1688
             protocol: TCP
 
 
     controllers:
-      main:
+      py-kms:
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/py-kms-organization/py-kms
               tag: python3@sha256:9be3275fbad75af95b6aa59256eaccf83ff13c7d9bde83e4eee2124fe46c856d
@@ -86,8 +84,7 @@ spec:
 
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -96,7 +93,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:

@@ -29,7 +29,7 @@ spec:
 
   values:
     controllers:
-      main:
+      vector-aggregator:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -48,11 +48,17 @@ spec:
               - secretRef:
                   name: vector-aggregator-secret
         containers:
-          main:
+          app:
             image:
               repository: docker.io/timberio/vector
               tag: 0.36.1-debian
             args: [ "--config", "/etc/vector/vector.yaml" ]
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+
         pod:
           topologySpreadConstraints:
             - maxSkew: 1
@@ -63,10 +69,9 @@ spec:
                   app.kubernetes.io/name: *app
 
     service:
-      main:
-        controller: main
+      app:
+        controller: vector-aggregator
         type: LoadBalancer
-        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 8686
@@ -79,7 +84,6 @@ spec:
 
     persistence:
       config:
-        enabled: true
         type: configMap
         name: vector-aggregator-configmap # overriden by kustomizeconfig
         globalMounts:

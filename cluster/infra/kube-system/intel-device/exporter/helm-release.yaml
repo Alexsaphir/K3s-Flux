@@ -32,10 +32,10 @@ spec:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
     controllers:
-      main:
+      intel-gpu-exporter:
         type: daemonset
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/intel-gpu-exporter
               tag: rolling@sha256:f324725adc5497510f204aec64d398dddddd15052ce234c3f700606bb3d91a99
@@ -53,14 +53,15 @@ spec:
               privileged: true
 
     service:
-      main:
+      app:
+        controller: intel-gpu-exporter
         ports:
           http:
             port: 8080
 
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: intel-gpu-exporter
         endpoints:
           - port: http
             scheme: http

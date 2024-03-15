@@ -29,11 +29,11 @@ spec:
 
   values:
     controllers:
-      main:
+      tandoor-recipes:
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
               tag: 1.5.14
@@ -109,14 +109,14 @@ spec:
               AUTH_LDAP_USER_SEARCH_FILTER_STR: '(&(&(objectclass=person)(memberOf=cn=recipes,ou=groups,dc=home,dc=arpa))(uid=%(user)s))'
 
     service:
-      main:
+      app:
+        controller: tandoor-recipes
         ports:
           http:
             port: 8080
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -126,11 +126,12 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:
       static:
         enabled: true
         existingClaim: tandoor-recipes-static
-        mountPath: /opt/recipes/staticfiles
+        globalMounts:
+          - path: /opt/recipes/staticfiles

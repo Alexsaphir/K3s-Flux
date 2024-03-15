@@ -30,12 +30,12 @@ spec:
 
   values:
     controllers:
-      main:
+      portainer:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: portainer/portainer-ee
               tag: 2.19.4
@@ -53,7 +53,8 @@ spec:
                   name: portainer-secret
 
     service:
-      main:
+      app:
+        controller: portainer
         ports:
           http:
             port: 9000
@@ -63,8 +64,7 @@ spec:
       name: portainer
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -75,7 +75,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:

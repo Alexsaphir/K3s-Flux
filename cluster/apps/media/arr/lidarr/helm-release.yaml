@@ -33,12 +33,12 @@ spec:
       enableServiceLinks: false
 
     controllers:
-      main:
+      lidarr:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/lidarr-develop
               tag: 2.2.1.4073@sha256:ae2b24d5406e32c70e604b10c515f2355bac33f14382e013973a758770e863e8
@@ -96,14 +96,14 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
+        controller: lidarr
         ports:
           http:
             port: *port
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -114,7 +114,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:
@@ -130,6 +130,6 @@ spec:
         type: nfs
         server: '192.168.0.130'
         path: /mnt/user/Media
-        readOnly: true
         globalMounts:
           - path: /media
+            readOnly: true

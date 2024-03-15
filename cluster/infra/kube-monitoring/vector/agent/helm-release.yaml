@@ -29,14 +29,14 @@ spec:
 
   values:
     controllers:
-      main:
+      vector-agent:
         type: daemonset
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
 
         containers:
-          main:
+          app:
             image:
               repository: docker.io/timberio/vector
               tag: 0.36.1-debian
@@ -64,10 +64,6 @@ spec:
 
             securityContext:
               privileged: true
-
-    service:
-      main:
-        enabled: false
 
     serviceAccount:
       create: true

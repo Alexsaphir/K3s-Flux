@@ -30,10 +30,10 @@ spec:
 
   values:
     controllers:
-      main:
+      kube-vip:
         type: daemonset
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/kube-vip/kube-vip
               tag: v0.7.2@sha256:452659d4e25968d42a000143114437f97f0ec0a0d06193a1b1b38fc55490d2d1
@@ -63,6 +63,17 @@ spec:
                   - NET_RAW
                   - SYS_TIME
 
+            probes:
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+
         pod:
           affinity:
             nodeAffinity:
@@ -85,18 +96,15 @@ spec:
       create: true
 
     service:
-      main:
-        enabled: false
       metrics:
-        enabled: true
-        controller: main
+        nameOverride: metrics
+        controller: kube-vip
         ports:
           http:
             port: 2112
 
     serviceMonitor:
-      main:
-        enabled: true
+      metrics:
         serviceName: kube-vip-metrics
         endpoints:
           - port: http

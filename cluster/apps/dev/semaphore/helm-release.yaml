@@ -29,12 +29,12 @@ spec:
 
   values:
     controllers:
-      main:
+      semaphore:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/semaphore
               tag: v2.9.37@sha256:da37f0083a1a3d642eb5d4494244ede866bd8dfe6837dc8eae1250a6c1a411f6
@@ -94,14 +94,14 @@ spec:
                 memory: 1Gi
 
     service:
-      main:
+      app:
+        controller: semaphore
         ports:
           http:
             port: *port
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -111,5 +111,5 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http

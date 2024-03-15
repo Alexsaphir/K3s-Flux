@@ -29,11 +29,11 @@ spec:
 
   values:
     controllers:
-      main:
+      plex:
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/plex-beta
               tag: 1.40.1.8227-c0dd5a73e@sha256:df589c843e938cec5d235a352c37ac757221c6d30605abc458d945156912df4c
@@ -85,14 +85,14 @@ spec:
             supplementalGroups: [ 44, 104, 109, 100 ]
 
     service:
-      main:
+      app:
+        controller: plex
         ports:
           http:
             port: 32400
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           auth.home.arpa/disabled: 'true'
@@ -103,8 +103,9 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
+
     persistence:
       config:
         enabled: true

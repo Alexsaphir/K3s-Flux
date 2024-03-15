@@ -58,12 +58,12 @@ spec:
         scope: 'sub'
 
     controllers:
-      main:
+      thelounge:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/thelounge/thelounge
               tag: 4.4.1
@@ -144,14 +144,16 @@ spec:
               },
             };
 
+
     service:
-      main:
+      app:
+        controller: thelounge
         ports:
           http:
             port: 9000
 
     ingress:
-      main:
+      app:
         enabled: true
         className: traefik
         annotations:
@@ -163,7 +165,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:

@@ -32,11 +32,11 @@ spec:
 
   values:
     controllers:
-      main:
+      cleanarr:
         annotations:
           secret.reloader.stakater.com/reload: cleanarr-secret,media-secret
         containers:
-          main:
+          app:
             image:
               repository: selexin/cleanarr
               tag: v2.5.1
@@ -55,14 +55,14 @@ spec:
               BYPASS_SSL_VERIFY: 1
 
     service:
-      main:
+      app:
+        controller: cleanarr
         ports:
           http:
             port: 80
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -73,7 +73,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:

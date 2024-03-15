@@ -29,12 +29,12 @@ spec:
 
   values:
     controllers:
-      main:
+      bitwarden-cli:
         annotations:
           reloader.stakater.com/auto: "true"
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/larivierec/bitwarden-cli
               tag: 2024.2.1
@@ -62,7 +62,8 @@ spec:
                 memory: 512Mi
 
     service:
-      main:
+      app:
+        controller: bitwarden-cli
         ports:
           http:
             port: 8087

@@ -91,12 +91,10 @@ spec:
 
 
     controllers:
-      main:
-        enabled: false
       gateway:
         replicas: 2
         containers:
-          main:
+          app:
             image:
               repository: codecov/self-hosted-gateway
               tag: *codecovVersion
@@ -124,25 +122,27 @@ spec:
               liveness:
                 enabled: true
                 custom: true
-                httpGet:
-                  path: /gateway_health
-                  port: http
-                initialDelaySeconds: 30
-                failureThreshold: 3
-                periodSeconds: 10
-                timeoutSeconds: 5
+                spec:
+                  httpGet:
+                    path: /gateway_health
+                    port: http
+                  initialDelaySeconds: 30
+                  failureThreshold: 3
+                  periodSeconds: 10
+                  timeoutSeconds: 5
 
               readiness:
                 enabled: true
                 custom: true
-                httpGet:
-                  path: /gateway_health
-                  port: http
-                initialDelaySeconds: 10
-                failureThreshold: 3
-                successThreshold: 1
-                periodSeconds: 10
-                timeoutSeconds: 2
+                spec:
+                  httpGet:
+                    path: /gateway_health
+                    port: http
+                  initialDelaySeconds: 10
+                  failureThreshold: 3
+                  successThreshold: 1
+                  periodSeconds: 10
+                  timeoutSeconds: 2
 
             resources:
               requests:
@@ -151,7 +151,7 @@ spec:
       frontend:
         replicas: 2
         containers:
-          main:
+          app:
             image:
               repository: codecov/self-hosted-frontend
               tag: *codecovVersion
@@ -169,26 +169,26 @@ spec:
 
             probes:
               liveness:
-                enabled: true
                 custom: true
-                httpGet:
-                  path: /
-                  port: http
-                initialDelaySeconds: 30
-                failureThreshold: 3
-                periodSeconds: 10
-                timeoutSeconds: 5
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 30
+                  failureThreshold: 3
+                  periodSeconds: 10
+                  timeoutSeconds: 5
               readiness:
-                enabled: true
                 custom: true
-                httpGet:
-                  path: /
-                  port: http
-                initialDelaySeconds: 10
-                failureThreshold: 3
-                successThreshold: 1
-                periodSeconds: 10
-                timeoutSeconds: 2
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 10
+                  failureThreshold: 3
+                  successThreshold: 1
+                  periodSeconds: 10
+                  timeoutSeconds: 2
 
             resources:
               requests:
@@ -197,7 +197,7 @@ spec:
       api:
         replicas: 2
         containers:
-          main:
+          app:
             image:
               repository: codecov/self-hosted-api
               tag: *codecovVersion
@@ -213,24 +213,26 @@ spec:
               liveness:
                 enabled: true
                 custom: true
-                httpGet:
-                  path: /
-                  port: http
-                initialDelaySeconds: 30
-                failureThreshold: 3
-                periodSeconds: 10
-                timeoutSeconds: 5
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 30
+                  failureThreshold: 3
+                  periodSeconds: 10
+                  timeoutSeconds: 5
               readiness:
                 enabled: true
                 custom: true
-                httpGet:
-                  path: /
-                  port: http
-                initialDelaySeconds: 10
-                failureThreshold: 3
-                successThreshold: 1
-                periodSeconds: 10
-                timeoutSeconds: 2
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                  initialDelaySeconds: 10
+                  failureThreshold: 3
+                  successThreshold: 1
+                  periodSeconds: 10
+                  timeoutSeconds: 2
 
             resources:
               limits:
@@ -242,7 +244,7 @@ spec:
       worker:
         replicas: 2
         containers:
-          main:
+          app:
             image:
               repository: codecov/self-hosted-worker
               tag: *codecovVersion
@@ -259,33 +261,24 @@ spec:
                 memory: 1024M
 
     service:
-      main:
-        enabled: false
       gateway-service:
-        enabled: true
         controller: gateway
         ports:
           http:
-            enabled: true
             port: *port_gateway
       frontend-service:
-        enabled: true
         controller: frontend
         ports:
           http:
-            enabled: true
             port: *port_frontend
       api-service:
-        enabled: true
         controller: api
         ports:
           http:
-            enabled: true
             port: *port_api
 
     configMaps:
       config:
-        enabled: true
         data:
           codecov.yml: |
             setup:
@@ -306,8 +299,7 @@ spec:
               database_url: 'postgres://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:{{.Values.codecovConfig.database.port}}/{{.Values.codecovConfig.database.db}}'
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           hajimari.io/enable: 'true'
@@ -318,7 +310,7 @@ spec:
               - path: /
                 pathType: ImplementationSpecific
                 service:
-                  name: gateway-service
+                  identifier: gateway-service
                   port: http
 
     persistence:

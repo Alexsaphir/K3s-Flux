@@ -29,9 +29,9 @@ spec:
 
   values:
     controllers:
-      main:
+      mosquitto:
         containers:
-          main:
+          app:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.0.18
@@ -51,7 +51,8 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
+        controller: mosquitto
         type: LoadBalancer
         ports:
           http:
@@ -72,7 +73,7 @@ spec:
         type: configMap
         name: mosquitto-config
         advancedMounts:
-          main:
-            main:
+          mosquitto:
+            app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf

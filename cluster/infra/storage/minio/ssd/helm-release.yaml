@@ -29,7 +29,7 @@ spec:
 
   values:
     controllers:
-      main:
+      minio:
         annotations:
           reloader.stakater.com/auto: 'true'
 
@@ -39,7 +39,7 @@ spec:
             fsGroupChangePolicy: 'OnRootMismatch'
 
         containers:
-          main:
+          app:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-03-10T02-53-48Z
@@ -93,8 +93,8 @@ spec:
                 cpu: 100m
 
     service:
-      main:
-        enabled: true
+      app:
+        controller: minio
         ports:
           http:
             port: 9001
@@ -103,7 +103,7 @@ spec:
             port: 9000
 
     ingress:
-      main:
+      app:
         enabled: true
         className: traefik
         annotations:
@@ -113,7 +113,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
       s3:
         enabled: true
@@ -125,7 +125,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: api
 
     persistence:

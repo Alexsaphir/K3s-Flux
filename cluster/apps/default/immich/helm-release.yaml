@@ -72,7 +72,7 @@ spec:
         fsGroupChangePolicy: 'OnRootMismatch'
 
     controllers:
-      main:
+      immich:
         enabled: true
         type: deployment
         replicas: 1
@@ -86,20 +86,16 @@ spec:
             image:
               repository: busybox
               tag: 1.36.1
-            imagePullPolicy: IfNotPresent
+              pullPolicy: IfNotPresent
             command:
               - sh
               - -c
               - chown 568:568 -R /usr/src/app/upload
             securityContext:
               runAsUser: 0
-            volumeMounts:
-              - name: library
-                mountPath: /usr/src/app/upload
 
         containers:
-          main:
-            order: 1
+          app:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: *immichVersion
@@ -133,8 +129,7 @@ spec:
           secret.reloader.stakater.com/reload: *secret
 
         containers:
-          main:
-            order: 2
+          app:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: *immichVersion
@@ -181,8 +176,7 @@ spec:
           secret.reloader.stakater.com/reload: *secret
 
         containers:
-          main:
-            order: 3
+          app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: *immichVersion
@@ -201,10 +195,11 @@ spec:
                 memory: 250Mi
 
     service:
-      main:
+      app:
+        controller: immich
         ports:
           http:
-            port: &server-port 3001
+            port: 3001
 
       machine-learning:
         controller: machine-learning
@@ -213,8 +208,7 @@ spec:
             port: 3003
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -225,8 +219,8 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
-                  port: *server-port
+                  identifier: app
+                  port: http
 
     persistence:
       settings:
@@ -234,12 +228,12 @@ spec:
         type: configMap
         name: immich-settings
         advancedMounts:
-          main:
-            main:
+          immich:
+            app:
               - path: /usr/src/app/immich-config.json
                 subPath: immich-config.json
           microservices:
-            main:
+            app:
               - path: /usr/src/app/immich-config.json
                 subPath: immich-config.json
 
@@ -258,7 +252,7 @@ spec:
         retain: true
         advancedMounts:
           machine-learning:
-            main:
+            app:
               - path: /cache
 
     configMaps:

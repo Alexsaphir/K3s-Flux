@@ -32,13 +32,13 @@ spec:
 
   values:
     controllers:
-      main:
+      plex-image-cleanup:
         type: cronjob
         cronjob:
           schedule: '30 8 * * 6'
           timeZone: &timeZone '${TIMEZONE}'
         containers:
-          main:
+          app:
             image:
               repository: docker.io/meisnate12/plex-image-cleanup
               tag: v1.0.2@sha256:257634cb149f104658079274139bd55d652962ecf331bfda01e71c10686f9e32
@@ -84,24 +84,13 @@ spec:
             runAsUser: 1000
             runAsGroup: 1000
             runAsNonRoot: true
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
-
-    service:
-      main:
-        enabled: false
 
     persistence:
       config:
         enabled: true
         type: emptyDir
+
       plex-config:
         existingClaim: plex-config
-        advancedMounts:
-          main:
-            main:
-              - path: /data/plex_config
+        globalMounts:
+          - path: /data/plex_config

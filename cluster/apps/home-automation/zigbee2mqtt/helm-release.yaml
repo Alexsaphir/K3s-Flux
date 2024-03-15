@@ -39,26 +39,24 @@ spec:
         hostPathType: CharDevice
         hostPath: &hostPath /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
         advancedMounts:
-          main:
-            main:
+          zigbee2mqtt:
+            app:
               - path: *hostPath
 
       config:
         enabled: true
         existingClaim: zigbee2mqtt-data
         advancedMounts:
-          main:
-            main:
+          zigbee2mqtt:
+            app:
               - path: /config
 
     controllers:
-      main:
+      zigbee2mqtt:
         annotations:
           reloader.stakater.com/reload: 'zigbee2mqtt-secrets'
         containers:
-          main:
-            order: 1
-
+          app:
             image:
               repository: ghcr.io/koenkk/zigbee2mqtt
               tag: 1.36.0
@@ -115,7 +113,7 @@ spec:
                 memory: 512Mi
 
           exporter:
-            order: 2
+            dependsOn: app
 
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter
@@ -148,7 +146,8 @@ spec:
             zigbee.feature.node.kubernetes.io/sonoff: 'true'
 
     service:
-      main:
+      app:
+        controller: zigbee2mqtt
         ports:
           http:
             port: *http_port
@@ -160,8 +159,8 @@ spec:
             port: 9000
 
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: zigbee2mqtt
         endpoints:
           - port: metrics
             scheme: http
@@ -173,8 +172,7 @@ spec:
                 action: labeldrop
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -184,5 +182,5 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http

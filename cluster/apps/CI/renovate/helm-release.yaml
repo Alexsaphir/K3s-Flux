@@ -29,12 +29,12 @@ spec:
 
   values:
     controllers:
-      main:
+      renovate:
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             nameOverride: renovate
             image:
               repository: ghcr.io/mend/renovate-ce
@@ -111,14 +111,14 @@ spec:
               startup: *probe
 
     service:
-      main:
+      app:
+        controller: renovate
         ports:
           http:
             port: 8080
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
@@ -127,7 +127,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
 
     persistence:
@@ -135,12 +135,10 @@ spec:
         enabled: true
         type: configMap
         name: *renovate-config
-        advancedMounts:
-          main:
-            main:
-              - path: /usr/src/app/config.js
-                readOnly: true
-                subPath: config.js
+        globalMounts:
+          - path: /usr/src/app/config.js
+            readOnly: true
+            subPath: config.js
 
       cache-persistence:
         enabled: true
