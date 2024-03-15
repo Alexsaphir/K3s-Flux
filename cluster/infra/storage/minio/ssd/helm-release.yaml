@@ -102,6 +102,16 @@ spec:
             enabled: true
             port: 9000
 
+    serviceMonitor:
+      app:
+        serviceName: minio
+        endpoints:
+          - port: api
+            scheme: http
+            path: /minio/v2/metrics/cluster
+            interval: 1m
+            scrapeTimeout: 10s
+
     ingress:
       app:
         enabled: true
