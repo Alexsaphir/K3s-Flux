@@ -92,10 +92,9 @@ spec:
               RENOVATE_X_S3_PATH_STYLE: 'true'
 
               RENOVATE_ONBOARDING_CONFIG:
-                valueFrom:
-                  configMapKeyRef:
-                    name: &renovate-config renovate-config
-                    key: onboardingConfig
+                configMapKeyRef:
+                  name: &renovate-config renovate-config
+                  key: onboardingConfig
 
               LICENSE_KEY:
                 valueFrom:
