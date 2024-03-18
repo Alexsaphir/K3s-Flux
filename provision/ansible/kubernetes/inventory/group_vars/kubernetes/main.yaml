@@ -15,8 +15,8 @@ k3s_server_manifests_urls:
 
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
-  - custom-kube-vip-ds.yaml
-  - custom-kube-vip-rbac.yaml
+  - kube-vip-ds.yaml.j2
+  - kube-vip-rbac.yaml
 
 k3s_registries:
   configs:
