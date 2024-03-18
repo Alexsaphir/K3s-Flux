@@ -13,6 +13,7 @@ spec:
   dependsOn:
     - name: cluster-infra-kube-prometheus-stack-crds
     - name: cluster-infra-cloudnative-pg
+    - name: cluster-infra-minio
 
   path: ./cluster/infra/kube-operator/database/postgres/cluster
   sourceRef:
