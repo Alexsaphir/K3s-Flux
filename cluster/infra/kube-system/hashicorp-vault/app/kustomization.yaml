@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - postgres.yaml
-  - helm-release.yaml
+#  - helm-release.yaml
