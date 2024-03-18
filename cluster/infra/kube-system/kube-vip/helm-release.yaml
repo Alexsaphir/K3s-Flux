@@ -93,7 +93,7 @@ spec:
               operator: Exists
 
     serviceAccount:
-      create: true
+      create: false
 
     service:
       metrics:
