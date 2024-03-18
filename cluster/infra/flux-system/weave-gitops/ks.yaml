@@ -9,6 +9,9 @@ spec:
   retryInterval: 5m
   prune: true
 
+  dependsOn:
+    - name: cluster-infra-authelia
+
   path: ./cluster/infra/flux-system/weave-gitops
   sourceRef:
     kind: GitRepository
