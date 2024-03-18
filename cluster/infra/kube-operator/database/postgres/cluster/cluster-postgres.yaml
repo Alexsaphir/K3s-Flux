@@ -41,12 +41,12 @@ spec:
 
   bootstrap:
     recovery:
-      source: &previousCluster postgres-16-v3
+      source: &previousCluster postgres-16-v4
 
   backup:
     retentionPolicy: 30d
     barmanObjectStore:
-      serverName: &currentCluster postgres-16-v4
+      serverName: postgres-16-v5
       wal:
         compression: &compression bzip2
         maxParallel: &maxParallel 4
