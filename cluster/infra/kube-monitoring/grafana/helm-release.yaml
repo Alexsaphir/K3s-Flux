@@ -44,7 +44,10 @@ spec:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       DS_PROMETHEUS: "prometheus"
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+
       GF_SECURITY_COOKIE_SAMESITE: grafana-k3s
+      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+
       GF_SERVER_ROOT_URL: https://grafana.monitoring.${SECRET_DOMAIN_NAME}
 
       GF_DATABASE_SSL_MODE: disable
