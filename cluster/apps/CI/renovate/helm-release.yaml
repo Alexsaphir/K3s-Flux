@@ -109,6 +109,12 @@ spec:
               readiness: *probe
               startup: *probe
 
+            resources:
+              requests:
+                memory: 256Mi
+              limits:
+                memory: 1.5Gi
+
     service:
       app:
         controller: renovate
