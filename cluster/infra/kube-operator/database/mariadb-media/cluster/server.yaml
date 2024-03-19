@@ -38,3 +38,17 @@ spec:
 
   service:
     type: LoadBalancer
+
+  bootstrapFrom:
+    s3:
+      bucket: backup-mariadb-media
+      endpoint: nas.minio.svc.cluster.local:9000
+      region: us-east-1
+
+      accessKeyIdSecretKeyRef:
+        name: mariadb-media-s3-secret
+        key: access-key-id
+
+      secretAccessKeySecretKeyRef:
+        name: mariadb-media-s3-secret
+        key: secret-access-key
