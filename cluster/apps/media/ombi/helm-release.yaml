@@ -27,25 +27,37 @@ spec:
       strategy: rollback
       retries: 3
 
-  valuesFrom:
-    - kind: Secret
-      name: ombi-secret
-      targetPath: ombi.password
-      valuesKey: password
-
   values:
-    ombi:
-      host: mariadb-media.database.svc.cluster.local
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     controllers:
       ombi:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+        initContainers:
+          database-config:
+            image:
+              repository: ghcr.io/onedr0p/alpine
+              tag: 3.19.1
+
+            command: [ "/bin/sh", "-c" ]
+            args:
+              - envsubst < /template/database.template.json > /config/database.json;
+            env:
+              MARIADB_USER: ombi
+              MARIADB_DATABASE: ombi
+              MARIADB_HOST: mariadb-media.database.svc.cluster.local
+              MARIADB_PORT: 3306
+              MARIADB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: ombi-secret
+                    key: password
+
         containers:
           app:
             image:
@@ -87,15 +99,15 @@ spec:
             {
               "OmbiDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server=$$MARIADB_HOST;Port=$$MARIADB_PORT;Database=$$MARIADB_DATABASE;User=$$MARIADB_USER;Password=$$MARIADB_USER"
               },
               "SettingsDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server=$$MARIADB_HOST;Port=$$MARIADB_PORT;Database=$$MARIADB_DATABASE;User=$$MARIADB_USER;Password=$$MARIADB_USER"
               },
               "ExternalDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server=$$MARIADB_HOST;Port=$$MARIADB_PORT;Database=$$MARIADB_DATABASE;User=$$MARIADB_USER;Password=$$MARIADB_USER"
               }
             }
 
@@ -105,7 +117,7 @@ spec:
         type: configMap
         name: ombi-database
         globalMounts:
-          - path: /config/database.json
+          - path: /template/database.template.json
             subPath: database.json
             readOnly: false
 
