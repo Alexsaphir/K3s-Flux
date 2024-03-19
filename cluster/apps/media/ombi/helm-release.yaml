@@ -27,12 +27,18 @@ spec:
       strategy: rollback
       retries: 3
 
+  valuesFrom:
+    - kind: Secret
+      name: ombi-secret
+      targetPath: ombi.password
+      valuesKey: password
+
   values:
+    ombi:
+      host: mariadb-media.database.svc.cluster.local
+
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
 
@@ -46,23 +52,17 @@ spec:
 
             command: [ "/bin/sh", "-c" ]
             args:
-              - envsubst < /template/database.template.json > /config/database.json;
-            env:
-              MARIADB_USER: ombi
-              MARIADB_DATABASE: ombi
-              MARIADB_HOST: mariadb-media.database.svc.cluster.local
-              MARIADB_PORT: 3306
-              MARIADB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: ombi-secret
-                    key: password
+              - cp /template/database.template.json /config/database.json
 
         containers:
           app:
             image:
               repository: lscr.io/linuxserver/ombi
               tag: 4.43.5
+
+            env:
+              PUID: 1000
+              PGID: 1000
 
             resources:
               requests:
@@ -99,15 +99,15 @@ spec:
             {
               "OmbiDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server=$$MARIADB_HOST;Port=$$MARIADB_PORT;Database=$$MARIADB_DATABASE;User=$$MARIADB_USER;Password=$$MARIADB_USER"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
               },
               "SettingsDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server=$$MARIADB_HOST;Port=$$MARIADB_PORT;Database=$$MARIADB_DATABASE;User=$$MARIADB_USER;Password=$$MARIADB_USER"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
               },
               "ExternalDatabase": {
                 "Type": "MySQL",
-                "ConnectionString": "Server=$$MARIADB_HOST;Port=$$MARIADB_PORT;Database=$$MARIADB_DATABASE;User=$$MARIADB_USER;Password=$$MARIADB_USER"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
               }
             }
 
