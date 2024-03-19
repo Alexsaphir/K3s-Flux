@@ -51,9 +51,7 @@ spec:
             image:
               repository: lscr.io/linuxserver/ombi
               tag: 4.43.5
-            env:
-              PUID: '1000'
-              PGID: '1000'
+
             resources:
               requests:
                 cpu: 15m
