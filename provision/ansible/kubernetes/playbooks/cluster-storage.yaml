@@ -1,0 +1,78 @@
+---
+- name: Configure Longhorn storage.
+  hosts: kubernetes
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Pausing for 5 seconds...
+      ansible.builtin.pause:
+        seconds: 5
+  tasks:
+    - name: Longhorn Storage Preparation
+      when: ssd_longhorn is defined
+      block:
+        - name: Longhorn Storage | Ensure local mount points exist
+          ansible.builtin.file:
+            path: /mnt/longhorn-ssd
+            state: directory
+            mode: '0777'
+
+        # - name: Longhorn Storage | Create partition on /dev/sda
+        #   ansible.builtin.parted:
+        #     device: /dev/sda
+        #     number: 1
+        #     label: gpt
+        #     state: present
+
+        # - name: Longhorn Storage | Create xfs filesystem
+        #   ansible.builtin.filesystem:
+        #     fstype: ext4
+        #     dev: /dev/sda1
+
+        # - name: Longhorn Storage | Mount NVMe drive to Longhorn directory | Older Systems
+        #   ansible.builtin.mount:
+        #     path: /var/lib/longhorn
+        #     src: /dev/sdb1
+        #     fstype: xfs
+        #     opts: defaults
+        #     dump: "0"
+        #     passno: "2"
+        #     state: mounted
+
+        - name: Longhorn Storage | Mount /dev/sda1
+          ansible.posix.mount:
+            fstype: ext4
+            state: mounted
+            path: /mnt/longhorn-ssd
+            src: "{{ ssd_longhorn }}"
+            opts: noatime
+
+    - name: Longhorn | Provision nodes
+      when: ssd_longhorn is defined or enable_default_longhorn | default(false) | bool
+      block:
+        - name: Longhorn Storage | Check for pre-existing node label
+          ansible.builtin.command: "kubectl get node {{ inventory_hostname }} -ojsonpath='{.metadata.labels}'"
+          delegate_to: "{{ groups['controllers'] | random }}"
+          register: longhorn_node_label
+          changed_when: false
+
+        - name: Longhorn Storage | Label node in Kubernetes to use config
+          # noqa no-changed-when
+          ansible.builtin.command: "kubectl label node {{ inventory_hostname }} node.longhorn.io/create-default-disk=config"
+          delegate_to: "{{ groups['controllers'] | random }}"
+          when:
+            - longhorn_node_label is defined
+            - "'node.longhorn.io/create-default-disk' not in longhorn_node_label.stdout"
+
+        - name: Read JSON template from file
+          ansible.builtin.set_fact:
+            disk_config_json: "{{ lookup('template', 'disk_config_json.j2') }}"
+
+        - name: Longhorn Storage | Label node in Kubernetes to use config
+          # noqa no-changed-when
+          ansible.builtin.command: kubectl annotate node {{ inventory_hostname }} node.longhorn.io/default-disks-config="{{ disk_config_json }}"
+          delegate_to: "{{ groups['controllers'] | random }}"
+          when:
+            - longhorn_node_label is defined
+            - "'node.longhorn.io/create-default-disk' not in longhorn_node_label.stdout"

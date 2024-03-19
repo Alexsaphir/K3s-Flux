@@ -1,0 +1,20 @@
+[
+{% if enable_default_longhorn| default(false) == true %}
+    {
+    "name": "default-disk",
+    "path": "/var/lib/longhorn",
+    "allowScheduling": true,
+    "storageReserved": 268435456000,
+    },
+{% endif %}
+
+{% if ssd_longhorn is defined %}
+    {
+    "name": "ssd-disk",
+    "path": "/mnt/longhorn-ssd",
+    "allowScheduling": false,
+    "storageReserved": 0,
+    "tags": ["ssd"]
+    }
+{% endif %}
+]
