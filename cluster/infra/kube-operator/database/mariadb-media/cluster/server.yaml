@@ -1,5 +1,5 @@
 ---
-apiVersion: mariadb.mmontes.io/v1alpha1
+apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
   name: mariadb-media
@@ -16,13 +16,18 @@ spec:
     - name: TZ
       value: ${TIMEZONE}
 
-  volumeClaimTemplate:
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    max_allowed_packet=256M
+    ignore-db-dir=lost+found
+
+  storage:
+    size: 10Gi
     storageClassName: longhorn
-    resources:
-      requests:
-        storage: 10Gi
-    accessModes:
-      - ReadWriteOnce
 
   metrics:
     enabled: true
