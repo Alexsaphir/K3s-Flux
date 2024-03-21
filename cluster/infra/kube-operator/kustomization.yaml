@@ -6,7 +6,7 @@ resources:
 
   - cloudnative-pg/ks.yaml
   - mariadb-operator/ks.yaml
-  - emqx-operator/ks.yaml
+  # - emqx-operator/ks.yaml
   - redis-opstree-operator/ks.yaml
   - mongodb-operator/ks.yaml
 
