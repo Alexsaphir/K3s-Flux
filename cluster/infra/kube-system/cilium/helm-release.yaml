@@ -49,9 +49,9 @@ spec:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
 
-    enableRuntimeDeviceDetection: true
+    # enableRuntimeDeviceDetection: true
     # Which devices trigger to reload
-    devices: enp+
+    # devices: enp+
 
     endpointRoutes:
       enabled: true
