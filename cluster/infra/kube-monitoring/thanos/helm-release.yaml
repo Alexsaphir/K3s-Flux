@@ -84,8 +84,7 @@ spec:
         sidecarsNamespace: flux-monitoring
 
     bucketweb:
-      enabled: true
-      replicaCount: *replicaCount
+      enabled: false
 
     compactor:
       enabled: false
