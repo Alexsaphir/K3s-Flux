@@ -27,6 +27,9 @@ spec:
       strategy: rollback
       retries: 3
 
+  dependsOn:
+    - name: plex
+
   values:
     controllers:
       plex-exporter:
@@ -43,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jsclayton/prometheus-plex-exporter
-              tag: v1.2.3
+              tag: latest
             env:
               TZ: '${TIMEZONE}'
               PLEX_SERVER: http://plex.media.svc.cluster.local:32400
@@ -51,14 +54,8 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: *secret
-                    key: PLEX_TOKEN
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
+                    key: plex-token
+
             resources:
               requests:
                 cpu: 5m
