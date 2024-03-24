@@ -5,6 +5,7 @@ namespace: media
 resources:
   - common
   - plex
+  - plex-exporter
   - plex-image-cleanup
   - arr
   - ombi
