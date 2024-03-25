@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: plex-exporter
+  name: plex-auto-languages
 spec:
   interval: 15m
   chart:
@@ -27,12 +27,9 @@ spec:
       strategy: rollback
       retries: 3
 
-  dependsOn:
-    - name: plex
-
   values:
     controllers:
-      plex-exporter:
+      plex-auto-languages:
         annotations:
           secret.reloader.stakater.com/reload: &secret media-secret
         pod:
@@ -45,17 +42,23 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/jsclayton/prometheus-plex-exporter
-              tag: latest
+              repository: docker.io/remirigal/plex-auto-languages
+              tag: v1.2.3
             env:
-              TZ: '${TIMEZONE}'
-              PLEX_SERVER: http://plex.media.svc.cluster.local:32400
+              PLEX_URL: http://plex.media.svc.cluster.local:32400
+              REFRESH_LIBRARY_ON_SCAN: false
               PLEX_TOKEN:
                 valueFrom:
                   secretKeyRef:
                     name: *secret
                     key: plex-token
-
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 5m
@@ -63,19 +66,10 @@ spec:
               limits:
                 memory: 128Mi
 
-    service:
-      app:
-        controller: plex-exporter
-        ports:
-          http:
-            port: 9000
-
-    serviceMonitor:
-      app:
-        serviceName: plex-exporter
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+    persistence:
+      config:
+        type: emptyDir
+      local:
+        type: emptyDir
+        globalMounts:
+          - path: /.local
