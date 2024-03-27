@@ -1,0 +1,19 @@
+---
+
+- name: Take ownership of kube-vip
+  block:
+    - name: Patch daemonsets.apps
+      changed_when: false
+      # yamllint disable-line rule:command-instead-of-shell
+      ansible.builtin.shell: |
+        kubectl patch -n kube-system daemonsets.apps kube-vip --type=merge -p '{"metadata": {"annotations": {"meta.helm.sh/release-namespace": "kube-system"}}}'
+        kubectl patch -n kube-system daemonsets.apps kube-vip --type=merge -p '{"metadata": {"labels": {"app.kubernetes.io/managed-by": "Helm"}}}'
+        kubectl patch -n kube-system daemonsets.apps kube-vip --type=merge -p '{"metadata": {"annotations": {"meta.helm.sh/release-name": "kube-vip"}}}'
+
+    - name: Patch serviceaccount
+      changed_when: false
+      # yamllint disable-line rule:command-instead-of-shell
+      ansible.builtin.shell: |
+        kubectl patch -n kube-system serviceaccount kube-vip --type=merge -p '{"metadata": {"annotations": {"meta.helm.sh/release-namespace": "kube-system"}}}'
+        kubectl patch -n kube-system serviceaccount kube-vip --type=merge -p '{"metadata": {"labels": {"app.kubernetes.io/managed-by": "Helm"}}}'
+        kubectl patch -n kube-system serviceaccount kube-vip --type=merge -p '{"metadata": {"annotations": {"meta.helm.sh/release-name": "kube-vip"}}}'
