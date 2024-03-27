@@ -9,6 +9,10 @@ spec:
   retryInterval: 5m
   prune: true
 
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: kube-vip
+
   path: ./cluster/infra/kube-system/kube-vip
   sourceRef:
     kind: GitRepository
