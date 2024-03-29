@@ -46,7 +46,6 @@ spec:
 
             env:
               TZ: '${TIMEZONE}'
-              # LOG_FORMAT: json
               LOG_LEVEL: info
 
               MEND_RNV_ACCEPT_TOS: 'y'
@@ -57,6 +56,9 @@ spec:
               MEND_RNV_ADMIN_API_ENABLED: 'true'
 
               MEND_RNV_DATA_HANDLER_TYPE: postgresql
+              MEND_RNV_LOG_HISTORY_S3: 's3://renovate/log'
+              MEND_RNV_S3_FORCE_PATH_STYLE: 'true'
+
               PGDATABASE:
                 valueFrom:
                   secretKeyRef:
@@ -88,19 +90,13 @@ spec:
 
               RENOVATE_REDIS_URL: 'redis://renovate-redis.{{ .Release.Namespace }}.svc.cluster.local:6379/0'
               RENOVATE_REPOSITORY_CACHE: 'enabled'
-              RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate'
+              RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate/cache'
               RENOVATE_X_S3_PATH_STYLE: 'true'
 
               RENOVATE_ONBOARDING_CONFIG:
                 configMapKeyRef:
                   name: &renovate-config renovate-config
                   key: onboardingConfig
-
-              LICENSE_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: *renovate-secret
-                    key: MEND_RNV_LICENSE_KEY
 
             probes:
               liveness: &probe
