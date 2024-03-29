@@ -12,7 +12,6 @@ resources:
   - bytebase.yaml
   - cilium.yaml
   - cloudnative-pg.yaml
-  - codecov.yaml
   - coder.yaml
   - containeroo.yaml
   - coredns.yaml
