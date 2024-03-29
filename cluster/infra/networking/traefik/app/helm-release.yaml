@@ -107,6 +107,7 @@ spec:
 
     globalArguments:
       - --api.insecure=true
+      - --metrics.prometheus=true
 
       - --serversTransport.insecureSkipVerify=true
       # TODO: remove 192.168.0.56 from trusted proxy when minerva deprecated
@@ -162,45 +163,43 @@ spec:
       limits:
         memory: 500Mi
 
-#    metrics:
-#      prometheus:
-#        entryPoint: metrics
-#        service:
-#          enabled: true
-#        ##  enable optional CRDs for Prometheus Operator
-#        ##
-#        serviceMonitor:
-#          additionalLabels:
-#            foo: bar
-#          namespace: network-system
-#          namespaceSelector: { }
-#          metricRelabelings:
-#            - sourceLabels: [ __name__ ]
-#              separator: ;
-#              regex: ^fluentd_output_status_buffer_(oldest|newest)_.+
-#              replacement: $1
-#              action: drop
-#          relabelings:
-#            - sourceLabels: [ __meta_kubernetes_pod_node_name ]
-#              separator: ;
-#              regex: ^(.*)$
-#              targetLabel: nodename
-#              replacement: $1
-#              action: replace
-#          jobLabel: traefik
-#          scrapeInterval: 30s
-#          scrapeTimeout: 5s
-#          honorLabels: true
-#        prometheusRule:
-#          additionalLabels: { }
-#          namespace: network-system
-#          rules:
-#            - alert: TraefikDown
-#              expr: up{job="traefik"} == 0
-#              for: 5m
-#              labels:
-#                context: traefik
-#                severity: warning
-#              annotations:
-#                summary: "Traefik Down"
-#                description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+
+    metrics:
+      prometheus:
+        entryPoint: metrics
+        service:
+          enabled: true
+
+        serviceMonitor:
+          namespace: "network-system"
+          namespaceSelector: { }
+          metricRelabelings:
+            - sourceLabels: [ __name__ ]
+              separator: ;
+              regex: ^fluentd_output_status_buffer_(oldest|newest)_.+
+              replacement: $1
+              action: drop
+          relabelings:
+            - sourceLabels: [ __meta_kubernetes_pod_node_name ]
+              separator: ;
+              regex: ^(.*)$
+              targetLabel: nodename
+              replacement: $1
+              action: replace
+          jobLabel: traefik
+          scrapeInterval: 30s
+          scrapeTimeout: 5s
+          honorLabels: true
+        prometheusRule:
+          additionalLabels: { }
+          namespace: "network-system"
+          rules:
+            - alert: TraefikDown
+              expr: up{job="traefik"} == 0
+              for: 5m
+              labels:
+                context: traefik
+                severity: warning
+              annotations:
+                summary: "Traefik Down"
+                description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
