@@ -55,6 +55,8 @@ spec:
 
               MEND_RNV_ADMIN_API_ENABLED: 'true'
 
+              MEND_RNV_WORKER_CLEANUP: '30 0 * * *'
+
               MEND_RNV_DATA_HANDLER_TYPE: postgresql
               MEND_RNV_LOG_HISTORY_S3: 's3://renovate/log'
               MEND_RNV_S3_FORCE_PATH_STYLE: 'true'
