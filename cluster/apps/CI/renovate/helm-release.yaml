@@ -92,7 +92,7 @@ spec:
 
               RENOVATE_REDIS_URL: 'redis://renovate-redis.{{ .Release.Namespace }}.svc.cluster.local:6379/0'
               RENOVATE_REPOSITORY_CACHE: 'enabled'
-              RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate/cache'
+              RENOVATE_REPOSITORY_CACHE_TYPE: 's3://renovate/cache/'
               RENOVATE_X_S3_PATH_STYLE: 'true'
 
               RENOVATE_ONBOARDING_CONFIG:
