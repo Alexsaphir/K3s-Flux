@@ -44,7 +44,6 @@ spec:
               tag: 4.0.3.1413@sha256:04d8e198752b67df3f95c46144b507f437e7669f0088e7d2bbedf0e762606655
 
             env:
-              COMPlus_EnableDiagnostics: '0'
               PUSHOVER_DEBUG: 'false'
               SONARR__AUTHENTICATION_METHOD: External
               SONARR__AUTHENTICATION_REQUIRED: Enabled

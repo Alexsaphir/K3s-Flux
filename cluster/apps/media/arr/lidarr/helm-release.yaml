@@ -44,7 +44,6 @@ spec:
               tag: 2.2.3.4098@sha256:5b24ac318ef25ee0a57d737cc2f80770dcdd2cd9cc329bd18c495b8ae7421d9b
 
             env:
-              COMPlus_EnableDiagnostics: '0'
               PUSHOVER_DEBUG: 'false'
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: Enabled
