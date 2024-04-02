@@ -48,7 +48,7 @@ spec:
       GF_SECURITY_COOKIE_SAMESITE: grafana-k3s
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
 
-      GF_SERVER_ROOT_URL: https://grafana.monitoring.${SECRET_DOMAIN_NAME}
+      GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN_NAME}
 
       GF_DATABASE_SSL_MODE: disable
       GF_DATABASE_TYPE: postgres
@@ -136,7 +136,7 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hajimari.io/enable: "true"
       hosts:
-        - grafana.monitoring.${SECRET_DOMAIN_NAME}
+        - grafana.${SECRET_DOMAIN_NAME}
       path: /
       pathType: Prefix
 

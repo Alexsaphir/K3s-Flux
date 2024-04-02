@@ -158,7 +158,7 @@ access_control:
         - 'longhorn.${SECRET_DOMAIN_NAME}'
         - 'netbox.${SECRET_DOMAIN_NAME}'
         - 'portainer.${SECRET_DOMAIN_NAME}'
-        - 'grafana.monitoring.${SECRET_DOMAIN_NAME}'
+        - 'grafana.${SECRET_DOMAIN_NAME}'
         - 'atlantis.${SECRET_DOMAIN_NAME}'
       policy: two_factor
       subject:
@@ -183,7 +183,7 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris:
-          [ 'https://grafana.monitoring.${SECRET_DOMAIN_NAME}/login/generic_oauth' ]
+          [ 'https://grafana.${SECRET_DOMAIN_NAME}/login/generic_oauth' ]
         userinfo_signed_response_alg: none
 
       - client_id: immich
