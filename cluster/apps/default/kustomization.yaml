@@ -11,6 +11,5 @@ resources:
   - py-kms
   - immich
   - kromgo
-  - goldilocks
   - actual
   - vaultwarden
