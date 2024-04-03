@@ -10,9 +10,9 @@ data:
     endpoints:
       - name: "kromgo"
         group: 'Apps - SelfHosted'
-        url: "https://kromgo.${SECRET_DOMAIN_NAME}/"
+        url: "https://kromgo.${SECRET_DOMAIN_NAME}/-/ready"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
         conditions:
-          - "[STATUS] == 404"
+          - "[STATUS] == 200"
