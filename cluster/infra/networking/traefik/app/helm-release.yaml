@@ -33,7 +33,7 @@ spec:
     - name: kube-prometheus-stack-crds
       namespace: flux-monitoring
 
-  # https://github.com/traefik/traefik-helm-chart/blob/v23.1.0/traefik/values.yaml
+  # https://github.com/traefik/traefik-helm-chart/blob/v27.0.0/traefik/values.yaml
   values:
     image:
       name: public.ecr.aws/docker/library/traefik
@@ -126,7 +126,8 @@ spec:
 
     ports:
       traefik:
-        expose: true
+        expose:
+          default: true
 
       # Entrypoints
       web:
