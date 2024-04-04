@@ -29,6 +29,7 @@ k3s_server:
   kube-scheduler-arg:
     - bind-address=0.0.0.0
   kubelet-arg:
+    - max-pods=120
     - image-gc-low-threshold=50
     - image-gc-high-threshold=55
 
