@@ -17,12 +17,12 @@ packages:
   - name: fluxcd/flux2@v2.2.3
   - name: kubernetes/kubectl@v1.29.3
   - name: helm/helm@v3.14.3
-  - name: kubernetes-sigs/kustomize@kustomize/v5.4.0
+  - name: kubernetes-sigs/kustomize@kustomize/v5.4.1
   - name: jqlang/jq@jq-1.7.1
   - name: mikefarah/yq@v4.43.1
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
-  - name: bitnami-labs/sealed-secrets@v0.26.1
+  - name: bitnami-labs/sealed-secrets@v0.26.2
   - name: derailed/k9s@v0.32.4
   - name: FairwindsOps/nova@v3.8.0
   - name: FairwindsOps/pluto@v5.19.0
