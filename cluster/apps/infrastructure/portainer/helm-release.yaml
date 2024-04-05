@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: portainer/portainer-ee
-              tag: 2.20.0
+              tag: 2.20.1
 
             args:
               - --admin-password-file
