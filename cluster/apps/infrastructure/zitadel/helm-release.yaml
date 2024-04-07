@@ -109,6 +109,16 @@ spec:
           secretKeyRef:
             name: database-zitadel
             key: PASSWORD
+      - name: ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: database-zitadel
+            key: LOGIN
+      - name: ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: database-zitadel
+            key: PASSWORD
 
     service:
       type: ClusterIP
