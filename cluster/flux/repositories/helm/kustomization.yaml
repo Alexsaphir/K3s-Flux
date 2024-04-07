@@ -76,3 +76,4 @@ resources:
   - victoria-metrics.yaml
   - volcano.yaml
   - weaveworks.yaml
+  - zitadel.yaml
