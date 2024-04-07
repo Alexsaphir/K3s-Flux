@@ -13,6 +13,7 @@ resources:
   - cilium.yaml
   - cloudnative-pg.yaml
   - coder.yaml
+  - community-tooling.yaml
   - containeroo.yaml
   - coredns.yaml
   - csi-driver-nfs.yaml
@@ -27,8 +28,8 @@ resources:
   - external-secrets.yaml
   - fairwinds.yaml
   - falco.yaml
-  - gitlab.yaml
   - gitlab-workspace.yaml
+  - gitlab.yaml
   - grafana.yaml
   - hajimari.yaml
   - hashicorp.yaml
@@ -51,10 +52,10 @@ resources:
   - metric-server.yaml
   - minio.yaml
   - mongo-community.yaml
-  - community-tooling.yaml
   - movetokube.yaml
   - nfs-provisioner.yaml
   - node-feature-discovery.yaml
+  - onyxia.yaml
   - opensearch.yaml
   - opstree.yaml
   - ori-edge.yaml
