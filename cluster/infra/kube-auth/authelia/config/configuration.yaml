@@ -65,7 +65,7 @@ session:
     database_index: 1
 
 access_control:
-  default_policy: two_factor
+  default_policy: deny
   networks:
     - name: internal
       networks: [ '192.168.0.0/16' ]
@@ -164,6 +164,12 @@ access_control:
       policy: two_factor
       subject:
         - 'group:cluster-admins'
+
+    - domain:
+        - '*.monitoring.${SECRET_DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'group:cluster-admins-analytics'
 
     - domain:
         - '*.${SECRET_DOMAIN_NAME}'
