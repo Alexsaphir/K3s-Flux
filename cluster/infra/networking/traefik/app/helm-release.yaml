@@ -170,6 +170,7 @@ spec:
         service:
           enabled: true
 
+        disableAPICheck: true
         serviceMonitor:
           namespace: "network-system"
           namespaceSelector: { }
