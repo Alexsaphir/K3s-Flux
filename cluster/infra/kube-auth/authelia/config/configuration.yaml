@@ -140,6 +140,7 @@ access_control:
     - domain:
         - 'cyberchef.${SECRET_DOMAIN_NAME}'
         - 'actual.${SECRET_DOMAIN_NAME}'
+        - 'zitadel.${SECRET_DOMAIN_NAME}'
       policy: two_factor
 
     # Ingresses for gitlab
