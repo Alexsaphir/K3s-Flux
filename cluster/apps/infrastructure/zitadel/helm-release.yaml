@@ -60,7 +60,7 @@ spec:
             Stdout:
               Enabled: false
 
-        ExternalDomain: &host zitadel.${SECRET_DOMAIN}
+        ExternalDomain: &host zitadel.${SECRET_DOMAIN_NAME}
         ExternalSecure: true
         ExternalPort: 443
         TLS:
