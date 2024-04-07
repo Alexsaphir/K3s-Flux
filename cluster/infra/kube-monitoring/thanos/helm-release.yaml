@@ -102,6 +102,7 @@ spec:
     storegateway:
       enabled: true
       replicaCount: *replicaCount
+      resourcesPreset: small
       persistence:
         enabled: true
         storageClass: local-path
