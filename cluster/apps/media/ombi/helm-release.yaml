@@ -47,7 +47,7 @@ spec:
         initContainers:
           database-config:
             image:
-              repository: ghcr.io/onedr0p/alpine
+              repository: docker.io/library/alpine
               tag: 3.19.1
 
             command: [ "/bin/sh", "-c" ]

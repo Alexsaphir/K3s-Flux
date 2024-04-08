@@ -26,7 +26,7 @@ tasks:
               "containers": [
                 {
                   "name": "debug",
-                  "image": "ghcr.io/onedr0p/alpine:rolling",
+                  "image": "docker.io/library/alpine:latest",
                   "command": [
                     "/bin/bash"
                   ],
