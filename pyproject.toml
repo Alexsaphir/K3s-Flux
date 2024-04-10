@@ -4,8 +4,8 @@ version = "0.1.0"
 description = ""
 authors = ["Alexandre Mechineau <git@alexsaphir.com>"]
 readme = "README.md"
+package-mode = false
 
-packages = []
 
 [tool.poetry.dependencies]
 python = ">=3.12.2,<3.13"
