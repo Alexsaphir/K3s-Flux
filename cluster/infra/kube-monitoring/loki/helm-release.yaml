@@ -166,11 +166,11 @@ spec:
         annotations:
           grafana_folder: Loki
       rules:
-        enabled: false
+        enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
         metricsInstance:
-          enabled: false
+          enabled: true
       selfMonitoring:
         enabled: false
         grafanaAgent:
