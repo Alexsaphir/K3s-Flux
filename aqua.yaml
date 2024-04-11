@@ -12,11 +12,11 @@ packages:
   - name: firecow/gitlab-ci-local@4.47.0
   - name: FiloSottile/age@v1.1.1
   - name: mozilla/sops@v3.8.1
-  - name: hashicorp/terraform@v1.7.5
+  - name: hashicorp/terraform@v1.8.0
   - name: terraform-linters/tflint@v0.50.3
   - name: fluxcd/flux2@v2.2.3
   - name: kubernetes/kubectl@v1.29.3
-  - name: helm/helm@v3.14.3
+  - name: helm/helm@v3.14.4
   - name: kubernetes-sigs/kustomize@kustomize/v5.4.1
   - name: jqlang/jq@jq-1.7.1
   - name: mikefarah/yq@v4.43.1
