@@ -169,7 +169,8 @@ spec:
       dashboards:
         enabled: true
         searchNamespace: ALL
-        folderAnnotation: "grafana_folder"
+        label: grafana_dashboard
+        folderAnnotation: grafana_folder
         provider:
           allowUiUpdates: true
           foldersFromFilesStructure: true
