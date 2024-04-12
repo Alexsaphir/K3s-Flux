@@ -5,10 +5,3 @@ namespace: flux-monitoring
 resources:
   - bucket.sops.yaml
   - helm-release.yaml
-
-configMapGenerator:
-  - name: loki-alerting-rules
-    files:
-      - loki-alerting-rules.yaml=./rules/alerting-rules.yaml
-generatorOptions:
-  disableNameSuffixHash: true
