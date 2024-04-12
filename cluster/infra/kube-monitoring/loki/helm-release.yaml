@@ -124,6 +124,9 @@ spec:
         analytics:
           reporting_enabled: false
 
+    chunksCache:
+      allocatedMemory: 1700
+
     backend:
       replicas: &replication_factor 2
       persistence:
