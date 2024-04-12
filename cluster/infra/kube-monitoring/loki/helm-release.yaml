@@ -161,21 +161,6 @@ spec:
         searchNamespace: ALL
         folder: /rules/fake
 
-    monitoring:
-      dashboards:
-        annotations:
-          grafana_folder: Loki
-      rules:
-        enabled: true
-      serviceMonitor:
-        enabled: true
-        metricsInstance:
-          enabled: true
-      selfMonitoring:
-        enabled: false
-        grafanaAgent:
-          installOperator: false
-
     lokiCanary:
       enabled: false
 
