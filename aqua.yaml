@@ -38,3 +38,4 @@ packages:
   - name: lsd-rs/lsd@v1.1.2
   - name: opentofu/opentofu@v1.6.2
   - name: runatlantis/atlantis@v0.27.2
+  - name: kyverno/kyverno@v1.11.4
