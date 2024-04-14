@@ -39,10 +39,17 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/tautulli
-              tag: 2.13.4@sha256:809bccf944ee56c33af99993841e797e18dc85243639788de3c9d668c291b215
+              repository: ghcr.io/tautulli/tautulli
+              tag: v2.13.4@sha256:fb5e22c7a4d9e770703a30d145f355786fecb28dfca6df56c5073c457f3c8a8e
             env:
               TZ: '${TIMEZONE}'
+
+            command: [ '/usr/local/bin/python', 'Tautulli.py' ]
+            args: [
+              '--config', '/config/config.ini',
+              '--datadir', '/config',
+              '--port', '80'
+            ]
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -56,6 +63,20 @@ spec:
               limits:
                 memory: 512Mi
 
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
         pod:
           securityContext:
             runAsUser: 568
@@ -68,7 +89,7 @@ spec:
         controller: tautulli
         ports:
           http:
-            port: 8181
+            port: *port
 
     ingress:
       app:
