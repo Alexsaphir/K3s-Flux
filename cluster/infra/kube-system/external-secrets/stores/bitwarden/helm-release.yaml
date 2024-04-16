@@ -30,9 +30,6 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
         seccompProfile: { type: RuntimeDefault }
 
     controllers:
@@ -70,7 +67,7 @@ spec:
 
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: [ 'ALL' ] }
 
     service:
