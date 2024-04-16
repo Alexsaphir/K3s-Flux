@@ -28,6 +28,13 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       error-pages:
         containers:
@@ -36,16 +43,23 @@ spec:
             image:
               repository: ghcr.io/tarampampam/error-pages
               tag: 2.27.0
+
             env:
               TZ: ${TIMEZONE}
               TEMPLATE_NAME: shuffle
               SHOW_DETAILS: true
+
             resources:
               requests:
                 memory: 100Mi
                 cpu: 100m
               limits:
                 memory: 500Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

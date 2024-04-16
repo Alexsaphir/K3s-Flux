@@ -28,6 +28,13 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       bitwarden-cli:
         annotations:
@@ -60,6 +67,11 @@ spec:
                 cpu: 100m
               limits:
                 memory: 512Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

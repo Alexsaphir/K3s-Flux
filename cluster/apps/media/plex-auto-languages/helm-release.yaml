@@ -28,16 +28,18 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       plex-auto-languages:
         annotations:
           secret.reloader.stakater.com/reload: &secret media-secret
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: "OnRootMismatch"
+
 
         containers:
           app:
@@ -59,10 +61,16 @@ spec:
                 enabled: false
               startup:
                 enabled: false
+
             resources:
               requests:
                 cpu: 5m
                 memory: 128Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     persistence:
       config:

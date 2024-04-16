@@ -57,6 +57,15 @@ spec:
         searchSuffix: 'ou=people,dc=home,dc=arpa'
         scope: 'sub'
 
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       thelounge:
         annotations:
@@ -77,6 +86,11 @@ spec:
                 memory: 250Mi
               limits:
                 memory: 500Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     configMaps:
       config:

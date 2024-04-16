@@ -28,23 +28,12 @@ spec:
       retries: 3
 
   values:
-    service:
-      app:
-        controller: py-kms
-        ports:
-          http:
-            port: &port 8080
-      kms:
-        controller: py-kms
-        primary: false
-        type: LoadBalancer
-        externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: ${LB_PY_KMS}
-        ports:
-          kms:
-            port: 1688
-            protocol: TCP
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
 
 
     controllers:
@@ -71,7 +60,7 @@ spec:
                 spec:
                   httpGet:
                     path: /livez
-                    port: *port
+                    port: &port 8080*port
               readiness:
                 enabled: true
                 custom: true
@@ -82,6 +71,28 @@ spec:
               startup:
                 enabled: false
 
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    service:
+      app:
+        controller: py-kms
+        ports:
+          http:
+            port: *port
+      kms:
+        controller: py-kms
+        primary: false
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${LB_PY_KMS}
+        ports:
+          kms:
+            port: 1688
+            protocol: TCP
 
     ingress:
       app:

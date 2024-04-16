@@ -28,6 +28,13 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       cyberchef:
         replicas: 1
@@ -41,6 +48,11 @@ spec:
 
             env:
               TZ: ${TIMEZONE}
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

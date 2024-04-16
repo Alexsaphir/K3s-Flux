@@ -89,6 +89,12 @@ spec:
             name: codecov-s3-secret
             key: secret_key
 
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
 
     controllers:
       gateway:
@@ -148,6 +154,12 @@ spec:
               requests:
                 cpu: 250m
                 memory: 256M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
       frontend:
         replicas: 2
         containers:
@@ -194,6 +206,12 @@ spec:
               requests:
                 cpu: 250m
                 memory: 256M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
       api:
         replicas: 2
         containers:
@@ -241,6 +259,12 @@ spec:
               requests:
                 cpu: 250m
                 memory: 256M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
       worker:
         replicas: 2
         containers:
@@ -259,6 +283,11 @@ spec:
               requests:
                 cpu: 500m
                 memory: 1024M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       gateway-service:

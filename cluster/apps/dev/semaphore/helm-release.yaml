@@ -28,6 +28,13 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       semaphore:
         annotations:
@@ -90,8 +97,11 @@ spec:
               requests:
                 cpu: 10m
                 memory: 50Mi
-              limits:
-                memory: 1Gi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

@@ -28,6 +28,16 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
+
+
     controllers:
       vector-aggregator:
         replicas: 2
@@ -58,15 +68,6 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
-
-        pod:
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: *app
 
     service:
       app:

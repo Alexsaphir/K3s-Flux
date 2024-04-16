@@ -28,6 +28,15 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       tandoor-recipes:
         annotations:
@@ -107,6 +116,11 @@ spec:
               AUTH_LDAP_CACHE_TIMEOUT: 3600
               AUTH_LDAP_USER_ATTR_MAP: "{'first_name': 'givenName', 'last_name': 'sn', 'email': 'mail' }"
               AUTH_LDAP_USER_SEARCH_FILTER_STR: '(&(&(objectclass=person)(memberOf=cn=recipes,ou=groups,dc=home,dc=arpa))(uid=%(user)s))'
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

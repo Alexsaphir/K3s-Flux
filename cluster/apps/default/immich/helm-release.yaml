@@ -121,6 +121,11 @@ spec:
                 cpu: 100m
                 memory: 250Mi
 
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
       microservices:
         type: deployment
         replicas: 1
@@ -159,6 +164,11 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
 
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
         pod:
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: 'true'
@@ -193,6 +203,11 @@ spec:
               requests:
                 cpu: 100m
                 memory: 250Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

@@ -32,24 +32,17 @@ spec:
       namespace: home-automation
 
   values:
-    persistence:
-      usb:
-        enabled: true
-        type: hostPath
-        hostPathType: CharDevice
-        hostPath: &hostPath /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
-        advancedMounts:
-          zigbee2mqtt:
-            app:
-              - path: *hostPath
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
 
-      config:
-        enabled: true
-        existingClaim: zigbee2mqtt-data
-        advancedMounts:
-          zigbee2mqtt:
-            app:
-              - path: /config
+      nodeSelector:
+        zigbee.feature.node.kubernetes.io/sonoff: 'true'
 
     controllers:
       zigbee2mqtt:
@@ -90,12 +83,19 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: *hostPath
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &hostPath /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ezsp
 
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secrets
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
 
             securityContext:
               privileged: true
@@ -104,13 +104,6 @@ spec:
                 add: [ 'SYS_RAWIO' ]
               supplementalGroups:
                 - 20 # dialout for /dev/ttyUSB0
-
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 512Mi
 
           exporter:
             dependsOn: app
@@ -129,11 +122,6 @@ spec:
               - { name: PROMETHEUS_PREFIX, value: 'zigbee2mqtt_' }
               - { name: ZIGBEE2MQTT_AVAILABILITY, value: "True" }
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
-
             resources:
               requests:
                 cpu: 10m
@@ -141,9 +129,10 @@ spec:
               limits:
                 memory: 512Mi
 
-        pod:
-          nodeSelector:
-            zigbee.feature.node.kubernetes.io/sonoff: 'true'
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:
@@ -184,3 +173,22 @@ spec:
                 service:
                   identifier: app
                   port: http
+
+    persistence:
+      usb:
+        enabled: true
+        type: hostPath
+        hostPathType: CharDevice
+        hostPath: *hostPath
+        advancedMounts:
+          zigbee2mqtt:
+            app:
+              - path: *hostPath
+
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt-data
+        advancedMounts:
+          zigbee2mqtt:
+            app:
+              - path: /config

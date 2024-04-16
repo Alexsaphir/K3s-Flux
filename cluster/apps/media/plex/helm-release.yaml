@@ -28,6 +28,19 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: 'true'
+
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [ 44, 104, 109, 100 ]
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       plex:
         annotations:
@@ -58,11 +71,6 @@ spec:
               startup:
                 enabled: false
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
-
             resources:
               requests:
                 gpu.intel.com/i915: 1
@@ -72,17 +80,10 @@ spec:
                 gpu.intel.com/i915: 1
                 memory: 3000Mi
 
-        pod:
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: 'true'
-
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [ 44, 104, 109, 100 ]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

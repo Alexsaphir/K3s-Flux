@@ -28,6 +28,8 @@ spec:
       retries: 3
 
   values:
+
+
     controllers:
       vector-agent:
         type: daemonset
