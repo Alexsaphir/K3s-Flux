@@ -33,7 +33,6 @@ spec:
   values:
     defaultPodOptions:
       automountServiceAccountToken: false
-      enableServiceLinks: false
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
@@ -61,10 +60,6 @@ spec:
                     name: media-secret
                     key: plex-token
               BYPASS_SSL_VERIFY: 1
-
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:

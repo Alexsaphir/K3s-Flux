@@ -69,11 +69,6 @@ spec:
                 cpu: 15m
                 memory: 273Mi
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
-              capabilities: { drop: [ 'ALL' ] }
-
     service:
       app:
         controller: ombi

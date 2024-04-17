@@ -28,6 +28,11 @@ spec:
       retries: 3
 
   values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile: { type: RuntimeDefault }
+
     controllers:
       foundryvtt:
         annotations:
@@ -54,10 +59,6 @@ spec:
             envFrom:
               - secretRef:
                   name: foundryvtt-secret
-
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:
