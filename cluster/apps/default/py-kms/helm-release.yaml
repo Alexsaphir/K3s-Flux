@@ -57,7 +57,7 @@ spec:
                 spec:
                   httpGet:
                     path: /livez
-                    port: &port 8080*port
+                    port: &port 8080
               readiness:
                 enabled: true
                 custom: true
