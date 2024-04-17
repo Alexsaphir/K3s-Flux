@@ -106,4 +106,3 @@ spec:
     prometheusMonitoring:
       podMonitor:
         enabled: true
-        namespace: sonarqube
