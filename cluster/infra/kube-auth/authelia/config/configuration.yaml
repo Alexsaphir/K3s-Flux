@@ -103,6 +103,7 @@ access_control:
 
         - 'codecov.${SECRET_DOMAIN_NAME}'
         - 'sonarqube.${SECRET_DOMAIN_NAME}'
+        - 'planka.${SECRET_DOMAIN_NAME}'
 
         - 'coder.${SECRET_DOMAIN_NAME}'
         - 'jupyter.${SECRET_DOMAIN_NAME}'
@@ -151,7 +152,6 @@ access_control:
 
     - domain:
         - 'hajimari.${SECRET_DOMAIN_NAME}'
-        - 'planka.${SECRET_DOMAIN_NAME}'
       policy: two_factor
 
     - domain:
@@ -246,3 +246,5 @@ identity_providers:
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris: [ 'https://planka.${SECRET_DOMAIN_NAME}/oidc-callback' ]
         userinfo_signed_response_alg: none
+        response_modes:
+          - fragment
