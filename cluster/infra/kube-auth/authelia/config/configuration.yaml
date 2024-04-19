@@ -103,7 +103,9 @@ access_control:
 
         - 'codecov.${SECRET_DOMAIN_NAME}'
         - 'sonarqube.${SECRET_DOMAIN_NAME}'
+
         - 'planka.${SECRET_DOMAIN_NAME}'
+        - 'plan.${SECRET_DOMAIN_NAME}'
 
         - 'coder.${SECRET_DOMAIN_NAME}'
         - 'jupyter.${SECRET_DOMAIN_NAME}'
