@@ -151,6 +151,7 @@ access_control:
 
     - domain:
         - 'hajimari.${SECRET_DOMAIN_NAME}'
+        - 'planka.${SECRET_DOMAIN_NAME}'
       policy: two_factor
 
     - domain:
