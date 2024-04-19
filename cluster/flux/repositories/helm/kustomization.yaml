@@ -60,6 +60,7 @@ resources:
   - opstree.yaml
   - ori-edge.yaml
   - piraeus.yaml
+  - planka.yaml
   - portainer.yaml
   - prometheus-community.yaml
   - pytoshka-vault-autounseal.yaml

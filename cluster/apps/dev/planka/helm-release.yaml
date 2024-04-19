@@ -1,0 +1,152 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app planka
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    oidc:
+      issuerUrl: https://auth.${SECRET_DOMAIN_NAME}
+      scopes:
+        - openid
+        - profile
+        - groups
+        - email
+      admin:
+        roles:
+          - planka-admin
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      planka:
+        annotations:
+          secret.reloader.stakater.com/reload: database-planka, planka-secret, planka-oidc-secret
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/plankanban/planka
+              tag: 1.16.4@sha256:22113c0c0899175738b6275011f224f190f586986ac36273c80c44326adabf00
+
+            env:
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-planka
+                    key: POSTGRES_URL
+              BASE_URL:
+                value: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
+              TRUST_PROXY: 1
+
+              OIDC_ENFORCED: 'true'
+              OIDC_ISSUER:
+                value: '{{ required "issuerUrl is required when configuring OIDC" .Values.oidc.issuerUrl | quote }}'
+              OIDC_SCOPES:
+                value: '{{ join " " .Values.oidc.scopes | default "openid profile email" | quote }}'
+              OIDC_ADMIN_ROLES:
+                value: '{{ join "," .Values.oidc.admin.roles | quote }}'
+              OIDC_ROLES_ATTRIBUTE:
+                value: '{{ .Values.oidc.admin.rolesAttribute | default "groups" | quote }}'
+
+              # Email Notifications (https://nodemailer.com/smtp/)
+              # - SMTP_HOST=
+              # - SMTP_PORT=587
+              # - SMTP_SECURE=true
+              # - SMTP_USER=
+              # - SMTP_PASSWORD=
+              # - SMTP_FROM="Demo Demo" <demo@demo.demo>
+
+              # - SLACK_BOT_TOKEN=
+              # - SLACK_CHANNEL_ID=
+
+            envFrom:
+              - secretRef:
+                  name: planka-secret
+              - secretRef:
+                  name: planka-oidc-secret
+
+            probes:
+              liveness: &probe
+                type: HTTP
+                path: /
+              readiness: *probe
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 1337
+
+    ingress:
+      app:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+          hajimari.io/enable: 'true'
+          hajimari.io/icon: 'mdi:ticket'
+        hosts:
+          - host: planka.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      data:
+        existingClaim: planka
+        globalMounts:
+          - path: /app/public/user-avatars
+            subPath: user-avatars
+          - path: /app/public/project-background-images
+            subPath: project-background-images
+          - path: /app/private/attachments
+            subPath: attachments
+
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /app/logs
