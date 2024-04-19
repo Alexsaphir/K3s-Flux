@@ -65,8 +65,6 @@ spec:
                   httpGet:
                     path: /readyz
                     port: *port
-              startup:
-                enabled: false
 
     service:
       app:

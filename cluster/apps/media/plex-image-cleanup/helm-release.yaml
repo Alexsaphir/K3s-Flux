@@ -78,8 +78,6 @@ spec:
                 enabled: false
               readiness:
                 enabled: false
-              startup:
-                enabled: false
 
             securityContext:
               allowPrivilegeEscalation: false
