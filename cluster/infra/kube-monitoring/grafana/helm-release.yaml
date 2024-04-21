@@ -367,6 +367,13 @@ spec:
           datasource: Prometheus
 
       node:
+        smart:
+          # renovate: depName="Dashboard for smartctl_exporter"
+          gnetId: 20204
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
