@@ -5,8 +5,7 @@ namespace: renovate
 resources:
   - namespace.yaml
   - secret.sops.yaml
-  - postgres.yaml
-  - redis.yaml
+  - resources
   - helm-release.yaml
   - gatus.yaml
 configMapGenerator:
