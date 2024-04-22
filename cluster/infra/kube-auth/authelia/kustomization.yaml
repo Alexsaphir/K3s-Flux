@@ -5,8 +5,7 @@ namespace: kube-auth
 resources:
   - secret.sops.yaml
   - oauth-secret
-  - postgres.yaml
-  - redis.yaml
+  - resources
   - config
   - helm-release.yaml
   - gatus.yaml

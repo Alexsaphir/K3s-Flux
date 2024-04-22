@@ -61,8 +61,8 @@ session:
       authelia_url: https://auth.${SECRET_DOMAIN_NAME}
       default_redirection_url: https://${SECRET_DOMAIN_NAME}
   redis:
-    host: authelia-redis.kube-auth.svc.cluster.local
-    database_index: 1
+    host: authelia-dragonfly.kube-auth.svc.cluster.local
+    database_index: 0
 
 access_control:
   default_policy: deny

@@ -14,6 +14,7 @@ spec:
     - name: cluster-infra-kube-prometheus-stack-crds
     - name: cluster-infra-postgres-ext-postgres-operator
     - name: cluster-infra-lldap
+    - name: cluster-infra-dragonfly-operator
 
   path: ./cluster/infra/kube-auth/authelia
   sourceRef:
