@@ -5,7 +5,6 @@ namespace: codecov
 resources:
   - namespace.yaml
   - secret.sops.yaml
-  - redis.yaml
-  - postgres.yaml
+  - resources
   - helm-release.yaml
   - gatus.yaml
