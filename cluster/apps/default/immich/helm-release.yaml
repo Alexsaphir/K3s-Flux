@@ -276,7 +276,7 @@ spec:
         data:
           LOG_LEVEL: '{{ .Values.immich.logLevel }}'
 
-          REDIS_HOSTNAME: immich-redis.{{ .Release.Namespace }}.svc.cluster.local
+          REDIS_HOSTNAME: immich-dragonfly.{{ .Release.Namespace }}.svc.cluster.local
           REDIS_PORT: '6379'
 
           IMMICH_CONFIG_FILE: /usr/src/app/immich-config.json
