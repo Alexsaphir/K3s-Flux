@@ -5,6 +5,6 @@ namespace: atlantis
 resources:
   - namespace.yaml
   - secret.sops.yaml
-  - redis.yaml
+  - resources
   - helm-release.yaml
   - gatus.yaml
