@@ -237,15 +237,15 @@ spec:
               path: /var/lib/grafana/dashboards/apps
 
 
-          - name: backup
+          - name: database
             orgId: 1
-            folder: Backup
+            folder: Database
             type: file
             disableDeletion: true
             editable: false
             allowUiUpdates: false
             options:
-              path: /var/lib/grafana/dashboards/backup
+              path: /var/lib/grafana/dashboards/database
 
           - name: storage
             orgId: 1
@@ -337,7 +337,7 @@ spec:
               path: /var/lib/grafana/dashboards/system
 
     dashboards:
-      backup:
+      database:
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/charts/cloudnative-pg-v0.20.2/charts/cloudnative-pg/monitoring/grafana-dashboard.json
           datasource: &datasource
