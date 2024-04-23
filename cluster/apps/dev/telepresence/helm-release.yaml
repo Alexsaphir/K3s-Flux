@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: telepresence
-      version: 2.19.3
+      version: 2.19.4
       sourceRef:
         kind: HelmRepository
         name: telepresence
