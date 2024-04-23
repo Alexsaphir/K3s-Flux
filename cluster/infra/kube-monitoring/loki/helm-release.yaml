@@ -138,6 +138,12 @@ spec:
       replicas: *replication_factor
       image:
         registry: ghcr.io
+
+      deploymentStrategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 1
+
       ingress:
         enabled: true
         ingressClassName: traefik
