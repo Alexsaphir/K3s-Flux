@@ -72,12 +72,10 @@ spec:
               OIDC_ROLES_ATTRIBUTE: groups
 
               # Email Notifications (https://nodemailer.com/smtp/)
-              # - SMTP_HOST=
-              # - SMTP_PORT=587
-              # - SMTP_SECURE=true
-              # - SMTP_USER=
-              # - SMTP_PASSWORD=
-              # - SMTP_FROM="Demo Demo" <demo@demo.demo>
+              SMTP_HOST: mailpit.mail.svc.cluster.local
+              SMTP_PORT: 1025
+              SMTP_SECURE: false
+              SMTP_FROM: Planka
 
               # - SLACK_BOT_TOKEN=
               # - SLACK_CHANNEL_ID=
