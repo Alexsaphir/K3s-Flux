@@ -211,10 +211,42 @@ spec:
       existingSecretKey: PASSWORD
 
     redis:
-      enabled: true
+      enabled: false
+
+    tasksRedis:
+      database: 0
+
+      host: netbox-dragonfly
+      port: 6379
+      username: ""
+
+      existingSecretName: netbox-redis-secret
+      existingSecretKey: password
+
+    cachingRedis:
+      database: 1
+
+      host: netbox-dragonfly
+      port: 6379
+      username: ""
+
+      existingSecretName: netbox-redis-secret
+      existingSecretKey: password
+
+    email:
+      server: mailpit.mail.svc.cluster.local
+      port: 1025
+      username: ''
+      password: ''
+      useSSL: false
+      useTLS: false
+      sslCertFile: ''
+      sslKeyFile: ''
+      timeout: 10  # seconds
+      from: 'Netbox'
 
     podAnnotations:
-      secret.reloader.stakater.com/reload: "netbox-secret,netbox-s3-secret"
+      secret.reloader.stakater.com/reload: "netbox-secret,netbox-s3-secret,netbox-redis-secret"
       config.reloader.stakater.com/reload: netbox
 
     csrf:
