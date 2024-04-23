@@ -75,7 +75,7 @@ spec:
               SMTP_HOST: mailpit.mail.svc.cluster.local
               SMTP_PORT: 1025
               SMTP_SECURE: false
-              SMTP_FROM: Planka
+              SMTP_FROM: 'Planka <planka@domain.com>'
 
               # - SLACK_BOT_TOKEN=
               # - SLACK_CHANNEL_ID=

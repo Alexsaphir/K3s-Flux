@@ -6,14 +6,17 @@ log:
 
 notifier:
   disable_startup_check: true
-  filesystem:
-    filename: /tmp/notification.txt
+  smtp:
+    address: 'smtp://mailpit.mail.svc.cluster.local:1025'
+
+    sender: 'Authelia <authelia@domain.com>'
+    disable_require_tls: true
+    disable_starttls: true
 
 authentication_backend:
   refresh_interval: 1m
   password_reset:
     disable: true
-
   ldap:
     implementation: custom
     timeout: 5s

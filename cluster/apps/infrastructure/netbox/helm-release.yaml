@@ -243,7 +243,7 @@ spec:
       sslCertFile: ''
       sslKeyFile: ''
       timeout: 10  # seconds
-      from: 'Netbox'
+      from: 'Netbox <netbox@domain.com>'
 
     podAnnotations:
       secret.reloader.stakater.com/reload: "netbox-secret,netbox-s3-secret,netbox-redis-secret"
