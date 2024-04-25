@@ -1,0 +1,170 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: kroki
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    kroki:
+      # renovate: datasource=github-releases depName=yuzutech/kroki
+      version: &version 0.25.0
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        fsGroup: 568
+        fsGroupChangePolicy: 'OnRootMismatch'
+
+    controllers:
+      kroki:
+        enabled: true
+        type: deployment
+        replicas: 1
+
+        containers:
+          app:
+            image:
+              repository: yuzutech/kroki
+              tag: *version
+
+            env:
+              KROKI_SAFE_MODE: SECURE
+              KROKI_MAX_URI_LENGTH: 8192
+
+              # KROKI_BPMN_HOST: bpmn
+              # KROKI_DIAGRAMSNET_HOST: diagramsnet
+              # KROKI_EXCALIDRAW_HOST: excalidraw
+              # KROKI_MERMAID_HOST: mermaid
+
+            resources: &resources
+              limits:
+                cpu: 100m
+                memory: 128Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    #      bpmn:
+    #        enabled: true
+    #        type: deployment
+    #        replicas: 1
+    #
+    #        containers:
+    #          app:
+    #            image:
+    #              repository: yuzutech/kroki-bpmn
+    #              tag: *version
+    #
+    #            resources: *resources
+    #            securityContext: *securityContext
+    #
+    #      diagramsnet:
+    #        enabled: true
+    #        type: deployment
+    #        replicas: 1
+    #
+    #        containers:
+    #          app:
+    #            image:
+    #              repository: yuzutech/kroki-diagramsnet
+    #              tag: *version
+    #
+    #            resources: *resources
+    #            securityContext: *securityContext
+    #
+    #      excalidraw:
+    #        enabled: true
+    #        type: deployment
+    #        replicas: 1
+    #
+    #        containers:
+    #          app:
+    #            image:
+    #              repository: yuzutech/kroki-excalidraw
+    #              tag: *version
+    #
+    #            resources: *resources
+    #            securityContext: *securityContext
+    #
+    #      mermaid:
+    #        enabled: true
+    #        type: deployment
+    #        replicas: 1
+    #
+    #        containers:
+    #          app:
+    #            image:
+    #              repository: yuzutech/kroki-mermaid
+    #              tag: *version
+    #
+    #            resources: *resources
+    #            securityContext: *securityContext
+
+    service:
+      kroki:
+        controller: kroki
+        ports:
+          http:
+            port: 8000
+
+    #
+    #      bpmn:
+    #        controller: bpmn
+    #        ports:
+    #          http:
+    #            port: 8003
+    #
+    #      diagramsnet:
+    #        controller: diagramsnet
+    #        ports:
+    #          http:
+    #            port: 8001
+    #
+    #      excalidraw:
+    #        controller: excalidraw
+    #        ports:
+    #          http:
+    #            port: 8004
+    #
+    #      mermaid:
+    #        controller: mermaid
+    #        ports:
+    #          http:
+    #            port: 8002
+
+    persistence:
+      tmp:
+        type: emptyDir
