@@ -4,5 +4,8 @@ kind: Kustomization
 namespace: vaultwarden
 resources:
   - namespace.yaml
-  - postgres.yaml
+  - resources
+  - secret.sops.yaml
   - pvc.yaml
+  - helm-release.yaml
+  - gatus.yaml
