@@ -67,9 +67,10 @@ spec:
       securityContext:
         runAsUser: 568
         runAsGroup: 568
-        runAsNonRoot: false
+        runAsNonRoot: true
         fsGroup: 568
         fsGroupChangePolicy: 'OnRootMismatch'
+        seccompProfile: { type: RuntimeDefault }
 
     controllers:
       immich:
@@ -80,19 +81,6 @@ spec:
         annotations:
           configmap.reloader.stakater.com/reload: &config immich-config, immich-settings
           secret.reloader.stakater.com/reload: &secret immich-secret
-
-        initContainers:
-          01-init-permission:
-            image:
-              repository: busybox
-              tag: 1.36.1
-              pullPolicy: IfNotPresent
-            command:
-              - sh
-              - -c
-              - chown 568:568 -R /usr/src/app/upload
-            securityContext:
-              runAsUser: 0
 
         containers:
           app:
@@ -206,7 +194,7 @@ spec:
 
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: [ 'ALL' ] }
 
     service:
@@ -239,7 +227,6 @@ spec:
 
     persistence:
       settings:
-        enabled: true
         type: configMap
         name: immich-settings
         advancedMounts:
@@ -253,13 +240,11 @@ spec:
                 subPath: immich-config.json
 
       library:
-        enabled: true
         existingClaim: immich-data
         globalMounts:
           - path: /usr/src/app/upload
 
       modelcache:
-        enabled: true
         type: persistentVolumeClaim
         storageClass: longhorn
         accessMode: ReadWriteOnce
@@ -269,6 +254,13 @@ spec:
           machine-learning:
             app:
               - path: /cache
+
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          machine-learning:
+            app:
+              - path: /tmp
 
     configMaps:
       config:
