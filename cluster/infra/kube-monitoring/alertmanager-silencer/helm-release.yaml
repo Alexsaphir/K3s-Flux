@@ -1,0 +1,69 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: alertmanager-silencer
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  dependsOn:
+    - name: kube-prometheus-stack
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      alertmanager-silencer:
+        type: cronjob
+        cronjob:
+          schedule: "@daily"
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/kubanetics
+              tag: 2024.4.2@sha256:efa06fa4e92f16db0dabd421054873e33036dfc579a727c6c772928801ea8e1d
+            env:
+              SCRIPT_NAME: alertmanager-silencer.sh
+              ALERTMANAGER_URL: http://alertmanager-operated.{{ .Release.Namespace }}.svc.cluster.local:9093
+              MATCHERS_0: alertname=KubeMemoryOvercommit
+
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ "ALL" ] }
+
+            resources:
+              requests:
+                cpu: 25m
+              limits:
+                memory: 128Mi

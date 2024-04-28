@@ -16,3 +16,4 @@ resources:
   - smartctl-exporter/ks.yaml
   - thanos/ks.yaml
   - vector/ks.yaml
+  - alertmanager-silencer/ks.yaml
