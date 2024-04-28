@@ -33,6 +33,8 @@ spec:
     domain: ${SECRET_DOMAIN_NAME}
     ttl: 1
 
+    watchedResources: [ "Ingress", "Service" ]
+
     service:
       type: LoadBalancer
       port: 53
