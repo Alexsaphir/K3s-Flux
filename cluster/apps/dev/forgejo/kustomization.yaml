@@ -5,3 +5,4 @@ namespace: forgejo
 resources:
   - namespace.yaml
   - postgres.yaml
+  - pvc.yaml
