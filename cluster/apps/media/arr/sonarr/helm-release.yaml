@@ -47,18 +47,20 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr
+              repository: ghcr.io/onedr0p/sonarr-develop
               tag: 4.0.4.1491@sha256:9c78b3a37af6e814062e4a631c25ad181c800ae11d21acdfd26c843da9e4a42e
 
             env:
               PUSHOVER_DEBUG: 'false'
-              SONARR__AUTHENTICATION_METHOD: External
-              SONARR__AUTHENTICATION_REQUIRED: Enabled
-              SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 8989
-              SONARR__LOG_LEVEL: info
-              SONARR__THEME: light
-              SONARR__ANALYTICS_ENABLED: 'false'
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: Enabled
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__SERVER__PORT: &port 8989
+              SONARR__LOG__LEVEL: info
+              SONARR__APP__THEME: light
+              SONARR__LOG__ANALYTICS_ENABLED: 'false'
+              SONARR__UPDATE__BRANCH: develop
+
               TZ: ${TIMEZONE}
 
             envFrom:
