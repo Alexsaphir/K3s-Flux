@@ -44,6 +44,10 @@ spec:
         type: cronjob
         cronjob:
           schedule: '@daily'
+          timeZone: &timezone ${TIMEZONE}
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
 
         annotations:
           reloader.stakater.com/auto: 'true'
@@ -53,28 +57,27 @@ spec:
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 6.0.2@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad
+            args: [ 'sync' ]
 
             env:
-              TZ: ${TIMEZONE}
+              TZ: *timezone
+              COMPlus_EnableDiagnostics: 0
 
               SONARR_API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
-                    key: SONARR__API_KEY
+                    key: SONARR__AUTH__APIKEY
               RADARR_API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
                     key: RADARR__API_KEY
 
-            args: [ 'sync' ]
-
             resources:
-              limits: &resources
+              limits:
                 memory: 128Mi
               requests:
-                <<: *resources
                 cpu: 10m
 
             securityContext:
