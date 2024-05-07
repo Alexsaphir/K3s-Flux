@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.172.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.173.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.34.0
   - name: go-task/task@v3.36.0
@@ -28,7 +28,7 @@ packages:
   - name: FairwindsOps/pluto@v5.19.0
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.4
-  - name: kubescape/kubescape@v3.0.9
+  - name: kubescape/kubescape@v3.0.10
   - name: stern/stern@v1.29.0
   - name: yannh/kubeconform@v0.6.4
   - name: zegl/kube-score@v1.18.0
