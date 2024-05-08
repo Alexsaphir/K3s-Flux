@@ -9,7 +9,7 @@ locals {
   ]
   minio_buckets_k3s = [
     "codecov",
-    "ghost",
+    "forgejo",
     "monica",
     "netbox",
     "recipes",

@@ -5,3 +5,4 @@ namespace: flux-charts
 resources:
   - namespace.yaml
   - helm
+  - oci
