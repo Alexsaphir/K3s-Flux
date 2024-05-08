@@ -16,7 +16,7 @@ spec:
       interval: 15m
 
   driftDetection:
-    mode: warn
+    mode: enabled
   maxHistory: 3
   install:
     crds: CreateReplace
@@ -39,8 +39,6 @@ spec:
         grafana_folder: System
 
     backgroundController:
-      metricsService:
-        create: true
       serviceMonitor:
         enabled: true
       rbac:
@@ -59,14 +57,10 @@ spec:
                 - list
 
     cleanupController:
-      metricsService:
-        create: true
       serviceMonitor:
         enabled: true
 
     reportsController:
-      metricsService:
-        create: true
       serviceMonitor:
         enabled: true
       resources:
@@ -75,8 +69,6 @@ spec:
 
     admissionController:
       replicas: 1
-      metricsService:
-        create: true
       serviceMonitor:
         enabled: true
       rbac:
