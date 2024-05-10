@@ -36,7 +36,6 @@
   ignorePaths: [
     '**/*.sops.*',
     '**/archive/**',
-    '**/resources/**',
   ],
   lockFileMaintenance: {
     enabled: true,
