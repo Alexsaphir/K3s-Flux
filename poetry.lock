@@ -13,17 +13,17 @@ files = [
 
 [[package]]
 name = "ansible"
-version = "9.4.0"
+version = "9.5.1"
 description = "Radically simple IT automation"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "ansible-9.4.0-py3-none-any.whl", hash = "sha256:f1d67a2c21dbed3fee4fe579f750e5d20b5a5f13f4399f256a8a70f0505e62f7"},
-    {file = "ansible-9.4.0.tar.gz", hash = "sha256:dd431c63380e18c3faca3288ebde8ce2f4f992363ab558a3c11c8f2032d90867"},
+    {file = "ansible-9.5.1-py3-none-any.whl", hash = "sha256:aed2f4208a75836a27c13555ec5d8d942fe3b089a8b1fc44e8234fadd9e649fd"},
+    {file = "ansible-9.5.1.tar.gz", hash = "sha256:3c278bc9642b97fc953b2ba05b99cd80801e75bf3567dfaa1cb5131fe0ec1ecd"},
 ]
 
 [package.dependencies]
-ansible-core = ">=2.16.5,<2.17.0"
+ansible-core = ">=2.16.6,<2.17.0"
 
 [[package]]
 name = "ansible-core"
@@ -225,13 +225,13 @@ typing = ["typing-extensions (>=4.8)"]
 
 [[package]]
 name = "flux-local"
-version = "5.0.1"
+version = "5.2.0"
 description = "flux-local is a python library and set of tools for managing a flux gitops repository, with validation steps to help improve quality of commits, PRs, and general local testing."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "flux_local-5.0.1-py3-none-any.whl", hash = "sha256:e73405a39f2721963381a5027dc6ae133521b214b3a9427cc99af7d9554f0928"},
-    {file = "flux_local-5.0.1.tar.gz", hash = "sha256:55c7a1e7932ff069fcf1965ccb4345e8fdf6ba3368fc7f9eaa6d24f34eb51570"},
+    {file = "flux_local-5.2.0-py3-none-any.whl", hash = "sha256:88eae3df9080112028ae834d2c8de128ab4721883efba8afa0f0301891e605bb"},
+    {file = "flux_local-5.2.0.tar.gz", hash = "sha256:a058eab6d08e40e46fa8cb96fa6308b474cab7ebfa71670d7d3b98b02f381764"},
 ]
 
 [package.dependencies]
@@ -771,4 +771,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12.3,<3.13"
-content-hash = "be91424c68d91ae46618a5d39442174506c9adfc02b40c4ce3d284cd3b12253a"
+content-hash = "5f7171c9162d2fedc0bdc5984e8eaf03eb0619caffef75a23d933af5957c2bfb"
