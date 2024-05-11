@@ -9,7 +9,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.12.3,<3.13"
-pre-commit = "^3.7.0"
+pre-commit = "^3.7.1"
 
 prettier = "^0.0.7"
 yamllint = "^1.35.1"
