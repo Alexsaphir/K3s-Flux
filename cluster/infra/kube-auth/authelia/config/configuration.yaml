@@ -168,6 +168,7 @@ access_control:
         - 'grafana.${SECRET_DOMAIN_NAME}'
         - 'atlantis.${SECRET_DOMAIN_NAME}'
         - 'mail.${SECRET_DOMAIN_NAME}'
+        - 'git.${SECRET_DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'

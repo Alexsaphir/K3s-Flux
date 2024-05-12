@@ -20,7 +20,7 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --lock_on_hashtags
-    - --dbnum=1
+    - --dbnum=4
 
   resources:
     requests:

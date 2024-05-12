@@ -1,0 +1,273 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: forgejo
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: forgejo
+      version: 6.0.5
+      sourceRef:
+        kind: HelmRepository
+        name: forgejo
+        namespace: flux-charts
+      interval: 15m
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  values:
+    replicaCount: 1
+    strategy:
+      type: 'RollingUpdate'
+      rollingUpdate:
+        maxSurge: '100%'
+        maxUnavailable: 0
+
+
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+        add:
+          - SYS_CHROOT
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        { }
+      hosts:
+        - host: &host git.${SECRET_DOMAIN_NAME}
+          paths:
+            - path: /
+              pathType: Prefix
+
+    persistence:
+      enabled: true
+      create: false
+      claimName: forgejo
+    
+    deployment:
+      env:
+        [ ]
+      # - name: VARIABLE
+      #   value: my-value
+      terminationGracePeriodSeconds: 60
+      labels: { }
+      annotations: { }
+
+
+    signing:
+      enabled: false
+      existingSecret: ''
+
+    gitea:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+
+      # Either specify inline `key` and `secret` or refer to them via `existingSecret`
+      ## @param gitea.oauth OAuth configuration
+      oauth:
+        [ ]
+      # - name: 'OAuth 1'
+      #   provider:
+      #   key:
+      #   secret:
+      #   existingSecret:
+      #   autoDiscoverUrl:
+      #   useCustomUrls:
+      #   customAuthUrl:
+      #   customTokenUrl:
+      #   customProfileUrl:
+      #   customEmailUrl:
+
+      podAnnotations: { }
+
+
+      additionalConfigFromEnvs:
+        - name: FORGEJO__DATABASE__PASSWD
+          valueFrom:
+            secretKeyRef:
+              name: &databaseSecret database-forgejo
+              key: PASSWORD
+        - name: FORGEJO__DATABASE__HOST
+          valueFrom:
+            secretKeyRef:
+              name: *databaseSecret
+              key: HOST
+        - name: FORGEJO__DATABASE__NAME
+          valueFrom:
+            secretKeyRef:
+              name: *databaseSecret
+              key: DATABASE_NAME
+        - name: FORGEJO__DATABASE__USER
+          valueFrom:
+            secretKeyRef:
+              name: *databaseSecret
+              key: LOGIN
+
+        - name: FORGEJO__SECURITY__SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: &secret forgejo-secret
+              key: SECRET_KEY
+        - name: FORGEJO__SECURITY__INTERNAL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: INTERNAL_TOKEN
+        - name: FORGEJO__OAUTH2__JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: JWT_SECRET
+        - name: FORGEJO__SERVER__LFS_JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: *secret
+              key: LFS_JWT_SECRET
+
+
+        - name: FORGEJO__STORAGE__MINIO_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: &secret-s3 forgejo-s3-secret
+              key: MINIO_ACCESS_KEY_ID
+        - name: FORGEJO__STORAGE__MINIO_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: *secret-s3
+              key: MINIO_SECRET_ACCESS_KEY
+
+      config:
+        RUN_MODE: prod
+
+        repository:
+          ROOT: /data/git/repositories
+
+          DEFAULT_BRANCH: main
+          DEFAULT_PRIVATE: true
+
+          ENABLE_PUSH_CREATE_USER: true
+          ENABLE_PUSH_CREATE_ORG: true
+
+        database:
+          DB_TYPE: postgres
+          SCHEMA: public
+          SSL_MODE: disable
+        indexer:
+          # TODO use 'db' type
+          ISSUE_INDEXER_TYPE: bleve
+          ISSUE_INDEXER_PATH: /data/gitea/indexers/issues.bleve
+
+        cache:
+          ADAPTER: redis
+          HOST: redis://forgejo-dragonfly.forgejo.svc.cluster.local:6379/0
+        queue:
+          TYPE: redis
+          CONN_STR: redis://forgejo-dragonfly.forgejo.svc.cluster.local:6379/1
+        session:
+          PROVIDER: redis
+          PROVIDER_CONFIG: redis://forgejo-dragonfly.forgejo.svc.cluster.local:6379/2
+          COOKIE_SECURE: true
+          COOKIE_NAME: i_like_forgejo
+          DOMAIN: *host
+          SAME_SITE: strict
+
+        service:
+          DISABLE_REGISTRATION: true
+
+          # ENABLE_BASIC_AUTHENTICATION: false
+          # ENABLE_NOTIFY_MAIL = true
+
+          DEFAULT_KEEP_EMAIL_PRIVATE: true
+          DEFAULT_ORG_VISIBILITY: private
+          DEFAULT_ORG_MEMBER_VISIBLE: false
+
+        log:
+          MODE: console
+          LEVEL: Debug
+
+        cron:
+          ENABLED: true
+          RUN_AT_START: true
+
+        mailer:
+          ENABLED: true
+          PROTOCOL: smtp
+          SMTP_ADDR: mailpit.mail.svc.cluster.local
+          SMTP_PORT: 1025
+          FROM: Forgejo <forgejo@domain.com>
+
+        openid:
+          ENABLE_OPENID_SIGNIN: false
+          ENABLE_OPENID_SIGNUP: false
+        oauth2:
+          ENABLED: true
+        oauth2_client:
+          OPENID_CONNECT_SCOPES: openid profile groups email
+          ENABLE_AUTO_REGISTRATION: true
+          USERNAME: nickname
+          ACCOUNT_LINKING: login
+
+        i18n:
+          LANGS: en-US,fr-FR,es-ES
+          NAMES: English,français,español
+        time:
+          DEFAULT_UI_LOCATION: ${TIMEZONE}
+        actions:
+          ENABLED: true
+          DEFAULT_ACTIONS_URL: https://code.forgejo.org
+
+        admin:
+          EXTERNAL_USER_DISABLE_FEATURES: deletion
+        federation:
+          ENABLED: false
+        server:
+          ROOT_URL: https://git.${SECRET_DOMAIN_NAME}
+
+          DISABLE_SSH: true
+
+          LFS_START_SERVER: true
+          LFS_HTTP_AUTH_EXPIRY: 60m
+          LFS_MAX_FILE_SIZE: 0
+
+          OFFLINE_MODE: false
+        security:
+          INSTALL_LOCK: true
+
+        storage:
+          STORAGE_TYPE: minio
+
+          SERVE_DIRECT: false
+          MINIO_ENDPOINT: minio.minio.svc.cluster.local
+          MINIO_BUCKET: forgejo
+          MINIO_LOCATION: us-east-1
+
+    redis-cluster:
+      enabled: false
+
+    postgresql-ha:
+      enabled: false
