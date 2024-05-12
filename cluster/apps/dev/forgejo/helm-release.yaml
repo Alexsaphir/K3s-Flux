@@ -65,7 +65,7 @@ spec:
     persistence:
       enabled: true
       create: false
-      claimName: forgejo-test
+      claimName: forgejo
 
     deployment:
       env:
@@ -262,7 +262,7 @@ spec:
           STORAGE_TYPE: minio
 
           SERVE_DIRECT: false
-          MINIO_ENDPOINT: minio.minio.svc.cluster.local
+          MINIO_ENDPOINT: minio.minio.svc.cluster.local:9000
           MINIO_BUCKET: forgejo
           MINIO_LOCATION: us-east-1
 
