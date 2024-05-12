@@ -19,7 +19,7 @@ packages:
   - name: helm/helm@v3.14.4
   - name: kubernetes-sigs/kustomize@kustomize/v5.4.1
   - name: jqlang/jq@jq-1.7.1
-  - name: mikefarah/yq@v4.43.1
+  - name: mikefarah/yq@v4.44.1
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.26.2
