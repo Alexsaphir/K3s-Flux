@@ -65,8 +65,8 @@ spec:
     persistence:
       enabled: true
       create: false
-      claimName: forgejo
-    
+      claimName: forgejo-test
+
     deployment:
       env:
         [ ]

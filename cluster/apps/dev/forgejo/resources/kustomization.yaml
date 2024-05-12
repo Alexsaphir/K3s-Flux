@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - postgres.yaml
   - pvc.yaml
+  - pvc-test.yaml
   - cluster.yaml
   - podmonitor.yaml
