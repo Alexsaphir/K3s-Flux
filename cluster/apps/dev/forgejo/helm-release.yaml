@@ -34,6 +34,8 @@ spec:
         maxSurge: '100%'
         maxUnavailable: 0
 
+    image:
+      rootless: true
 
     containerSecurityContext:
       allowPrivilegeEscalation: false
