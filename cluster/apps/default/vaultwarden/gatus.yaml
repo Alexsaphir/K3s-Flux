@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "Tandoor Recipes"
         group: 'Apps - SelfHosted'
-        url: "https://vaultwarden.${SECRET_DOMAIN_NAME}/"
+        url: "https://vaultwarden.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
