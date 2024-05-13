@@ -92,18 +92,11 @@ spec:
       # Either specify inline `key` and `secret` or refer to them via `existingSecret`
       ## @param gitea.oauth OAuth configuration
       oauth:
-        [ ]
-      # - name: 'OAuth 1'
-      #   provider:
-      #   key:
-      #   secret:
-      #   existingSecret:
-      #   autoDiscoverUrl:
-      #   useCustomUrls:
-      #   customAuthUrl:
-      #   customTokenUrl:
-      #   customProfileUrl:
-      #   customEmailUrl:
+        - name: 'Authelia'
+          provider: 'openidConnect'
+          existingSecret: forgejo-oauth-secret
+          autoDiscoverUrl: https://auth.${SECRET_DOMAIN_NAME}/.well-known/openid-configuration
+
 
       podAnnotations: { }
 
@@ -224,8 +217,8 @@ spec:
           FROM: Forgejo <forgejo@domain.com>
 
         openid:
-          ENABLE_OPENID_SIGNIN: false
-          ENABLE_OPENID_SIGNUP: false
+          ENABLE_OPENID_SIGNIN: true
+          ENABLE_OPENID_SIGNUP: true
         oauth2:
           ENABLED: true
         oauth2_client:
