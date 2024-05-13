@@ -72,7 +72,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
-                    key: RADARR__API_KEY
+                    key: RADARR__AUTH__APIKEY
 
             resources:
               limits:

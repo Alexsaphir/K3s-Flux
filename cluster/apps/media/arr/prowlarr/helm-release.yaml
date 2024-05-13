@@ -51,13 +51,14 @@ spec:
               tag: 1.17.2.4511@sha256:57e59d86abd90182f70a43e0f660fc80ef035275508a1ca946c6a17ec0ff1630
 
             env:
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__AUTHENTICATION_REQUIRED: Enabled
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
-              PROWLARR__PORT__LOG_LEVEL: info
-              PROWLARR__PORT__THEME: light
-              PROWLARR__PORT__ANALYTICS_ENABLED: 'false'
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: Enabled
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__LOG__ANALYTICS_ENABLED: 'false'
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__APP__THEME: light
+              PROWLARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
 
             envFrom:
