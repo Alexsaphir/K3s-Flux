@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: network-system
 resources:
   - helm-release.yaml
-commonLabels:
-  app.kubernetes.io/component: traefik
+  - gitlab-svc-ingress.yaml
