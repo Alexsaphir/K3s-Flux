@@ -22,7 +22,7 @@ jmespath = "^1.0.1"
 netaddr = "^1.2.1"
 
 [tool.poetry.group.ci.dependencies]
-flux-local = "^5.3.0"
+flux-local = "^5.3.1"
 
 [build-system]
 requires = ["poetry-core"]
