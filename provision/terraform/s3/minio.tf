@@ -15,6 +15,19 @@ locals {
     "recipes",
     "renovate"
   ]
+  gitlab_buckets_k3s = [
+    "gitlab-artifacts-storage",
+    "gitlab-dependency-proxy-storage",
+    "gitlab-external-diffs-storage",
+    "gitlab-lfs-storage",
+    "gitlab-mattermost",
+    "gitlab-packages-storage",
+    "gitlab-pages-storage",
+    "gitlab-registry",
+    "gitlab-runner",
+    "gitlab-terraform-state-storage",
+    "gitlab-uploads-storage"
+  ]
 }
 
 data "sops_file" "minio-creds-nas" {
@@ -32,7 +45,7 @@ module "minio_bucket_nas" {
   is_public        = false
   owner_access_key = each.key
   owner_secret_key = data.sops_file.minio-creds-nas.data["${each.key}_secret_key"]
-  providers        = { minio = minio.nas }
+  providers = { minio = minio.nas }
 }
 
 output "minio_bucket_outputs_nas" {
@@ -47,10 +60,26 @@ module "minio_bucket" {
   is_public        = false
   owner_access_key = each.key
   owner_secret_key = data.sops_file.minio-creds-k3s.data["${each.key}_secret_key"]
-  providers        = { minio = minio.k3s }
+  providers = { minio = minio.k3s }
 }
 
 output "minio_bucket_outputs_k3s" {
   value     = module.minio_bucket
+  sensitive = true
+}
+
+
+module "minio_bucket_gitlab" {
+  for_each         = toset(local.gitlab_buckets_k3s)
+  source           = "./modules/minio_bucket"
+  bucket_name      = each.key
+  is_public        = false
+  owner_access_key = "gitlab"
+  owner_secret_key = data.sops_file.minio-creds-k3s.data["gitlab_secret_key"]
+  providers = { minio = minio.k3s }
+}
+
+output "gitlab_bucket_outputs_k3s" {
+  value     = module.minio_bucket_gitlab
   sensitive = true
 }
