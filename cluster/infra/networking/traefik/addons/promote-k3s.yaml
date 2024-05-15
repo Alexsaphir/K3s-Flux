@@ -1,0 +1,31 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-k3s-to-top-domain
+spec:
+  redirectRegex:
+    regex: ^https://(.*)\.k3s\.(.*)
+    replacement: https://$1.$2
+    permanent: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k3s-redirect-ingress
+  annotations:
+    auth.home.arpa/disabled: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: network-system-redirect-k3s-to-top-domain@kubernetescrd
+spec:
+  rules:
+    - host: "*.k3s.${DOMAIN_NAME}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: error-pages
+                port:
+                  number: 8080

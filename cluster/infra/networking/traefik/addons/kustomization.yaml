@@ -7,5 +7,6 @@ resources:
   - middlewares-authelia.yaml
   - chains.yaml
   - dashboard-ingress.yaml
+  - promote-k3s.yaml
 commonLabels:
   app.kubernetes.io/component: traefik
