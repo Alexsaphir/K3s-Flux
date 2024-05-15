@@ -86,7 +86,7 @@ spec:
         ingress:
           enabled: true
           hosts:
-            - host: falcosidekick-ui.${SECRET_DOMAIN_NAME}
+            - host: falcosidekick-ui.${DOMAIN_NAME}
               paths:
                 - path: /
           annotations:

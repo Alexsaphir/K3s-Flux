@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "immich"
         group: 'Apps - SelfHosted'
-        url: "https://photos.${SECRET_DOMAIN_NAME}/"
+        url: "https://photos.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

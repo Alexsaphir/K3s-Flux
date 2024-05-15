@@ -70,7 +70,7 @@ spec:
           hajimari.io/name: 'Cyberchef'
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: cyberchef.${SECRET_DOMAIN_NAME}
+          - host: cyberchef.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

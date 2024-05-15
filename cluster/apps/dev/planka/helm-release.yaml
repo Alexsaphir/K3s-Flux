@@ -29,7 +29,7 @@ spec:
 
   values:
     oidc:
-      issuerUrl: https://auth.${SECRET_DOMAIN_NAME}
+      issuerUrl: https://auth.${DOMAIN_NAME}
       admin:
         roles:
           - planka-admin
@@ -118,7 +118,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: 'mdi:ticket'
         hosts:
-          - host: planka.${SECRET_DOMAIN_NAME}
+          - host: planka.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

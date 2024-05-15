@@ -66,7 +66,7 @@ spec:
           kubernetes.io/ingress.class: traefik
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - "alerts.monitoring.${SECRET_DOMAIN_NAME}"
+          - "alerts.monitoring.${DOMAIN_NAME}"
         path: /
         pathType: Prefix
 
@@ -168,7 +168,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         pathType: Prefix
         hosts:
-          - "prometheus.monitoring.${SECRET_DOMAIN_NAME}"
+          - "prometheus.monitoring.${DOMAIN_NAME}"
 
       thanosService:
         enabled: true

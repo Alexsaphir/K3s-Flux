@@ -1,6 +1,6 @@
 ---
 app:
-  baseUrl: &baseUrl https://backstage.${SECRET_DOMAIN_NAME}
+  baseUrl: &baseUrl https://backstage.${DOMAIN_NAME}
 backend:
   baseUrl: *baseUrl
   database:

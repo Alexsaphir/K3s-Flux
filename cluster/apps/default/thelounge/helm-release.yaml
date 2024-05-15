@@ -175,7 +175,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: 'mdi:forum'
         hosts:
-          - host: thelounge.${SECRET_DOMAIN_NAME}
+          - host: thelounge.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

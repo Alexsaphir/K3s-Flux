@@ -106,7 +106,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:headphones
         hosts:
-          - host: '{{ .Release.Name }}.${SECRET_DOMAIN_NAME}'
+          - host: '{{ .Release.Name }}.${DOMAIN_NAME}'
             paths:
               - path: /
                 service:

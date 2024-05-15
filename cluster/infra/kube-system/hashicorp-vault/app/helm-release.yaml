@@ -80,7 +80,7 @@ spec:
           hajimari.io/icon: shield-key
 
         hosts:
-          - host: vault.${SECRET_DOMAIN_NAME}
+          - host: vault.${DOMAIN_NAME}
             paths:
               - /
 

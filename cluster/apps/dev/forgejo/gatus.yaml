@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "forgejo"
         group: 'Apps - SelfHosted'
-        url: "https://forgejo.${SECRET_DOMAIN_NAME}/"
+        url: "https://forgejo.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

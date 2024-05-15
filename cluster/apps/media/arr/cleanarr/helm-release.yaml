@@ -76,7 +76,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:vacuum
         hosts:
-          - host: cleanarr.${SECRET_DOMAIN_NAME}
+          - host: cleanarr.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

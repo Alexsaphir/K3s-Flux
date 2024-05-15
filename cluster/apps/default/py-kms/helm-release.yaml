@@ -90,7 +90,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: py-kms.${SECRET_DOMAIN_NAME}
+          - host: py-kms.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

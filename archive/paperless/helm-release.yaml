@@ -61,7 +61,7 @@ spec:
                     key: PAPERLESS_SECRET_KEY
 
               PAPERLESS_PORT: &port 8000
-              PAPERLESS_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN_NAME}"
+              PAPERLESS_URL: "https://{{ .Release.Name }}.${DOMAIN_NAME}"
 
               PAPERLESS_REDIS: redis://localhost:6379
               PAPERLESS_TASK_WORKERS: 2
@@ -112,7 +112,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/icon: mdi:file-multiple
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN_NAME}"
+          - host: "{{ .Release.Name }}.${DOMAIN_NAME}"
             paths:
               - path: /
                 service:

@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "actual"
         group: 'Apps - SelfHosted'
-        url: "https://actual.${SECRET_DOMAIN_NAME}/"
+        url: "https://actual.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

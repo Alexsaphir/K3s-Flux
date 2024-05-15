@@ -65,7 +65,7 @@ spec:
                   name: authelia-oauth-secret
 
             env:
-              SECRET_DOMAIN_NAME: ${SECRET_DOMAIN_NAME}
+              DOMAIN_NAME: ${DOMAIN_NAME}
 
               AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
 
@@ -167,7 +167,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
           hajimari.io/icon: mdi:shield-account
         hosts:
-          - host: "auth.${SECRET_DOMAIN_NAME}"
+          - host: "auth.${DOMAIN_NAME}"
             paths:
               - path: /
                 service:

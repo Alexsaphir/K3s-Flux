@@ -5,7 +5,7 @@ metadata:
   name: authelia-auth
 spec:
   forwardAuth:
-    address: 'http://authelia.kube-auth.svc.cluster.local/api/verify?rd=https://auth.${SECRET_DOMAIN_NAME}'
+    address: 'http://authelia.kube-auth.svc.cluster.local/api/verify?rd=https://auth.${DOMAIN_NAME}'
     trustForwardHeader: true
     authResponseHeaders:
       - Remote-User

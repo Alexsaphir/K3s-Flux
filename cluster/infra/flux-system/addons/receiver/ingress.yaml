@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: "flux-receiver.${SECRET_DOMAIN_NAME}"
+    - host: "flux-receiver.${DOMAIN_NAME}"
       http:
         paths:
           - path: /hook/

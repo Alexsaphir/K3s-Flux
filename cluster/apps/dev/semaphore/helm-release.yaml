@@ -114,7 +114,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/icon: mdi:ansible
         hosts:
-          - host: semaphore.${SECRET_DOMAIN_NAME}
+          - host: semaphore.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

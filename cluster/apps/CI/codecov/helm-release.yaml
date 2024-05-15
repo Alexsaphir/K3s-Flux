@@ -29,7 +29,7 @@ spec:
 
   values:
     codecovVersion: &codecovVersion 24.2.1 # renovate: depName=codecov/self-hosted-gateway
-    codecovHost: &host codecov.${SECRET_DOMAIN_NAME}
+    codecovHost: &host codecov.${DOMAIN_NAME}
 
 
     codecovConfig:

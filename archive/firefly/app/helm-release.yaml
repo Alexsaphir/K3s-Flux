@@ -29,7 +29,7 @@ spec:
 
   values:
     firefly:
-      host: &host firefly.${SECRET_DOMAIN_NAME}
+      host: &host firefly.${DOMAIN_NAME}
 
     controllers:
       main:

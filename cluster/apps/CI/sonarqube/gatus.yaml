@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "sonarqube"
         group: 'Apps - SelfHosted'
-        url: "https://sonarqube.${SECRET_DOMAIN_NAME}/"
+        url: "https://sonarqube.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

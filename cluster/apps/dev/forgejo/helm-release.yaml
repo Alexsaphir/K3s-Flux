@@ -59,7 +59,7 @@ spec:
       annotations:
         { }
       hosts:
-        - host: &host git.${SECRET_DOMAIN_NAME}
+        - host: &host git.${DOMAIN_NAME}
           paths:
             - path: /
               pathType: Prefix
@@ -95,7 +95,7 @@ spec:
         - name: 'Authelia'
           provider: 'openidConnect'
           existingSecret: forgejo-oauth-secret
-          autoDiscoverUrl: https://auth.${SECRET_DOMAIN_NAME}/.well-known/openid-configuration
+          autoDiscoverUrl: https://auth.${DOMAIN_NAME}/.well-known/openid-configuration
 
 
       podAnnotations: { }
@@ -241,7 +241,7 @@ spec:
         federation:
           ENABLED: false
         server:
-          ROOT_URL: https://git.${SECRET_DOMAIN_NAME}
+          ROOT_URL: https://git.${DOMAIN_NAME}
 
           DISABLE_SSH: true
 

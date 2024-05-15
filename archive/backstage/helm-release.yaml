@@ -36,7 +36,7 @@ spec:
       enabled: true
       className: traefik
       annotations: { }
-      host: backstage.${SECRET_DOMAIN_NAME}
+      host: backstage.${DOMAIN_NAME}
 
 
     # -- Backstage parameters

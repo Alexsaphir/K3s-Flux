@@ -30,7 +30,7 @@ spec:
   values:
     replicaCount: 2
 
-    domain: ${SECRET_DOMAIN_NAME}
+    domain: ${DOMAIN_NAME}
     ttl: 1
 
     watchedResources: [ "Ingress", "Service" ]

@@ -129,7 +129,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: status.${SECRET_DOMAIN_NAME}
+          - host: status.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

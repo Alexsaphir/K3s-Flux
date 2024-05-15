@@ -75,7 +75,7 @@ spec:
           hajimari.io/icon: hammer-wrench
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: actual.${SECRET_DOMAIN_NAME}
+          - host: actual.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

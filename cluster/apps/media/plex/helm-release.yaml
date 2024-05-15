@@ -53,7 +53,7 @@ spec:
 
             env:
               TZ: ${TIMEZONE}
-              ADVERTISE_IP: 'https://plex.${SECRET_DOMAIN_NAME}'
+              ADVERTISE_IP: 'https://plex.${DOMAIN_NAME}'
 
             probes:
               liveness: &probes
@@ -103,7 +103,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:plex
         hosts:
-          - host: plex.${SECRET_DOMAIN_NAME}
+          - host: plex.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

@@ -87,7 +87,7 @@ spec:
       ingress:
         enabled: true
         classname: traefik
-        host: kubeshark.${SECRET_DOMAIN_NAME}
+        host: kubeshark.${DOMAIN_NAME}
         auth:
           approveddomains: [ ]
       debug: false

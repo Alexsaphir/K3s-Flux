@@ -99,7 +99,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: 'kromgo.${SECRET_DOMAIN_NAME}'
+          - host: 'kromgo.${DOMAIN_NAME}'
             paths:
               - path: /
                 service:

@@ -39,7 +39,7 @@ spec:
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
       hosts:
-        - host: helm-dashboard.${SECRET_DOMAIN_NAME}
+        - host: helm-dashboard.${DOMAIN_NAME}
           paths:
             - path: /
               pathType: ImplementationSpecific

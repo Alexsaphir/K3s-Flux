@@ -82,7 +82,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: "mail.${SECRET_DOMAIN_NAME}"
+          - host: "mail.${DOMAIN_NAME}"
             paths:
               - path: /
                 service:

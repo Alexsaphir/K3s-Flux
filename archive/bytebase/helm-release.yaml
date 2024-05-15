@@ -31,7 +31,7 @@ spec:
     bytebase:
       option:
         port: 8080
-        external-url: "bytebase.${SECRET_DOMAIN_NAME}"
+        external-url: "bytebase.${DOMAIN_NAME}"
         existingPgURLSecret: 'database-bytebase'
         existingPgURLSecretKey: 'POSTGRES_URL'
         data: /var/opt/bytebase

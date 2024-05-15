@@ -12,7 +12,7 @@ user_access:
 
 remote_development:
   enabled: true
-  dns_zone: "workspace.k3s.alexsaphir.com"
+  dns_zone: "workspace.alexsaphir.com"
   gitlab_workspaces_proxy:
     namespace: gitlab-workspace
 

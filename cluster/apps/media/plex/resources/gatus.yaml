@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "plex"
         group: 'Apps - Media'
-        url: "https://plex.${SECRET_DOMAIN_NAME}/web/index.html"
+        url: "https://plex.${DOMAIN_NAME}/web/index.html"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

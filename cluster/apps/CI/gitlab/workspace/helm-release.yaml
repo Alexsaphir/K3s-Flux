@@ -64,14 +64,14 @@ spec:
     ingress:
       enabled: true
       host:
-        workspaceDomain: 'workspace.${SECRET_DOMAIN_NAME}'
-        wildcardDomain: '*.workspace.${SECRET_DOMAIN_NAME}'
+        workspaceDomain: 'workspace.${DOMAIN_NAME}'
+        wildcardDomain: '*.workspace.${DOMAIN_NAME}'
       className: traefik
       annotations: { }
 
     auth:
       host: https://gitlab.alexsaphir.com/
-      redirect_uri: https://workspace.${SECRET_DOMAIN_NAME}/auth/callback
+      redirect_uri: https://workspace.${DOMAIN_NAME}/auth/callback
       protocol: https
     log_level: info
     ssh:

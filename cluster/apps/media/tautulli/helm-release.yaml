@@ -101,7 +101,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
           hajimari.io/icon: mdi:chart-bar
         hosts:
-          - host: 'tautulli.${SECRET_DOMAIN_NAME}'
+          - host: 'tautulli.${DOMAIN_NAME}'
             paths:
               - path: /
                 service:

@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "codecov"
         group: 'Apps - SelfHosted'
-        url: "https://coder.${SECRET_DOMAIN_NAME}/"
+        url: "https://coder.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

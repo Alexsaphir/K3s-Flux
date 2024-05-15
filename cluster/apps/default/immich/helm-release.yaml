@@ -57,7 +57,7 @@ spec:
 
       enablePasswordLogin: false
       oauth:
-        issuerUrl: https://auth.${SECRET_DOMAIN_NAME}
+        issuerUrl: https://auth.${DOMAIN_NAME}
         clientId: immich
 
     defaultPodOptions:
@@ -217,7 +217,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/icon: mdi:camera
         hosts:
-          - host: photos.${SECRET_DOMAIN_NAME}
+          - host: photos.${DOMAIN_NAME}
             paths:
               - path: /
                 pathType: Prefix

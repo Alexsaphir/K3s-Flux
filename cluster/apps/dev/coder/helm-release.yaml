@@ -40,7 +40,7 @@ spec:
               key: POSTGRES_URL
 
         - name: CODER_ACCESS_URL
-          value: https://coder.${SECRET_DOMAIN_NAME}
+          value: https://coder.${DOMAIN_NAME}
 
         - name: CODER_DISABLE_PASSWORD_AUTH
           value: 'true'
@@ -106,4 +106,4 @@ spec:
         className: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-        host: coder.${SECRET_DOMAIN_NAME}
+        host: coder.${DOMAIN_NAME}

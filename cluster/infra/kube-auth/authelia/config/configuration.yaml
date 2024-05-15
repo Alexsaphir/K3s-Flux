@@ -40,7 +40,7 @@ authentication_backend:
 
 totp:
   disable: false
-  issuer: auth.${SECRET_DOMAIN_NAME}
+  issuer: auth.${DOMAIN_NAME}
 
 webauthn:
   disable: true
@@ -60,9 +60,9 @@ session:
   remember_me: 1M
   cookies:
     - name: authelia-k3s
-      domain: ${SECRET_DOMAIN_NAME}
-      authelia_url: https://auth.${SECRET_DOMAIN_NAME}
-      default_redirection_url: https://${SECRET_DOMAIN_NAME}
+      domain: ${DOMAIN_NAME}
+      authelia_url: https://auth.${DOMAIN_NAME}
+      default_redirection_url: https://${DOMAIN_NAME}
   redis:
     host: authelia-dragonfly.kube-auth.svc.cluster.local
     database_index: 0
@@ -75,113 +75,113 @@ access_control:
 
   rules:
     - domain:
-        - 'auth.${SECRET_DOMAIN_NAME}'
+        - 'auth.${DOMAIN_NAME}'
       policy: bypass
 
     # Expose public metrics
     - domain:
-        - 'kromgo.${SECRET_DOMAIN_NAME}'
-        - 'status.${SECRET_DOMAIN_NAME}'
+        - 'kromgo.${DOMAIN_NAME}'
+        - 'status.${DOMAIN_NAME}'
       policy: bypass
 
     # Public media ingresses
     - domain:
-        - 'plex.${SECRET_DOMAIN_NAME}'
-        - 'tautulli.${SECRET_DOMAIN_NAME}'
-        - 'ombi.${SECRET_DOMAIN_NAME}'
+        - 'plex.${DOMAIN_NAME}'
+        - 'tautulli.${DOMAIN_NAME}'
+        - 'ombi.${DOMAIN_NAME}'
       policy: bypass
 
     # Minio
     - domain:
-        - 'minio.${SECRET_DOMAIN_NAME}'
-        - 's3.${SECRET_DOMAIN_NAME}'
+        - 'minio.${DOMAIN_NAME}'
+        - 's3.${DOMAIN_NAME}'
       policy: bypass
 
 
     # Public ingresses behind sso
     - domain:
-        - 'photos.${SECRET_DOMAIN_NAME}'
-        - 'recipes.${SECRET_DOMAIN_NAME}'
-        - 'foundry.${SECRET_DOMAIN_NAME}'
+        - 'photos.${DOMAIN_NAME}'
+        - 'recipes.${DOMAIN_NAME}'
+        - 'foundry.${DOMAIN_NAME}'
 
-        - 'codecov.${SECRET_DOMAIN_NAME}'
-        - 'sonarqube.${SECRET_DOMAIN_NAME}'
+        - 'codecov.${DOMAIN_NAME}'
+        - 'sonarqube.${DOMAIN_NAME}'
 
-        - 'planka.${SECRET_DOMAIN_NAME}'
-        - 'plan.${SECRET_DOMAIN_NAME}'
+        - 'planka.${DOMAIN_NAME}'
+        - 'plan.${DOMAIN_NAME}'
 
-        - 'coder.${SECRET_DOMAIN_NAME}'
-        - 'jupyter.${SECRET_DOMAIN_NAME}'
+        - 'coder.${DOMAIN_NAME}'
+        - 'jupyter.${DOMAIN_NAME}'
       policy: bypass
 
     # Webhook protected by secret
     - domain:
-        - 'atlantis.${SECRET_DOMAIN_NAME}'
+        - 'atlantis.${DOMAIN_NAME}'
       policy: bypass
       resources:
         - '^/events([/?].*)?$'
     - domain:
-        - 'flux-receiver.${SECRET_DOMAIN_NAME}'
+        - 'flux-receiver.${DOMAIN_NAME}'
       policy: bypass
     - domain:
-        - 'renovate.${SECRET_DOMAIN_NAME}'
+        - 'renovate.${DOMAIN_NAME}'
       policy: bypass
       resources:
         - '^/webhook([/?].*)?$'
 
     # Ingress for media protected by authelia
     - domain:
-        - 'cleanarr.${SECRET_DOMAIN_NAME}'
-        - 'prowlarr.${SECRET_DOMAIN_NAME}'
-        - 'recyclarr.${SECRET_DOMAIN_NAME}'
-        - 'sonarr.${SECRET_DOMAIN_NAME}'
-        - 'radarr.${SECRET_DOMAIN_NAME}'
-        - 'lidarr.${SECRET_DOMAIN_NAME}'
-        - 'readarr.${SECRET_DOMAIN_NAME}'
+        - 'cleanarr.${DOMAIN_NAME}'
+        - 'prowlarr.${DOMAIN_NAME}'
+        - 'recyclarr.${DOMAIN_NAME}'
+        - 'sonarr.${DOMAIN_NAME}'
+        - 'radarr.${DOMAIN_NAME}'
+        - 'lidarr.${DOMAIN_NAME}'
+        - 'readarr.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:authelia-media-automation'
 
     # Apps for authenticated users
     - domain:
-        - 'cyberchef.${SECRET_DOMAIN_NAME}'
-        - 'actual.${SECRET_DOMAIN_NAME}'
-        - 'zitadel.${SECRET_DOMAIN_NAME}'
+        - 'cyberchef.${DOMAIN_NAME}'
+        - 'actual.${DOMAIN_NAME}'
+        - 'zitadel.${DOMAIN_NAME}'
       policy: two_factor
 
     # Ingresses for gitlab
     - domain:
-        - 'workspace.${SECRET_DOMAIN_NAME}'
-        - '*.workspace.${SECRET_DOMAIN_NAME}'
+        - 'workspace.${DOMAIN_NAME}'
+        - '*.workspace.${DOMAIN_NAME}'
       policy: bypass
 
     - domain:
-        - 'hajimari.${SECRET_DOMAIN_NAME}'
+        - 'hajimari.${DOMAIN_NAME}'
       policy: two_factor
 
     - domain:
-        - 'gitops.${SECRET_DOMAIN_NAME}'
-        - 'lldap.${SECRET_DOMAIN_NAME}'
-        - 'longhorn.${SECRET_DOMAIN_NAME}'
-        - 'netbox.${SECRET_DOMAIN_NAME}'
-        - 'portainer.${SECRET_DOMAIN_NAME}'
-        - 'grafana.${SECRET_DOMAIN_NAME}'
-        - 'atlantis.${SECRET_DOMAIN_NAME}'
-        - 'mail.${SECRET_DOMAIN_NAME}'
-        - 'git.${SECRET_DOMAIN_NAME}'
+        - 'gitops.${DOMAIN_NAME}'
+        - 'lldap.${DOMAIN_NAME}'
+        - 'longhorn.${DOMAIN_NAME}'
+        - 'netbox.${DOMAIN_NAME}'
+        - 'portainer.${DOMAIN_NAME}'
+        - 'grafana.${DOMAIN_NAME}'
+        - 'atlantis.${DOMAIN_NAME}'
+        - 'mail.${DOMAIN_NAME}'
+        - 'git.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'
 
     - domain:
-        - '*.monitoring.${SECRET_DOMAIN_NAME}'
+        - '*.monitoring.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins-analytics'
 
     - domain:
-        - '*.${SECRET_DOMAIN_NAME}'
-        - '*.monitoring.${SECRET_DOMAIN_NAME}'
+        - '*.${DOMAIN_NAME}'
+        - '*.monitoring.${DOMAIN_NAME}'
       policy: deny
 
 identity_providers:
@@ -198,7 +198,7 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris:
-          [ 'https://grafana.${SECRET_DOMAIN_NAME}/login/generic_oauth' ]
+          [ 'https://grafana.${DOMAIN_NAME}/login/generic_oauth' ]
         userinfo_signed_response_alg: none
 
       - client_id: immich
@@ -209,8 +209,8 @@ identity_providers:
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'email' ]
         redirect_uris:
-          - 'https://photos.${SECRET_DOMAIN_NAME}/auth/login'
-          - 'https://photos.${SECRET_DOMAIN_NAME}/user-settings'
+          - 'https://photos.${DOMAIN_NAME}/auth/login'
+          - 'https://photos.${DOMAIN_NAME}/user-settings'
           - 'app.immich:/'
         userinfo_signed_response_alg: none
 
@@ -221,7 +221,7 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
-        redirect_uris: [ 'https://gitops.${SECRET_DOMAIN_NAME}/oauth2/callback' ]
+        redirect_uris: [ 'https://gitops.${DOMAIN_NAME}/oauth2/callback' ]
         userinfo_signed_response_alg: none
 
       - client_id: portainer
@@ -231,7 +231,7 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
-        redirect_uris: [ 'https://portainer.${SECRET_DOMAIN_NAME}' ]
+        redirect_uris: [ 'https://portainer.${DOMAIN_NAME}' ]
         userinfo_signed_response_alg: none
 
       - client_id: minio
@@ -241,7 +241,7 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
-        redirect_uris: [ 'https://minio.${SECRET_DOMAIN_NAME}/oauth_callback' ]
+        redirect_uris: [ 'https://minio.${DOMAIN_NAME}/oauth_callback' ]
         userinfo_signed_response_alg: none
 
       - client_id: planka
@@ -251,7 +251,7 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
-        redirect_uris: [ 'https://planka.${SECRET_DOMAIN_NAME}/oidc-callback' ]
+        redirect_uris: [ 'https://planka.${DOMAIN_NAME}/oidc-callback' ]
         userinfo_signed_response_alg: none
         response_modes:
           - fragment
@@ -263,5 +263,5 @@ identity_providers:
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
-        redirect_uris: [ 'https://git.${SECRET_DOMAIN_NAME}/user/oauth2/Authelia/callback' ]
+        redirect_uris: [ 'https://git.${DOMAIN_NAME}/user/oauth2/Authelia/callback' ]
         userinfo_signed_response_alg: none

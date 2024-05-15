@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "lldap"
         group: 'Apps - Authentication'
-        url: "https://lldap.${SECRET_DOMAIN_NAME}/"
+        url: "https://lldap.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

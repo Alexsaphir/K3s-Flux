@@ -37,7 +37,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: "goldilocks.${SECRET_DOMAIN_NAME}"
+          - host: "goldilocks.${DOMAIN_NAME}"
             paths:
               - path: /
                 type: Prefix

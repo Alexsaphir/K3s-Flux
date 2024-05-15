@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "ombi"
         group: 'Apps - Media'
-        url: "https://ombi.${SECRET_DOMAIN_NAME}/"
+        url: "https://ombi.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

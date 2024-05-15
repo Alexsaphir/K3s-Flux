@@ -84,7 +84,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:message-video
         hosts:
-          - host: ombi.${SECRET_DOMAIN_NAME}
+          - host: ombi.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

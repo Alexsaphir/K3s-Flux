@@ -150,7 +150,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: "loki.monitoring.${SECRET_DOMAIN_NAME}"
+          - host: "loki.monitoring.${DOMAIN_NAME}"
             paths:
               - path: /
                 pathType: Prefix

@@ -70,7 +70,7 @@ spec:
         ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
-        hostname: thanos-query-frontend.monitoring.${SECRET_DOMAIN_NAME}
+        hostname: thanos-query-frontend.monitoring.${DOMAIN_NAME}
         tls: false
 
     query:

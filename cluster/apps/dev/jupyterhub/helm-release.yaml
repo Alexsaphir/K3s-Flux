@@ -60,7 +60,7 @@ spec:
           admin_access: false
           authenticator_class: ldapauthenticator.LDAPAuthenticator
           # authenticator_class: dummy
-          # subdomain_host: https://jupyter.${SECRET_DOMAIN_NAME}
+          # subdomain_host: https://jupyter.${DOMAIN_NAME}
 
 
         LDAPAuthenticator:
@@ -181,4 +181,4 @@ spec:
         hajimari.io/icon: simple-icons:jupyter
         auth.home.arpa/disabled: "true"
       hosts:
-        - "jupyter.${SECRET_DOMAIN_NAME}"
+        - "jupyter.${DOMAIN_NAME}"

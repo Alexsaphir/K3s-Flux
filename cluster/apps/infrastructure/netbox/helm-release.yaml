@@ -252,7 +252,7 @@ spec:
     csrf:
       cookieName: csrftoken
       trustedOrigins:
-        - https://netbox.${SECRET_DOMAIN_NAME}
+        - https://netbox.${DOMAIN_NAME}
 
     ingress:
       enabled: true
@@ -262,7 +262,7 @@ spec:
         hajimari.io/enable: 'true'
         hajimari.io/icon: mdi:rhombus-split
       hosts:
-        - host: &hostname netbox.${SECRET_DOMAIN_NAME}
+        - host: &hostname netbox.${DOMAIN_NAME}
           paths:
             - /
 

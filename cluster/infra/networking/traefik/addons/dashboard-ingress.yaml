@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: traefik.${SECRET_DOMAIN_NAME}
+    - host: traefik.${DOMAIN_NAME}
       http:
         paths:
           - path: /

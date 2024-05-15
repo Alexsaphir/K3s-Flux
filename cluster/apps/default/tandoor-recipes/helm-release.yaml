@@ -48,7 +48,7 @@ spec:
             env:
               TZ: '${TIMEZONE}'
 
-              ALLOWED_HOSTS: &host recipes.${SECRET_DOMAIN_NAME}
+              ALLOWED_HOSTS: &host recipes.${DOMAIN_NAME}
               SESSION_COOKIE_DOMAIN: *host
               SESSION_COOKIE_NAME: tandoor-recipes-sessionid
 
@@ -80,7 +80,7 @@ spec:
               S3_REGION_NAME: us-east-1
               S3_QUERYSTRING_AUTH: 1
               S3_QUERYSTRING_EXPIRE: 3600
-              S3_ENDPOINT_URL: https://s3.${SECRET_DOMAIN_NAME}
+              S3_ENDPOINT_URL: https://s3.${DOMAIN_NAME}
 
               DEBUG: 0
               GUNICORN_MEDIA: 0

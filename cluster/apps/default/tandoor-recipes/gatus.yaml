@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "Tandoor Recipes"
         group: 'Apps - SelfHosted'
-        url: "https://recipes.${SECRET_DOMAIN_NAME}/"
+        url: "https://recipes.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

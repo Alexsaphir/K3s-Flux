@@ -39,7 +39,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: "policy-reporter-ui.${SECRET_DOMAIN_NAME}"
+          - host: "policy-reporter-ui.${DOMAIN_NAME}"
             paths:
               - path: /
                 pathType: Prefix
@@ -56,7 +56,7 @@ spec:
       enabled: false
       className: traefik
       hosts:
-        - host: "policy-reporter.${SECRET_DOMAIN_NAME}"
+        - host: "policy-reporter.${DOMAIN_NAME}"
           paths:
             - path: /
               pathType: Prefix

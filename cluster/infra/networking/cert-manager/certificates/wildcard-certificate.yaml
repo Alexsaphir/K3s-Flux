@@ -8,15 +8,15 @@ spec:
   issuerRef:
     name: ${CONFIG_CERTIFICATE_ISSUER}
     kind: ClusterIssuer
-  # ${SECRET_DOMAIN_NAME} is not in dnsNames
-  # commonName: ${SECRET_DOMAIN_NAME}
+  # ${DOMAIN_NAME} is not in dnsNames
+  # commonName: ${DOMAIN_NAME}
   dnsNames:
     - "${DOMAIN_NAME}"
     - "*.${DOMAIN_NAME}"
     - "*.gitlab-pages.${DOMAIN_NAME}"
-    - "*.${SECRET_DOMAIN_NAME}"
-    - "*.s3.${SECRET_DOMAIN_NAME}"
-    - "*.monitoring.${SECRET_DOMAIN_NAME}"
-    - "*.jupyter.${SECRET_DOMAIN_NAME}"
-    - "*.gitlab.${SECRET_DOMAIN_NAME}"
-    - "*.workspace.${SECRET_DOMAIN_NAME}"
+    - "*.${DOMAIN_NAME}"
+    - "*.s3.${DOMAIN_NAME}"
+    - "*.monitoring.${DOMAIN_NAME}"
+    - "*.jupyter.${DOMAIN_NAME}"
+    - "*.gitlab.${DOMAIN_NAME}"
+    - "*.workspace.${DOMAIN_NAME}"

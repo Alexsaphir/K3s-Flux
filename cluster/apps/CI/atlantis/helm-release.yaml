@@ -27,7 +27,7 @@ spec:
       retries: 3
 
   values:
-    atlantisUrl: https://atlantis.${SECRET_DOMAIN_NAME}
+    atlantisUrl: https://atlantis.${DOMAIN_NAME}
 
     # Replace this with your own repo allowlist:
     orgAllowlist: '*'
@@ -61,7 +61,7 @@ spec:
         hajimari.io/icon: simple-icons:terraform
       pathType: Prefix
       hosts:
-        - host: atlantis.${SECRET_DOMAIN_NAME}
+        - host: atlantis.${DOMAIN_NAME}
           paths:
             - /
 

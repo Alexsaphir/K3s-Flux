@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "renovate"
         group: 'Apps - SelfHosted'
-        url: "https://renovate.${SECRET_DOMAIN_NAME}/"
+        url: "https://renovate.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "atlantis"
         group: 'Apps - SelfHosted'
-        url: "https://atlantis.${SECRET_DOMAIN_NAME}/"
+        url: "https://atlantis.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

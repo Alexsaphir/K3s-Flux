@@ -64,7 +64,7 @@ spec:
         path: /
         pathType: Prefix
         hosts:
-          - emqx-dashboard.${SECRET_DOMAIN_NAME}
+          - emqx-dashboard.${DOMAIN_NAME}
 
     metrics:
       enabled: true

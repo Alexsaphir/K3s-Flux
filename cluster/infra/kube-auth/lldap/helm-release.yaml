@@ -55,7 +55,7 @@ spec:
               TZ: '${TIMEZONE}'
 
               LLDAP_HTTP_PORT: &port 80
-              LLDAP_HTTP_URL: https://{{ .Release.Name }}.${SECRET_DOMAIN_NAME}
+              LLDAP_HTTP_URL: https://{{ .Release.Name }}.${DOMAIN_NAME}
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
 
@@ -110,7 +110,7 @@ spec:
       app:
         className: traefik
         hosts:
-          - host: '{{ .Release.Name }}.${SECRET_DOMAIN_NAME}'
+          - host: '{{ .Release.Name }}.${DOMAIN_NAME}'
             paths:
               - path: /
                 service:

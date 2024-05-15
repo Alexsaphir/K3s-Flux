@@ -111,7 +111,7 @@ spec:
           hajimari.io/enable: 'true'
           hajimari.io/icon: 'mdi:ticket'
         hosts:
-          - host: plan.${SECRET_DOMAIN_NAME}
+          - host: plan.${DOMAIN_NAME}
             paths:
               - path: /
                 service:

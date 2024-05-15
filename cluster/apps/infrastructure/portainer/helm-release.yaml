@@ -71,7 +71,7 @@ spec:
           hajimari.io/appName: "portainer"
           hajimari.io/icon: "pier-crane"
         hosts:
-          - host: "portainer.${SECRET_DOMAIN_NAME}"
+          - host: "portainer.${DOMAIN_NAME}"
             paths:
               - path: /
                 service:

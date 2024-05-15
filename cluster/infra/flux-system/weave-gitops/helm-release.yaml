@@ -56,7 +56,7 @@ spec:
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
       hosts:
-        - host: "gitops.${SECRET_DOMAIN_NAME}"
+        - host: "gitops.${DOMAIN_NAME}"
           paths:
             - path: /
               pathType: Prefix

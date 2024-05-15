@@ -10,7 +10,7 @@ data:
     endpoints:
       - name: "tautulli"
         group: 'Apps - Media'
-        url: "https://tautulli.${SECRET_DOMAIN_NAME}/"
+        url: "https://tautulli.${DOMAIN_NAME}/"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

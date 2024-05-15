@@ -68,7 +68,7 @@ spec:
         - https://eurymedon.feralhosting.com/alexsaphir/public/plugins/bitegarden-sonarqube-upm-1.6.2.jar
     sonarProperties:
       sonar.forceAuthentication: true
-      sonar.core.serverBaseURL: https://sonarqube.${SECRET_DOMAIN_NAME}
+      sonar.core.serverBaseURL: https://sonarqube.${DOMAIN_NAME}
       sonar.plugins.risk.consent: ACCEPTED
       sonar.auth.gitlab.url: https://gitlab.alexsaphir.com
       sonar.auth.gitlab.groupsSync: true
@@ -91,7 +91,7 @@ spec:
       enabled: true
       ingressClassName: traefik
       hosts:
-        - name: sonarqube.${SECRET_DOMAIN_NAME}
+        - name: sonarqube.${DOMAIN_NAME}
       annotations:
         hajimari.io/enable: 'true'
         hajimari.io/icon: mdi:source-branch-check

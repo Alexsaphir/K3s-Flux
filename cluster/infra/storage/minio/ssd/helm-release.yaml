@@ -52,9 +52,9 @@ spec:
               TZ: '${TIMEZONE}'
 
               MINIO_UPDATE: 'off'
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN_NAME},https://s3.${SECRET_DOMAIN_NAME}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN_NAME}
-              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN_NAME}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${DOMAIN_NAME},https://s3.${DOMAIN_NAME}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${DOMAIN_NAME}
+              MINIO_SERVER_URL: https://s3.${DOMAIN_NAME}
 
               MINIO_REGION_NAME: us-east-1
 
@@ -62,8 +62,8 @@ spec:
               MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.flux-monitoring.svc.cluster.local:9090
 
-              MINIO_IDENTITY_OPENID_CONFIG_URL: https://auth.${SECRET_DOMAIN_NAME}/.well-known/openid-configuration
-              MINIO_IDENTITY_OPENID_REDIRECT_URI: https://minio.${SECRET_DOMAIN_NAME}/oauth_callback
+              MINIO_IDENTITY_OPENID_CONFIG_URL: https://auth.${DOMAIN_NAME}/.well-known/openid-configuration
+              MINIO_IDENTITY_OPENID_REDIRECT_URI: https://minio.${DOMAIN_NAME}/oauth_callback
               MINIO_IDENTITY_OPENID_CLIENT_ID: minio
               MINIO_IDENTITY_OPENID_CLAIM_NAME: groups
               MINIO_IDENTITY_OPENID_SCOPES: openid,profile,email,groups
@@ -124,7 +124,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: minio.${SECRET_DOMAIN_NAME}
+          - host: minio.${DOMAIN_NAME}
             paths:
               - path: /
                 service:
@@ -136,7 +136,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: s3.${SECRET_DOMAIN_NAME}
+          - host: s3.${DOMAIN_NAME}
             paths:
               - path: /
                 service:
