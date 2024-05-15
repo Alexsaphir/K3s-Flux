@@ -30,6 +30,7 @@ spec:
                 - longhorn-system
                 - jupyterhub
                 - gitlab-runner
+                - devpod
           - resources:
               annotations:
                 naked.home.arpa/disabled: "true"
