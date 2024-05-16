@@ -58,7 +58,7 @@ spec:
           app:
             image:
               repository: ghcr.io/linuxserver/ombi
-              tag: 4.43.16-development
+              tag: 4.43.20-development
 
             env:
               PUID: 1000
