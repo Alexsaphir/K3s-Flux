@@ -268,14 +268,14 @@ spec:
         data:
           LOG_LEVEL: '{{ .Values.immich.logLevel }}'
 
-          REDIS_HOSTNAME: immich-dragonfly.{{ .Release.Namespace }}.svc.cluster.local
+          REDIS_HOSTNAME: immich-dragonfly
           REDIS_PORT: '6379'
 
           IMMICH_CONFIG_FILE: /usr/src/app/immich-config.json
 
-          IMMICH_WEB_URL: http://immich-web.{{ .Release.Namespace }}.svc.cluster.local:3000
-          IMMICH_SERVER_URL: http://immich-server.{{ .Release.Namespace }}.svc.cluster.local:3001
-          IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.{{ .Release.Namespace }}.svc.cluster.local:3003
+          IMMICH_WEB_URL: http://immich-web:3000
+          IMMICH_SERVER_URL: http://immich-server:3001
+          IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning:3003
 
           TRANSFORMERS_CACHE: /usr/src/app/.transformers_cache
 
@@ -289,7 +289,9 @@ spec:
                 "threads": 0,
                 "preset": "ultrafast",
                 "targetVideoCodec": "h264",
+                "acceptedVideoCodecs": ["h264"],
                 "targetAudioCodec": "aac",
+                "acceptedAudioCodecs": ["aac", "mp3", "libopus"],
                 "targetResolution": "720",
                 "maxBitrate": "0",
                 "bframes": -1,
@@ -299,6 +301,7 @@ spec:
                 "temporalAQ": false,
                 "cqMode": "auto",
                 "twoPass": false,
+                "preferredHwDevice": "auto",
                 "transcode": "required",
                 "tonemap": "hable",
                 "accel": "disabled"
@@ -344,10 +347,14 @@ spec:
 
               "machineLearning": {
                 "enabled": true,
-                "url": "http://immich-machine-learning.{{ .Release.Namespace }}.svc.cluster.local:3003",
+                "url": "http://immich-machine-learning:3003",
                 "clip": {
                   "enabled": true,
                   "modelName": {{ .Values.immich.machineLearning.clipModelName | quote }}
+                },
+                "duplicateDetection": {
+                  "enabled": false,
+                  "maxDistance": 0.03
                 },
                 "facialRecognition": {
                   "enabled": true,
@@ -356,61 +363,46 @@ spec:
                   "maxDistance": 0.6,
                   "minFaces": 2
                 },
-                "classification": {
-                  "enabled": true
-                }
               },
-
               "map": {
                 "enabled": true,
                 "lightStyle": "",
                 "darkStyle": ""
               },
-
               "reverseGeocoding": {
                 "enabled": true
               },
-
               "oauth": {
                 "enabled": true,
                 "issuerUrl": {{ .Values.immich.oauth.issuerUrl | quote }},
                 "clientId": {{ .Values.immich.oauth.clientId | quote }},
                 "clientSecret": {{ .Values.immich.oauth.clientSecret | quote }},
+                "signingAlgorithm": "RS256",
                 "mobileOverrideEnabled": false,
                 "mobileRedirectUri": "",
                 "scope": "openid profile email",
                 "storageLabelClaim": "preferred_username",
+                "storageQuotaClaim": "immich_quota",
+                "defaultStorageQuota": 0,
                 "buttonText": "Login with OAuth",
                 "autoRegister": true,
                 "autoLaunch": false
               },
-
               "passwordLogin": {
                 "enabled": {{ .Values.immich.enablePasswordLogin }}
               },
-
               "storageTemplate": {
                 "enabled": true,
                 "hashVerificationEnabled": true,
                 "template": "{{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}"
               },
-
-              "thumbnail": {
-                "webpSize": 250,
-                "jpegSize": 1440,
-                "quality": 80,
-                "colorspace": "p3"
-              },
-
               "newVersionCheck": {
                 "enabled": true
               },
-
               "trash": {
                 "enabled": true,
                 "days": 30
               },
-
               "theme": {
                 "customCss": ""
               },
@@ -419,11 +411,23 @@ spec:
                 "scan": {
                   "enabled": true,
                   "cronExpression": "0 0 * * *"
+                },
+                "watch": {
+                  "enabled": false,
+                  "usePolling": false,
+                  "interval": 10000
                 }
               },
-
-              "server": {
-                "externalDomain": "",
-                "loginPageMessage": ""
-              }
+              "user": {
+                "deleteDelay": 7
+              },
+              "image": {
+                "thumbnailFormat": "webp",
+                "thumbnailSize": 250,
+                "previewFormat": "jpeg",
+                "previewSize": 1440,
+                "quality": 80,
+                "colorspace": "p3",
+                "extractEmbedded": false
+              },
             }
