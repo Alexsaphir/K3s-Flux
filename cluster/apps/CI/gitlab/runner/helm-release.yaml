@@ -34,7 +34,7 @@ spec:
 
     revisionHistoryLimit: 1
 
-    gitlabUrl: https://gitlab.alexsaphir.com/
+    gitlabUrl: https://gitlab.${DOMAIN_NAME}/
 
     replicas: 1
 
@@ -42,35 +42,41 @@ spec:
 
     concurrent: 4
     checkInterval: 10
+
     logLevel: info  # debug, info, warn, error, fatal, panic
-    logFormat: json
-    sessionServer:
-      enabled: false
+    logFormat: json # runner, text, json
 
     rbac:
       create: true
-      clusterWideAccess: false
-      rules:
-        - apiGroups: [ '' ]
-          resources: [ '*' ]
-          verbs: [ '*' ]
-
-    env:
-      TZ: '${TIMEZONE}'
 
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-
     service:
       enabled: true
+    env:
+      TZ: '${TIMEZONE}'
+
+    extraEnv:
+      CACHE_S3_SERVER_ADDRESS: s3.${DOMAIN_NAME}
+      CACHE_S3_BUCKET_NAME: gitlab-runner
+      CACHE_S3_BUCKET_LOCATION: us-east-1
+      CACHE_SHARED: true
+    extraEnvFrom:
+      CACHE_S3_ACCESS_KEY:
+        secretKeyRef:
+          name: &s3secret gitlab-runner-s3access-secret
+          key: accesskey
+      CACHE_S3_SECRET_KEY:
+        secretKeyRef:
+          name: *s3secret
+          key: secretkey
 
     runners:
-
       secret: gitlab-runner-secret
       cache:
-        secretName: gitlab-runner-s3access-secret
+        secretName: *s3secret
 
       executor: kubernetes
       name: K3s
