@@ -26,6 +26,12 @@ spec:
     remediation:
       retries: 3
 
+  valuesFrom:
+    - kind: Secret
+      name: gitlab-runner-secret
+      valuesKey: runnerToken
+      targetPath: runnerToken
+
   values:
     nameOverride: gitlab-runner
 
@@ -74,7 +80,6 @@ spec:
           key: secretkey
 
     runners:
-      secret: gitlab-runner-secret
       cache:
         secretName: *s3secret
 
