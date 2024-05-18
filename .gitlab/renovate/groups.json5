@@ -84,7 +84,8 @@
       groupName: 'Aqua',
       matchFileNames: [
         '**/aqua.yaml',
-        '**/.aqua.yaml'
+        '**/.aqua.yaml',
+        '**/.devcontainer.json'
       ]
     },
     {
