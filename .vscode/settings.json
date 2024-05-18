@@ -1,0 +1,13 @@
+{
+  "workbench.iconTheme": "vscode-great-icons",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "all",
+  "editor.rulers": [
+    132
+  ],
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#458cff"
+  },
+  "npm.exclude": ""
+}

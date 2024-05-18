@@ -1,24 +1,54 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
   "name": "Flux GitOps",
-  "image": "registry.alexsaphir.com/homelab/k3s-flux/devcontainer:latest",
-  "postCreateCommand": {
-    "setup": "fish ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/fish-apt-get:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/git-lfs:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "toolsToInstall": ""
+    },
+    "ghcr.io/devcontainers-contrib/features/pipx-package:1": {
+      "package": "poetry",
+      "version": "1.8.2",
+      "injections": "poetry-dynamic-versioning"
+    },
+    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
+    "ghcr.io/aquaproj/devcontainer-features/aqua-installer:0.1.2": {
+      "aqua_version": "v2.27.0"
+    }
   },
   "customizations": {
     "vscode": {
-      "settings": {
-        "terminal.integrated.profiles.linux": {
-          "bash": {
-            "path": "/usr/bin/bash"
-          }
-        },
-        "terminal.integrated.defaultProfile.linux": "fish"
-      },
       "extensions": [
         "redhat.ansible",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "tamasfe.even-better-toml",
+        "timgthomas.explorer-gitignore",
+        "codezombiech.gitignore",
+        "yzhang.markdown-all-in-one",
+        "emmanuelbeziat.vscode-great-icons",
+        "aaron-bond.better-comments",
+        "christian-kohler.path-intellisense",
+        "eamodio.gitlens",
+        "mtxr.sqltools",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "lunuan.kubernetes-templates",
+        "signageos.signageos-vscode-sops",
+        "Weaveworks.vscode-gitops-tools"
       ]
     }
-  }
+  },
+  "remoteEnv": {
+    "PATH": "/home/vscode/.local/share/aquaproj-aqua/bin:${containerEnv:PATH}"
+  },
+  "postCreateCommand": {
+    "setup": "bash ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
+  },
+  "remoteUser": "vscode"
 }
