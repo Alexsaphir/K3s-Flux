@@ -16,7 +16,12 @@ spec:
       interval: 15m
 
   driftDetection:
-    mode: warn
+    ignore:
+      - paths:
+          - /spec/conversion/webhook/clientConfig/caBundle
+        target:
+          kind: CustomResourceDefinition
+
   maxHistory: 3
   install:
     crds: CreateReplace
