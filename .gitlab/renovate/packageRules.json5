@@ -26,6 +26,16 @@
       "matchPackagePatterns": [
         "minio"
       ]
+    },
+    {
+      "fileMatch": [
+        "\\.yaml$"
+      ],
+      "matchStrings": [
+        "DOCKER_MODS: ['\"]?(?<depName>.+):(?<currentValue>.+)['\"]?",
+        "imageName: ['\"]?(?<depName>.+?):(?<currentValue>.+)['\"]?"
+      ],
+      "datasourceTemplate": "docker"
     }
   ]
 }
