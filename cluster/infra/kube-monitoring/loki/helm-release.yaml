@@ -155,6 +155,7 @@ spec:
         ingressClassName: traefik
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        tls: { }
         hosts:
           - host: loki.monitoring.${DOMAIN_NAME}
             paths:
