@@ -137,7 +137,7 @@
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 8192
               vm.max_map_count: 524288
-              fs.file-max: 262144
+              fs.file-max: 1048576
           notify: Reboot
 
   handlers:
