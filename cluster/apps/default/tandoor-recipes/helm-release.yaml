@@ -144,5 +144,11 @@ spec:
         globalMounts:
           - path: /opt/recipes/staticfiles
 
+      django-js-reverse:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /opt/recipes/cookbook/static/django_js_reverse
+
       tmp:
         type: emptyDir
