@@ -55,14 +55,14 @@ links:
 
   - name: "Mail"
     icon: "fas fa-envelope"
-    url: "https://mailpit.${DOMAIN_NAME}"
+    url: "https://mail.${DOMAIN_NAME}"
     target: "_top"
 
 services:
   - name: "Infrastructure"
     items:
       - name: "DNS"
-        logo: "assets/logo/apps/dns.svg"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/adguardhome.svg"
         subtitle: ""
         url: "https://dns.${DOMAIN_NAME}"
         target: '_top'
@@ -119,10 +119,21 @@ services:
         url: "https://cyberchef.${DOMAIN_NAME}"
         target: '_top'
 
+      - name: "Spotify"
+        logo: "assets/logo/monitoring/spotify.svg"
+        subtitle: ""
+        url: "https://spotify.${DOMAIN_NAME}"
+        target: '_top'
 
   - name: "Apps"
     icon: "fas fa-rocket"
     items:
+      - name: "Immich"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/immich.svg"
+        subtitle: ""
+        url: "https://photos.${DOMAIN_NAME}"
+        target: '_top'
+
       - name: "VaultWarden"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bitwarden.png"
         subtitle: ""
@@ -133,12 +144,6 @@ services:
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/tandoorrecipes.png"
         subtitle: ""
         url: "https://recipes.${DOMAIN_NAME}"
-        target: '_top'
-
-      - name: "Spotify"
-        logo: "assets/logo/monitoring/spotify.svg"
-        subtitle: ""
-        url: "https://spotify.${DOMAIN_NAME}"
         target: '_top'
 
   - name: "Media"
