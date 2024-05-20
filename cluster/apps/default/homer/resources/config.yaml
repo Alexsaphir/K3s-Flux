@@ -1,0 +1,214 @@
+---
+title: "Dashboard"
+subtitle: "Homer"
+
+logo: "assets/logo/logo.png"
+header: true
+footer: '<p>Created with <span class="has-text-danger">❤️</span> with <a href="https://bulma.io/">bulma</a>, <a href="https://vuejs.org/">vuejs</a> & <a href="https://fontawesome.com/">font awesome</a> // Fork me on <a href="https://github.com/bastienwirtz/homer"><i class="fab fa-github-alt"></i></a></p>'
+
+columns: "auto"
+connectivityCheck: true
+
+# theme: sui
+theme: default
+
+colors:
+  light:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#f5f5f5"
+    card-background: "#ffffff"
+    text: "#363636"
+    text-header: "#ffffff"
+    text-title: "#303030"
+    text-subtitle: "#424242"
+    card-shadow: rgba(0, 0, 0, 0.1)
+    link-hover: "#363636"
+    background-image: ""
+  dark:
+    highlight-primary: "#3367d6"
+    highlight-secondary: "#4285f4"
+    highlight-hover: "#5a95f5"
+    background: "#131313"
+    card-background: "#2b2b2b"
+    text: "#eaeaea"
+    text-header: "#ffffff"
+    text-title: "#fafafa"
+    text-subtitle: "#f5f5f5"
+    card-shadow: rgba(0, 0, 0, 0.4)
+    link-hover: "#ffdd57"
+    background-image: ""
+
+message: ~
+
+links:
+  - name: "K3s"
+    icon: "fab fa-github"
+    url: "https://gitlab.${DOMAIN_NAME}/Homelab/K3s-Flux"
+    target: "_top"
+
+  - name: "Authelia"
+    icon: "fas fa-id-card"
+    url: "https://auth.${DOMAIN_NAME}"
+    target: "_top"
+
+  - name: "Mail"
+    icon: "fas fa-envelope"
+    url: "https://mailpit.${DOMAIN_NAME}"
+    target: "_top"
+
+services:
+  - name: "Infrastructure"
+    items:
+      - name: "DNS"
+        logo: "assets/logo/apps/dns.svg"
+        subtitle: ""
+        url: "https://dns.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Portainer"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/portainer.svg"
+        subtitle: ""
+        url: "https://portainer.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Semaphore"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/ansible.png"
+        subtitle: ""
+        url: "https://semaphore.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Vault"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/vault.svg"
+        subtitle: ""
+        url: "https://vault.${DOMAIN_NAME}"
+        target: '_top'
+
+  - name: "CI/CD"
+    items:
+      - name: "GitLab"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/gitlab.svg"
+        subtitle: ""
+        url: "https://gitlab.${DOMAIN_NAME}/explore"
+        target: '_top'
+
+      - name: "Codecov"
+        logo: "assets/logo/cicd/codecov.png"
+        subtitle: ""
+        url: "https://codecov.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "SonarQube"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/sonarqube.png"
+        subtitle: ""
+        url: "https://sonarqube.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "S3"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/minio.png"
+        subtitle: ""
+        url: "https://s3.${DOMAIN_NAME}"
+        target: '_top'
+
+  - name: "Tools"
+    items:
+      - name: "Cyberchef"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/cyberchef.png"
+        subtitle: ""
+        url: "https://cyberchef.${DOMAIN_NAME}"
+        target: '_top'
+
+
+  - name: "Apps"
+    icon: "fas fa-rocket"
+    items:
+      - name: "VaultWarden"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bitwarden.png"
+        subtitle: ""
+        url: "https://vaultwarden.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Recipes"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/tandoorrecipes.png"
+        subtitle: ""
+        url: "https://recipes.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Spotify"
+        logo: "assets/logo/monitoring/spotify.svg"
+        subtitle: ""
+        url: "https://spotify.${DOMAIN_NAME}"
+        target: '_top'
+
+  - name: "Media"
+    items:
+      - name: "Plex"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/plex.png"
+        subtitle: ""
+        url: "https://plex.${DOMAIN_NAME}/web/index.html"
+        target: '_top'
+
+      - name: "Ombi"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/ombi.png"
+        subtitle: ""
+        url: "https://ombi.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Tautulli"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/tautulli.svg"
+        subtitle: ""
+        url: "https://tautulli.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Cleanarr"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/cleanarr.png"
+        subtitle: ""
+        url: "https://cleanarr.${DOMAIN_NAME}"
+        target: '_top'
+
+  - name: "ARR !!!"
+    icon: 'fas fa-skull-crossbones'
+    items:
+      - name: "Sonarr"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/sonarr.svg"
+        subtitle: ""
+        url: "https://sonarr.${DOMAIN_NAME}/calendar"
+        target: '_top'
+
+      - name: "Radarr"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/radarr.svg"
+        subtitle: ""
+        url: "https://radarr.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Lidarr"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/lidarr.svg"
+        subtitle: ""
+        url: "https://lidarr.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Readarr"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/readarr.svg"
+        subtitle: ""
+        url: "https://readarr.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Prowlarr"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/prowlarr.svg"
+        subtitle: ""
+        url: "https://prowlarr.${DOMAIN_NAME}"
+        target: '_top'
+
+  - name: "Monitoring"
+    items:
+      - name: "Grafana"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/grafana.png"
+        subtitle: ""
+        url: "https://grafana.${DOMAIN_NAME}"
+        target: '_top'
+
+      - name: "Gatus"
+        subtitle: ""
+        url: "https://status.${DOMAIN_NAME}"
+        target: '_top'
