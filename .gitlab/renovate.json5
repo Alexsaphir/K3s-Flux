@@ -45,19 +45,16 @@
     rangeStrategy: 'bump',
   },
   flux: {
-    enabled: false,
     fileMatch: [
       '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
     ],
   },
   'helm-values': {
-    enabled: false,
     fileMatch: [
       '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
     ],
   },
   kubernetes: {
-    enabled: false,
     fileMatch: [
       '(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$',
       '(^|/)ansible/.+\\.ya?ml(\\.j2)?$',
