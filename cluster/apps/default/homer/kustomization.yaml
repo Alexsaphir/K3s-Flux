@@ -9,6 +9,6 @@ resources:
 configMapGenerator:
   - name: homer-config
     files:
-      - config.yaml=resources/config.yaml
+      - config.yml=resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
