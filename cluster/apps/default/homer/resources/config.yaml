@@ -98,12 +98,14 @@ services:
         subtitle: ""
         url: "https://codecov.${DOMAIN_NAME}"
         target: '_top'
+        tag: 'sso'
 
       - name: "SonarQube"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/sonarqube.png"
         subtitle: ""
         url: "https://sonarqube.${DOMAIN_NAME}"
         target: '_top'
+        tag: 'sso'
 
       - name: "S3"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/minio.png"
@@ -124,6 +126,7 @@ services:
         subtitle: ""
         url: "https://spotify.${DOMAIN_NAME}"
         target: '_top'
+        tag: 'sso'
 
   - name: "Apps"
     icon: "fas fa-rocket"
@@ -133,6 +136,7 @@ services:
         subtitle: ""
         url: "https://photos.${DOMAIN_NAME}"
         target: '_top'
+        tag: 'sso'
 
       - name: "VaultWarden"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bitwarden.png"
@@ -145,6 +149,7 @@ services:
         subtitle: ""
         url: "https://recipes.${DOMAIN_NAME}"
         target: '_top'
+        tag: 'sso'
 
   - name: "Media"
     items:
@@ -212,6 +217,7 @@ services:
         subtitle: ""
         url: "https://grafana.${DOMAIN_NAME}"
         target: '_top'
+        tag: 'sso'
 
       - name: "Gatus"
         subtitle: ""
