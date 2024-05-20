@@ -53,7 +53,7 @@ tasks:
   poweroff:
     desc: Shutdown all the k8s nodes
     cmds:
-      - ansible cube -a '/usr/bin/systemctl poweroff' --become
+      - ansible kubernetes -a '/usr/bin/systemctl poweroff' --become
 
   list:
     desc: List all the hosts
@@ -63,7 +63,7 @@ tasks:
   ping:
     desc: Ping all the hosts
     cmds:
-      - ansible -o cube  -m 'ping'
+      - ansible -o kubernetes  -m 'ping'
 
   uptime:
     desc: Uptime of all the hosts
