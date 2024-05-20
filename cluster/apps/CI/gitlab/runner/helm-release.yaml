@@ -29,8 +29,8 @@ spec:
   valuesFrom:
     - kind: Secret
       name: gitlab-runner-secret
-      valuesKey: runnerToken
-      targetPath: runnerToken
+      valuesKey: &token runnerRegistrationToken #runnerToken
+      targetPath: *token
 
   values:
     nameOverride: gitlab-runner
