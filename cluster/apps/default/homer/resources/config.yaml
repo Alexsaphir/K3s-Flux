@@ -94,7 +94,7 @@ services:
         target: '_top'
 
       - name: "Codecov"
-        logo: "assets/logo/cicd/codecov.png"
+        logo: "https://raw.githubusercontent.com/codecov/codecov-browser-extension/main/public/codecov-circle.png"
         subtitle: ""
         url: "https://codecov.${DOMAIN_NAME}"
         target: '_top'
@@ -120,7 +120,7 @@ services:
         target: '_top'
 
       - name: "Spotify"
-        logo: "assets/logo/monitoring/spotify.svg"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/spotify.svg"
         subtitle: ""
         url: "https://spotify.${DOMAIN_NAME}"
         target: '_top'
