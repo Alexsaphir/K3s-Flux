@@ -7,7 +7,7 @@ metadata:
     kyverno.io/ignore: "true"
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.2-v0.2.1@sha256:442746a5b0f71abc79b8a54afc489a76b946dde6e468eea55813aca9a491f834
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.2-v0.2.1
 
   instances: 2
 
