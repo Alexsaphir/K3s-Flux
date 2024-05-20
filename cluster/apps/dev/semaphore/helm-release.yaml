@@ -40,8 +40,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/semaphore
-              tag: v2.9.37@sha256:da37f0083a1a3d642eb5d4494244ede866bd8dfe6837dc8eae1250a6c1a411f6
+              repository: semaphoreui/semaphore
+              tag: v2.9.75@sha256:aa8e6ab27e352fb50768e349db91786e8702b4368a2f881ecf0834151d6c48b7
 
             envFrom:
               - secretRef:
