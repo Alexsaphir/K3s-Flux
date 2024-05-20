@@ -68,5 +68,17 @@
     'ghcr.io/fluxcd/kustomize-controller',
     'ghcr.io/fluxcd/notification-controller',
     'ghcr.io/fluxcd/source-controller',
+  ],
+  "customManagers": [
+    {
+      "fileMatch": [
+        "\\.yaml$"
+      ],
+      "matchStrings": [
+        "DOCKER_MODS: ['\"]?(?<depName>.+):(?<currentValue>.+)['\"]?",
+        "imageName: ['\"]?(?<depName>.+?):(?<currentValue>.+)['\"]?"
+      ],
+      "datasourceTemplate": "docker"
+    }
   ]
 }
