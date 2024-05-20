@@ -46,6 +46,15 @@
         "ghcr.io/cloudnative-pg/postgresql"
       ],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)-(?<build>\\d+)$"
+    },
+    {
+      "fileMatch": [
+        "\\.yaml$"
+      ],
+      "matchStrings": [
+        "imageName: ['\"]?(?<depName>.+?):(?<currentValue>.+)['\"]?"
+      ],
+      "datasourceTemplate": "docker"
     }
   ]
 }
