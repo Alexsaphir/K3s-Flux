@@ -121,7 +121,7 @@ spec:
     - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
-          value: --log-level="debug"
+          value: --log-level="info"
       target:
         kind: Deployment
         name: helm-controller
