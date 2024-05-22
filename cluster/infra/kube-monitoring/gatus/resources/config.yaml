@@ -6,7 +6,7 @@ storage:
   path: $${POSTGRES_URL}
   caching: true
 metrics: true
-debug: true
+debug: false
 ui:
   title: Status | Gatus
   header: Status
