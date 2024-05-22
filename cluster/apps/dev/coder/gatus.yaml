@@ -8,7 +8,7 @@ metadata:
 data:
   config.yaml: |
     endpoints:
-      - name: "codecov"
+      - name: "coder"
         group: 'Apps - SelfHosted'
         url: "https://coder.${DOMAIN_NAME}/"
         interval: 1m
