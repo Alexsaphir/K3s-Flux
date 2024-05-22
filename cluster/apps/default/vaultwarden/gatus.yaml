@@ -8,7 +8,7 @@ metadata:
 data:
   config.yaml: |
     endpoints:
-      - name: "Tandoor Recipes"
+      - name: "Vaultwarden"
         group: 'Apps - SelfHosted'
         url: "https://vaultwarden.${DOMAIN_NAME}/"
         interval: 1m
