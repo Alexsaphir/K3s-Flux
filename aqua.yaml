@@ -37,5 +37,5 @@ packages:
   - name: budimanjojo/talhelper@v2.4.5
   - name: lsd-rs/lsd@v1.1.2
   - name: opentofu/opentofu@v1.7.1
-  - name: runatlantis/atlantis@v0.27.3
+  - name: runatlantis/atlantis@v0.28.0
   - name: kyverno/kyverno@v1.12.1
