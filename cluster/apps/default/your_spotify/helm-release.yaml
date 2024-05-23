@@ -1,0 +1,161 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: your-spotify
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      server:
+        strategy: &strat RollingUpdate
+        rollingUpdate: &ru
+          unavailable: 0
+
+        pod: &pod
+          annotations:
+            reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: yooooomi/your_spotify_server
+              tag: 1.10.1
+            env:
+              TIMEZONE: ${TZ}
+
+              API_ENDPOINT: &api_endpoint https://spotify.${DOMAIN_NAME}/api
+              CLIENT_ENDPOINT: &client https://spotify.${PUBLIC_DOMAIN}
+              CORS: *client
+              MONGO_ENDPOINT: mongodb://mongodb:27017/your_spotify
+
+            envFrom:
+              - secretRef:
+                  name: your-spotify-secret
+
+            probes: &probes
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+      web:
+        strategy: *strat
+        rollingUpdate: *ru
+        pod: *pod
+
+        containers:
+          app:
+            image:
+              repository: yooooomi/your_spotify_client
+              tag: 1.10.1
+
+            env:
+              TIMEZONE: ${TZ}
+              API_ENDPOINT: *api_endpoint
+            probes: *probes
+            securityContext: *securityContext
+
+      mongodb:
+        type: statefulset
+        rollingUpdate: *ru
+        statefulset:
+          podManagementPolicy: OrderedReady
+
+        containers:
+          app:
+            image:
+              repository: docker.io/library/mongo
+              tag: 6.0.4-focal
+
+            env:
+              TIMEZONE: ${TZ}
+
+            probes: *probes
+            securityContext: *securityContext
+
+
+    service:
+      server:
+        controller: server
+        primary: true
+        ports:
+          http:
+            port: 8080
+      web:
+        controller: web
+        ports:
+          http:
+            port: 3000
+      mongodb:
+        controller: mongodb
+        ports:
+          http:
+            port: 27017
+
+    ingress:
+      app:
+        className: traefik
+        annotations:
+          auth.home.arpa/disabled: 'true'
+        hosts:
+          - host: spotify.${DOMAIN_NAME}
+            paths:
+              - path: /api
+                pathType: Prefix
+                service:
+                  identifier: server
+                  port: http
+
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: web
+                  port: http
+
+    persistence:
+      config:
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        advancedMounts:
+          mongodb:
+            main:
+              - path: /data/db
