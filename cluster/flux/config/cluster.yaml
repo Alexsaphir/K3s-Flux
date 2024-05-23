@@ -9,6 +9,22 @@ spec:
   interval: 30m
   ref:
     branch: main
+  url: https://gitlab.alexsaphir.com/Homelab/K3s-Flux.git
+  ignore: |
+    # exclude all
+    /*
+    # include kubernetes directory
+    !/cluster
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: home-kubernetes-mirror
+  namespace: flux-system
+spec:
+  interval: 30m
+  ref:
+    branch: main
   url: ssh://git@github.com/Alexsaphir/K3s-Flux
   secretRef:
     name: github-deploy-key
@@ -17,7 +33,6 @@ spec:
     /*
     # include kubernetes directory
     !/cluster
-
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
