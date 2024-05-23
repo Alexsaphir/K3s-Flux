@@ -28,15 +28,6 @@ spec:
       retries: 3
 
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
-
     controllers:
       server:
         strategy: &strat RollingUpdate
@@ -72,11 +63,6 @@ spec:
               startup:
                 enabled: true
 
-            securityContext: &securityContext
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
-
       web:
         strategy: *strat
         rollingUpdate: *ru
@@ -92,7 +78,10 @@ spec:
               TIMEZONE: ${TZ}
               API_ENDPOINT: *api_endpoint
             probes: *probes
-            securityContext: *securityContext
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
       mongodb:
         type: statefulset
@@ -110,8 +99,6 @@ spec:
               TIMEZONE: ${TZ}
 
             probes: *probes
-            securityContext: *securityContext
-
 
     service:
       server:
