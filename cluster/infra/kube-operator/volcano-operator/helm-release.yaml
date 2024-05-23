@@ -16,7 +16,12 @@ spec:
       interval: 15m
 
   driftDetection:
-    mode: warn
+    ignore:
+      - paths: [ '' ]
+        target:
+          kind: Job
+          name: volcano-admission-init
+
   maxHistory: 3
   install:
     crds: CreateReplace
