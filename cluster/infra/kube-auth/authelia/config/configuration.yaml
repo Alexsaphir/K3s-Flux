@@ -146,9 +146,18 @@ access_control:
     # Apps for authenticated users
     - domain:
         - 'cyberchef.${DOMAIN_NAME}'
-        - 'actual.${DOMAIN_NAME}'
         - 'zitadel.${DOMAIN_NAME}'
       policy: two_factor
+
+    - domain:
+        - 'spotify.${DOMAIN_NAME}'
+      policy: two_factor
+
+    - domain:
+        - 'actual.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'user:alexsaphir'
 
     # Ingresses for gitlab
     - domain:
