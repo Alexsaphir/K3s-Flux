@@ -48,7 +48,7 @@ spec:
 
               API_ENDPOINT: &api_endpoint https://spotify-api.${DOMAIN_NAME}
               CLIENT_ENDPOINT: &client https://spotify.${DOMAIN_NAME}
-              CORS: *client
+              CORS: i-want-a-security-vulnerability-and-want-to-allow-all-origins
               MONGO_ENDPOINT: mongodb://your-spotify-mongodb:27017/your_spotify
 
             envFrom:
