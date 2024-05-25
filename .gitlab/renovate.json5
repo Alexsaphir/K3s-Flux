@@ -1,0 +1,37 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    'docker:enableMajor',
+    'replacements:k8s-registry-move',
+    ':disableRateLimiting',
+    ':dependencyDashboard',
+    ':enablePreCommit',
+    ':semanticCommits',
+    'github>aquaproj/aqua-renovate-config#2.3.0'
+  ],
+  enabled: true,
+  prConcurrentLimit: 3,
+  configWarningReuseIssue: true,
+  configMigration: true,
+  dependencyDashboard: true,
+  dependencyDashboardTitle: 'Renovate Dashboard',
+  gitLabIgnoreApprovals: true,
+  suppressNotifications: [
+    'prEditedNotification',
+    'prIgnoreNotification',
+  ],
+  rebaseWhen: 'behind-base-branch',
+  assigneesFromCodeOwners: true,
+  reviewersFromCodeOwners: true,
+  ignorePaths: [
+    '**/*.sops.*',
+  ],
+  lockFileMaintenance: {
+    enabled: true,
+  },
+  poetry: {
+    enabled: true,
+    rangeStrategy: 'bump',
+  },
+}
