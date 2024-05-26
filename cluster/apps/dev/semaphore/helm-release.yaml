@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: semaphoreui/semaphore
-              tag: v2.9.75@sha256:aa8e6ab27e352fb50768e349db91786e8702b4368a2f881ecf0834151d6c48b7
+              tag: 2.9.109@sha256:bafb0b4db24c01e5c01802cca2c7d1db0a699c857427c3ccd4d62015662af763
 
             envFrom:
               - secretRef:
