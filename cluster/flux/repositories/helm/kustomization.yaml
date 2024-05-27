@@ -56,6 +56,7 @@ resources:
   - nfs-provisioner.yaml
   - node-feature-discovery.yaml
   - onyxia.yaml
+  - openebs.yaml
   - opensearch.yaml
   - ori-edge.yaml
   - piraeus.yaml
