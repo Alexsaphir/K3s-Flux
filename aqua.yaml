@@ -28,13 +28,13 @@ packages:
   - name: FairwindsOps/pluto@v5.19.4
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.4
-  - name: kubescape/kubescape@v3.0.10
+  - name: kubescape/kubescape@v3.0.11
   - name: stern/stern@v1.30.0
   - name: yannh/kubeconform@v0.6.6
   - name: zegl/kube-score@v1.18.0
   - name: cilium/cilium-cli@v0.16.7
   - name: siderolabs/talos@v1.7.2
-  - name: budimanjojo/talhelper@v2.4.5
+  - name: budimanjojo/talhelper@v2.4.6
   - name: lsd-rs/lsd@v1.1.2
   - name: opentofu/opentofu@v1.7.1
   - name: runatlantis/atlantis@v0.28.1
