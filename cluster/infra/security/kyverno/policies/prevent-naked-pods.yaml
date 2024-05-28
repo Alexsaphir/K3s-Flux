@@ -30,6 +30,7 @@ spec:
                 - longhorn-system
                 - jupyterhub
                 - gitlab-runner
+                - openebs-system
                 - devpod
           - resources:
               annotations:
