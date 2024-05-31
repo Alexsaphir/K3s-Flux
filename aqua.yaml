@@ -32,7 +32,7 @@ packages:
   - name: stern/stern@v1.30.0
   - name: yannh/kubeconform@v0.6.6
   - name: zegl/kube-score@v1.18.0
-  - name: cilium/cilium-cli@v0.16.8
+  - name: cilium/cilium-cli@v0.16.9
   - name: siderolabs/talos@v1.7.4
   - name: budimanjojo/talhelper@v2.4.9
   - name: lsd-rs/lsd@v1.1.2
