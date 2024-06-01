@@ -6,7 +6,6 @@ resources:
 
   - grafana/ks.yaml
   - gatus/ks.yaml
-  - kepler/ks.yaml
   - kube-prometheus-stack-crds/ks.yaml
   - kube-prometheus-stack/ks.yaml
   - kube-state-metrics/ks.yaml
