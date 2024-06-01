@@ -46,7 +46,7 @@ spec:
 
     unregisterRunners: true
 
-    concurrent: 1
+    concurrent: 2
     checkInterval: 10
 
     logLevel: info  # debug, info, warn, error, fatal, panic
