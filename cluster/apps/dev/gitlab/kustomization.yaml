@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: gitlab
 resources:
   - resources
+  - secrets
