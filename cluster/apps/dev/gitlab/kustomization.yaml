@@ -5,3 +5,4 @@ namespace: gitlab
 resources:
   - resources
   - secrets
+  - helm-release.yaml
