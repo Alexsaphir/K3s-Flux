@@ -104,9 +104,9 @@ spec:
         enabled: true
 
       gitlab:
-        license:
-          secret: gitlab-license-secret
-          key: license
+      # license:
+      #   secret: gitlab-license-secret
+      #   key: license
 
       ## Secret created according to https://docs.gitlab.com/charts/installation/secrets#initial-root-password
       initialRootPassword:
