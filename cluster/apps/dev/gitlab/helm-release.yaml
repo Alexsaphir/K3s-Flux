@@ -266,8 +266,8 @@ spec:
       ## Rails application secrets
       ## Secret created according to https://docs.gitlab.com/charts/installation/secrets#gitlab-rails-secret
       ## If allowing shared-secrets generation, this is OPTIONAL.
-      railsSecrets: { }
-      # secret:
+      railsSecrets:
+        secret: gitlab-rails-secret
 
       ## Rails generic setting, applicable to all Rails-based containers
       rails:
@@ -280,12 +280,12 @@ spec:
 
         certificate: { }
         # secret:
-        httpSecret: { }
-        # secret:
-        # key:
-        notificationSecret: { }
-        # secret:
-        # key:
+        httpSecret:
+          secret: gitlab-registry-httpsecret
+          key: secret
+        notificationSecret:
+          secret: gitlab-registry-notification
+          key: secret
         tls:
           enabled: false
           # secretName:
@@ -294,20 +294,6 @@ spec:
             password: { }
         # https://docs.docker.com/registry/notifications/#configuration
         notifications: { }
-        # endpoints:
-        #   - name: FooListener
-        #     url: https://foolistener.com/event
-        #     timeout: 500ms
-        #     threshold: 10
-        #     backoff: 1s
-        #     headers:
-        #       FooBar: ['1', '2']
-        #       Authorization:
-        #         secret: gitlab-registry-authorization-header
-        #       SpecificPassword:
-        #         secret: gitlab-registry-specific-password
-        #         key: password
-        # events: {}
 
         # Settings utilized by other services referencing registry:
         enabled: true
@@ -339,9 +325,9 @@ spec:
           connection: { }
           # secret:
           # key:
-        apiSecret: { }
-        # secret:
-        # key:
+        apiSecret:
+          secret: gitlab-pages-secret
+          key: shared_secret
         authSecret: { }
         # secret:
         # key:
@@ -418,8 +404,8 @@ spec:
         # host:
         # port:
         ## https://docs.gitlab.com/charts/installation/secrets#gitlab-workhorse-secret
-        # secret:
-        # key:
+        secret: gitlab-workhorse-secret
+        key: shared_secret
         tls:
           enabled: false
 
@@ -480,7 +466,8 @@ spec:
 
       zoekt:
         gateway:
-          basicAuth: { }
+          basicAuth:
+            secretName: gitlab-zoekt-basicauth
         indexer:
           internalApi: { }
 
@@ -598,9 +585,9 @@ spec:
         antiAffinityLabels:
           matchLabels:
             app: gitaly
-        ## https://docs.gitlab.com/charts/charts/gitlab/migrations
-        migrations:
-          enabled: false
+      ## https://docs.gitlab.com/charts/charts/gitlab/migrations
+      #   migrations:
+      #     enabled: false
       ## https://docs.gitlab.com/charts/charts/gitlab/webservice
       #   webservice:
       #     enabled: false
