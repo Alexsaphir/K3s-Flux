@@ -32,6 +32,15 @@ spec:
   values:
     nodeFeatureRule:
       createCRD: true
+
+    master:
+      resources:
+        requests:
+          cpu: 21m
+          memory: 64Mi
+        limits:
+          memory: 64Mi
+
     worker:
       config:
         core:
@@ -40,6 +49,13 @@ spec:
           usb:
             deviceClassWhitelist: [ '02', '03', '0e', 'ef', 'fe', 'ff' ]
             deviceLabelFields: [ 'class', 'vendor', 'device' ]
+
+      resources:
+        requests:
+          cpu: 5m
+          memory: 64Mi
+        limits:
+          memory: 64Mi
 
     prometheus:
       enable: true
