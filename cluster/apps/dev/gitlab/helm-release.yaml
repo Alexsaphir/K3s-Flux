@@ -129,7 +129,7 @@ spec:
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
       redis:
-        host: forgejo-dragonfly.forgejo.svc.cluster.local:6379
+        host: gitlab-dragonfly.gitlab.svc.cluster.local
         auth:
           enabled: false
 
