@@ -145,8 +145,11 @@ spec:
 
             resources:
               requests:
-                cpu: 250m
-                memory: 256M
+                cpu: 10m
+                memory: 64M
+              limits:
+                cpu: 100m
+                memory: 128M
 
       frontend:
         replicas: 2
@@ -192,8 +195,11 @@ spec:
 
             resources:
               requests:
-                cpu: 250m
-                memory: 256M
+                cpu: 10m
+                memory: 16M
+              limits:
+                cpu: 100m
+                memory: 128M
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -243,10 +249,10 @@ spec:
             resources:
               limits:
                 cpu: 1000m
-                memory: 1024M
+                memory: 2048M
               requests:
-                cpu: 250m
-                memory: 256M
+                cpu: 100m
+                memory: 512M
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -266,11 +272,11 @@ spec:
 
             resources:
               limits:
-                cpu: 3000m  # limit to number of CPU cores available if possible (1000 * cores)
+                cpu: 1000m
                 memory: 2048M
               requests:
-                cpu: 500m
-                memory: 1024M
+                cpu: 100m
+                memory: 768M
 
             securityContext:
               allowPrivilegeEscalation: false

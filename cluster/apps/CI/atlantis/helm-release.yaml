@@ -67,11 +67,11 @@ spec:
 
     resources:
       requests:
-        memory: 100Mi
+        memory: 64Mi
         cpu: 100m
       limits:
-        memory: 256Mi
-        cpu: 1000m
+        memory: 128Mi
+        cpu: 200m
 
     volumeClaim:
       enabled: true

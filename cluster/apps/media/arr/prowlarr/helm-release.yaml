@@ -80,11 +80,12 @@ spec:
               readiness: *probes
 
             resources:
-              limits: &resources
-                memory: 1Gi
+              limits:
+                cpu: 250m
+                memory: 256Mi
               requests:
-                <<: *resources
                 cpu: 10m
+                memory: 128Mi
 
             securityContext:
               allowPrivilegeEscalation: false

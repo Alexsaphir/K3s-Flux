@@ -90,7 +90,8 @@ spec:
                 cpu: 10m
                 memory: 128Mi
               limits:
-                memory: 512Mi
+                cpu: 100m
+                memory: 256Mi
 
             securityContext:
               privileged: true
@@ -120,9 +121,10 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 128Mi
+                memory: 32Mi
               limits:
-                memory: 512Mi
+                cpu: 50m
+                memory: 64Mi
 
             securityContext:
               allowPrivilegeEscalation: false
