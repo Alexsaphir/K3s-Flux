@@ -37,19 +37,16 @@ spec:
 
     linux:
       driver:
-        resources:
+        resources: &resources
           limits:
-            cpu: 200m
-            memory: 200Mi
-          requests:
             cpu: 50m
-            memory: 100Mi
+            memory: 64Mi
+          requests:
+            cpu: 10m
+            memory: 32Mi
 
       registrar:
-        resources:
-          limits:
-            cpu: 300m
-            memory: 200Mi
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        resources: *resources
+
+      livenessProbe:
+        resources: *resources
