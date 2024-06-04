@@ -238,7 +238,7 @@ spec:
 
       oauth:
         gitlab-pages:
-          secret: gitlab-pages-secret
+          secret: oauth-gitlab-pages-secret
           appIdKey: appId
           appSecretKey: appSecret
           # redirectUri: redirectUri
