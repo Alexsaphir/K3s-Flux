@@ -124,7 +124,7 @@ spec:
           enabled: false
           password:
             useSecret: true
-            secret: *db-secret
+            secret: *db-ci-secret
             key: PASSWORD
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
