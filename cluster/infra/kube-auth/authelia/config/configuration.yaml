@@ -160,6 +160,12 @@ access_control:
       subject:
         - 'user:alexsaphir'
 
+    - domain:
+        - '*-staging.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'user:alexsaphir'
+
     # Ingresses for gitlab
     - domain:
         - 'workspace.${DOMAIN_NAME}'
