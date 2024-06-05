@@ -80,6 +80,7 @@ spec:
       time_zone: ${TIMEZONE}
       extraEnv:
         GITLAB_LOG_LEVEL: 'error'
+        GITLAB_ALLOW_SEPARATE_CI_DATABASE: 1
 
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-host-settings
@@ -121,7 +122,7 @@ spec:
             secret: *db-secret
             key: PASSWORD
         ci:
-          enabled: false
+          enabled: true
           password:
             useSecret: true
             secret: *db-ci-secret
