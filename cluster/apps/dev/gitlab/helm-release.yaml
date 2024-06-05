@@ -121,7 +121,7 @@ spec:
             secret: *db-secret
             key: PASSWORD
         ci:
-          enabled: false
+          enabled: true
           password:
             useSecret: true
             secret: *db-ci-secret
