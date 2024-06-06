@@ -27,6 +27,11 @@ spec:
           - resources:
               kinds:
                 - Job
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - gitlab
       #      preconditions:
       #        any:
       #          - key: "{{ request.object.metadata.ownerReferences || `[]` }}"

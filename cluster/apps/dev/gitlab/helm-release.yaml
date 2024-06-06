@@ -81,8 +81,10 @@ spec:
       ingress:
         configureCertmanager: false
         useNewIngressForCerts: false
-        provider: traefik
+        class: traefik # class name to use
         enabled: true
+        tls:
+          enabled: false
 
       # Override enablement of ServiceMonitor and PodMonitor objects.
       monitoring:
