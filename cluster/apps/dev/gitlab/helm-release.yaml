@@ -53,23 +53,8 @@ spec:
       valuesKey: LOGIN
       targetPath: global.psql.ci.username
 
-
-  # https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml
+    # https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml
   values:
-    # Please read the docs: https://docs.gitlab.com/charts/
-    ## Advanced Configuration
-    ## https://docs.gitlab.com/charts/advanced
-    #
-    # Documentation for advanced configuration, such as
-    # - External PostgreSQL
-    # - External Gitaly
-    # - External Redis
-    # - External NGINX
-    # - External Object Storage providers
-    # - PersistentVolume configuration
-
-    ## The global properties are used to configure multiple charts at once.
-    ## https://docs.gitlab.com/charts/charts/globals
     global:
       common:
         labels: { }
@@ -96,8 +81,6 @@ spec:
         configureCertmanager: false
         useNewIngressForCerts: false
         provider: traefik
-        annotations:
-          auth.home.arpa/disabled: 'true'
         enabled: true
 
       # Override enablement of ServiceMonitor and PodMonitor objects.
@@ -151,8 +134,6 @@ spec:
       ## https://docs.gitlab.com/charts/charts/globals#configure-minio-settings
       minio:
         enabled: true
-        credentials: { } # Todo: fill this
-        # secret:
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-appconfig-settings
       appConfig:
@@ -260,9 +241,6 @@ spec:
           key: secret
         hostKeys:
           secret: gitlab-shell-host-keys
-        ## https://docs.gitlab.com/charts/charts/globals#tcp-proxy-protocol
-        tcp:
-          proxyProtocol: false
 
       ## Rails application secrets
       ## Secret created according to https://docs.gitlab.com/charts/installation/secrets#gitlab-rails-secret
@@ -277,55 +255,18 @@ spec:
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-registry-settings
       registry:
-        bucket: gitlab-registry
+        enabled: true
 
-        certificate: { }
-        # secret:
+        bucket: gitlab-registry
         httpSecret:
           secret: gitlab-registry-httpsecret
           key: secret
         notificationSecret:
           secret: gitlab-registry-notification
           key: secret
-        tls:
-          enabled: false
-          # secretName:
-        redis:
-          cache:
-            password: { }
-        # https://docs.docker.com/registry/notifications/#configuration
-        notifications: { }
-
-        # Settings utilized by other services referencing registry:
-        enabled: true
-        host:
-        # port: 443
-        api:
-          protocol: http
-          serviceName: registry
-          port: 5000
-        tokenIssuer: gitlab-issuer
 
       pages:
         enabled: true
-        accessControl: true
-        path:
-        host:
-        port:
-        https: # default true
-        externalHttp: [ ]
-        externalHttps: [ ]
-        artifactsServer: true
-        localStore:
-          enabled: false
-          # path: /srv/gitlab/shared/pages
-        objectStore:
-          enabled: true
-          bucket: gitlab-pages
-          # proxy_download: true
-          connection: { }
-          # secret:
-          # key:
         apiSecret:
           secret: gitlab-pages-secret
           key: shared_secret
@@ -496,26 +437,10 @@ spec:
       ## https://docs.gitlab.com/charts/charts/globals/#jobs
       job:
         nameSuffixOverride:
-    ## End of global
+
 
     upgradeCheck:
       enabled: true
-      image: { }
-      # repository:
-      # tag:
-      # pullPolicy: IfNotPresent
-      # pullSecrets: []
-      securityContext:
-        # in alpine/debian/busybox based images, this is `nobody:nogroup`
-        runAsUser: 65534
-        fsGroup: 65534
-      tolerations: [ ]
-      annotations: { }
-      configMapAnnotations: { }
-      resources:
-        requests:
-          cpu: 50m
-      priorityClassName: ""
 
 
     certmanager:
@@ -527,15 +452,16 @@ spec:
       install: false
     prometheus:
       install: false
-    redis:
-      install: true
     postgresql:
       install: false
     traefik:
       install: false
 
-    ## Installation & configuration charts/registry
-    ## https://docs.gitlab.com/charts/architecture/decisions#registry
+
+    redis:
+      install: true
+
+
     ## https://docs.gitlab.com/charts/charts/registry/
     registry:
       enabled: true
@@ -546,84 +472,49 @@ spec:
     #    shared-secrets:
     #      enabled: false
 
-    ## Installation & configuration of gitlab/gitlab-runner
-    ## See requirements.yaml for current version
     gitlab-runner:
       install: false
-      rbac:
-        create: true
-      runners:
-        locked: false
-        # Set secret to an arbitrary value because the runner chart renders the gitlab-runner.secret template only if it is not empty.
-        # The parent/GitLab chart overrides the template to render the actual secret name.
-        secret: "nonempty"
-        config: |
-          [[runners]]
-            [runners.kubernetes]
-            image = "ubuntu:22.04"
-            {{- if .Values.global.minio.enabled }}
-            [runners.cache]
-              Type = "s3"
-              Path = "gitlab-runner"
-              Shared = true
-              [runners.cache.s3]
-                ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
-                BucketName = "runner-cache"
-                BucketLocation = "us-east-1"
-                Insecure = false
-            {{ end }}
-      podAnnotations:
-        gitlab.com/prometheus_scrape: "true"
-        gitlab.com/prometheus_port: 9252
-
 
     ## Settings for individual sub-charts under GitLab
     ## Note: Many of these settings are configurable via globals
     gitlab:
       ## https://docs.gitlab.com/charts/charts/gitlab/toolbox
       toolbox:
-        replicas: 1
-        antiAffinityLabels:
-          matchLabels:
-            app: gitaly
-      ## https://docs.gitlab.com/charts/charts/gitlab/migrations
-      #   migrations:
-      #     enabled: false
-      ## https://docs.gitlab.com/charts/charts/gitlab/webservice
-      #   webservice:
-      #     enabled: false
-      ## https://docs.gitlab.com/charts/charts/gitlab/sidekiq
-      #   sidekiq:
-      #     enabled: false
-      ## https://docs.gitlab.com/charts/charts/gitlab/gitaly
-      #   gitaly:
-      ## https://docs.gitlab.com/charts/charts/gitlab/gitlab-shell
-      #   gitlab-shell:
-      #     enabled: false
-      ## https://docs.gitlab.com/charts/charts/gitlab/gitlab-pages
+      gitaly:
+        resources:
+          requests:
+            cpu: 80m
+            memory: 660M
+          limits:
+            memory: 660M
+      webservice:
+        maxReplicas: 2
+        maxUnavailable: 1
+        minReplicas: 1
+
+        workerProcesses: 1
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            cpu: 100m
+            memory: 2Gi
+      sidekiq:
+        maxReplicas: 2
+        maxUnavailable: 1
+        minReplicas: 1
+      gitlab-shell:
+        maxReplicas: 2
+        maxUnavailable: 1
+        minReplicas: 1
       gitlab-pages:
         resources:
           requests:
-            cpu: 100m
+            cpu: 10m
             memory: 128Mi
           limits:
             cpu: 200m
             memory: 256Mi
 
-      ## https://docs.gitlab.com/charts/charts/gitlab/kas
-      #   kas:
-
-
-    ## Installation & configuration of gitlab/gitlab-zoekt
     gitlab-zoekt:
       install: true
-      gateway:
-        basicAuth:
-          enabled: true
-          secretName: '{{ include "gitlab.zoekt.gateway.basicAuth.secretName" $ }}'
-      indexer:
-        internalApi:
-          enabled: true
-          secretName: '{{ include "gitlab.zoekt.indexer.internalApi.secretName" $ }}'
-          secretKey: '{{ include "gitlab.zoekt.indexer.internalApi.secretKey" $ }}'
-          gitlabUrl: '{{ include "gitlab.zoekt.indexer.internalApi.gitlabUrl" $ }}'
