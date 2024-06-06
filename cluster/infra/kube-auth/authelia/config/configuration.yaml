@@ -161,7 +161,7 @@ access_control:
         - 'user:alexsaphir'
 
     - domain:
-        - '*-staging.${DOMAIN_NAME}'
+        - 'gitlab-staging.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'user:alexsaphir'
