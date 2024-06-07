@@ -54,7 +54,7 @@ spec:
       valuesKey: LOGIN
       targetPath: global.psql.ci.username
 
-    # https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml
+  # https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml
   values:
     global:
       common:
@@ -115,10 +115,10 @@ spec:
             key: PASSWORD
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
-      #      redis:
-      #        host: gitlab-dragonfly.gitlab.svc.cluster.local
-      #        auth:
-      #          enabled: false
+      redis:
+        host: gitlab-dragonfly.gitlab.svc.cluster.local
+        auth:
+          enabled: false
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-gitaly-settings
       gitaly:
@@ -135,8 +135,8 @@ spec:
         enabled: false
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-minio-settings
-      minio:
-        enabled: true
+      #      minio:
+      #        enabled: true
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-appconfig-settings
       appConfig:
@@ -316,30 +316,9 @@ spec:
           keyName: "tls.key"
           certName: "tls.crt"
 
-
-      ## Global Service Annotations and Labels
-      service:
-        labels: { }
-        annotations: { }
-
       ## Global Deployment Annotations
       deployment:
         annotations: { }
-
-
-      # Setting a global nodeAffinity only applies to the registry chart for now.
-      # See issue https://gitlab.com/gitlab-com/gl-infra/production-engineering/-/issues/25403 for more information
-
-      nodeAffinity:
-
-      antiAffinity: soft
-      affinity:
-        podAntiAffinity:
-          topologyKey: "kubernetes.io/hostname"
-        nodeAffinity:
-          key: topology.kubernetes.io/zone
-          values: [ ]
-
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-workhorse-settings
       ## Global settings related to Workhorse
@@ -374,26 +353,6 @@ spec:
         #     - custom-ca-2.crt
         #     - custom-ca-3.crt
 
-      ## kubectl image used by hooks to carry out specific jobs
-      kubectl:
-        image:
-          repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-          # Default tag is `global.gitlabVersion` or `master` if the former one is undefined.
-          # tag: master
-          # pullPolicy: IfNotPresent
-          # pullSecrets: []
-        securityContext:
-          # in most base images, this is `nobody:nogroup`
-          runAsUser: 65534
-          fsGroup: 65534
-      gitlabBase:
-        image:
-          repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-          # Default tag is `global.gitlabVersion` or `master` if the former one is undefined.
-          # Charts using this image as init container support further overrides with `init.image.tag`.
-          # tag: master
-          # pullPolicy: IfNotPresent
-          # pullSecrets: []
 
       ## https://docs.gitlab.com/charts/charts/globals#service-accounts
       serviceAccount:
@@ -459,10 +418,8 @@ spec:
       install: false
     traefik:
       install: false
-
-
     redis:
-      install: true
+      install: false
 
 
     ## https://docs.gitlab.com/charts/charts/registry/
