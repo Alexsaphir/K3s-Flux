@@ -28,7 +28,7 @@ spec:
       retries: 3
 
   values:
-    codecovVersion: &codecovVersion 24.2.1 # renovate: depName=codecov/self-hosted-gateway
+    codecovVersion: &codecovVersion 24.6.1 # renovate: depName=codecov/self-hosted-gateway
     codecovHost: &host codecov.${DOMAIN_NAME}
 
 
