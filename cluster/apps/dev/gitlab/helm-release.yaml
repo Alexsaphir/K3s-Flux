@@ -444,7 +444,18 @@ spec:
         maxReplicas: 2
         maxUnavailable: 1
         minReplicas: 1
+      gitlab-registry:
+        maxReplicas: 2
+        maxUnavailable: 1
+        minReplicas: 1
+      gitlab-kas:
+        maxReplicas: 2
+        maxUnavailable: 1
+        minReplicas: 1
       gitlab-pages:
+        maxReplicas: 2
+        maxUnavailable: 1
+        minReplicas: 1
         resources:
           requests:
             cpu: 10m
