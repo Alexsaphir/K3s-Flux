@@ -5,3 +5,4 @@ resources:
   - pvc.yaml
   - postgres-staging.yaml
   - postgres-ci-staging.yaml
+  - dragonfly

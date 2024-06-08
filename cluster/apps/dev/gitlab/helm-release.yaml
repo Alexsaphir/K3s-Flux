@@ -5,7 +5,7 @@ metadata:
   name: gitlab
 spec:
   interval: 15m
-  timeout: 10m
+  timeout: 20m
   chart:
     spec:
       chart: gitlab
@@ -65,7 +65,7 @@ spec:
       edition: ee
       time_zone: ${TIMEZONE}
       extraEnv:
-        GITLAB_LOG_LEVEL: 'error'
+        GITLAB_LOG_LEVEL: 'info'
         GITLAB_ALLOW_SEPARATE_CI_DATABASE: 1
 
 
@@ -116,7 +116,7 @@ spec:
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
       redis:
-        #        host: gitlab-dragonfly.gitlab.svc.cluster.local
+        host: gitlab-dragonfly.gitlab.svc.cluster.local
         auth:
           enabled: false
 
@@ -135,8 +135,10 @@ spec:
         enabled: false
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-minio-settings
-      #      minio:
-      #        enabled: true
+      minio:
+        enabled: true
+        credentials:
+          secret: gitlab-minio-secret
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-appconfig-settings
       appConfig:
@@ -277,32 +279,10 @@ spec:
         # secret:
         # key:
 
-      ## GitLab Runner
-      ## Secret created according to https://docs.gitlab.com/charts/installation/secrets#gitlab-runner-secret
-      ## If allowing shared-secrets generation, this is OPTIONAL.
-      runner:
-        registrationToken: { }
-        # secret:
-
       ## https://docs.gitlab.com/charts/charts/globals#outgoing-email
       ## Outgoing email server settings
       smtp:
         enabled: false
-        address: smtp.mailgun.org
-        port: 2525
-        user_name: ""
-        ## https://docs.gitlab.com/charts/installation/secrets#smtp-password
-        password:
-          secret: ""
-          key: password
-        # domain:
-        authentication: "plain"
-        starttls_auto: false
-        openssl_verify_mode: "peer"
-        open_timeout: 30
-        read_timeout: 60
-        pool: false
-
       ## https://docs.gitlab.com/charts/charts/globals#outgoing-email
       ## Email persona used in email sent by GitLab
       email:
@@ -312,9 +292,6 @@ spec:
         subject_suffix: ""
         smime:
           enabled: false
-          secretName: ""
-          keyName: "tls.key"
-          certName: "tls.crt"
 
       ## Global Deployment Annotations
       deployment:
@@ -418,10 +395,8 @@ spec:
       install: false
     traefik:
       install: false
-
-
     redis:
-      install: true
+      install: false
 
 
     ## https://docs.gitlab.com/charts/charts/registry/
