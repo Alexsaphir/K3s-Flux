@@ -116,7 +116,7 @@ spec:
 
       ## https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
       redis:
-        host: gitlab-dragonfly.gitlab.svc.cluster.local
+        #        host: gitlab-dragonfly.gitlab.svc.cluster.local
         auth:
           enabled: false
 
@@ -418,8 +418,10 @@ spec:
       install: false
     traefik:
       install: false
+
+
     redis:
-      install: false
+      install: true
 
 
     ## https://docs.gitlab.com/charts/charts/registry/
