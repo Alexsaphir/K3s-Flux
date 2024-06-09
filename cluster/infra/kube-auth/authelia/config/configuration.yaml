@@ -174,17 +174,18 @@ access_control:
 
     - domain:
         - 'hajimari.${DOMAIN_NAME}'
+        - 'lldap.${DOMAIN_NAME}'
+        - 'mail.${DOMAIN_NAME}'
       policy: two_factor
 
     - domain:
         - 'gitops.${DOMAIN_NAME}'
-        - 'lldap.${DOMAIN_NAME}'
+        - 'hubble.${DOMAIN_NAME}'
         - 'longhorn.${DOMAIN_NAME}'
         - 'netbox.${DOMAIN_NAME}'
         - 'portainer.${DOMAIN_NAME}'
         - 'grafana.${DOMAIN_NAME}'
         - 'atlantis.${DOMAIN_NAME}'
-        - 'mail.${DOMAIN_NAME}'
         - 'git.${DOMAIN_NAME}'
       policy: two_factor
       subject:
@@ -198,7 +199,6 @@ access_control:
 
     - domain:
         - '*.${DOMAIN_NAME}'
-        - '*.monitoring.${DOMAIN_NAME}'
       policy: deny
 
 identity_providers:
