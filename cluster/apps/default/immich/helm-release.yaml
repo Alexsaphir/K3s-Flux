@@ -317,7 +317,7 @@ spec:
                   "modelName": {{ .Values.immich.machineLearning.clipModelName | quote }}
                 },
                 "duplicateDetection": {
-                  "enabled": false,
+                  "enabled": true,
                   "maxDistance": 0.03
                 },
                 "facialRecognition": {
