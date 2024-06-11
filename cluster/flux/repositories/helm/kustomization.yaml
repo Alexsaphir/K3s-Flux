@@ -58,6 +58,7 @@ resources:
   - onyxia.yaml
   - openebs.yaml
   - opensearch.yaml
+  - opstree.yaml
   - ori-edge.yaml
   - piraeus.yaml
   - portainer.yaml

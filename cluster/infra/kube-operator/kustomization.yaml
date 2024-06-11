@@ -13,5 +13,5 @@ resources:
   - volcano-operator/ks.yaml
 
   - opensearch-operator/ks.yaml
-
+  - redis-opstree-operator/ks.yaml
   - database
