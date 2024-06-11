@@ -231,14 +231,14 @@ spec:
         enabled: true
         data:
           LOG_LEVEL: '{{ .Values.immich.logLevel }}'
+          NODE_ENV: 'production'
 
           REDIS_HOSTNAME: immich-dragonfly
           REDIS_PORT: '6379'
 
           IMMICH_CONFIG_FILE: /usr/src/app/immich-config.json
 
-          IMMICH_WEB_URL: http://immich-web:3000
-          IMMICH_SERVER_URL: http://immich-server:3001
+          IMMICH_SERVER_URL: http://immich-app:3001
           IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning:3003
 
           TRANSFORMERS_CACHE: /usr/src/app/.transformers_cache
