@@ -8,4 +8,4 @@ resources:
   - planka
   - planka-prod
   - forgejo
-  - gitlab
+  #  - gitlab
