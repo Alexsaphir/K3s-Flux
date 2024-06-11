@@ -87,11 +87,8 @@ spec:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: *immichVersion
-
-            command: /bin/sh
-            args: [ 'start-server.sh' ]
-
             env:
+              TZ: ${TIMEZONE}
               NODE_ENV: &node-env production
 
               DB_URL:
@@ -103,46 +100,6 @@ spec:
             envFrom:
               - configMapRef:
                   name: &configMap immich-config
-
-            resources:
-              requests:
-                cpu: 100m
-                memory: 250Mi
-
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
-
-      microservices:
-        type: deployment
-        replicas: 1
-        annotations:
-          configmap.reloader.stakater.com/reload: *config
-          secret.reloader.stakater.com/reload: *secret
-
-        containers:
-          app:
-            image:
-              repository: ghcr.io/immich-app/immich-server
-              tag: *immichVersion
-
-            command: /bin/sh
-            args: [ 'start-microservices.sh' ]
-
-            env:
-              TZ: ${TIMEZONE}
-              NODE_ENV: *node-env
-
-              DB_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: database-immich
-                    key: POSTGRES_URL
-
-            envFrom:
-              - configMapRef:
-                  name: *configMap
 
             resources:
               requests:
@@ -165,6 +122,7 @@ spec:
               - 44
               - 109
 
+
       machine-learning:
         enabled: true
         type: deployment
@@ -180,6 +138,7 @@ spec:
               tag: *immichVersion
 
             env:
+              TZ: ${TIMEZONE}
               NODE_ENV: *node-env
               MACHINE_LEARNING_CACHE_FOLDER: /cache
 
@@ -231,10 +190,6 @@ spec:
         name: immich-settings
         advancedMounts:
           immich:
-            app:
-              - path: /usr/src/app/immich-config.json
-                subPath: immich-config.json
-          microservices:
             app:
               - path: /usr/src/app/immich-config.json
                 subPath: immich-config.json
