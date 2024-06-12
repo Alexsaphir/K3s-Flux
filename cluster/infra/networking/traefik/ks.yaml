@@ -12,7 +12,6 @@ spec:
 
   dependsOn:
     - name: cluster-infra-kube-prometheus-stack-crds
-    - name: cluster-infra-kyverno-policies
     - name: cluster-infra-cert-manager-certificates
     - name: cluster-infra-authelia
 
