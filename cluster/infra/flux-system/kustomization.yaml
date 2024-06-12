@@ -5,4 +5,4 @@ resources:
   # Pre Flux-Kustomizations
   - addons
   # Flux-Kustomizations
-  - weave-gitops/ks.yaml
+  # - weave-gitops/ks.yaml
