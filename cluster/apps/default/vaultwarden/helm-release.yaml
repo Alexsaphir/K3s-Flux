@@ -93,7 +93,7 @@ spec:
       app:
         className: traefik
         annotations:
-          auth.home.arpa/disabled: 'true'
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: *domain_name
             paths:

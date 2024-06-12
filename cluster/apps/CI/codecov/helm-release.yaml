@@ -327,6 +327,7 @@ spec:
         annotations:
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:source-branch-check
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: *host
             paths:

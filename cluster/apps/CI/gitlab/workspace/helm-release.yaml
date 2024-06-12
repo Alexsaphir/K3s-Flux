@@ -67,7 +67,8 @@ spec:
         workspaceDomain: 'workspace.${DOMAIN_NAME}'
         wildcardDomain: '*.workspace.${DOMAIN_NAME}'
       className: traefik
-      annotations: { }
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
 
     auth:
       host: https://gitlab.alexsaphir.com/

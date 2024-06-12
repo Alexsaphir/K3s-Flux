@@ -109,6 +109,8 @@ spec:
     ingress:
       app:
         className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: '{{ .Release.Name }}.${DOMAIN_NAME}'
             paths:

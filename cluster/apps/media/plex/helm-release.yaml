@@ -99,7 +99,7 @@ spec:
       app:
         className: traefik
         annotations:
-          auth.home.arpa/disabled: 'true'
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:plex
         hosts:
