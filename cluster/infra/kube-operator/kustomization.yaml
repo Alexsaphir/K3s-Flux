@@ -10,7 +10,7 @@ resources:
   - dragonfly/ks.yaml
   - mongodb-operator/ks.yaml
 
-  - volcano-operator/ks.yaml
+  # - volcano-operator/ks.yaml
 
   - opensearch-operator/ks.yaml
 
