@@ -74,10 +74,10 @@ spec:
         cpu: 200m
 
     volumeClaim:
-      enabled: true
-      dataStorage: 5Gi
-      storageClassName: longhorn
-
+      enabled: false
+    extraVolumeMounts:
+      - name: atlantis-data
+        mountPath: /atlantis-data
 
     environment:
       ATLANTIS_DEFAULT_TF_VERSION: v1.7.2
