@@ -51,7 +51,7 @@ spec:
       kube-vip:
         type: daemonset
         containers:
-          app:
+          kube-vip:
             image:
               repository: ghcr.io/kube-vip/kube-vip
               tag: v0.8.0@sha256:360f0c5d02322075cc80edb9e4e0d2171e941e55072184f1f902203fafc81d0f
