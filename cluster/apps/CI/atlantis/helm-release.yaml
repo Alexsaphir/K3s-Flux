@@ -78,6 +78,7 @@ spec:
     extraVolumeMounts:
       - name: atlantis-data
         mountPath: /atlantis-data
+        existingClaim: atlantis-data
 
     environment:
       ATLANTIS_DEFAULT_TF_VERSION: v1.7.2
