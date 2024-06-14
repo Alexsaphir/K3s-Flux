@@ -13,7 +13,7 @@ collections:
     version: 1.5.4
 
   - name: ansible.utils
-    version: 4.1.0
+    version: 5.0.0
 
 
 roles:
