@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: docker.io/mpepping/cyberchef
-              tag: v10.18.6
+              tag: v10.18.8
 
             env:
               TZ: ${TIMEZONE}
