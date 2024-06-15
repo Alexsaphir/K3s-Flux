@@ -23,7 +23,7 @@ packages:
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.26.3
-  - name: derailed/k9s@v0.32.4
+  - name: derailed/k9s@v0.32.5
   - name: FairwindsOps/nova@v3.9.0
   - name: FairwindsOps/pluto@v5.19.4
   - name: instrumenta/kubeval@v0.16.1
