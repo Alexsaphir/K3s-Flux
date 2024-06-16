@@ -54,7 +54,6 @@ spec:
               tag: 0.3.28.2554@sha256:4beda7d63d2cb014a860bf4f8fa367f9621e378675396b684d300f1e3a0380dc
 
             env:
-              PUSHOVER_DEBUG: 'false'
               READARR__AUTHENTICATION_METHOD: None
               # READARR__AUTHENTICATION_METHOD: External
               # READARR__AUTHENTICATION_REQUIRED: Enabled
@@ -62,7 +61,7 @@ spec:
               READARR__PORT: &port 8787
               READARR__LOG_LEVEL: info
               READARR__THEME: light
-              READARR__ANALYTICS_ENABLED: 'false'
+              READARR__ANALYTICSENABLED: 'false'
               TZ: ${TIMEZONE}
 
             envFrom:

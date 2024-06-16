@@ -54,14 +54,13 @@ spec:
               tag: 4.0.5.1740@sha256:3890ecfb9628a528b2e8c511addc08ed5b875868d8e72bcbc9a1828af477444d
 
             env:
-              PUSHOVER_DEBUG: 'false'
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: Enabled
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__SERVER__PORT: &port 8989
               SONARR__LOG__LEVEL: info
               SONARR__APP__THEME: light
-              SONARR__LOG__ANALYTICS_ENABLED: 'false'
+              SONARR__LOG__ANALYTICSENABLED: 'false'
               SONARR__UPDATE__BRANCH: develop
 
               TZ: ${TIMEZONE}

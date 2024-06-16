@@ -54,14 +54,13 @@ spec:
               tag: 2.3.3.4204@sha256:8061ccda9651601d112dfb1476cc32aa23826e4685c202da56ecb81b218ef491
 
             env:
-              PUSHOVER_DEBUG: 'false'
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: Enabled
-              LIDARR__INSTANCE_NAME: Lidarr
-              LIDARR__PORT: &port 8686
-              LIDARR__LOG_LEVEL: info
-              LIDARR__THEME: light
-              LIDARR__ANALYTICS_ENABLED: 'false'
+              LIDARR__APP__INSTANCENAME: Lidarr
+              LIDARR__SERVER__PORT: &port 8686
+              LIDARR__LOG__LEVEL: info
+              LIDARR__APP__THEME: light
+              LIDARR__LOG__ANALYTICSENABLED: 'false'
               TZ: ${TIMEZONE}
 
             envFrom:
