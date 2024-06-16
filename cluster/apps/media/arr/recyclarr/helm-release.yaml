@@ -27,6 +27,10 @@ spec:
       strategy: rollback
       retries: 3
 
+  dependsOn:
+    - name: sonarr
+    - name: radarr
+
   values:
     defaultPodOptions:
       automountServiceAccountToken: false

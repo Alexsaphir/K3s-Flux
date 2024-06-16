@@ -27,6 +27,9 @@ spec:
       strategy: rollback
       retries: 3
 
+  dependsOn:
+    - name: prowlarr
+
   values:
     defaultPodOptions:
       automountServiceAccountToken: false
