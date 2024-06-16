@@ -71,6 +71,8 @@ spec:
               OIDC_ADMIN_ROLES: planka-admin
               OIDC_ROLES_ATTRIBUTE: groups
 
+              ALLOW_ALL_TO_CREATE_PROJECTS: 'true'
+
               # Email Notifications (https://nodemailer.com/smtp/)
               SMTP_HOST: mailpit.mail.svc.cluster.local
               SMTP_PORT: 1025

@@ -62,6 +62,8 @@ spec:
               OIDC_SCOPES: openid profile email
               OIDC_IGNORE_ROLES: 'true'
 
+              ALLOW_ALL_TO_CREATE_PROJECTS: 'true'
+
               # Email Notifications (https://nodemailer.com/smtp/)
               # - SMTP_HOST=
               # - SMTP_PORT=587
