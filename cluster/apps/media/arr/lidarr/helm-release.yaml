@@ -54,6 +54,7 @@ spec:
               tag: 2.3.3.4204@sha256:8061ccda9651601d112dfb1476cc32aa23826e4685c202da56ecb81b218ef491
 
             env:
+              COMPlus_EnableDiagnostics: "0"
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__AUTHENTICATION_REQUIRED: Enabled
               LIDARR__APP__INSTANCENAME: Lidarr
@@ -68,22 +69,17 @@ spec:
                   name: lidarr-secret
 
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
                 spec:
-                  httpGet:
-                    path: /ping
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             resources:
-              limits:
-                cpu: 50m
               requests:
                 cpu: 10m
                 memory: 256Mi

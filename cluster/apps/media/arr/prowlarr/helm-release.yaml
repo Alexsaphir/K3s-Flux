@@ -51,11 +51,12 @@ spec:
               tag: 1.18.0.4543@sha256:3b7016455028840cae468f1227560e84926c47d1d30b4f73c269704b3f97362f
 
             env:
+              COMPlus_EnableDiagnostics: "0"
               PROWLARR__AUTH__METHOD: External
               PROWLARR__AUTH__REQUIRED: Enabled
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__SERVER__PORT: &port 9696
-              PROWLARR__LOG__ANALYTICSENABLED: 'false'
+              PROWLARR__LOG__ANALYTICS_ENABLED: 'false'
               PROWLARR__LOG__LEVEL: info
               PROWLARR__APP__THEME: light
               PROWLARR__UPDATE__BRANCH: develop
@@ -66,18 +67,15 @@ spec:
                   name: prowlarr-secret
 
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
                 spec:
-                  httpGet:
-                    path: /ping
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             resources:
               limits:

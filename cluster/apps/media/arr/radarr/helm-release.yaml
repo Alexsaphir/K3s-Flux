@@ -54,6 +54,7 @@ spec:
               tag: 5.6.0.8846@sha256:99c264af3f2d177e6674a9b304b64a35261202de30e54b35d5758d40edd94366
 
             env:
+              COMPlus_EnableDiagnostics: "0"
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: Enabled
               RADARR__APP__INSTANCENAME: Radarr
@@ -69,22 +70,17 @@ spec:
                   name: radarr-secret
 
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
                 spec:
-                  httpGet:
-                    path: /ping
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             resources:
-              limits:
-                cpu: 100m
               requests:
                 cpu: 10m
                 memory: 768Mi

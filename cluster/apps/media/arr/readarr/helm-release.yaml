@@ -54,6 +54,7 @@ spec:
               tag: 0.3.28.2554@sha256:4beda7d63d2cb014a860bf4f8fa367f9621e378675396b684d300f1e3a0380dc
 
             env:
+              COMPlus_EnableDiagnostics: "0"
               READARR__AUTHENTICATION_METHOD: None
               # READARR__AUTHENTICATION_METHOD: External
               # READARR__AUTHENTICATION_REQUIRED: Enabled
@@ -69,22 +70,17 @@ spec:
                   name: readarr-secret
 
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
                 spec:
-                  httpGet:
-                    path: /ping
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             resources:
-              limits:
-                cpu: 10m
               requests:
                 cpu: 10m
                 memory: 128Mi
