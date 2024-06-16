@@ -31,6 +31,10 @@ spec:
   # https://github.com/longhorn/longhorn/blob/v1.6.0/chart/values.yaml
   values:
     pspEnable: false
+
+    preUpgradeChecker:
+      jobEnabled: false
+
     persistence:
       defaultClass: true
       defaultFsType: ext4
@@ -48,6 +52,7 @@ spec:
       guaranteedInstanceManagerCPU: 5
 
       createDefaultDiskLabeledNodes: true
+      allowEmptyDiskSelectorVolume: false
 
       defaultLonghornStaticStorageClass: longhorn
       defaultDataPath: /var/lib/longhorn
@@ -58,11 +63,20 @@ spec:
       backupTargetCredentialSecret: longhorn-backup-secrets
       backupstorePollInterval: 60
       failedBackupTTL: 1440
+      allowRecurringJobWhileVolumeDetached: true
+      restoreVolumeRecurringJobs: true
 
+      snapshotDataIntegrity: fast-check
       snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: false
       snapshotDataIntegrityCronjob: 0 8 */7 * *
 
+      autoCleanupSystemGeneratedSnapshot: true
+      autoDeletePodWhenVolumeDetachedUnexpectedly: true
+      removeSnapshotsDuringFilesystemTrim: enabled
+
+
       upgradeChecker: false
+      v2DataEngine: false
 
     csi:
       attacherReplicaCount: 2
