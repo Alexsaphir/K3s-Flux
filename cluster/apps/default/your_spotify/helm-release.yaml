@@ -152,5 +152,5 @@ spec:
         existingClaim: your-spotify
         advancedMounts:
           mongodb:
-            main:
+            app:
               - path: /data
