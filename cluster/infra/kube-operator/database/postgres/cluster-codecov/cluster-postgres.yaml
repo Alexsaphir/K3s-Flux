@@ -19,7 +19,7 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: local-path
+    storageClass: openebs-hostpath
 
   monitoring:
     enablePodMonitor: true
@@ -41,8 +41,11 @@ spec:
 
   bootstrap:
     initdb:
-      database: codecov
-      owner: codecov
+      postInitTemplateSQL:
+        - CREATE EXTENSION timescaledb;
+    postgresql:
+      shared_preload_libraries:
+        - timescaledb
 
     #    recovery:
     #      source: &previousCluster codecov-postgres-16-v5
