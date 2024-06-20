@@ -60,7 +60,7 @@ spec:
   interval: 10m
   retryInterval: 5m
   prune: true
-  wait: true
+  wait: false
 
   dependsOn:
     - name: cluster-infra-postgres-cluster
