@@ -37,15 +37,15 @@ spec:
       max_slot_wal_keep_size: 10GB
       shared_buffers: "512MB"
     shared_preload_libraries:
-      - "vectors.so"
+      - timescaledb
 
   bootstrap:
     initdb:
+      database: codecov
+      owner: codecov
+
       postInitTemplateSQL:
         - CREATE EXTENSION timescaledb;
-    postgresql:
-      shared_preload_libraries:
-        - timescaledb
 
     #    recovery:
     #      source: &previousCluster codecov-postgres-16-v5
