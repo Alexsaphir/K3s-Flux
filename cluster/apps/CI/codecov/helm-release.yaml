@@ -48,6 +48,8 @@ spec:
       SERVICES__MINIO__PORT: &minio-port 9000
       SERVICES__MINIO__VERIFY_SSL: false
 
+      SETUP__TIMESERIES__ENABLED: 'false'
+
       SETUP__ENTERPRISE_LICENSE:
         valueFrom:
           secretKeyRef:
@@ -313,9 +315,6 @@ spec:
                   username: Saphir
                 - service: gitlab_enterprise
                   username: Alexsaphir
-
-              timeseries:
-                enabled: false
 
             services:
               database_url: 'postgres://{{.Values.codecovConfig.database.login}}:{{.Values.codecovConfig.database.password}}@{{.Values.codecovConfig.database.host}}:{{.Values.codecovConfig.database.port}}/{{.Values.codecovConfig.database.db}}'
