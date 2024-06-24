@@ -28,7 +28,6 @@ spec:
       retries: 3
 
   values:
-    codecovVersion: &codecovVersion 24.6.12 # renovate: depName=codecov/self-hosted-gateway
     codecovHost: &host codecov.${DOMAIN_NAME}
 
 
@@ -96,7 +95,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-gateway
-              tag: *codecovVersion
+              tag: 24.6.12
             env:
               CODECOV_GATEWAY_MINIO_ENABLED: true
 
@@ -157,7 +156,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-frontend
-              tag: *codecovVersion
+              tag: 24.6.12
             env:
               CODECOV_BASE_HOST: *host
               CODECOV_API_HOST: *host
@@ -212,7 +211,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-api
-              tag: *codecovVersion
+              tag: 24.6.1
 
             env: *global_env
 
@@ -265,7 +264,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-worker
-              tag: *codecovVersion
+              tag: 24.6.1
             env:
               RUN_ENV: ENTERPRISE
               <<: *global_env
