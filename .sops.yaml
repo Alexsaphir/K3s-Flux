@@ -3,13 +3,16 @@ creation_rules:
   - path_regex: cluster/.+\.sops\.ya?ml
     input_type: yaml
     encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
 
   - path_regex: provision/.+\.sops\.ya?ml
     input_type: yaml
     unencrypted_regex: "^(kind)$"
+    mac_only_encrypted: true
 
   - path_regex: cluster/.+\.sops\.toml
     input_type: toml
+    mac_only_encrypted: true
 
 stores:
   yaml:
