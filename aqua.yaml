@@ -7,7 +7,7 @@ registries:
     ref: v4.200.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.34.0
-  - name: go-task/task@v3.37.2
+  - name: go-task/task@v3.38.0
   - name: gitleaks/gitleaks@v8.18.4
   - name: firecow/gitlab-ci-local@4.51.0
   - name: FiloSottile/age@v1.2.0
