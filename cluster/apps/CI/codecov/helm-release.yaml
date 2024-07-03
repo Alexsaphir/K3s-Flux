@@ -97,7 +97,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-gateway
-              tag: 24.6.12
+              tag: 24.7.1
             env:
               CODECOV_GATEWAY_MINIO_ENABLED: true
 
@@ -158,7 +158,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-frontend
-              tag: 24.6.12
+              tag: 24.7.1
             env:
               CODECOV_BASE_HOST: *host
               CODECOV_API_HOST: *host
@@ -266,7 +266,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-worker
-              tag: 24.6.1
+              tag: 24.7.1
             env:
               RUN_ENV: ENTERPRISE
               <<: *global_env
