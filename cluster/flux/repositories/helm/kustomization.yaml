@@ -66,6 +66,7 @@ resources:
   - sonarqube.yaml
   - stakater.yaml
   - stefanprodan.yaml
+  - tailscale.yaml
   - telepresence.yaml
   - traefik.yaml
   - trivy-exporter.yaml

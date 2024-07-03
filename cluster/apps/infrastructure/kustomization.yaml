@@ -6,3 +6,4 @@ resources:
   - portainer
   - zitadel
   - mailpit
+  - tailscale
