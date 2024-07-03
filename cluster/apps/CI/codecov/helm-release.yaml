@@ -213,7 +213,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-api
-              tag: 24.6.1
+              tag: 24.7.1
 
             env: *global_env
 
