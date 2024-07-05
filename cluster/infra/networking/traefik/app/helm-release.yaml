@@ -166,12 +166,14 @@ spec:
 
     metrics:
       prometheus:
+        enabled: true
         entryPoint: metrics
         service:
           enabled: true
 
         disableAPICheck: true
         serviceMonitor:
+          enabled: true
           namespace: "network-system"
           namespaceSelector: { }
           metricRelabelings:
@@ -192,6 +194,7 @@ spec:
           scrapeTimeout: 5s
           honorLabels: true
         prometheusRule:
+          enabled: true
           additionalLabels: { }
           namespace: "network-system"
           rules:
