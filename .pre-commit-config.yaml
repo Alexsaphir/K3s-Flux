@@ -41,7 +41,7 @@ repos:
         args: [ "--lock" ]
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 37.428.3
+    rev: 37.431.4
     hooks:
       - id: renovate-config-validator
 
@@ -76,7 +76,7 @@ repos:
 
   # Check commit name
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v3.2.0
+    rev: v3.3.0
     hooks:
       - id: conventional-pre-commit
         stages: [ commit-msg ]
