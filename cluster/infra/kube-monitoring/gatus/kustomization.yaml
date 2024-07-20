@@ -5,6 +5,7 @@ namespace: flux-monitoring
 resources:
   - postgres.yaml
   - rbac.yaml
+  - secret.sops.yaml
   - helm-release.yaml
 
 configMapGenerator:
