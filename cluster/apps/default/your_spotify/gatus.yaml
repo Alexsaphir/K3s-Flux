@@ -10,9 +10,9 @@ data:
     endpoints:
       - name: "Spotify"
         group: 'Apps - SelfHosted'
-        url: "https://spotify.${DOMAIN_NAME}/login"
+        url: "https://spotify.${DOMAIN_NAME}"
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
         conditions:
-          - "[STATUS] == 200"
+          - "[STATUS] == 401"
