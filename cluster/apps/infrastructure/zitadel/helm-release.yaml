@@ -84,7 +84,7 @@ spec:
 
     image:
       repository: ghcr.io/zitadel/zitadel
-      tag: v2.56.1
+      tag: v2.57.0
       pullPolicy: IfNotPresent
 
     # Additional environment variables
