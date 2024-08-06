@@ -220,13 +220,13 @@ typing = ["typing-extensions (>=4.8)"]
 
 [[package]]
 name = "flux-local"
-version = "5.4.0"
+version = "5.5.0"
 description = "flux-local is a python library and set of tools for managing a flux gitops repository, with validation steps to help improve quality of commits, PRs, and general local testing."
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "flux_local-5.4.0-py3-none-any.whl", hash = "sha256:133737fd5d1968be73d088b43d31736a0d14627997fb7ae51eafe728648f468a"},
-    {file = "flux_local-5.4.0.tar.gz", hash = "sha256:2e3767c5e8da435f57bbc94d643d9e8a01777bd13209c4da5fc03b96540f37dc"},
+    {file = "flux_local-5.5.0-py3-none-any.whl", hash = "sha256:762761ef21a6e66909ca3997b95f0f38f0dc35670cd76220207eb08fbff66ec0"},
+    {file = "flux_local-5.5.0.tar.gz", hash = "sha256:747c8d99584a57dd401d7a66cfe88bd042d25387c7492a572b43eff02d9665f8"},
 ]
 
 [package.dependencies]
@@ -748,4 +748,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "30b695cfd9d3982faa0748bc937fbb2fb9fbb705b0333ef683a457fe66943247"
+content-hash = "f9c0a82c8040d938b635b2355a136b388574996a7c80bf495311b9e1ec7a2036"
