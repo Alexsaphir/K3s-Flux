@@ -138,9 +138,6 @@ spec:
         redirectTo:
           port: websecure
         advertisedPort: 80
-        transport:
-          respondingTimeouts:
-            readTimeout: 0s
 
       websecure:
         # TODO: enable when v3 released
@@ -154,6 +151,9 @@ spec:
         tls:
           enabled: true
           options: "default"
+        transport:
+          respondingTimeouts:
+            readTimeout: '0s'
 
       metrics:
         port: 8082
