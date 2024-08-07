@@ -138,6 +138,9 @@ spec:
         redirectTo:
           port: websecure
         advertisedPort: 80
+        transport:
+          respondingTimeouts:
+            readTimeout: 0s
 
       websecure:
         # TODO: enable when v3 released
