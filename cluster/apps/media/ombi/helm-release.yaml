@@ -111,15 +111,15 @@ spec:
             {
               "OmbiDatabase": {
                 "Type": "Postgres",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};User={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};Username={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
               },
               "SettingsDatabase": {
                 "Type": "Postgres",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};User={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};Username={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
               },
               "ExternalDatabase": {
                 "Type": "Postgres",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};User={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};Username={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
               }
             }
 
