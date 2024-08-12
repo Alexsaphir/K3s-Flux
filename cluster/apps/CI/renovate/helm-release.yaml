@@ -113,7 +113,6 @@ spec:
                 memory: 1Gi
               limits:
                 cpu: 1000m
-                memory: 2Gi
 
     service:
       app:
@@ -151,3 +150,7 @@ spec:
         sizeLimit: 4Gi
         globalMounts:
           - path: '/tmp/renovate'
+
+      tmp:
+        enabled: true
+        type: emptyDir
