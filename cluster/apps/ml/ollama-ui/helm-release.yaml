@@ -66,6 +66,8 @@ spec:
       app:
         enabled: true
         className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
           - host: &host "ollama.${DOMAIN_NAME}"
             paths:
