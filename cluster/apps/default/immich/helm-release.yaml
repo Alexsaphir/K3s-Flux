@@ -327,13 +327,13 @@ spec:
                 modelName: {{ .Values.immich.machineLearning.clipModelName | quote }}
               duplicateDetection:
                 enabled: true
-                maxDistance: {{ .Values.immich.machineLearning.duplicateDetection.maxDistance | quote }}
+                maxDistance: {{ .Values.immich.machineLearning.duplicateDetection.maxDistance }}
               facialRecognition:
                 enabled: true
                 modelName: {{ .Values.immich.machineLearning.facialRecognition.modelName | quote }}
-                minScore: {{ .Values.immich.machineLearning.facialRecognition.minScore | quote }}
-                maxDistance: {{ .Values.immich.machineLearning.facialRecognition.maxDistance | quote }}
-                minFaces: {{ .Values.immich.machineLearning.facialRecognition.minFaces | quote }}
+                minScore: {{ .Values.immich.machineLearning.facialRecognition.minScore }}
+                maxDistance: {{ .Values.immich.machineLearning.facialRecognition.maxDistance }}
+                minFaces: {{ .Values.immich.machineLearning.facialRecognition.minFaces }}
 
             map:
               enabled: true
@@ -365,7 +365,7 @@ spec:
             storageTemplate:
               enabled: true
               hashVerificationEnabled: true
-              template: {{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}
+              template: "{{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}"
 
             image:
               thumbnailFormat: webp
