@@ -25,7 +25,7 @@
   configMigration: true,
   dependencyDashboard: true,
   dependencyDashboardTitle: 'Renovate Dashboard',
-  gitLabIgnoreApprovals: true,
+  gitLabIgnoreApprovals: false,
   suppressNotifications: [
     'prEditedNotification',
     'prIgnoreNotification',
