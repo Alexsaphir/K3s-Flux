@@ -50,15 +50,27 @@ spec:
         migration: 5
         thumbnailGeneration: 10
         videoConversion: 1
+        notifications: 5
 
       machineLearning:
-        clipModelName: ViT-B-32__openai
-        facialRecognitionModelName: antelopev2
+        clipModelName: ViT-B-16-SigLIP-384__webli
+
+        duplicateDetection:
+          maxDistance: 0.01 # 0.001-0.1
+
+        facialRecognition:
+          modelName: antelopev2
+          minScore: 0.7 # 0-1
+          maxDistance: 0.6 # 0-2
+          minFaces: 4 # 2
 
       enablePasswordLogin: false
       oauth:
         issuerUrl: https://auth.${DOMAIN_NAME}
         clientId: immich
+
+      ffmpeg:
+        tonemap: reinhard # hable, mobius, reinhard, disabled
 
     defaultPodOptions:
       automountServiceAccountToken: false
@@ -236,7 +248,7 @@ spec:
           REDIS_HOSTNAME: immich-dragonfly
           REDIS_PORT: '6379'
 
-          IMMICH_CONFIG_FILE: /usr/src/app/immich-config.json
+          IMMICH_CONFIG_FILE: /usr/src/app/immich-config.yaml
 
           IMMICH_SERVER_URL: http://immich-app:3001
           IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning:3003
@@ -246,152 +258,158 @@ spec:
       settings:
         enabled: true
         data:
-          immich-config.json: |
-            {
-              "ffmpeg": {
-                "crf": 23,
-                "threads": 0,
-                "preset": "ultrafast",
-                "targetVideoCodec": "h264",
-                "acceptedVideoCodecs": ["h264"],
-                "targetAudioCodec": "aac",
-                "acceptedAudioCodecs": ["aac", "mp3", "libopus"],
-                "targetResolution": "720",
-                "maxBitrate": "0",
-                "bframes": -1,
-                "refs": 0,
-                "gopSize": 0,
-                "npl": 0,
-                "temporalAQ": false,
-                "cqMode": "auto",
-                "twoPass": false,
-                "preferredHwDevice": "auto",
-                "transcode": "required",
-                "tonemap": "hable",
-                "accel": "disabled"
-              },
+          immich-config.yaml: |
+            ---
+            ffmpeg:
+              crf: 23
+              threads: 0
+              preset: ultrafast
+              targetVideoCodec: h264
+              acceptedVideoCodecs:
+                - h264
+              targetAudioCodec: aac
+              acceptedAudioCodecs:
+                - aac
+                - mp3
+                - libopus
+              acceptedContainers:
+                - mov
+                - ogg
+                - webm
+              targetResolution: '720'
+              maxBitrate: '0'
+              bframes: -1
+              refs: 0
+              gopSize: 0
+              npl: 0
+              temporalAQ: false
+              cqMode: auto
+              twoPass: false
+              preferredHwDevice: auto
+              transcode: required
+              tonemap: '{{ .Values.immich.ffmpeg.tonemap | quote }}'
+              accel: disabled
+              accelDecode: false
 
-              "job": {
-                "backgroundTask": {
-                  "concurrency": {{ .Values.immich.concurrency.backgroundTask }}
-                },
-                "smartSearch": {
-                  "concurrency": {{ .Values.immich.concurrency.smartSearch }}
-                },
-                "metadataExtraction": {
-                  "concurrency": {{ .Values.immich.concurrency.metadataExtraction }}
-                },
-                "faceDetection": {
-                  "concurrency": {{ .Values.immich.concurrency.faceDetection }}
-                },
-                "search": {
-                  "concurrency": {{ .Values.immich.concurrency.search }}
-                },
-                "sidecar": {
-                  "concurrency": {{ .Values.immich.concurrency.sidecar }}
-                },
-                "library": {
-                  "concurrency": {{ .Values.immich.concurrency.library }}
-                },
-                "migration": {
-                  "concurrency": {{ .Values.immich.concurrency.migration }}
-                },
-                "thumbnailGeneration": {
-                  "concurrency": {{ .Values.immich.concurrency.thumbnailGeneration }}
-                },
-                "videoConversion": {
-                  "concurrency": {{ .Values.immich.concurrency.videoConversion }}
-                }
-              },
+            job:
+              backgroundTask:
+                concurrency: '{{ .Values.immich.concurrency.backgroundTask }}'
+              smartSearch:
+                concurrency: '{{ .Values.immich.concurrency.smartSearch }}'
+              metadataExtraction:
+                concurrency: '{{ .Values.immich.concurrency.metadataExtraction }}'
+              faceDetection:
+                concurrency: '{{ .Values.immich.concurrency.faceDetection }}'
+              search:
+                concurrency: '{{ .Values.immich.concurrency.search }}'
+              sidecar:
+                concurrency: '{{ .Values.immich.concurrency.sidecar }}'
+              library:
+                concurrency: '{{ .Values.immich.concurrency.library }}'
+              migration:
+                concurrency: '{{ .Values.immich.concurrency.migration }}'
+              thumbnailGeneration:
+                concurrency: '{{ .Values.immich.concurrency.thumbnailGeneration }}'
+              videoConversion:
+                concurrency: '{{ .Values.immich.concurrency.videoConversion }}'
+              notifications:
+                concurrency: '{{ .Values.immich.concurrency.notifications }}'
 
-              "logging": {
-                "enabled": true,
-                "level": {{ .Values.immich.logLevel | quote }}
-              },
+            logging:
+              enabled: true
+              level: '{{ .Values.immich.logLevel | quote }}'
 
-              "machineLearning": {
-                "enabled": true,
-                "url": "http://immich-machine-learning:3003",
-                "clip": {
-                  "enabled": true,
-                  "modelName": {{ .Values.immich.machineLearning.clipModelName | quote }}
-                },
-                "duplicateDetection": {
-                  "enabled": true,
-                  "maxDistance": 0.03
-                },
-                "facialRecognition": {
-                  "enabled": true,
-                  "modelName": {{ .Values.immich.machineLearning.facialRecognitionModelName | quote }},
-                  "minScore": 0.7,
-                  "maxDistance": 0.6,
-                  "minFaces": 2
-                },
-              },
-              "map": {
-                "enabled": true,
-                "lightStyle": "",
-                "darkStyle": ""
-              },
-              "reverseGeocoding": {
-                "enabled": true
-              },
-              "oauth": {
-                "enabled": true,
-                "issuerUrl": {{ .Values.immich.oauth.issuerUrl | quote }},
-                "clientId": {{ .Values.immich.oauth.clientId | quote }},
-                "clientSecret": {{ .Values.immich.oauth.clientSecret | quote }},
-                "signingAlgorithm": "RS256",
-                "mobileOverrideEnabled": false,
-                "mobileRedirectUri": "",
-                "scope": "openid profile email",
-                "storageLabelClaim": "preferred_username",
-                "storageQuotaClaim": "immich_quota",
-                "defaultStorageQuota": 0,
-                "buttonText": "Login with OAuth",
-                "autoRegister": true,
-                "autoLaunch": false
-              },
-              "passwordLogin": {
-                "enabled": {{ .Values.immich.enablePasswordLogin }}
-              },
-              "storageTemplate": {
-                "enabled": true,
-                "hashVerificationEnabled": true,
-                "template": "{{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}"
-              },
-              "newVersionCheck": {
-                "enabled": true
-              },
-              "trash": {
-                "enabled": true,
-                "days": 30
-              },
-              "theme": {
-                "customCss": ""
-              },
+            machineLearning:
+              enabled: true
+              url: http://immich-machine-learning:3003
+              clip:
+                enabled: true
+                modelName: '{{ .Values.immich.machineLearning.clipModelName | quote }}'
+              duplicateDetection:
+                enabled: true
+                maxDistance: '{{ .Values.immich.machineLearning.duplicateDetection.maxDistance | quote }}'
+              facialRecognition:
+                enabled: true
+                modelName: '{{ .Values.immich.machineLearning.facialRecognition.modelName | quote }}'
+                minScore: '{{ .Values.immich.machineLearning.facialRecognition.minScore | quote }}'
+                maxDistance: '{{ .Values.immich.machineLearning.facialRecognition.maxDistance | quote }}'
+                minFaces: '{{ .Values.immich.machineLearning.facialRecognition.minFaces | quote }}'
 
-              "library": {
-                "scan": {
-                  "enabled": true,
-                  "cronExpression": "0 0 * * *"
-                },
-                "watch": {
-                  "enabled": false,
-                  "usePolling": false,
-                  "interval": 10000
-                }
-              },
-              "user": {
-                "deleteDelay": 7
-              },
-              "image": {
-                "thumbnailFormat": "webp",
-                "thumbnailSize": 250,
-                "previewFormat": "jpeg",
-                "previewSize": 1440,
-                "quality": 80,
-                "colorspace": "p3",
-                "extractEmbedded": false
-              },
-            }
+            map:
+              enabled: true
+              lightStyle: ''
+              darkStyle: ''
+
+            reverseGeocoding:
+              enabled: true
+
+            oauth:
+              autoLaunch: false
+              autoRegister: true
+              buttonText: Login with OAuth
+              enabled: true
+              issuerUrl: '{{ .Values.immich.oauth.issuerUrl | quote }}'
+              clientId: '{{ .Values.immich.oauth.clientId | quote }}'
+              clientSecret: '{{ .Values.immich.oauth.clientSecret | quote }}'
+              signingAlgorithm: RS256
+              mobileOverrideEnabled: false
+              mobileRedirectUri: ''
+              scope: openid profile email
+              storageLabelClaim: preferred_username
+              storageQuotaClaim: immich_quota
+              defaultStorageQuota: 0
+
+            passwordLogin:
+              enabled: '{{ .Values.immich.enablePasswordLogin }}'
+
+            storageTemplate:
+              enabled: true
+              hashVerificationEnabled: true
+              template: '{{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}'
+
+            image:
+              thumbnailFormat: webp
+              thumbnailSize: 250
+              previewFormat: jpeg
+              previewSize: 1440
+              quality: 80
+              colorspace: p3
+              extractEmbedded: true
+
+            newVersionCheck:
+              enabled: false
+
+            trash:
+              enabled: true
+              days: 30
+
+            theme:
+              customCss: ''
+
+            library:
+              scan:
+                enabled: true
+                cronExpression: 0 0 * * *
+              watch:
+                enabled: false
+                usePolling: false
+                interval: 10000
+
+            server:
+              externalDomain: ''
+              loginPageMessage: ''
+
+            notifications:
+              smtp:
+                enabled: false
+                from: ''
+                replyTo: ''
+                transport:
+                  ignoreCert: false
+                  host: ''
+                  port: 587
+                  username: ''
+                  password: ''
+
+            user:
+              deleteDelay: 7
