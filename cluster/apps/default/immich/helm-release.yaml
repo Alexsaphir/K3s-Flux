@@ -212,8 +212,8 @@ spec:
         advancedMounts:
           immich:
             app:
-              - path: /usr/src/app/immich-config.json
-                subPath: immich-config.json
+              - path: /usr/src/app/immich-config.yaml
+                subPath: immich-config.yaml
 
       library:
         existingClaim: immich-data
