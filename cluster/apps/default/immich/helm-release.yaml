@@ -287,53 +287,53 @@ spec:
               twoPass: false
               preferredHwDevice: auto
               transcode: required
-              tonemap: '{{ .Values.immich.ffmpeg.tonemap | quote }}'
+              tonemap: {{ .Values.immich.ffmpeg.tonemap | quote }}
               accel: disabled
               accelDecode: false
 
             job:
               backgroundTask:
-                concurrency: '{{ .Values.immich.concurrency.backgroundTask }}'
+                concurrency: {{ .Values.immich.concurrency.backgroundTask }}
               smartSearch:
-                concurrency: '{{ .Values.immich.concurrency.smartSearch }}'
+                concurrency: {{ .Values.immich.concurrency.smartSearch }}
               metadataExtraction:
-                concurrency: '{{ .Values.immich.concurrency.metadataExtraction }}'
+                concurrency: {{ .Values.immich.concurrency.metadataExtraction }}
               faceDetection:
-                concurrency: '{{ .Values.immich.concurrency.faceDetection }}'
+                concurrency: {{ .Values.immich.concurrency.faceDetection }}
               search:
-                concurrency: '{{ .Values.immich.concurrency.search }}'
+                concurrency: {{ .Values.immich.concurrency.search }}
               sidecar:
-                concurrency: '{{ .Values.immich.concurrency.sidecar }}'
+                concurrency: {{ .Values.immich.concurrency.sidecar }}
               library:
-                concurrency: '{{ .Values.immich.concurrency.library }}'
+                concurrency: {{ .Values.immich.concurrency.library }}
               migration:
-                concurrency: '{{ .Values.immich.concurrency.migration }}'
+                concurrency: {{ .Values.immich.concurrency.migration }}
               thumbnailGeneration:
-                concurrency: '{{ .Values.immich.concurrency.thumbnailGeneration }}'
+                concurrency: {{ .Values.immich.concurrency.thumbnailGeneration }}
               videoConversion:
-                concurrency: '{{ .Values.immich.concurrency.videoConversion }}'
+                concurrency: {{ .Values.immich.concurrency.videoConversion }}
               notifications:
-                concurrency: '{{ .Values.immich.concurrency.notifications }}'
+                concurrency: {{ .Values.immich.concurrency.notifications }}
 
             logging:
               enabled: true
-              level: '{{ .Values.immich.logLevel | quote }}'
+              level: {{ .Values.immich.logLevel | quote }}
 
             machineLearning:
               enabled: true
               url: http://immich-machine-learning:3003
               clip:
                 enabled: true
-                modelName: '{{ .Values.immich.machineLearning.clipModelName | quote }}'
+                modelName: {{ .Values.immich.machineLearning.clipModelName | quote }}
               duplicateDetection:
                 enabled: true
-                maxDistance: '{{ .Values.immich.machineLearning.duplicateDetection.maxDistance | quote }}'
+                maxDistance: {{ .Values.immich.machineLearning.duplicateDetection.maxDistance | quote }}
               facialRecognition:
                 enabled: true
-                modelName: '{{ .Values.immich.machineLearning.facialRecognition.modelName | quote }}'
-                minScore: '{{ .Values.immich.machineLearning.facialRecognition.minScore | quote }}'
-                maxDistance: '{{ .Values.immich.machineLearning.facialRecognition.maxDistance | quote }}'
-                minFaces: '{{ .Values.immich.machineLearning.facialRecognition.minFaces | quote }}'
+                modelName: {{ .Values.immich.machineLearning.facialRecognition.modelName | quote }}
+                minScore: {{ .Values.immich.machineLearning.facialRecognition.minScore | quote }}
+                maxDistance: {{ .Values.immich.machineLearning.facialRecognition.maxDistance | quote }}
+                minFaces: {{ .Values.immich.machineLearning.facialRecognition.minFaces | quote }}
 
             map:
               enabled: true
@@ -348,9 +348,9 @@ spec:
               autoRegister: true
               buttonText: Login with OAuth
               enabled: true
-              issuerUrl: '{{ .Values.immich.oauth.issuerUrl | quote }}'
-              clientId: '{{ .Values.immich.oauth.clientId | quote }}'
-              clientSecret: '{{ .Values.immich.oauth.clientSecret | quote }}'
+              issuerUrl: {{ .Values.immich.oauth.issuerUrl | quote }}
+              clientId: {{ .Values.immich.oauth.clientId | quote }}
+              clientSecret: {{ .Values.immich.oauth.clientSecret | quote }}
               signingAlgorithm: RS256
               mobileOverrideEnabled: false
               mobileRedirectUri: ''
@@ -360,12 +360,12 @@ spec:
               defaultStorageQuota: 0
 
             passwordLogin:
-              enabled: '{{ .Values.immich.enablePasswordLogin }}'
+              enabled: {{ .Values.immich.enablePasswordLogin }}
 
             storageTemplate:
               enabled: true
               hashVerificationEnabled: true
-              template: '{{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}'
+              template: {{ "{{" }}y{{ "}}" }}/{{ "{{" }}y{{ "}}" }}-{{ "{{" }}MM{{ "}}" }}-{{ "{{" }}dd{{ "}}" }}/{{ "{{" }}filename{{ "}}" }}
 
             image:
               thumbnailFormat: webp
