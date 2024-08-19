@@ -35,7 +35,7 @@ packages:
   - name: cilium/cilium-cli@v0.16.15
   - name: siderolabs/talos@v1.7.6
   - name: budimanjojo/talhelper@v3.0.5
-  - name: lsd-rs/lsd@v1.1.2
+  - name: lsd-rs/lsd@v1.1.3
   - name: opentofu/opentofu@v1.8.1
   - name: runatlantis/atlantis@v0.28.5
   - name: kyverno/kyverno@v1.12.5
