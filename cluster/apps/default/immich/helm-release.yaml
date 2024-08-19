@@ -163,8 +163,10 @@ spec:
               NODE_ENV: *node-env
               MACHINE_LEARNING_CACHE_FOLDER: /cache
 
-              MACHINE_LEARNING_PRELOAD__CLIP: { { .Values.immich.machineLearning.clipModelName } }
-              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION: { { .Values.immich.machineLearning.facialRecognition.modelName } }
+              MACHINE_LEARNING_PRELOAD__CLIP:
+                value: '{{ .Values.immich.machineLearning.clipModelName }}'
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION:
+                value: '{{ .Values.immich.machineLearning.facialRecognition.modelName }}'
 
             envFrom:
               - configMapRef:
