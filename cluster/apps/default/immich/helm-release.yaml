@@ -34,7 +34,8 @@ spec:
       targetPath: immich.oauth.clientSecret
 
   values:
-    immich: # renovate: datasource=github-releases depName=immich-app/immich
+    immich:
+      # renovate: datasource=github-releases depName=immich-app/immich
       version: &immichVersion v1.112.1
       logLevel: 'log'
 
@@ -85,12 +86,14 @@ spec:
 
     controllers:
       immich:
+        enabled: true
         type: deployment
         replicas: 1
 
         annotations:
           configmap.reloader.stakater.com/reload: &config immich-config, immich-settings
-          secret.reloader.stakater.com/reload: &secret immich-secret, database-immich
+          secret.reloader.stakater.com/reload: &secret immich-secret
+
         containers:
           app:
             image:
@@ -131,7 +134,9 @@ spec:
               - 44
               - 109
 
+
       machine-learning:
+        enabled: true
         type: deployment
 
         annotations:
@@ -177,38 +182,6 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: [ 'ALL' ] }
 
-      power-tools:
-        type: deployment
-
-        annotations:
-          secret.reloader.stakater.com/reload: immich-tools-secret, database-immich
-
-        containers:
-          app:
-            image:
-              repository: ghcr.io/varun-raj/immich-power-tools
-              tag: 0.1.5
-
-            env:
-              TZ: ${TIMEZONE}
-
-              IMMICH_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
-
-              DATABASE_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: database-immich
-                    key: POSTGRES_URL
-
-            envFrom:
-              - secretRef:
-                  name: immich-tools-secret
-
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
-
     service:
       app:
         controller: immich
@@ -221,12 +194,6 @@ spec:
         ports:
           http:
             port: 3003
-
-      power-tools:
-        controller: power-tools
-        ports:
-          http:
-            port: 3000
 
     ingress:
       app:
@@ -241,14 +208,6 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: app
-                  port: http
-
-          - host: immich-tools.${DOMAIN_NAME}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: power-tools
                   port: http
 
     persistence:
