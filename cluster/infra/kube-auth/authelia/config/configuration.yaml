@@ -190,6 +190,7 @@ access_control:
         - 'atlantis.${DOMAIN_NAME}'
         - 'git.${DOMAIN_NAME}'
         - 'ollama.${DOMAIN_NAME}'
+        - 'immich-tools.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'
