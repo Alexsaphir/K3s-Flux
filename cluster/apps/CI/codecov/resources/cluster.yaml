@@ -4,7 +4,7 @@ kind: Dragonfly
 metadata:
   name: codecov-dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.21.2
+  image: ghcr.io/dragonflydb/dragonfly:v1.21.3
 
   replicas: 2
 
