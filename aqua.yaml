@@ -25,7 +25,7 @@ packages:
   - name: bitnami-labs/sealed-secrets@v0.27.1
   - name: derailed/k9s@v0.32.5
   - name: FairwindsOps/nova@v3.10.1
-  - name: FairwindsOps/pluto@v5.20.1
+  - name: FairwindsOps/pluto@v5.20.2
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.4
   - name: kubescape/kubescape@v3.0.16
