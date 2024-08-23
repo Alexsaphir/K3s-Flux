@@ -45,16 +45,19 @@ resolvelib = ">=0.5.3,<1.1.0"
 
 [[package]]
 name = "ansible-inventory-grapher"
-version = "2.5.0"
+version = "2.6.0"
 description = "Creates graphs representing ansible inventory"
 optional = false
-python-versions = "*"
+python-versions = ">=3.10"
 files = [
-    {file = "ansible-inventory-grapher-2.5.0.tar.gz", hash = "sha256:17aa515b5db288f68eeb20fe88f4d99fda8fd123ef288e73d5dd70e36850d787"},
+    {file = "ansible_inventory_grapher-2.6.0.tar.gz", hash = "sha256:7a782e3f50e11f6dec8f3663e063ac906eff292a628be7bd3cc473faec5a3d19"},
 ]
 
 [package.dependencies]
-ansible = ">=2.4"
+ansible-core = ">=2.12"
+
+[package.extras]
+dev = ["black", "build", "flake8", "pytest", "tox"]
 
 [[package]]
 name = "cffi"
@@ -765,4 +768,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "c14e88c53692c87c4412e295ce59491c31787bd255810bb6c4c8ed61a7284a37"
+content-hash = "519689f030239e9978b72aee9a0cb5b087e6e6e51b8e33f0c4f20b43eaa65669"
