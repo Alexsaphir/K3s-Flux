@@ -30,6 +30,9 @@ spec:
   values:
     codecovHost: &host codecov.${DOMAIN_NAME}
 
+    codecov:
+      # renovate: datasource=github-releases depName=codecov/codecov-api
+      version: &codecovVersion rolling
 
     codecovConfig:
       database:
@@ -97,7 +100,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-gateway
-              tag: 24.7.1
+              tag: *codecovVersion
             env:
               CODECOV_GATEWAY_MINIO_ENABLED: true
 
@@ -158,7 +161,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-frontend
-              tag: 24.7.1
+              tag: *codecovVersion
             env:
               CODECOV_BASE_HOST: *host
               CODECOV_API_HOST: *host
@@ -213,7 +216,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-api
-              tag: 24.7.1
+              tag: *codecovVersion
 
             env: *global_env
 
@@ -266,7 +269,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-worker
-              tag: 24.7.1
+              tag: *codecovVersion
             env:
               RUN_ENV: ENTERPRISE
               <<: *global_env
