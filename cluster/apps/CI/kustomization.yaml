@@ -5,5 +5,4 @@ resources:
   - renovate
   - gitlab
   - atlantis
-  - codecov
   - sonarqube
