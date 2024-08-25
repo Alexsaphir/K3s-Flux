@@ -28,14 +28,26 @@ spec:
       retries: 3
 
   valuesFrom:
-    - kind: Secret
-      name: ombi-secret
-      targetPath: ombi.password
-      valuesKey: password
+    - targetPath: ombi.host
+      kind: Secret
+      name: database-ombi
+      valuesKey: HOST
+    - targetPath: ombi.db
+      kind: Secret
+      name: database-ombi
+      valuesKey: DATABASE_NAME
+    - targetPath: ombi.password
+      kind: Secret
+      name: database-ombi
+      valuesKey: PASSWORD
+    - targetPath: ombi.user
+      kind: Secret
+      name: database-ombi
+      valuesKey: LOGIN
 
   values:
     ombi:
-      host: mariadb-media.database.svc.cluster.local
+      port: 5432
 
     defaultPodOptions:
       securityContext:
@@ -98,16 +110,16 @@ spec:
           database.json: |
             {
               "OmbiDatabase": {
-                "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "Type": "Postgres",
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};Username={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
               },
               "SettingsDatabase": {
-                "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "Type": "Postgres",
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};Username={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
               },
               "ExternalDatabase": {
-                "Type": "MySQL",
-                "ConnectionString": "Server={{ .Values.ombi.host }};Port=3306;Database=ombi;User=ombi;Password={{ .Values.ombi.password }}"
+                "Type": "Postgres",
+                "ConnectionString": "Server={{ .Values.ombi.host }};Port={{ .Values.ombi.port }};Database={{ .Values.ombi.db }};Username={{ .Values.ombi.user }};Password={{ .Values.ombi.password }}"
               }
             }
 
