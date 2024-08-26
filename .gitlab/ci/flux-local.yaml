@@ -34,4 +34,5 @@ flux-local-diff:
   rules:
     - changes:
         - cluster
-      if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+      if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - when: never
