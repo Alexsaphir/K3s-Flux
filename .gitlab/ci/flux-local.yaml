@@ -31,5 +31,7 @@ flux-local-diff:
             --output-file ks.diff
 
     - gitlab-comment
-  only:
-    - merge_requests
+  rules:
+    - changes:
+        - cluster
+      if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
