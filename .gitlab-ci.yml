@@ -18,11 +18,13 @@ include:
   - template: Jobs/SAST-IaC.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   - local: .gitlab/ci/sonarqube.yaml
+  - local: .gitlab/ci/flux-local.yaml
 
 stages:
   - test
   - sonarqube-check
   - sonarqube-report
+  - flux-local
   - triggers
 
 trigger_devcontainer:
