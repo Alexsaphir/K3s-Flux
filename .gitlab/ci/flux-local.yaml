@@ -1,5 +1,5 @@
 ---
-flux-local-diff:
+.flux-local-diff:
   stage: flux-local
   image:
     name: python:3.12-alpine
@@ -16,23 +16,28 @@ flux-local-diff:
   script:
     - |
       DIFF="dyff between --omit-header --ignore-order-changes -o gitlab" \
-              flux-local diff hr -A \
-                  --path cluster \
-                  --branch-orig main \
-                  --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
-                  --output-file hr.diff
-
+      flux-local diff $FLUX_RESSOURCE -A \
+      --path $CLUSTER_PATH \
+      --branch-orig main \
+      --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
+      --output-file out.diff
     - |
-      DIFF="dyff between --omit-header --ignore-order-changes -o gitlab" \
-        flux-local diff ks -A \
-            --path cluster \
-            --branch-orig main \
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
-            --output-file ks.diff
-
-    - gitlab-comment
+      gitlab-comment --diff_file out.diff \
+        --flux_resource $FLUX_RESSOURCE \
+        --diff_mode dyff \
+        --comment_mode $COMMENT_MODE
   rules:
     - changes:
-        - cluster
+        - $CLUSTER_PATH
       if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    - when: never
+
+flux-local-diff:
+  extends: .flux-local-diff
+  variables:
+    CLUSTER_PATH: cluster
+  parallel:
+    matrix:
+      - FLUX_RESSOURCE:
+          - hr
+          - ks
+        COMMENT_MODE: recreate
