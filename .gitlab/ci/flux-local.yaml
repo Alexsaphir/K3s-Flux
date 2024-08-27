@@ -3,6 +3,11 @@
   stage: flux-local
   image:
     name: python:3.12-alpine
+  parallel:
+    matrix:
+      - FLUX_RESSOURCE:
+          - hr
+          - ks
   variables:
     GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
     CONFIG_FILE: '.gitlabbot.yaml'
@@ -26,19 +31,15 @@
         --flux_resource $FLUX_RESSOURCE \
         --diff_mode dyff \
         --comment_mode $COMMENT_MODE
-  only:
-    refs:
-      - merge_requests
-    changes:
-      - cluster/**
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        paths:
+          - $CLUSTER_PATH
+        compare_to: "$CI_DEFAULT_BRANCH"
 
 flux-local-diff:
   extends: .flux-local-diff
   variables:
     CLUSTER_PATH: cluster
-  parallel:
-    matrix:
-      - FLUX_RESSOURCE:
-          - hr
-          - ks
-        COMMENT_MODE: recreate
+    COMMENT_MODE: recreate
