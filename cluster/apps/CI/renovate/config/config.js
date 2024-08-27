@@ -3,11 +3,11 @@ module.exports = {
     gitAuthor: process.env.RENOVATE_GIT_AUTHOR,
 
     requireConfig: 'required',
-    onboardingNoDeps: true,
+    onboardingNoDeps: 'auto',
     onboardingConfigFileName: '.gitlab/renovate.json5',
 
     binarySource: 'install',
 
     persistRepoData: true,
     baseDir: '/tmp/renovate'
-    }
+}
