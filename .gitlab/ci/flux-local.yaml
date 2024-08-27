@@ -26,10 +26,11 @@
         --flux_resource $FLUX_RESSOURCE \
         --diff_mode dyff \
         --comment_mode $COMMENT_MODE
-  rules:
-    - changes:
-        - $CLUSTER_PATH
-      if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  only:
+    refs:
+      - merge_requests
+    changes:
+      - cluster/**
 
 flux-local-diff:
   extends: .flux-local-diff
