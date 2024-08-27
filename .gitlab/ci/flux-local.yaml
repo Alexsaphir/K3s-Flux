@@ -2,7 +2,7 @@
 .flux-local-diff:
   stage: flux-local
   image:
-    name: python:3.12-alpine
+    name: ghcr.io/alexsaphir/gitlabbot:v0.2.3
   parallel:
     matrix:
       - FLUX_RESOURCE:
@@ -11,13 +11,6 @@
   variables:
     GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
     CONFIG_FILE: '.gitlabbot.yaml'
-  before_script:
-    - apk add curl git kustomize helm
-    - curl -sSL https://github.com/homeport/dyff/releases/download/v1.9.0/dyff_1.9.0_linux_amd64.tar.gz | tar -xz
-    - curl -sSL https://github.com/fluxcd/flux2/releases/download/v2.3.0/flux_2.3.0_linux_amd64.tar.gz | tar -xz
-    - mv dyff /usr/local/bin/
-    - mv flux /usr/local/bin/
-    - pip install GitlabBot
   script:
     - |
       DIFF="dyff between --omit-header --ignore-order-changes -o gitlab" \
