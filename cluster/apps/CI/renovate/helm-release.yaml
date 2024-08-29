@@ -51,11 +51,15 @@ spec:
               MEND_RNV_ACCEPT_TOS: 'y'
               MEND_RNV_PLATFORM: 'gitlab'
               MEND_RNV_ENDPOINT: 'https://gitlab.alexsaphir.com/api/v4/'
-              MEND_RNV_CRON_JOB_SCHEDULER: '0 */2 * * *'
+              MEND_RNV_CRON_JOB_SCHEDULER_ALL: '0 */2 * * *'
+              MEND_RNV_CRON_APP_SYNC: "0 */2 * * *"
+
+              RENOVATE_PAGINATE_ALL: "true"
 
               MEND_RNV_ADMIN_API_ENABLED: 'true'
+              MEND_RNV_REPORTING_ENABLED: "true"
 
-              MEND_RNV_WORKER_CLEANUP: '30 0 * * *'
+              MEND_RNV_WORKER_CLEANUP: '30 0 * * 0'
 
               MEND_RNV_DATA_HANDLER_TYPE: postgresql
               MEND_RNV_LOG_HISTORY_S3: 's3://renovate/log'
@@ -82,7 +86,6 @@ spec:
                     name: *postgres-creds
                     key: HOST
               PGPORT: 5432
-
 
               RENOVATE_ALLOW_CUSTOM_CRATE_REGISTRIES: 'false'
               RENOVATE_ALLOW_PLUGINS: 'false'
