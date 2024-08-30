@@ -231,7 +231,7 @@ identity_providers:
         redirect_uris:
           - 'https://photos.${DOMAIN_NAME}/auth/login'
           - 'https://photos.${DOMAIN_NAME}/user-settings'
-          - 'app.immich:/'
+          - 'app.immich:///oauth-callback'
         userinfo_signed_response_alg: none
 
       - client_id: weave-gitops
