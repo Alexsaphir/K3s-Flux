@@ -68,6 +68,7 @@ spec:
               MINIO_IDENTITY_OPENID_CLAIM_NAME: groups
               MINIO_IDENTITY_OPENID_SCOPES: openid,profile,email,groups
               MINIO_IDENTITY_OPENID_DISPLAY_NAME: "Login with Authelia"
+              MINIO_IDENTITY_OPENID_CLAIM_USERINFO: "on"
 
             envFrom:
               - secretRef:
