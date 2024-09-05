@@ -95,8 +95,6 @@ spec:
 
     controllers:
       gateway:
-        enabled: false
-
         replicas: 2
         containers:
           app:
@@ -213,8 +211,6 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
       api:
-        enabled: false
-
         replicas: 2
         containers:
           app:
@@ -268,8 +264,6 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
       worker:
-        enabled: false
-
         replicas: 2
         containers:
           app:
@@ -295,8 +289,6 @@ spec:
 
     service:
       gateway-service:
-        enabled: false
-
         controller: gateway
         ports:
           http:
@@ -307,8 +299,6 @@ spec:
           http:
             port: *port_frontend
       api-service:
-        enabled: false
-
         controller: api
         ports:
           http:
