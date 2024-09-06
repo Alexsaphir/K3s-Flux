@@ -51,8 +51,6 @@ spec:
       SERVICES__MINIO__PORT: &minio-port 9000
       SERVICES__MINIO__VERIFY_SSL: false
 
-      SETUP__TIMESERIES__ENABLED: false
-
       SETUP__ENTERPRISE_LICENSE:
         valueFrom:
           secretKeyRef:
@@ -77,6 +75,12 @@ spec:
           secretKeyRef:
             name: codecov-gitlab-secret
             key: client_id
+      GITLAB_ENTERPRISE__GLOBAL_UPLOAD_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: global_upload_token
+
       GITLAB_ENTERPRISE__CLIENT_SECRET:
         valueFrom:
           secretKeyRef:
@@ -319,6 +323,16 @@ spec:
                   username: Saphir
                 - service: gitlab_enterprise
                   username: Alexsaphir
+
+              timeseries:
+                enabled: false
+
+            notifications:
+              slack: off
+              gitter: off
+              webhook: off
+              irc: off
+              hipchat: off
 
     ingress:
       app:
