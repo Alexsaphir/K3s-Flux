@@ -6,4 +6,4 @@ metadata:
   namespace: flux-charts
 spec:
   interval: 1h
-  url: https://bjw-s.github.io/helm-charts
+  url: https://bernd-schorgers.github.io/helm-charts
