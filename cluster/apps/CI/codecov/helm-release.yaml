@@ -39,7 +39,6 @@ spec:
         port: '5432'
 
     env: &global_env
-      SITE__BOT: Codecov
       SETUP__CODECOV_URL: https://{{.Values.codecovHost }}
       GITLAB_ENTERPRISE__URL: https://gitlab.alexsaphir.com
 
@@ -63,6 +62,7 @@ spec:
             name: database-codecov
             key: POSTGRES_URL
 
+
       SETUP__HTTP__COOKIE_COOKIES_DOMAIN: *host
       SETUP__HTTP__COOKIE_SECRET:
         valueFrom:
@@ -70,22 +70,31 @@ spec:
             name: codecov-secret
             key: cookie_secret
 
+
       GITLAB_ENTERPRISE__CLIENT_ID:
         valueFrom:
           secretKeyRef:
             name: codecov-gitlab-secret
             key: client_id
-      GITLAB_ENTERPRISE__GLOBAL_UPLOAD_SECRET:
-        valueFrom:
-          secretKeyRef:
-            name: codecov-gitlab-secret
-            key: global_upload_token
 
       GITLAB_ENTERPRISE__CLIENT_SECRET:
         valueFrom:
           secretKeyRef:
             name: codecov-gitlab-secret
             key: client_secret
+
+      GITLAB_ENTERPRISE__BOT__KEY:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: pat_token
+
+      GITLAB_ENTERPRISE__GLOBAL_UPLOAD_SECRET:
+        valueFrom:
+          secretKeyRef:
+            name: codecov-gitlab-secret
+            key: global_upload_token
+
 
       SERVICES__MINIO__ACCESS_KEY_ID:
         valueFrom:
@@ -313,6 +322,10 @@ spec:
       config:
         data:
           codecov.yml: |
+            gitlab_enterprise:
+              bot:
+                username: Codecov
+
             setup:
               debug: no
               loglvl: INFO
@@ -325,6 +338,9 @@ spec:
                   username: Alexsaphir
 
               timeseries:
+                enabled: false
+
+              telemetry:
                 enabled: false
 
             notifications:
