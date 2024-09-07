@@ -62,8 +62,6 @@ spec:
             name: database-codecov
             key: POSTGRES_URL
 
-
-      SETUP__HTTP__COOKIE_COOKIES_DOMAIN: *host
       SETUP__HTTP__COOKIE_SECRET:
         valueFrom:
           secretKeyRef:
