@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
   - netbox
   - portainer
-  - zitadel
   - mailpit
   - tailscale
