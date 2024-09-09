@@ -5,6 +5,7 @@ metadata:
   name: &app jupyterhub
 spec:
   database: *app # db name in postgres cluster
+  dropOnDelete: false
 
 ---
 apiVersion: db.movetokube.com/v1alpha1

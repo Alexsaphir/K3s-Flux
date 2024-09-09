@@ -5,6 +5,7 @@ metadata:
   name: &app firefly
 spec:
   database: *app # db name in postgres cluster
+  dropOnDelete: false
 
 
 ---
