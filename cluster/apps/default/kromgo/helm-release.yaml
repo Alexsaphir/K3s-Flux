@@ -58,7 +58,10 @@ spec:
 
             env:
               PROMETHEUS_URL: http://thanos-query-frontend.flux-monitoring.svc.cluster.local:9090
-              PORT: &port 8000
+              SERVER_HOST: 0.0.0.0
+              SERVER_PORT: &serverPort 80
+              HEALTH_HOST: 0.0.0.0
+              HEALTH_PORT: &healthPort 8888
 
             probes:
               liveness: &probes
@@ -66,8 +69,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /-/ready
-                    port: *port
+                    path: /readyz
+                    port: *healthPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -81,7 +84,7 @@ spec:
 
             resources:
               requests:
-                cpu: 5m
+                cpu: 10m
                 memory: 16M
               limits:
                 cpu: 50m
@@ -92,7 +95,10 @@ spec:
         controller: kromgo
         ports:
           http:
-            port: *port
+            primary: true
+            port: *serverPort
+          health:
+            port: *healthPort
 
     ingress:
       app:
