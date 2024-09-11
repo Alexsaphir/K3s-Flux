@@ -3,7 +3,6 @@
   extends: [
     'config:recommended',
     'docker:enableMajor',
-    'docker:pinDigests',
     'replacements:k8s-registry-move',
     ':disableRateLimiting',
     ':dependencyDashboard',
