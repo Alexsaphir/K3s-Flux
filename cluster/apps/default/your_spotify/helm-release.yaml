@@ -48,7 +48,6 @@ spec:
 
               API_ENDPOINT: &api_endpoint https://spotify-api.${DOMAIN_NAME}
               CLIENT_ENDPOINT: &client https://spotify.${DOMAIN_NAME}
-              CORS: *client
               MONGO_ENDPOINT: mongodb://your-spotify-mongodb:27017/your_spotify
 
             envFrom:
@@ -139,7 +138,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: spotify.${DOMAIN_NAME}
+          - host: *client
             paths:
               - path: /
                 pathType: Prefix
