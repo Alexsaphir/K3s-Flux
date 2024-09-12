@@ -5,6 +5,7 @@ namespace: your-spotify
 resources:
   - namespace.yaml
   - secret.sops.yaml
+  - resources
   - pvc.yaml
   - helm-release.yaml
   - gatus.yaml

@@ -101,6 +101,27 @@ spec:
 
             probes: *probes
 
+      ferretdb:
+        strategy: *strat
+        rollingUpdate: *ru
+        pod: *pod
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ferretdb/ferretdb
+              tag: 1.24.0
+
+            env:
+              FERRETDB_POSTGRESQL_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-spotify
+                    key: POSTGRES_URL
+
+            probes: *probes
+            securityContext: *securityContext
+
     service:
       server:
         controller: server
@@ -115,6 +136,11 @@ spec:
             port: 3000
       mongodb:
         controller: mongodb
+        ports:
+          http:
+            port: 27017
+      ferretdb:
+        controller: ferretdb
         ports:
           http:
             port: 27017
