@@ -48,7 +48,7 @@ spec:
 
               API_ENDPOINT: &api_endpoint https://spotify-api.${DOMAIN_NAME}
               CLIENT_ENDPOINT: https://spotify.${DOMAIN_NAME}
-              MONGO_ENDPOINT: mongodb://your-spotify-ferretdb:27017/your_spotify
+              MONGO_ENDPOINT: mongodb://your-spotify-mongodb:27017/your_spotify
 
             envFrom:
               - secretRef:
@@ -101,25 +101,25 @@ spec:
 
             probes: *probes
 
-      ferretdb:
-        strategy: *strat
-        rollingUpdate: *ru
-        pod: *pod
-
-        containers:
-          app:
-            image:
-              repository: ghcr.io/ferretdb/ferretdb
-              tag: 1.24.0
-
-            env:
-              FERRETDB_POSTGRESQL_URL:
-                valueFrom:
-                  secretKeyRef:
-                    name: database-spotify
-                    key: POSTGRES_URL
-
-            securityContext: *securityContext
+    #      ferretdb:
+    #        strategy: *strat
+    #        rollingUpdate: *ru
+    #        pod: *pod
+    #
+    #        containers:
+    #          app:
+    #            image:
+    #              repository: ghcr.io/ferretdb/ferretdb
+    #              tag: 1.24.0
+    #
+    #            env:
+    #              FERRETDB_POSTGRESQL_URL:
+    #                valueFrom:
+    #                  secretKeyRef:
+    #                    name: database-spotify
+    #                    key: POSTGRES_URL
+    #
+    #            securityContext: *securityContext
 
     service:
       server:
@@ -138,11 +138,11 @@ spec:
         ports:
           http:
             port: 27017
-      ferretdb:
-        controller: ferretdb
-        ports:
-          http:
-            port: 27017
+    #      ferretdb:
+    #        controller: ferretdb
+    #        ports:
+    #          http:
+    #            port: 27017
 
     ingress:
       server:
