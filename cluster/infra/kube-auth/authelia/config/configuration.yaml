@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/authelia/authelia/master/docs/static/schemas/v4.38/json-schema/configuration.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/authelia/authelia/master/docs/static/schemas/v4.39/json-schema/configuration.json
 ---
 log:
   level: info
@@ -153,7 +153,7 @@ access_control:
     - domain:
         - 'spotify.${DOMAIN_NAME}'
         - 'spotify-api.${DOMAIN_NAME}'
-      policy: two_factor
+      policy: bypass
 
     - domain:
         - 'actual.${DOMAIN_NAME}'
