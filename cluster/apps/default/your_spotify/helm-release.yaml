@@ -164,7 +164,7 @@ spec:
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
         hosts:
-          - host: *client
+          - host: spotify.${DOMAIN_NAME}
             paths:
               - path: /
                 pathType: Prefix
