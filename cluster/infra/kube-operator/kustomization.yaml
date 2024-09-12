@@ -5,13 +5,8 @@ resources:
   - namespace.yaml
 
   - cloudnative-pg/ks.yaml
-  - mariadb-operator/ks.yaml
-  # - emqx-operator/ks.yaml
   - dragonfly/ks.yaml
-  - mongodb-operator/ks.yaml
-
+  # - emqx-operator/ks.yaml
   # - volcano-operator/ks.yaml
-
-  - opensearch-operator/ks.yaml
 
   - database
