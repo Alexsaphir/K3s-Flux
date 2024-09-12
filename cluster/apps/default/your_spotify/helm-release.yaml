@@ -47,8 +47,8 @@ spec:
               TIMEZONE: ${TIMEZONE}
 
               API_ENDPOINT: &api_endpoint https://spotify-api.${DOMAIN_NAME}
-              CLIENT_ENDPOINT: &client https://spotify.${DOMAIN_NAME}
-              MONGO_ENDPOINT: mongodb://your-spotify-mongodb:27017/your_spotify
+              CLIENT_ENDPOINT: https://spotify.${DOMAIN_NAME}
+              MONGO_ENDPOINT: mongodb://your-spotify-ferretdb:27017/your_spotify
 
             envFrom:
               - secretRef:
