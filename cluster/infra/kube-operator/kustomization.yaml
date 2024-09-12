@@ -6,7 +6,5 @@ resources:
 
   - cloudnative-pg/ks.yaml
   - dragonfly/ks.yaml
-  # - emqx-operator/ks.yaml
-  # - volcano-operator/ks.yaml
 
   - database

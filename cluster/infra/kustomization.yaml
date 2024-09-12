@@ -9,6 +9,5 @@ resources:
   - kube-system
   - namespace
   - networking
-  - security
   - storage
   - system-upgrade
