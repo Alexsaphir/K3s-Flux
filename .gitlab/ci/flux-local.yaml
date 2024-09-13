@@ -26,6 +26,11 @@
         --comment_mode $COMMENT_MODE
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        paths:
+          - cluster/**/*
+        compare_to: $CI_DEFAULT_BRANCH
+    - when: never
 
 flux-local-diff:
   extends: .flux-local-diff
