@@ -31,6 +31,13 @@ spec:
     defaultPodOptions:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: 'true'
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
 
       securityContext:
         runAsUser: 1000
