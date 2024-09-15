@@ -54,8 +54,20 @@ spec:
               - --db-file
               - /var/lib/mailpit/mailpit.db
 
+            envFrom:
+              - secretRef:
+                  name: mailpit-secret
+
             env:
               TIMEZONE: '${TIMEZONE}'
+
+              MP_SMTP_RELAY_HOST: 'smtp-relay.gmail.com'
+              MP_SMTP_RELAY_PORT: '587'
+              MP_SMTP_RELAY_STARTTLS: 'true'
+
+              MP_SMTP_RELAY_AUTH: 'login'
+
+              MP_SMTP_RELAY_RETURN_PATH: 'homelab@${DOMAIN_NAME}'
 
             securityContext:
               allowPrivilegeEscalation: false
