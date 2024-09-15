@@ -26,7 +26,8 @@ locals {
     "gitlab-registry",
     "gitlab-runner",
     "gitlab-terraform-state-storage",
-    "gitlab-uploads-storage"
+    "gitlab-uploads-storage",
+    "gitlab-ci-secure-files"
   ]
 }
 
