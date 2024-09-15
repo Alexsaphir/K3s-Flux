@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &name freeipa
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: freeipa
+spec:
+  type: ExternalName
+  externalName: 192.168.0.56
+  ports:
+    - name: https
+      port: &port 4444
+      protocol: TCP
+      targetPort: *port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: &name freeipa
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: freeipa
+  annotations:
+    auth.home.arpa/disabled: 'true'
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: ipa.${DOMAIN_NAME}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: freeipa
+                port:
+                  number: 4444

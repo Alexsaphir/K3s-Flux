@@ -5,3 +5,4 @@ namespace: network-system
 resources:
   - helm-release.yaml
   - gitlab-svc-ingress.yaml
+  - freeipa-svc-ingress.yaml
