@@ -100,6 +100,10 @@ spec:
     service:
       app:
         controller: lldap
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${LB_LLDAP}
         ports:
           http:
             port: *port
