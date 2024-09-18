@@ -1,0 +1,101 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app bytebase
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    controllers:
+      bytebase:
+        annotations:
+          secret.reloader.stakater.com/reload: database-bytebase
+
+        pod:
+          imagePullSecrets:
+            - name: registry-secret
+
+        containers:
+          app:
+            image:
+              repository: registry.alexsaphir.com/homelab/containers/bytebase
+              tag: 2.23.0@sha256:8a352bbb14cfbbee6b26bf02a72a58cd2324715da1b2d771e61cc47b5a91c575
+
+            args:
+              - --external-url
+              - https://bytebase.${DOMAIN_NAME}
+              - --disable-metric
+              - --disable-sample
+              - --data
+              - /data
+            env:
+              PG_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-bytebase
+                    key: POSTGRES_URL
+
+            probes:
+              liveness: &probe
+                type: HTTP
+                path: /
+              readiness: *probe
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      app:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: bytebase.${DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      data:
+        existingClaim: bytebase
+        globalMounts:
+          - path: /data
