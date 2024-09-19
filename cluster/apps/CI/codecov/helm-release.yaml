@@ -335,6 +335,9 @@ spec:
                 - service: gitlab_enterprise
                   username: Alexsaphir
 
+              http:
+                cookies_domain: {{.Values.codecovHost }}
+
               timeseries:
                 enabled: false
 
