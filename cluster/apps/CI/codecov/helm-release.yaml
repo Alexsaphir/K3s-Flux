@@ -40,7 +40,8 @@ spec:
 
     env: &global_env
       SETUP__CODECOV_URL: https://{{.Values.codecovHost }}
-      GITLAB_ENTERPRISE__URL: https://gitlab.alexsaphir.com
+      SETUP__CODECOV_API_URL: https://{{.Values.codecovHost }}
+      GITLAB_ENTERPRISE__URL: https://gitlab.${DOMAIN_NAME}
 
       SERVICES__REDIS_URL: redis://codecov-dragonfly.codecov.svc.cluster.local:6379
 
