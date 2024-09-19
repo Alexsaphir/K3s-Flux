@@ -108,7 +108,7 @@ spec:
 
     controllers:
       gateway:
-        replicas: 2
+        replicas: &replicas 1
         containers:
           app:
             image:
@@ -169,7 +169,7 @@ spec:
                 memory: 128M
 
       frontend:
-        replicas: 2
+        replicas: *replicas
         containers:
           app:
             image:
@@ -224,7 +224,7 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
       api:
-        replicas: 2
+        replicas: *replicas
         containers:
           app:
             image:
@@ -277,7 +277,7 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
       worker:
-        replicas: 2
+        replicas: *replicas
         containers:
           app:
             image:
