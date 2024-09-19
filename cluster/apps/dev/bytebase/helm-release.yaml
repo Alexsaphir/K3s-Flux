@@ -33,15 +33,15 @@ spec:
         annotations:
           secret.reloader.stakater.com/reload: database-bytebase
 
-        # pod:
-        #   imagePullSecrets:
-        #     - name: registry-secret
+        pod:
+          imagePullSecrets:
+            - name: registry-secret
 
         containers:
           app:
             image:
-              repository: bytebase/bytebase
-              tag: 2.23.0 # @sha256:32ec909957d18308b4b8b23a95fcedb6628fd3380e56907e918011eae90af51e
+              repository: registry.alexsaphir.com/homelab/containers/bytebase
+              tag: 2.23.0@sha256:a7df056526534979864c716e5c6e88a24454a518405841609921056e7f5bc4a7
 
             args:
               - --external-url
