@@ -52,7 +52,7 @@ spec:
           app:
             image:
               repository: ghcr.io/plankanban/planka
-              tag: 1.22.0@sha256:2a611f09199adc4acff0046d524f5670bc27a08adcb38e5cb52c695c4220442e
+              tag: 1.23.0@sha256:e19af1e25082d45c62833be9f34bbda962aa28c6958929ba70e83862fe565fd5
 
             env:
               DATABASE_URL:
