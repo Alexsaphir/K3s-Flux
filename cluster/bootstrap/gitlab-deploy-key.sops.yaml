@@ -4,9 +4,9 @@ metadata:
   name: gitlab-deploy-key
   namespace: flux-system
 stringData:
-  identity: ENC[AES256_GCM,data:B2mZa+C7VBNzpuNeEDnYSz5Z8nPf6rTT2AIfiDj1cG0pTCj9LCGUG+udnMhj7b0NggfIAIY5F5X6hpcIeZ7C8YtJonKSuY6z+sjLtf1FR7pWXvXk0i9Icgtt0PXlIMjVm7W4JCmbx/EsQ3dQL8bWvUHfbYisiLfouVo/0TdhZAFIwvS/n7Ebs4sh/Rz7FIZMX18BA2LCyErQiyk9fjtE+7OEG6RIIHNTRf0o+K0GkBOjB63Uf06Op5SlkH8e+MY4ycr1ZqRNcz8V0C9VM/0EfRlZr/ByuO64z3pq/NKS83fxzZnp6z1U56FK/S/++ARHDMBN0+iUG6s0HHvk5ZFwoHOyBNYwWpQT7Jmack5ZU9VRzeAptjlsNs737Cx1NZwiQYe7FQeS9eLnm5hfvf3gpQOIPrrOQH3u91oCGmCGA0LhxcAVTIX6J4c5WfZwOC4RFEFeX/+4HoqxGhDN5KDZPfyC6lx2BCt8SA+ciQDUT4HSaVSy7d5PzchfvsQvnbnT7w2BdPiAIlL3EBz8fQus59FLa+nzUIwb3sZq,iv:0RWE8qz6XEH/PhkF7VtQxm+5wVaiP2Fz6vMI/qVsPUI=,tag:j5auHACoQApikOUh/EvLVQ==,type:str]
-  identity.pub: ENC[AES256_GCM,data:lL1tSvEbaLjZnvnEIDjDwaDSMHiiCISwRbulI4f5OPZ/BUBLBbyY6SS2IMueIBoyhZzkGTMQsIDU9fnm3yNIoX5n55edC3KMXd0oyF/tLkJAPaTe06b+iIYYe1i5ykDqryWB,iv:6Gb5obXwUDub7XNjHH5xCVWBwUAjxAd5R9cYYuj65Ls=,tag:py22pf8QcBBytr7ltR6e0g==,type:str]
-  known_hosts: ENC[AES256_GCM,data:PaspwwMWXdcND6/UE3L3T8THETA4/h3ixFhoJ03cvuREI8on7nXf0v6ezEIsdO3B563qwPm/Q7+52iYB1dbqRXo+pY4DCcz32K7bskfoMN2Pq7YRwUDLpmkf+IYqe1a3EnqTbshEwA==,iv:n3QfOWCEuPKOSajwXVQ+rjFZhDWcI0o3n9br7R5145g=,tag:q2PtP94cbl2RBIOAUdC+jA==,type:str]
+  identity: ENC[AES256_GCM,data:unYtLHw/maPrChoENDaJ00JiMMto/7ppOjhJNbaKDI2nVaUrvRLczPMcW+EBfvBzW02/q9iwv7o3ZZ3BMENexSS0OHINmSst4v2rhgXnZ8pOvwYB+Dkt3+IVEhcQoBK3WDijirIvvMeVlbGkc3apRicChO7L/aZsDQT9NLBMXOM7Vk8sEn1kP5LBKEk3pQHkd+rIZXjvNgKIV1GrI3kYn9RbU5+cIsFxnwuIpRD0DjREVdo+E7/fELS+NrE6KUIyjSzCBUruYeR25bhWk5qKlAORxjpl11Y//5NseP+DYui0t11vnbSMInHNiA7wCl5SsaNHwOENkaEGC9EhV4AjgQuNg47l+kAX+ZjOvjB25qbqWRRr8zE8Y67w8Vbzv6UIen9GyT0Dhk4Ik3pVGBU38+eUJ13VkVTgnKXYkanJMVuzLajRC81bUgAElYjrQ3aGqyUQlNC6lRSAeRvG05amsqBXWseGxl9P976Eyvy3icIipsrvagYofDkKDeEuGBy8FE11qFYKh99/NTXQltOkY+Ek9b1SCFVIuWDi,iv:i6lUQ1yELzSmw+pG3xmFhO2zYD+hrltGIS86bPNGUeo=,tag:e2/HNz1zXlYctReBXxn8aw==,type:str]
+  identity.pub: ENC[AES256_GCM,data:hSyhelfLpfFHWVbGs/e/WuMRqneQ8Bm3wbVWS/EhJJwJW39T7qfibHqBUaX0i6Yttx5pBehRpgcHMyo5zu2tCuigAehcpOEhuWrWL1dfQzpdavUuszaH51gSuWQWJQdlKePy,iv:A5njlogBw9B/rk3pbVc3J4z1ZfmlX9FVGJpvCkQQTYw=,tag:k5CK31nZfb1MJPtL64fNqg==,type:str]
+  known_hosts: ENC[AES256_GCM,data:tYIB8+jK0XW0DPzvahuIWaTcZ4A7gu2SuKJAueCOo3xMswvUfsDqldAS+gPdTIxbdDJ1XlLsjfn8mgTD4g9tfA7rjf37KpYxgJxMXBe25cvZ5HtJhI2/KFLBNY76wv9AeiR5ZGZ/OVJ0FrIYNKYNWXURs0srAuERmlTesvN7E0dUAimpGWxZiATE8zefq8HQ9gycykJG/tmFSwFu2yLw5xB3TECGRxBYQBTOtd+dAUhFae9q9YvmV6e6tvfdAw==,iv:shBTWzhEqnRnrA7NYE11NqnB6xVKV2RqS7/IixAJ3Kc=,tag:DlnMulsanLpDKK+Sqeh4Jg==,type:str]
 sops:
   kms: []
   gcp_kms: []
@@ -16,14 +16,14 @@ sops:
     - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNclpQV0lJSGVZNlVnWnBG
-        b1JvRzhMSWp1UVZ6QmpTMi9OQ01sSTdXU3pRCjBzc0tsY214SFpkbjAwTEpjTlJX
-        Y1ZPQncxYlBaSWIzdUhDM1ZGaHFoMDQKLS0tIENFQXl2aXdSb1hRMXBvTURmOW4x
-        ZEpnM1owWkVzdDhDMDFUUDlOWEpwSnMK2/qDS9SBEmktPJ19vOEM+r6aLCViUE3K
-        TjIJfTvM+vrq2vT1nSxlxrNf8M8nrSVSQpD0/p/ZlazDTMYIbXw/zw==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBzVi94UFR0M3p2VXRqKy9t
+        ZW1ua1BXR2tpdlU4SncvZlA0UUNSTmVMR0dVCnlMbUN1K0JEMzZiejFUM0Nlc092
+        blA2TUl6QnRYUk1QNjZSN3JtK2FaZlUKLS0tIG80TDRNWkp3UVFFaS92bEhVdTI3
+        N2YyTEsvRndUR3orM01EemFkdEN3eWMKrTFx5y1ENlRzqJtQco5fuNOjEtbDa5ni
+        ICkYqijpYJgJ1tvvJasQuFosmTHc1dcx56QpvEZVMc7HdJ1w8Mc5GA==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2024-09-09T21:50:57Z"
-  mac: ENC[AES256_GCM,data:Tgg7ipg+ItmwiK1fSvLudeI6SAfhsaHGg/wTZNf6Ubjjp3NMrWRMsyzaEUhhlJDOHjD1vzHjUbidctdZQFNf/dt/U9nsM6tEQ0NNBSzx21NuQYuRI3LN0UkUjPkaa32dVIcf5IEngud6/XGVlRObohBl7W+GvR1isCl8szIe4VI=,iv:J0qtcsY5x9oq+AuvFrF/lcKiqQoHvCdkpur2lk18EQ4=,tag:NMFY23OSsgQs4gYJf6PtaQ==,type:str]
+  lastmodified: "2024-09-26T23:18:34Z"
+  mac: ENC[AES256_GCM,data:BtUkX0MT4xbI7OGnfElqKmFqUeb2ijoKzHe/oAIUiEelniExz8jFS9tqxQ+ysiraiHbU3Y/TB6kU9luaEnxfuepy1yy5aGx9Z9f3DRH1fotNw0qu+Zfj3uxYsV/4TA6C6dSpLpnw3dKHQ0ERRaV4thmj7zmQRCZ5L76Bdp8uzfA=,iv:QeD5nsfj4gV0g1LjmPlmghjvFDQeJETOHDIjkAxQ+SQ=,tag:L0owP/TrB+StMJSMjSjtXA==,type:str]
   pgp: []
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
