@@ -1,0 +1,18 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: tenant-internal
+  namespace: flux-system
+spec:
+  interval: 30m
+  ref:
+    branch: main
+  url: ssh://git@gitlab.alexsaphir.com:2222/Homelab/private-apps.git
+  secretRef:
+    name: gitlab-deploy-key
+  ignore: |
+    # exclude all
+    /*
+    # include kubernetes directory
+    !/cluster
