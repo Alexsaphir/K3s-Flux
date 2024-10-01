@@ -337,7 +337,7 @@ spec:
                   username: Alexsaphir
 
               http:
-                cookies_domain: {{.Values.codecovHost }}
+                cookies_domain: ${DOMAIN_NAME}
 
               timeseries:
                 enabled: false
