@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/ollama-webui/ollama-webui
-              tag: main
+              repository: ghcr.io/open-webui/open-webui
+              tag: v0.3.30
             env:
               OLLAMA_API_BASE_URL: http://ollama.ollama.svc:11434/api
 
