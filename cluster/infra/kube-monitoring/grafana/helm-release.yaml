@@ -441,7 +441,7 @@ spec:
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
           gnetId: 15760
-          revision: 31
+          revision: 32
           datasource: *datasource
         kubernetes-volumes:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
