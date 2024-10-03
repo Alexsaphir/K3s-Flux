@@ -49,6 +49,12 @@ spec:
               OAUTH_CLIENT_ID: ollama
               OPENID_PROVIDER_URL: https://auth.${DOMAIN_NAME}/.well-known/openid-configuration
 
+              DATABASE_URL:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-ollama
+                    key: POSTGRES_URL
+
             envFrom:
               - secretRef:
                   name: ollama-ui-secret
