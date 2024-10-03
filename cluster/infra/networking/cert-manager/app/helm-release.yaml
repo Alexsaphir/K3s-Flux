@@ -35,14 +35,13 @@ spec:
 
     webhook:
       replicaCount: 2
-      enabled: true
       resources:
-      requests:
-        cpu: 15m
-        memory: 64M
-      limits:
-        # cpu: 15m
-        memory: 65M
+        requests:
+          cpu: 15m
+          memory: 64M
+        limits:
+          # cpu: 15m
+          memory: 65M
 
     cainjector:
       replicaCount: 2
