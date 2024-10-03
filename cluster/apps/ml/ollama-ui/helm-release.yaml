@@ -41,6 +41,18 @@ spec:
               tag: main
             env:
               OLLAMA_API_BASE_URL: http://ollama.ollama.svc:11434/api
+
+              ENABLE_LOGIN_FORM: false
+              ENABLE_OAUTH_SIGNUP: true
+              OAUTH_USERNAME_CLAIM: preferred_username
+
+              OAUTH_CLIENT_ID: ollama
+              OPENID_PROVIDER_URL: https://auth.${DOMAIN_NAME}/.well-known/openid-configuration
+
+            envFrom:
+              - secretRef:
+                  name: ollama-ui-secret
+
             resources:
               requests:
                 cpu: 200m

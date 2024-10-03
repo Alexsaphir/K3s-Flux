@@ -59,8 +59,6 @@ spec:
               requests:
                 cpu: 200m
                 memory: 8Gi
-              limits:
-                memory: 16Gi
 
             probes:
               liveness:
