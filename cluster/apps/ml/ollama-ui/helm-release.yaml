@@ -42,8 +42,8 @@ spec:
             env:
               OLLAMA_API_BASE_URL: http://ollama.ollama.svc:11434/api
 
-              ENABLE_LOGIN_FORM: false
-              ENABLE_OAUTH_SIGNUP: true
+              ENABLE_LOGIN_FORM: 'False'
+              ENABLE_OAUTH_SIGNUP: 'True'
               OAUTH_USERNAME_CLAIM: preferred_username
 
               OAUTH_CLIENT_ID: ollama
