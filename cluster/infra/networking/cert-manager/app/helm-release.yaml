@@ -30,7 +30,8 @@ spec:
 
   # https://github.com/cert-manager/cert-manager/blob/v1.14.2/deploy/charts/cert-manager/values.yaml
   values:
-    installCRDs: true
+    crds:
+      enabled: true
     replicaCount: 2
 
     webhook:
