@@ -40,6 +40,8 @@ spec:
               repository: ghcr.io/open-webui/open-webui
               tag: dev@sha256:213944f4b2cbb6f75343850e8550ba023bcc5aace7ae8a3a76390419ec0d1691
             env:
+              ENV: dev
+
               OLLAMA_API_BASE_URL: http://ollama.ollama.svc:11434/api
 
               ENABLE_LOGIN_FORM: 'False'
@@ -48,6 +50,10 @@ spec:
 
               OAUTH_CLIENT_ID: ollama
               OPENID_PROVIDER_URL: https://auth.${DOMAIN_NAME}/.well-known/openid-configuration
+
+
+              DEFAULT_USER_ROLE: user
+              ENABLE_WEBSOCKET_SUPPORT: 'False'
 
               DATABASE_URL:
                 valueFrom:
