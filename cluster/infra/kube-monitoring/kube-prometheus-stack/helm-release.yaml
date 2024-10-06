@@ -180,12 +180,11 @@ spec:
         replicas: *replicasCount
         replicaExternalLabelName: __replica__
 
-        podMonitorSelector: &selector
-          matchLabels: null
-        probeSelector: *selector
-        ruleSelector: *selector
-        scrapeConfigSelector: *selector
-        serviceMonitorSelector: *selector
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
 
         enableAdminAPI: true
         walCompression: true
