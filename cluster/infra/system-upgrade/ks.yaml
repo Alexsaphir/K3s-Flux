@@ -12,7 +12,6 @@ spec:
 
 
   interval: 10m
-  retryInterval: 5m
   prune: true
   wait: false
 
@@ -35,7 +34,6 @@ spec:
       app.kubernetes.io/name: system-upgrade-plans
 
   interval: 10m
-  retryInterval: 5m
   prune: true
   wait: false
 

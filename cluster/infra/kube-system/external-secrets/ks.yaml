@@ -6,7 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  retryInterval: 5m
   prune: true
   wait: true
 
@@ -26,7 +25,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  retryInterval: 5m
   prune: true
 
   dependsOn:
