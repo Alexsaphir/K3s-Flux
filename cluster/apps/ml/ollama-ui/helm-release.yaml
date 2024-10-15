@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: dev@sha256:846782762568bae01f951be4c67b4440bed6937203b8d431143837b55e8da8d7
+              tag: dev@sha256:ef52d24d3eb31c78a0af90fce21ad0af5f60a78ed6a0d39a43ef05eee5778e7d
             env:
               ENV: dev
 
