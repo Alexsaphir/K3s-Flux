@@ -41,7 +41,7 @@ repos:
         args: [ "--lock" ]
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 38.129.2
+    rev: 38.130.3
     hooks:
       - id: renovate-config-validator
 
@@ -68,7 +68,7 @@ repos:
         entry: env YAMLLINT_CONFIG_FILE=.gitlab/linters/.yamllint.yaml ansible-lint
 
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.23
+    rev: v0.1.24
     hooks:
       - id: terraform-fmt
       - id: terraform-validate
