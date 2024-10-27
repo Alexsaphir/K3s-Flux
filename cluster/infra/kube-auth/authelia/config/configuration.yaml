@@ -104,6 +104,7 @@ access_control:
     - domain:
         - 'photos.${DOMAIN_NAME}'
         - 'recipes.${DOMAIN_NAME}'
+        - 'mealie.${DOMAIN_NAME}'
         - 'foundry.${DOMAIN_NAME}'
 
         - 'codecov.${DOMAIN_NAME}'
@@ -208,7 +209,7 @@ access_control:
 identity_providers:
   oidc:
     cors:
-      endpoints: [ 'authorization', 'token', 'revocation', 'introspection' ]
+      endpoints: [ 'userinfo', 'authorization', 'token', 'revocation', 'introspection' ]
       allowed_origins_from_client_redirect_uris: true
     clients:
       - client_id: grafana
@@ -308,3 +309,16 @@ identity_providers:
         redirect_uris:
           - 'https://ollama.${DOMAIN_NAME}/oauth/oidc/callback'
         userinfo_signed_response_alg: none
+
+      - client_id: mealie
+        client_name: Mealie
+        client_secret: "${MEALIE_OAUTH_CLIENT_SECRET}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: [ 'openid', 'profile', 'groups', 'email' ]
+        redirect_uris:
+          - 'https://mealie.${DOMAIN_NAME}/login'
+        require_pkce: true
+        pkce_challenge_method: 'S256'
+        userinfo_signed_response_alg: 'none'

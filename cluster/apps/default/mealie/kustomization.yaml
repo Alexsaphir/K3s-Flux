@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: mealie
+resources:
+  - namespace.yaml
+  - pvc.yaml
+  - postgres.yaml
+  - secret.sops.yaml
+  - helm-release.yaml
+  - gatus.yaml
