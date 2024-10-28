@@ -8,7 +8,7 @@ registries:
 packages:
   - name: direnv/direnv@v2.35.0
   - name: go-task/task@v3.39.2
-  - name: gitleaks/gitleaks@v8.21.1
+  - name: gitleaks/gitleaks@v8.21.2
   - name: firecow/gitlab-ci-local@4.55.0
   - name: FiloSottile/age@v1.2.0
   - name: mozilla/sops@v3.9.1
@@ -33,7 +33,7 @@ packages:
   - name: yannh/kubeconform@v0.6.7
   - name: zegl/kube-score@v1.19.0
   - name: cilium/cilium-cli@v0.16.19
-  - name: siderolabs/talos@v1.8.1
+  - name: siderolabs/talos@v1.8.2
   - name: budimanjojo/talhelper@v3.0.7
   - name: lsd-rs/lsd@v1.1.5
   - name: opentofu/opentofu@v1.8.4
