@@ -31,6 +31,7 @@ data:
   LB_POSTGRES_GITLAB: '192.168.0.220'
   LB_PY_KMS: '192.168.0.210'
   LB_JUPYTER: '192.168.0.230'
+  LB_SATISFACTORY_ADDR: '192.168.0.215'
 
 
   # `letsencrypt-production` or `letsencrypt-staging`
