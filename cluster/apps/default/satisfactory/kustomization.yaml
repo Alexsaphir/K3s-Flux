@@ -5,3 +5,5 @@ namespace: satisfactory
 resources:
   - namespace.yaml
   - certificate.yaml
+  - pvc.yaml
+  - helm-release.yaml

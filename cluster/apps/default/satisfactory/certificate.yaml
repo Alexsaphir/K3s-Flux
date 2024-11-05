@@ -10,5 +10,3 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - satisfactory.${DOMAIN_NAME}
-  additionalOutputFormats:
-    - type: CombinedPEM

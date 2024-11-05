@@ -1,0 +1,139 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: satisfactory
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: 'OnRootMismatch'
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      satisfactory:
+        type: statefulset
+        replicas: 1
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/wolveix/satisfactory-server
+              tag: v1.8.9@sha256:b9dab6a8c44a14e06c181c0b1f35fe0cda56ddb4b2c1e736498a9947201751b9
+
+            env:
+              ROOTLESS: true
+
+              AUTOPAUSE: true
+              AUTOSAVENUM: 30
+              AUTOSAVEONDISCONNECT: true
+              TIMEOUT: 30
+
+              MAXPLAYERS: 4
+
+              MAXTICKRATE: 30 # default is 30, 120
+              NETWORKQUALITY: 3 # 0-3, 3 is Ultra (default)
+
+              CRASHREPORT: false
+
+            resources:
+              requests:
+                memory: 4Gi
+
+            probes:
+              liveness: &probe
+                enabled: false
+              readiness: *probe
+              startup: *probe
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: [ 'ALL' ] }
+
+        pod:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: DoesNotExist
+
+    service:
+      app:
+        controller: satisfactory
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: ${LB_SATISFACTORY_ADDR}
+        ports:
+          game-udp:
+            enabled: true
+            port: 7777
+            protocol: UDP
+          game-tcp:
+            enabled: true
+            port: 7777
+            protocol: TCP
+
+    persistence:
+      data:
+        existingClaim: satisfactory-data
+        advancedMounts:
+          satisfactory:
+            app:
+              - path: /config
+
+      gamefiles:
+        existingClaim: satisfactory-gamefiles
+        advancedMounts:
+          satisfactory:
+            app:
+              - path: /config/gamefiles
+
+#      certchain:
+#        type: secret
+#        name: satisfactory-tls
+#        globalMounts:
+#          - path: /config/gamefiles/FactoryGame/Certificates/cert_chain.pem
+#            subPath: tls.crt
+#            readOnly: true
+#
+#      privatekey:
+#        type: secret
+#        name: satisfactory-tls
+#        globalMounts:
+#          - path: /config/gamefiles/FactoryGame/Certificates/private_key.pem
+#            subPath: tls.key
+#            readOnly: true
