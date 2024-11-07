@@ -39,4 +39,4 @@ packages:
   - name: opentofu/opentofu@v1.8.5
   - name: runatlantis/atlantis@v0.30.0
   - name: kyverno/kyverno@v1.13.0
-  - name: homeport/dyff@v1.9.2
+  - name: homeport/dyff@v1.9.3
