@@ -263,6 +263,8 @@ spec:
       settings:
         enabled: true
         data:
+          # Follow https://github.com/immich-app/immich/blob/main/server/src/config.ts
+          # https://github.com/immich-app/immich/blob/main/docs/docs/install/config-file.md
           immich-config.yaml: |
             ---
             ffmpeg:
@@ -286,7 +288,6 @@ spec:
               bframes: -1
               refs: 0
               gopSize: 0
-              npl: 0
               temporalAQ: false
               cqMode: auto
               twoPass: false
@@ -295,6 +296,10 @@ spec:
               tonemap: {{ .Values.immich.ffmpeg.tonemap | quote }}
               accel: disabled
               accelDecode: false
+
+            backup:
+              database:
+                enabled: false
 
             job:
               backgroundTask:
@@ -400,8 +405,6 @@ spec:
                 cronExpression: 0 0 * * *
               watch:
                 enabled: false
-                usePolling: false
-                interval: 10000
 
             server:
               externalDomain: ''
