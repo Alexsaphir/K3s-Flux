@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lldap/lldap
-              tag: v0.5.0@sha256:f0f5d92cd6c6dca9415993cfc57919f0618e87090b323a98c1536975860fa45a
+              tag: v0.6.0-alpine-rootless@sha256:6a85ac14b1b37de11490f8e0028e1bd15db2419fa5a58a5c2f0ab1ede33ccfeb
             env:
               TZ: '${TIMEZONE}'
 
@@ -72,6 +72,7 @@ spec:
               LLDAP_SMTP_OPTIONS__PORT: 1025
               LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
               LLDAP_SMTP_OPTIONS__FROM: LLDAP <lldap@domain.com>
+
             envFrom:
               - secretRef:
                   name: lldap-secret
@@ -96,6 +97,11 @@ spec:
                 memory: 36M
               limits:
                 memory: 128M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
 
     service:
       app:
