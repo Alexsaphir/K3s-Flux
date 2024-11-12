@@ -60,6 +60,7 @@ spec:
               MEND_RNV_REPORTING_ENABLED: "true"
 
               MEND_RNV_WORKER_CLEANUP: '30 0 * * 0'
+              MEND_RNV_WORKER_CLEANUP_DIRS: '/opt/containerbase,/tmp/renovate/cache,/tmp/renovate/repos'
 
               MEND_RNV_DATA_HANDLER_TYPE: postgresql
               MEND_RNV_LOG_HISTORY_S3: 's3://renovate/log'
