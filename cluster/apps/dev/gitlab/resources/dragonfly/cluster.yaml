@@ -4,7 +4,7 @@ kind: Dragonfly
 metadata:
   name: gitlab-dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.25.0
+  image: ghcr.io/dragonflydb/dragonfly:v1.25.1
 
   replicas: 2
 
