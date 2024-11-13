@@ -1,22 +1,11 @@
-# This file is maintained automatically by "terraform init".
+# This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/aminueza/minio" {
+provider "registry.opentofu.org/aminueza/minio" {
   version     = "3.2.1"
   constraints = "3.2.1"
   hashes = [
-    "h1:5lk5J3ibcY2tW2YrOdPQquMRcpjeHKFrbiBBjVWNl0M=",
-    "h1:F/SFLGVCV39W2+D1y3DbPBSjFXGzzMkRzbhdPDNlRug=",
-    "h1:GHXUs15xuifg/OE9DyA1T+rm9alerEOLk32IxiLFqhY=",
     "h1:KUaNvQb0tv8ZjmVbuagYPVSwVfBaUfsPmYPRuk3T/fA=",
-    "h1:LS1ZDoaT6LprBH13RuaUK8/jaGcv0xA826dEFNyxcjI=",
-    "h1:UPcVgeQ0egI8+YVaT7wv3r84TUFlgzncaiKUUbGhRAA=",
-    "h1:XFrYvgga/FARh2ePzednQbiekWi/2VsQSMMqCHzgAzA=",
-    "h1:YUVke/sFwe5MhQYIzCn0dr9KRgDoIjR1L3qlS0L2Bew=",
-    "h1:eTL9aMm1nCvH0hrmF5qkWrtPkd8w0PT6deH9ugUFB04=",
-    "h1:h2T5m9VEfj0y/ZQhXKK428fS6bEEkxIrQ+nwgnTMy4U=",
-    "h1:i/y+Y9qMWuKdhtj3lL7r2PrL5e52Mc97YQT1aZaUfcw=",
-    "h1:xPW5cyHLcn+MZ5paogp/0z9Hmu3Sx75jobpgMUlyaio=",
     "zh:397dbcbce5c1b80dbb1f946b706173cac3520d7af7dc82419c2cc7a518310754",
     "zh:46654ad40858fee3c761e3edafba2c9750f3c95651451b80662cf1970926726e",
     "zh:48e94f32e0efc9ff3bd7c75fd6e9e274c15da1cdb49f6420e5928dd29eb8183d",
@@ -32,17 +21,11 @@ provider "registry.terraform.io/aminueza/minio" {
   ]
 }
 
-provider "registry.terraform.io/carlpett/sops" {
+provider "registry.opentofu.org/carlpett/sops" {
   version     = "1.1.1"
   constraints = "1.1.1"
   hashes = [
-    "h1:0lv+4VCaIRTkBAMXmCxSJC1dsYPuoyBAvnrLsofcseA=",
-    "h1:AM1mG6OjcEL8hIr0PPel85i0HUlLZH8BZer5Dq7uiOM=",
-    "h1:FDG2jSsAr/tWk/w5zuPGovEtCqKxxosCYPlA5msBhec=",
-    "h1:WCfQL+3Nf73jZ40NkduHIBze7vOtYeyXb4t1xoa/3as=",
-    "h1:cl4VtE/cu7gL2DmwXEiNfD9xpv66Xzr4IeUzlGgfMZ0=",
     "h1:hqyownSt8teS7g0+XDOxmAtuAHB5kDNQkW1voBhLmZU=",
-    "h1:iKoZfVYPK2awiHuf2k0F9CyDjfnYYwoaNC9/pxINU8E=",
     "zh:175ec198e1b4d1cad1ae559ebe8cdf574617805010c22dfb8af93a2057ba8332",
     "zh:2b550b2372f71408e7b47b099f314d981bbb82b263cb55248a36a9af8afd44a1",
     "zh:684544ed3460c34585b090b5de1d4e0caf8eba8e6ba50ad0734cda818a6c86f0",

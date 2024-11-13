@@ -3,7 +3,6 @@ locals {
     "loki",
     "thanos",
     "backup-cloudnative",
-    "backup-mariadb-media",
     "backup-longhorn",
     "backup-volsync",
   ]
@@ -13,7 +12,9 @@ locals {
     "monica",
     "netbox",
     "recipes",
-    "renovate"
+    "renovate",
+    "planka",
+    "planka-prod"
   ]
   gitlab_buckets_k3s = [
     "gitlab-artifacts-storage",

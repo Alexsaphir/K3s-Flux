@@ -79,6 +79,11 @@ spec:
               SMTP_SECURE: false
               SMTP_FROM: 'Planka <planka@domain.com>'
 
+              S3_ENABLE: true
+              S3_REGION: us-east-1
+              S3_ENDPOINT: https://s3.${DOMAIN_NAME}
+              S3_BUCKET: planka
+
               # - SLACK_BOT_TOKEN=
               # - SLACK_CHANNEL_ID=
 
@@ -87,6 +92,8 @@ spec:
                   name: planka-secret
               - secretRef:
                   name: planka-oidc-secret
+              - secretRef:
+                  name: planka-s3-secret
 
             probes:
               liveness: &probe
@@ -128,16 +135,6 @@ spec:
                   port: http
 
     persistence:
-      data:
-        existingClaim: planka
-        globalMounts:
-          - path: /app/public/user-avatars
-            subPath: user-avatars
-          - path: /app/public/project-background-images
-            subPath: project-background-images
-          - path: /app/private/attachments
-            subPath: attachments
-
       tmp:
         type: emptyDir
         globalMounts:
