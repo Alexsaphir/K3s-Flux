@@ -61,7 +61,10 @@ spec:
                     name: database-planka
                     key: POSTGRES_URL
               BASE_URL:
-                value: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
+                value: &BASE_URL '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
+              REACT_APP_SERVER_BASE_URL:
+                value: *BASE_URL
+
               TRUST_PROXY: 1
 
               OIDC_ENFORCED: 'true'
@@ -79,7 +82,7 @@ spec:
               SMTP_SECURE: false
               SMTP_FROM: 'Planka <planka@domain.com>'
 
-              S3_ENABLE: true
+              S3_ENABLE: 'true'
               S3_REGION: us-east-1
               S3_ENDPOINT: https://s3.${DOMAIN_NAME}
               S3_BUCKET: planka
@@ -139,3 +142,13 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /app/logs
+            subPath: logs
+
+          - path: /app/public/user-avatars
+            subPath: user-avatars
+
+          - path: /app/public/project-background-images
+            subPath: project-background-images
+
+          - path: /app/private/attachments
+            subPath: attachments
