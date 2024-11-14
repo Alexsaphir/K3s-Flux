@@ -3,7 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: kube-vip
-  namespace: flux-charts
 spec:
   interval: 1h
   url: https://kube-vip.github.io/helm-charts
