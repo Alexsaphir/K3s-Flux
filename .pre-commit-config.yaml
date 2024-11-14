@@ -41,7 +41,7 @@ repos:
         args: [ "--lock" ]
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.9.1
+    rev: 39.15.1
     hooks:
       - id: renovate-config-validator
 
@@ -61,7 +61,7 @@ repos:
         args: [ '--config-file', '.gitlab/linters/.yamllint.yaml' ]
 
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v24.9.2
+    rev: v24.10.0
     hooks:
       - id: ansible-lint
         args: [ '-c', '.gitlab/linters/.ansible-lint.yaml' ]
