@@ -46,7 +46,7 @@ spec:
     controllers:
       planka:
         annotations:
-          secret.reloader.stakater.com/reload: database-planka, planka-secret, planka-oidc-secret
+          secret.reloader.stakater.com/reload: database-planka, planka-secret, planka-oidc-secret, planka-s3-secret
 
         containers:
           app:
@@ -82,10 +82,11 @@ spec:
               SMTP_SECURE: false
               SMTP_FROM: 'Planka <planka@domain.com>'
 
-              S3_ENABLE: 'true'
+              S3_ENABLE: true
               S3_REGION: us-east-1
               S3_ENDPOINT: https://s3.${DOMAIN_NAME}
               S3_BUCKET: planka
+              S3_FORCE_PATH_STYLE: true
 
               # - SLACK_BOT_TOKEN=
               # - SLACK_CHANNEL_ID=
