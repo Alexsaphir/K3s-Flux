@@ -144,11 +144,5 @@ spec:
           - path: /app/logs
             subPath: logs
 
-          - path: /app/public/user-avatars
-            subPath: user-avatars
-
-          - path: /app/public/project-background-images
-            subPath: project-background-images
-
-          - path: /app/private/attachments
-            subPath: attachments
+          - path: /app/.tmp
+            subPath: tmp
