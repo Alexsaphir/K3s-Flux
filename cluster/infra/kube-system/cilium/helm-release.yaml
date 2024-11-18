@@ -30,10 +30,11 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:
-      enabled: true
+      enabled: false
       bbr: true
     bpf:
-      masquerade: false # not beneficial for homelab, and tends to conflict with other networking stuff
+      hostLegacyRouting: true
+      masquerade: true # not beneficial for homelab, and tends to conflict with other networking stuff
       tproxy: true # L7 netpols stuff
     l7Proxy: true # enables L7 netpols
     bgp:
