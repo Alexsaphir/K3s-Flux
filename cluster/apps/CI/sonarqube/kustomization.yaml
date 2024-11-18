@@ -7,5 +7,5 @@ resources:
   - secret.sops.yaml
   - postgres.yaml
   - pvc.yaml
-  - helm-release.yaml
-  - gatus.yaml
+  # - helm-release.yaml
+  # - gatus.yaml
