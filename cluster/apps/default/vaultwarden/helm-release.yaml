@@ -61,7 +61,7 @@ spec:
               SIGNUPS_ALLOWED: 'false'
               INVITATIONS_ALLOWED: 'false'
               ORG_GROUPS_ENABLED: 'true'
-              EXPERIMENTAL_CLIENT_FEATURE_FLAGS: autofill-v2
+              EXPERIMENTAL_CLIENT_FEATURE_FLAGS: autofill-v2,ssh-key-vault-item,ssh-agent
 
               DOMAIN: 'https://{{ .Values.vaultwarden.domain_name }}'
 
