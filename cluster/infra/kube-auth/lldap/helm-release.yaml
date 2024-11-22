@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lldap/lldap
-              tag: v0.6.0-alpine-rootless@sha256:6a85ac14b1b37de11490f8e0028e1bd15db2419fa5a58a5c2f0ab1ede33ccfeb
+              tag: v0.6.1-alpine-rootless@sha256:7e1c16090167c49d34e9e98f9f7d3fce97d3d86de8d2f62eedefad3dca3d270b
             env:
               TZ: '${TIMEZONE}'
 
