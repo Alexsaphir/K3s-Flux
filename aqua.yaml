@@ -4,12 +4,12 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.257.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.258.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.35.0
   - name: go-task/task@v3.40.0
   - name: gitleaks/gitleaks@v8.21.2
-  - name: firecow/gitlab-ci-local@4.55.0
+  - name: firecow/gitlab-ci-local@4.56.0
   - name: FiloSottile/age@v1.2.0
   - name: mozilla/sops@v3.9.1
   - name: hashicorp/terraform@v1.9.8
