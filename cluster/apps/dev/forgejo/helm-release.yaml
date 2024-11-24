@@ -28,6 +28,8 @@ spec:
 
   values:
     replicaCount: 1
+    strategy:
+      type: Recreate
 
     image:
       rootless: true
