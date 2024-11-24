@@ -28,11 +28,6 @@ spec:
 
   values:
     replicaCount: 1
-    strategy:
-      type: 'RollingUpdate'
-      rollingUpdate:
-        maxSurge: '100%'
-        maxUnavailable: 0
 
     image:
       rootless: true
