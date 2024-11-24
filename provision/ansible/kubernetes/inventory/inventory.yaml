@@ -7,6 +7,7 @@ all:
 kubernetes:
   vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    ansible_python_interpreter: /usr/bin/python3
     global_k8s_labels:
       - "topology.kubernetes.io/region=homelab"
       - "topology.kubernetes.io/zone=homelab-0"
