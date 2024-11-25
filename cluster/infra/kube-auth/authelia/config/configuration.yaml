@@ -149,6 +149,7 @@ access_control:
     - domain:
         - 'cyberchef.${DOMAIN_NAME}'
         - 'zitadel.${DOMAIN_NAME}'
+        - 'wikijs.${DOMAIN_NAME}'
       policy: two_factor
 
     - domain:

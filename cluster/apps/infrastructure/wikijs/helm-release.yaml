@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wikijs
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    controllers:
+      wikijs:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/requarks/wiki
+              tag: 2.5.305@sha256:707fa8f0c739d098346eff46af4ef3e71f10df88b0b49785c70b4cf0075274d5
+
+            env:
+              TIMEZONE: '${TIMEZONE}'
+              APP_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
+
+              # HA_ACTIVE: true
+
+              DB_TYPE: postgres
+              DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-wikijs
+                    key: HOST
+              DB_PORT: '5432'
+              DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-wikijs
+                    key: LOGIN
+              DB_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-wikijs
+                    key: PASSWORD
+              DB_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-wikijs
+                    key: DATABASE_NAME
+
+    service:
+      app:
+        controller: wikijs
+        ports:
+          http:
+            port: 3000
+
+    ingress:
+      app:
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: "wikijs.${DOMAIN_NAME}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
