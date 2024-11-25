@@ -33,6 +33,8 @@ spec:
         annotations:
           reloader.stakater.com/auto: 'true'
 
+        replicas: 2
+
         containers:
           app:
             image:
@@ -43,7 +45,7 @@ spec:
               TIMEZONE: '${TIMEZONE}'
               APP_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
 
-              # HA_ACTIVE: true
+              HA_ACTIVE: true
 
               DB_TYPE: postgres
               DB_HOST:
