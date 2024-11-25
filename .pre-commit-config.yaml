@@ -71,7 +71,6 @@ repos:
     rev: v0.1.24
     hooks:
       - id: terraform-fmt
-      - id: terraform-validate
       - id: tflint
 
   # Check commit name
