@@ -65,6 +65,8 @@ spec:
                   name: authelia-secret
               - secretRef:
                   name: authelia-oauth-secret
+              - secretRef:
+                  name: authelia-oauth-manual-secret
 
             env:
               DOMAIN_NAME: ${DOMAIN_NAME}
