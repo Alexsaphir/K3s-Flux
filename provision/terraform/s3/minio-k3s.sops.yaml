@@ -1,16 +1,17 @@
 kind: Secret
-root_access_key: ENC[AES256_GCM,data:qdwE9q6bp5ha/o7ut8xC95mKjz1PQ+fiJgXxuijbnbiumsDK+ZHHDyJK8CHjvwAapkfrCR3Ur1PHpN8Njn3BrA==,iv:UbaauIvipVhsLpMTXvWEBLlZTG8fkMboL2ZodgOQ3Zk=,tag:OAUIK+cATEOnSG+beUg22w==,type:str]
-root_secret_key: ENC[AES256_GCM,data:XL0BkzfoahOlaJgIGwzuoThI7D5zdOWuHzTmUeECG3ZX4wUhpC0KqKqKVwjrqXsiMaEODwn8y6E/bducV5zL/H51cbt7BAKaJY5wNJFY+X7Mpwf9j+Jl7w==,iv:Sr+Twp2lQ3Ij7+9aWe7DZw1knPHtnDRSHERrS0SKw0o=,tag:yp+NwgLZ5FRbvGp8uW5o4A==,type:str]
-codecov_secret_key: ENC[AES256_GCM,data:y660rr8nZKBURJPSZ0C4PJsJbVNo0991z/rh4veHbAHnDaR7eyVfA4Fr6O41+8qZ67RqiDfdotnfvL8Yeh6NXWjUuWHHS4XO13gWwe7KeK6dnIJsdQ7DDg==,iv:pxzREQsYths38uVnML5MaVY/dtDHeDl3BIz9wU8GDeI=,tag:EtO0BSBOT5HdUvEkVx4fyg==,type:str]
-forgejo_secret_key: ENC[AES256_GCM,data:Z/mQBGg6Px7DifLbRHRFrDjqtoNrwO0jYb9cxsJ2GcfjWiR5CJ1KGb1n1MSA5AMEbIg0hzEbyjcp2PfDbi3d/4yjJbaSah+10sdnIq5Q28Xe1AmVjaRD6A==,iv:jXKOnbGiaSnxjIs0MPzoKxgJpqIvMpcWzYUVRtdOs14=,tag:xWp0ArDX7wOiemJZuVXaXw==,type:str]
-monica_secret_key: ENC[AES256_GCM,data:1JeFEQN8HyVPNMMVKXKdDUdC++6etfT4WrTCSy9+rDcKbF1Pn0K/4R7W4v/b9vEyujoEUvams+MU6hDW59ihZ5GtYmdjgwpcR18b3wyWec0Bpo078o0SOw==,iv:yPjpR0rJiPklZjt0yxmAGA6oCt00X9899nHBsOPfVhU=,tag:xcePuO3FHeQRz1tWtC6PEw==,type:str]
-netbox_secret_key: ENC[AES256_GCM,data:LLKoTS4TzmKw+auRYCH2n4uPwmsqRcRNezmQ+hFe4ZBG0XDqDIOf3iD8/G5/n+mqjRgYO+WQUYlYNiYHlTwpJ8Rd7qBnFjpidMFPR5t/xRZmIfWQmIyP/g==,iv:bD4WxFZk/WmrOtv8uhNGesjM2pa0CXKrMjeZqZnGry8=,tag:2UbDNAV8HS6JbMEQVh1wxg==,type:str]
-recipes_secret_key: ENC[AES256_GCM,data:CT1/jmZrnC/3c6yzEN3g+TFmoSroRAeC2D57YANy/7Bamim6K7YdLq+j1EfufWui5g4c7OXtyL7fh52e73x3GcfVYKovGl5Nt3m5IdC/2ZQyJGjUPYUgxQ==,iv:IQl5OrnNSdvIRbpQc2fr7hNVywdDlh31sepdvJuqQSI=,tag:Bknh631Lnm2G5wuTcBmV1Q==,type:str]
-renovate_secret_key: ENC[AES256_GCM,data:ruCSbHaz1kNU7e/CITIXkvktR8gWP/PK3/gKmsTXXTKweuVugwAgrj8UOwQQ3pLYzzDuuFMA255W9bPGBnm0RA4GYGPjiMwrnTclo1+efjAcS1e00jn3XQ==,iv:kF2dPk30ifg08WlPXTqpFndcxTpga9dhA7KFsMDMqaM=,tag:3ynw5UAzUp1tiUnQu9xEvA==,type:str]
-gitlab-runner_secret_key: ENC[AES256_GCM,data:N0o4YLudk19y8ebVe8jCA/pSkb5v9HrQW9ueqSpIas0wxBsRz95jMQ5/URgqSj1VfxA2tTOtnwf7eNDOzLi0pTU0+WaZ6kSpyuelF9Gyv8nZbgCIjY6g+g==,iv:oOPWx3QDfsCD6ocK+G7Y4DJK//rp0DXCoebSVMm+5SI=,tag:0Hw4JPJff6HF5xM7nVEJAg==,type:str]
-gitlab_secret_key: ENC[AES256_GCM,data:zrFkpg6gUXnCi7Yo04bxfAYwrbXyNPGlLnWwvXnbZ/3Sag33TzNAxBY7JsD2fP63vuAHur7HAATIW64O81gdVHbLEHYP5SMCoUybck8MrZ2WsjzFTm5kZQ==,iv:f+OLUOKgCGpNNv0iGj5G1anEP6WVJ0I5zYP0/KIQjwk=,tag:yOm6Y+38cldYj+Dw/IsbPg==,type:str]
-planka_secret_key: ENC[AES256_GCM,data:3AouAYA38k9CnDNjzYf9t/IokvFu99gFGX1QjxcDum7ccIQIQX40M4e7V8/enod1uHDfAX3kcRxu9u3POrUPjRI6k1A2ntC+LAYlqULwSJknF99NDFkQRA==,iv:8tChIRx9tK3xJXLSJbXDz5mAOdPk5lHeZJf/uKNLFoQ=,tag:djVE73idW1vqWq0L6aKwxg==,type:str]
-planka-prod_secret_key: ENC[AES256_GCM,data:OkHWY5yCfIaaQD0leLHEXFo8a8gK6o15jXDeZ/XcTsF6ajNY8OLXzBI+ZL8J4iO3voqT6E95kApRbNQTB8Wc64o9KaEiVIw5xgov5FHzXccVh/E1WpGChQ==,iv:WYqxzeGuC3i9kiHGMNgMl/qMOnV/jl/gO8O1XFXG5mE=,tag:xD4zBlGgZuy9dUhc/cUMzg==,type:str]
+root_access_key: ENC[AES256_GCM,data:k6EdgKYCAgrab9+kLz+MtSbqv6rqUGuCA+nn5NwraleBwWCvB8VR2oEhBMJtvSBQdX9Xe7GkO6PuuOq6Hz5P2w==,iv:Lh85c2KnU/ouUnsZ9c6ELywo1dVuyZySD48DKSWnqsM=,tag:wUn1xi4yTBCTUoV1QpeYEw==,type:str]
+root_secret_key: ENC[AES256_GCM,data:Zb3R+mziMbu41SsoMCF8e3RWy0zd/8deiXZeHEXNVqG0PgzHIRaMUA5JAdJvGuF79mih1pTQ+qFBuqiu+znTEidWB0IwemZ5m3J7qVeMw8dL4uFAcuSbbg==,iv:uCAej+hpoRpksvBwbZVIVrgjGW/MyrZyE5QzXg6oxwg=,tag:/sAxxArfcn6sIgrlabsphA==,type:str]
+codecov_secret_key: ENC[AES256_GCM,data:+zPe/Q4coBvVpY/f1ehs08xq8UqwCqAdUqcEBGHe0yPRS6zXhXGuHXmuZkvBqpN8/ZqUsWsN/snoLkLZjxgPdoF0OeC7U6XCFZm1/mc7BeVq+giapkoKuA==,iv:YL24Uzk1Yb124pUnufndRMqQSnmRhftI/oPA4ftWq6w=,tag:sP9spVkxALWbg95tac3cyA==,type:str]
+forgejo_secret_key: ENC[AES256_GCM,data:wKNoGMi919mzqRqkXxJC3A+CGjfbcASvtvBC2uImDxAb1a8Xf+Qer7Jni5Z69ygQalLj7fv2iD3bOe5TmpFTGxb4ej6xHDnKxuyKlpEwFAMMRLz3u7OKBg==,iv:BIM59GtBdlormVs3DlOVcKbdnMlMJ+JXusaGd8YNF84=,tag:9uueSpVO9YtH9b/PAdLgUA==,type:str]
+monica_secret_key: ENC[AES256_GCM,data:W+WgTnVm011A3eQAa2RmRnR0LiG8kZsP/0DoDINz4jyCiZpfmTClfCGNIpPWYP0j9UOF00H7WTZRA1jabzdL7KrbXPg0rT/TZH0uz4UfZVb193kt/oo8/g==,iv:uiaJJEp1VPklIS6V1RoyBccA+PajDageJa/SnK7Dof4=,tag:/jfLdG3s91Op7ThNWDiG/Q==,type:str]
+netbox_secret_key: ENC[AES256_GCM,data:Zep6uX2eGHJ6PQlRG1d2DfrR5SJ+CjGBSVh0Ax0bCtpnAn0iaqC5q3iI6keaGcEPCwewTdepDv4QZQt+HPMwzJSzI8eSW0j4nlnvdIj45Tlea5ibT3o+Gw==,iv:SPgqI5AMl2I+XcdF5ROnY9IGz58oc/T/5PzgbPA/5QY=,tag:+EaUafJmyymg8ch1ulqpIA==,type:str]
+recipes_secret_key: ENC[AES256_GCM,data:O7XYcgsnJ9V1/hILNKfjq9q00sudA0+IYiiDP9J3QHlFebI1DLlLDVuhMBfQViIB0FqK9dTPqSniurnzBZbuilOg/hNcwEllpZLjE7ZuNs/VDuBs4ZFCug==,iv:+wciSd/HlktfdxYSAdHXpF1icCZ2C9CasMbLyZxoXkY=,tag:WYK7KJkNr45wehSKyfMb+w==,type:str]
+renovate_secret_key: ENC[AES256_GCM,data:Q3xaIen1ZBGTx4sFmZ2gxRpmWxxcbzufOroaAO3syUlEzXbJsELUToL6UzbT465aFBNDPLpFdM1TgsmKOIHqOj6vHUozOkaRzFU235comgwskDppvN73BA==,iv:qBPn5SXEQ39afEJxxdmIbh6cA1bdCnZPwchLtHIA/zo=,tag:5RaH+hSrrn03kAkY9IGGDg==,type:str]
+gitlab-runner_secret_key: ENC[AES256_GCM,data:z0vAaH81kzNp1NhFqR2ttKX4BxUuFoXUhxmkkPsg6HlSu9PGvLIIiwTVDAYn6qn5sNwjTFOgRQniTopRY6reFb3vBJO58mOLOKNGjutzf695DWu9tWhxpw==,iv:l4Jz+BWnXzgsPVScDJib192awhRYWF5+Tug/MK5k/ak=,tag:/SZZ6CGi+WUTmXacCT2+ug==,type:str]
+gitlab_secret_key: ENC[AES256_GCM,data:3qLM1wT2FNS4N2w2sAx0LhiMV7wjLbaXcFCTscf0Db3Ea1rF2XVE2HHjiI/Fp0ZvdAtTIvZ/gF8iMd6rU9U/2kXJ4ytmZRwPpa734FYn2hxDCaQE/1XbXg==,iv:9Fttj0Kj/7R6DGeu7pQmLXpsdeCchlHV/nemQ1VEex8=,tag:9XokqCDQUDwZWRZzKvV7Og==,type:str]
+planka_secret_key: ENC[AES256_GCM,data:DEJgWz/54vawMntFQC+Dy7cOBgurVxBdvuL4hlHw6Ev17oz9B9CWdPs/dNaQU7UPheUdVefpOS2pikiU8aSqKVmZxnN/26tp68eRQRqb1SXTITkYXvHb6A==,iv:LeAXVqNrXDzboTILtnMinWVnqXFNeuR5YCG5SvEbcno=,tag:k4RR9eOVMvVWUb3/u3ac3w==,type:str]
+planka-prod_secret_key: ENC[AES256_GCM,data:RUoOMDMfTxegIzwfCIzxH5dylWCLawusvDdDB8y6FkYv3RFBoqELDhaxR53e4CtsfP2WwTEKhOrsKaggrZKFnDabgEtlTHCQhK+HAKBp/Tf4V3sRMJAHlw==,iv:fFUAYiPPXBDSzsWr7R19bjllrEa/lwG50P0PT0F+sK0=,tag:ZzriMBRNNmvjL58oXhTVHg==,type:str]
+wikijs_secret_key: ENC[AES256_GCM,data:r9pJER45UwSVT3MkTaEABZHmFee1kj4+uSKW+kzJ7wEqcvKvJXAafF/QjknHyhY0QCTEs07cvL70N/cNcdFnc9c4fhKstsHmcCiCCEDgeHiFqDCaGrgHVg==,iv:S0FyGLpSVqSr/V8jtLlTJc2mHtAf2mLTtVXv3pbLnWA=,tag:4OM0NXJQYHAxSMWOug8jcw==,type:str]
 sops:
   kms: []
   gcp_kms: []
@@ -20,14 +21,14 @@ sops:
     - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyVTYzMlZYeHNNR1lIeWVQ
-        M28ySTdiWmFPTnJVSEFKVHJFU1NnQ3ZpSWg0CkVOcVFYbUhHMVZ2UmpXNWh5NWRH
-        Sm15N2l2TlFOSE1Bc0UzVHkxL3hXVG8KLS0tIEhRcmhnV1QwcmdybGpJb05ObWtI
-        Sk9Kd0xwaE1idURWV204VmhiY3l6bHcKj7KeKikxkx/GoRKJ54KyHMy/lL7YFouR
-        KUR3glcG9RAyma8YQjxGX3PwKetrGWVdYTbtvtteEGGfsGR3LV3xbw==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0RVhhTDNYUzloSldsb2FW
+        MUdtY1NKaFAxUUc0QlcrcWJabndyMTcycVg4Cm04UCtHVXZzbzcxckhFTDlxZzlC
+        WGJvdE1rVmc5ckc1ZS9pSzVoM255RVUKLS0tIDU3YmxGZThyV1FFdmhuRkN1LzBV
+        dkxxM052TGRJRGtTRTdpSzZlYXhCSTgKZ/PyfTeoeBeEV0xppdXjotpN91wRnGAu
+        Wfgt8lOXZlco52l5taddm0fHBU2zkZxeDD4zv9ptFos4DBrJ5xjesg==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2024-11-13T00:12:22Z"
-  mac: ENC[AES256_GCM,data:PT72YctYWXRhUnaK5RFaeu+Vf/2rU6mD0bct5jyRxZRktxAYoWE5c1oeA6j1f5hpwzJvJKvwr76TwNEBXG6Tf5vfnKkIdP1VYnBkk02izWcpgGCB3fj5lttox8VWhU9GUMpvOkVsHRznBYKx7uSk1Z2cMswPKBXEysKVJyA4eP8=,iv:kUVKr/JgELns63LBpUDIjgJjhn7waBmPjPHmAGNHESs=,tag:6hecoJqqFkUMlNVmwtAElQ==,type:str]
+  lastmodified: "2024-11-25T12:22:05Z"
+  mac: ENC[AES256_GCM,data:+mt2rdutlc/NW3YjRdHVQsT2aexsF7fdWSynyUQ/BW9mFPMCZyYLARmfRE7PNJWUQADo4bNezXvXmoIj065xukCEIPiYb7t7Ssm46X3FBIw5Dbvpz2ciMFRdC4sKNCT048jtnXRiEEeAoCXlrCA2E02zrxZnOJJ/5ArNQENZol0=,iv:x/nOdmaRfdbZ3TwqYskEsxdYkj5dKMU9xpAohc+gFWA=,tag:yuLnDLrfRDRF4zJrKNBHEA==,type:str]
   pgp: []
   unencrypted_regex: ^(kind)$
   mac_only_encrypted: true
