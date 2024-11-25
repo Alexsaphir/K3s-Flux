@@ -15,7 +15,7 @@ locals {
     "renovate",
     "planka",
     "planka-prod",
-    "wiki-js",
+    "wikijs"
   ]
   gitlab_buckets_k3s = [
     "gitlab-artifacts-storage",
