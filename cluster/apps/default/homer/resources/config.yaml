@@ -151,6 +151,13 @@ services:
         target: '_top'
         tag: 'sso'
 
+      - name: "Wiki"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/wikijs.png"
+        subtitle: ""
+        url: "https://wikijs.${DOMAIN_NAME}"
+        target: '_top'
+        tag: 'sso'
+
   - name: "Media"
     items:
       - name: "Plex"
