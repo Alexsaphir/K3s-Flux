@@ -6,6 +6,7 @@ metadata:
   labels:
     gatus.io/enabled: "true"
 data:
+  # language=yaml
   config.yaml: |
     endpoints:
       - name: "renovate"

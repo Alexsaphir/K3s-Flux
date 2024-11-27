@@ -154,6 +154,8 @@ spec:
     configMaps:
       oauth-config:
         data:
+
+          # language=json
           SOCIALACCOUNT_PROVIDERS: |
             {
               "openid_connect": {

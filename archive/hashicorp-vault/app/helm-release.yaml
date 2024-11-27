@@ -95,14 +95,15 @@ spec:
         replicas: 2
 
         # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
+        # language=hcl
         config: |
           ui = true
 
           cluster_name = "sph-prod"
 
           listener "tcp" {
-            tls_disable = 1
-            address = "[::]:8200"
+            tls_disable     = 1
+            address         = "[::]:8200"
             cluster_address = "[::]:8201"
           }
 

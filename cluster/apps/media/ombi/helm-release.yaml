@@ -107,6 +107,7 @@ spec:
       database:
         enabled: true
         data:
+          # language=json
           database.json: |
             {
               "OmbiDatabase": {

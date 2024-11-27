@@ -320,6 +320,7 @@ spec:
     configMaps:
       config:
         data:
+          # language=yaml
           codecov.yml: |
             gitlab_enterprise:
               bot:
