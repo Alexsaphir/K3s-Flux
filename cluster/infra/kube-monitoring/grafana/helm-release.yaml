@@ -363,16 +363,18 @@ spec:
           datasource: *datasource
 
         cert-manager:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
+          revision: 3
           datasource: Prometheus
 
       node:
         smart:
           # renovate: depName="Dashboard for smartctl_exporter"
-          gnetId: 20204
+          gnetId: 22381
           revision: 1
           datasource:
-            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: DS_VICTORIAMETRICS, value: Prometheus }
 
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
