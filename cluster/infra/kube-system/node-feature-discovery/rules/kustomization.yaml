@@ -6,4 +6,3 @@ resources:
   - barcode-reader-device.yaml
   - google-coral-device.yaml
   - zigbee-device.yaml
-  - zwave-device.yaml
