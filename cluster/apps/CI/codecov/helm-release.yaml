@@ -32,7 +32,7 @@ spec:
 
     codecov:
       # renovate: datasource=github-releases depName=codecov/codecov-api
-      version: &codecovVersion 24.11.1
+      version: &codecovVersion 24.12.2
 
     codecovConfig:
       database:
@@ -229,7 +229,7 @@ spec:
           app:
             image:
               repository: codecov/self-hosted-api
-              tag: 24.11.1
+              tag: 24.12.2
 
             env: *global_env
 
