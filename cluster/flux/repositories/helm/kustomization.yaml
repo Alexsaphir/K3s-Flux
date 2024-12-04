@@ -6,7 +6,6 @@ resources:
   - authelia.yaml
   - backstage.yaml
   - backube.yaml
-  - bitnami.yaml
   - bjw-s.yaml
   - bootc.yaml
   - bytebase.yaml
