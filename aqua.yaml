@@ -7,7 +7,7 @@ registries:
     ref: v4.269.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.35.0
-  - name: go-task/task@v3.40.0
+  - name: go-task/task@v3.40.1
   - name: gitleaks/gitleaks@v8.21.2
   - name: firecow/gitlab-ci-local@4.56.0
   - name: FiloSottile/age@v1.2.0
@@ -32,7 +32,7 @@ packages:
   - name: stern/stern@v1.31.0
   - name: yannh/kubeconform@v0.6.7
   - name: zegl/kube-score@v1.19.0
-  - name: cilium/cilium-cli@v0.16.20
+  - name: cilium/cilium-cli@v0.16.21
   - name: siderolabs/talos@v1.8.3
   - name: budimanjojo/talhelper@v3.0.10
   - name: lsd-rs/lsd@v1.1.5
