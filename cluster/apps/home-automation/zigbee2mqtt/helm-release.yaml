@@ -79,7 +79,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &hostPath /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
-              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ezsp
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
 
             envFrom:
               - secretRef:
@@ -175,7 +175,6 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPathType: CharDevice
         hostPath: *hostPath
         advancedMounts:
           zigbee2mqtt:
