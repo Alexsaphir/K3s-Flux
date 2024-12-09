@@ -51,6 +51,8 @@ spec:
       SERVICES__MINIO__PORT: &minio-port 9000
       SERVICES__MINIO__VERIFY_SSL: false
 
+      PUBSUB_EMULATOR_HOST: localhost
+
       SETUP__ENTERPRISE_LICENSE:
         valueFrom:
           secretKeyRef:
