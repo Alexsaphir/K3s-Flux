@@ -15,7 +15,7 @@ packages:
   - name: hashicorp/terraform@v1.10.2
   - name: terraform-linters/tflint@v0.54.0
   - name: fluxcd/flux2@v2.4.0
-  - name: kubernetes/kubectl@v1.31.4
+  - name: kubernetes/kubectl@v1.32.0
   - name: helm/helm@v3.16.3
   - name: kubernetes-sigs/kustomize@kustomize/v5.5.0
   - name: jqlang/jq@jq-1.7.1
