@@ -26,6 +26,15 @@
       "matchPackagePatterns": [
         "minio"
       ]
-    }
+    },
+    {
+      description: "Custom schedule for pre-commmit",
+      matchDatasources: [
+        "pre-commit",
+      ],
+      schedule: [
+        "weekly"
+      ],
+    },
   ]
 }
