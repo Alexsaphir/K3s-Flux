@@ -1,29 +1,33 @@
-[tool.poetry]
+[project]
 name = "k3s-flux"
-version = "0.1.0"
-description = ""
-authors = ["Alexandre Mechineau <git@alexsaphir.com>"]
+version = "0.0.0"
+description = "Add your description here"
 readme = "README.md"
-package-mode = false
+requires-python = ">=3.12"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "flux-local>=6.0.2",
+  "pre-commit>=4.0.1",
+]
 
+[dependency-groups]
+linters = [
+  "prettier>=0.0.7",
+  "pyproject-fmt>=2.5",
+  "yamllint>=1.35.1",
+]
+ansible = [
+  "ansible>=11.1",
+  "ansible-inventory-grapher>=2.6",
+  "jmespath>=1.0.1",
+  "netaddr>=1.3",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-pre-commit = "^4.0.1"
+[tool.uv]
+package = false
 
-prettier = "^0.0.7"
-yamllint = "^1.35.1"
-
-[tool.poetry.group.ansible.dependencies]
-ansible = "^11.1.0"
-ansible-inventory-grapher = "^2.6.0"
-
-jmespath = "^1.0.1"
-netaddr = "^1.3.0"
-
-[tool.poetry.group.ci.dependencies]
-flux-local = "^6.0.2"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+default-groups = [ 'ansible', 'linters' ]
