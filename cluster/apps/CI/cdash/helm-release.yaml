@@ -1,0 +1,113 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cdash
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    # renovate: datasource=github-releases depName=kitware/cdash
+    version: &cdashVersion v3.6.2
+
+    controllers:
+      cdash:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: kitware/cdash
+              tag: *cdashVersion
+
+            envFrom:
+              - secretRef:
+                  name: cdash-secret
+              - secretRef:
+                  name: cdash-gitlab-secret
+
+            env:
+              APP_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
+
+              APP_NAME: CDash
+              APP_ENV: production
+              APP_DEBUG: false
+
+              MAIL_HOST: mailpit.mail.svc.cluster.local
+              MAIL_PORT: 1025
+
+              GITLAB_ENABLE: true
+              GITLAB_DOMAIN: https://gitlab.${DOMAIN_NAME}
+
+              DB_CONNECTION: 'pgsql'
+              DB_DATABASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: &postgres-creds database-cdash
+                    key: DATABASE_NAME
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: *postgres-creds
+                    key: LOGIN
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: *postgres-creds
+                    key: PASSWORD
+              DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: *postgres-creds
+                    key: HOST
+
+    service:
+      app:
+        controller: cdash
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      app:
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
+        hosts:
+          - host: cdash.${DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: cdash
+        advancedMounts:
+          cdash:
+            app:
+              - path: /cdash/storage
