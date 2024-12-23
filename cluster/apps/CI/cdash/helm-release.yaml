@@ -102,12 +102,3 @@ spec:
                 service:
                   identifier: app
                   port: http
-
-    persistence:
-      config:
-        enabled: true
-        existingClaim: cdash
-        advancedMounts:
-          cdash:
-            app:
-              - path: /cdash/storage
