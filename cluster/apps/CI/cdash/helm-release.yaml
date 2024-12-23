@@ -59,7 +59,7 @@ spec:
               MAIL_PORT: 1025
 
               GITLAB_ENABLE: true
-              GITLAB_DOMAIN: https://gitlab.${DOMAIN_NAME}
+              GITLAB_DOMAIN: https://gitlab.${DOMAIN_NAME}/
 
               DB_CONNECTION: 'pgsql'
               DB_DATABASE:
