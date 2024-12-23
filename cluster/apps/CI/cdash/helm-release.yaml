@@ -54,6 +54,7 @@ spec:
               APP_NAME: CDash
               APP_ENV: production
               APP_DEBUG: false
+              USERNAME_PASSWORD_AUTHENTICATION_ENABLED: false
 
               MAIL_HOST: mailpit.mail.svc.cluster.local
               MAIL_PORT: 1025
