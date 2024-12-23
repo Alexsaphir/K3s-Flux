@@ -61,6 +61,7 @@ spec:
 
               GITLAB_ENABLE: true
               GITLAB_DOMAIN: https://gitlab.${DOMAIN_NAME}/
+              GITLAB_AUTO_REGISTER_NEW_USERS: true
 
               DB_CONNECTION: 'pgsql'
               DB_DATABASE:
