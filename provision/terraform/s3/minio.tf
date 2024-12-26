@@ -15,7 +15,8 @@ locals {
     "renovate",
     "planka",
     "planka-prod",
-    "wikijs"
+    "wikijs",
+    "cdash",
   ]
   gitlab_buckets_k3s = [
     "gitlab-artifacts-storage",
@@ -48,7 +49,7 @@ module "minio_bucket_nas" {
   is_public        = false
   owner_access_key = each.key
   owner_secret_key = data.sops_file.minio-creds-nas.data["${each.key}_secret_key"]
-  providers = { minio = minio.nas }
+  providers        = { minio = minio.nas }
 }
 
 output "minio_bucket_outputs_nas" {
@@ -63,7 +64,7 @@ module "minio_bucket" {
   is_public        = false
   owner_access_key = each.key
   owner_secret_key = data.sops_file.minio-creds-k3s.data["${each.key}_secret_key"]
-  providers = { minio = minio.k3s }
+  providers        = { minio = minio.k3s }
 }
 
 output "minio_bucket_outputs_k3s" {
@@ -79,7 +80,7 @@ module "minio_bucket_gitlab" {
   is_public        = false
   owner_access_key = "gitlab"
   owner_secret_key = data.sops_file.minio-creds-k3s.data["gitlab_secret_key"]
-  providers = { minio = minio.k3s }
+  providers        = { minio = minio.k3s }
 }
 
 output "gitlab_bucket_outputs_k3s" {
