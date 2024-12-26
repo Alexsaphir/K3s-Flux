@@ -54,7 +54,6 @@ spec:
               tag: 0.4.6.2711@sha256:0a4eaa2b8996a45539fead59159733694aba2d60c1080b23e0b9d894114fbd53
 
             env:
-              COMPlus_EnableDiagnostics: "0"
               READARR__AUTHENTICATION_METHOD: None
               # READARR__AUTHENTICATION_METHOD: External
               # READARR__AUTHENTICATION_REQUIRED: Enabled

@@ -54,7 +54,6 @@ spec:
               tag: 4.0.11.2793@sha256:9a9ad2c77681877c850ef3f1de86c60b515e1329816921778e148537efa0549a
 
             env:
-              COMPlus_EnableDiagnostics: "0"
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: Enabled
               SONARR__APP__INSTANCENAME: Sonarr

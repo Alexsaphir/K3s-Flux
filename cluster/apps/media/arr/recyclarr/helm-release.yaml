@@ -65,7 +65,6 @@ spec:
 
             env:
               TZ: *timezone
-              COMPlus_EnableDiagnostics: 0
 
               SONARR_API_KEY:
                 valueFrom:
