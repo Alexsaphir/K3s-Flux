@@ -1,8 +1,8 @@
-# resource "minio_s3_bucket" "bucket" {
-#   provider = minio.k3s
-#   bucket   = "gitlab-runner"
-#   acl      = "private"
-# }
+resource "minio_s3_bucket" "bucket" {
+  provider = minio.k3s
+  bucket   = "gitlab-runner"
+  acl      = "private"
+}
 
 resource "minio_iam_user" "user" {
   provider      = minio.k3s

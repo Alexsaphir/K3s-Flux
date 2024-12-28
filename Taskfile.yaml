@@ -53,3 +53,15 @@ tasks:
       - task: tools:update
       - task: precommit:update
       - task: ansible:init
+
+  tg:init:
+    desc: Init.
+    cmd: terragrunt run-all init
+
+  tg:plan:
+    desc: Plan.
+    cmd: terragrunt run-all plan
+
+  tg:apply:
+    desc: Apply.
+    cmd: terragrunt run-all apply -auto-approve

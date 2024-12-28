@@ -34,13 +34,7 @@ locals {
   ]
 }
 
-data "sops_file" "minio-creds-nas" {
-  source_file = "minio-nas.sops.yaml"
-}
 
-data "sops_file" "minio-creds-k3s" {
-  source_file = "minio-k3s.sops.yaml"
-}
 
 module "minio_bucket_nas" {
   for_each         = toset(local.minio_buckets_nas)

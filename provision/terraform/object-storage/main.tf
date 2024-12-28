@@ -12,3 +12,11 @@ terraform {
     }
   }
 }
+
+data "sops_file" "minio-creds-nas" {
+  source_file = "secrets/minio-nas.sops.yaml"
+}
+
+data "sops_file" "minio-creds-k3s" {
+  source_file = "secrets/minio-k3s.sops.yaml"
+}

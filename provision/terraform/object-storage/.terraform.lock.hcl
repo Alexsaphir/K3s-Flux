@@ -5,18 +5,7 @@ provider "registry.opentofu.org/aminueza/minio" {
   version     = "3.2.2"
   constraints = "3.2.2"
   hashes = [
-    "h1:0gqn65tJbwSRlKm4/mvPv+1EzH/6VK2oYV4JO9pIPhs=",
     "h1:1IBJAWUwx76o5+vUdxRCEfOG38hcrEVu32Xn06l7sOI=",
-    "h1:7NrJ/BOJ2066QSCoBeWBscjJOpz31uyuj1/Vx678A64=",
-    "h1:LWhoyEiL0Ft/qPeuIr7EXAigIsL/UegAKGoJE/T4U0g=",
-    "h1:NJR1Dv6zSYlFjwIGd/Uj4CePc2OOv3/yA7jobOoUStM=",
-    "h1:QLM3C4DzsnepyvorxKzeBjbsuOg3rzNCTafODZgz7fs=",
-    "h1:YKiiAGHKSAFN6cftDPH9D3MKz9HulqXXSmHZFqjIIwc=",
-    "h1:aNpYrV8Ix99+8LYEogWDEV/pf0vVHluTLLN6k/ZD4k4=",
-    "h1:aUr3F2PlWqz8UHa0VhB61DeozVl8vMHjQqPQ5m7pYq4=",
-    "h1:koen+X3MjPFsG3LTp4SErPUsCPV1xpw8hLrBmUJR/r8=",
-    "h1:nlQ+2bhY+mo5rxVKaWyPFLDImqaIHrhbGf9J3YiM3KU=",
-    "h1:sWrmioFbh0q2LhOx46W2Ys223hdlqJnbINihRjTZr2Q=",
     "zh:171106917383c691eb6e46d26b903671d62f861d53198cc4aa4f8b6abc5d7d04",
     "zh:22a3bed9a04b255de3c539756f077c0b47e99e92d4b69a54e57635bbb67c8914",
     "zh:3b35fa6847193983b03779bab68fb63086fbb3063f0a2aea48d138bd9bf6d24d",

@@ -409,8 +409,4 @@ kubeconfig-*
 **.pgp
 .secrets
 
-cluster-wip
 .bash_completion
-
-images
-docs
