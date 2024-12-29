@@ -149,7 +149,7 @@ wheels = [
 
 [[package]]
 name = "flux-local"
-version = "6.0.2"
+version = "6.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -161,9 +161,9 @@ dependencies = [
     { name = "python-slugify" },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e1/63/bd7a3951f3dcf48bc2008737b0476f97d007bd0d19ba7d82faaca64d8f05/flux_local-6.0.2.tar.gz", hash = "sha256:ce2342b7cde9333f387b4abe3dc751d4980673cbc8f5f4b6016a3c94705abc61", size = 57786 }
+sdist = { url = "https://files.pythonhosted.org/packages/48/b0/0eac1f1211863ebeb8b73cc0964e1b89862393ca627f0cd8a5780f7a0189/flux_local-6.1.1.tar.gz", hash = "sha256:01d8abde837902288e009fd17a3cf14055947a328604ea2a62d6a8231c578ff1", size = 58163 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/17/40/6f722f6f847db813322a78f2e2c34aa6701ad1808e1cd2c6a8ba2073a14d/flux_local-6.0.2-py3-none-any.whl", hash = "sha256:2bf87b33f32185b761a6c7684675869fdb6620c00dc079d23bc9b7c85ce4572d", size = 54075 },
+    { url = "https://files.pythonhosted.org/packages/72/ac/7c29abc40b7e428f459142d119c087c83d4a1591b19b7f7b048e9972c2b3/flux_local-6.1.1-py3-none-any.whl", hash = "sha256:221a14a78b901a7d4814fc8c8a52264bb8a1566a343e95b3dcbf745df3756471", size = 54303 },
 ]
 
 [[package]]
@@ -192,11 +192,11 @@ wheels = [
 
 [[package]]
 name = "identify"
-version = "2.6.3"
+version = "2.6.4"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/1a/5f/05f0d167be94585d502b4adf8c7af31f1dc0b1c7e14f9938a88fdbbcf4a7/identify-2.6.3.tar.gz", hash = "sha256:62f5dae9b5fef52c84cc188514e9ea4f3f636b1d8799ab5ebc475471f9e47a02", size = 99179 }
+sdist = { url = "https://files.pythonhosted.org/packages/49/a5/7de3053524ee006b91099968d7ecb2e0b420f7ae728094394c33e8a2a2b9/identify-2.6.4.tar.gz", hash = "sha256:285a7d27e397652e8cafe537a6cc97dd470a970f48fb2e9d979aa38eae5513ac", size = 99209 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c9/f5/09644a3ad803fae9eca8efa17e1f2aef380c7f0b02f7ec4e8d446e51d64a/identify-2.6.3-py2.py3-none-any.whl", hash = "sha256:9edba65473324c2ea9684b1f944fe3191db3345e50b6d04571d10ed164f8d7bd", size = 99049 },
+    { url = "https://files.pythonhosted.org/packages/a2/9d/52f036403ae86474804f699c0d084b4b071e333a390b20269bb8accc65e0/identify-2.6.4-py2.py3-none-any.whl", hash = "sha256:993b0f01b97e0568c179bb9196391ff391bfb88a99099dbf5ce392b68f42d0af", size = 99072 },
 ]
 
 [[package]]
