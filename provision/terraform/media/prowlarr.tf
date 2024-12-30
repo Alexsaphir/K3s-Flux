@@ -12,7 +12,7 @@ locals {
 }
 
 # Applications
-resource "prowlarr_application_sonarr" "prowlarr-app-sonarr" {
+resource "prowlarr_application_sonarr" "sonarr" {
   name                  = "Sonarr"
   base_url              = "http://sonarr:${var.ports["sonarr"]}"
   prowlarr_url          = local.prowlarr_url
@@ -22,7 +22,7 @@ resource "prowlarr_application_sonarr" "prowlarr-app-sonarr" {
   anime_sync_categories = [5070]
 }
 
-resource "prowlarr_application_radarr" "prowlarr-app-radarr" {
+resource "prowlarr_application_radarr" "radarr" {
   name            = "Radarr"
   base_url        = "http://radarr:${var.ports["radarr"]}"
   prowlarr_url    = local.prowlarr_url
@@ -31,7 +31,7 @@ resource "prowlarr_application_radarr" "prowlarr-app-radarr" {
   sync_categories = [2000, 2010, 2020, 2030, 2040, 2045, 2050, 2060, 2070, 2080]
 }
 
-resource "prowlarr_application_readarr" "prowlarr-app-readarr" {
+resource "prowlarr_application_readarr" "readarr" {
   name            = "Readarr"
   base_url        = "http://readarr:${var.ports["readarr"]}"
   prowlarr_url    = local.prowlarr_url
@@ -40,7 +40,7 @@ resource "prowlarr_application_readarr" "prowlarr-app-readarr" {
   sync_categories = [3030, 7000, 7010, 7020, 7030, 7040, 7050, 7060]
 }
 
-resource "prowlarr_application_lidarr" "prowlarr-app-lidarr" {
+resource "prowlarr_application_lidarr" "lidarr" {
   name            = "Lidarr"
   base_url        = "http://lidarr:${var.ports["lidarr"]}"
   prowlarr_url    = local.prowlarr_url
@@ -50,7 +50,7 @@ resource "prowlarr_application_lidarr" "prowlarr-app-lidarr" {
 }
 
 # Sync Profiles
-resource "prowlarr_sync_profile" "prowlarr-sync-profile" {
+resource "prowlarr_sync_profile" "standard" {
   name                      = "Standard"
   enable_automatic_search   = true
   enable_interactive_search = true
