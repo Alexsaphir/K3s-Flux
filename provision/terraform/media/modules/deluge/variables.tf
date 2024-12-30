@@ -23,7 +23,3 @@ variable "item_priority" {
   type    = number
   default = 1
 }
-
-variable "add_paused" {
-  type = bool
-}

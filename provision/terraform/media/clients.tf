@@ -8,7 +8,6 @@ module "deluge-clients" {
   source        = "./modules/deluge"
   source_file   = "secrets/deluge.sops.yaml"
   name          = "deluge"
-  add_paused    = true
   use_ssl       = true
   item_priority = 0
 }

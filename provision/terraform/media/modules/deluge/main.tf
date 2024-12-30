@@ -9,6 +9,14 @@ terraform {
       source  = "devopsarr/prowlarr"
       version = "2.4.3"
     }
+    sonarr = {
+      source  = "devopsarr/sonarr"
+      version = "3.4.0"
+    }
+    radarr = {
+      source  = "devopsarr/radarr"
+      version = "2.3.1"
+    }
   }
 }
 
@@ -30,11 +38,45 @@ resource "prowlarr_download_client_deluge" "client" {
   enable        = var.enable
   priority      = var.priority
   item_priority = var.item_priority
-  add_paused    = var.add_paused
+  add_paused    = true
 
   host     = local.host
   port     = local.port
   password = local.password
   url_base = local.url_base
   use_ssl  = var.use_ssl
+}
+
+resource "sonarr_download_client_deluge" "client" {
+
+  name       = var.name
+  enable     = var.enable
+  priority   = var.priority
+  add_paused = false
+
+  tv_category = "tv-sonarr"
+
+  host     = local.host
+  port     = local.port
+  password = local.password
+  url_base = local.url_base
+  use_ssl  = var.use_ssl
+}
+
+resource "radarr_download_client_deluge" "client" {
+
+  name       = var.name
+  enable     = var.enable
+  priority   = var.priority
+  add_paused = true
+
+  movie_category = "movies"
+
+  host     = local.host
+  port     = local.port
+  password = local.password
+  url_base = local.url_base
+  use_ssl  = var.use_ssl
+
+  remove_completed_downloads = true
 }
