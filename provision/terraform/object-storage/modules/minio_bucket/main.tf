@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.0"
   required_providers {
     minio = {
       source  = "aminueza/minio"
@@ -9,6 +10,7 @@ terraform {
 resource "minio_s3_bucket" "bucket" {
   bucket = var.bucket_name
   acl    = var.is_public == true ? "public" : "private"
+  quota  = var.quota
 }
 
 resource "minio_iam_user" "user" {

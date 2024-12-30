@@ -7,6 +7,11 @@ variable "is_public" {
   default = false
 }
 
+variable "quota" {
+  type    = number
+  default = null
+}
+
 variable "owner_access_key" {
   type      = string
   sensitive = false

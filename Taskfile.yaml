@@ -54,6 +54,10 @@ tasks:
       - task: precommit:update
       - task: ansible:init
 
+  tg:fmt:
+    desc: Format.
+    cmd: terragrunt run-all fmt -recursive
+
   tg:init:
     desc: Init.
     cmd: terragrunt run-all init
