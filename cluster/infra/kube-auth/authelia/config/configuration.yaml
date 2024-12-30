@@ -133,6 +133,11 @@ access_control:
       policy: bypass
       resources:
         - '^/webhook([/?].*)?$'
+    # API protected with secret
+    - domain_regex: '^(sonarr|radarr|prowlarr|readarr|lidarr)\.${DOMAIN_NAME}$'
+      policy: bypass
+      resources:
+        - "^/api([/?].*)?$"
 
     # Ingress for media protected by authelia
     - domain:
