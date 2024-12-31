@@ -41,3 +41,4 @@ packages:
   - name: kyverno/kyverno@v1.13.2
   - name: homeport/dyff@v1.9.4
   - name: gruntwork-io/terragrunt@v0.71.1
+  - name: breml/tfreveal@v0.0.4
