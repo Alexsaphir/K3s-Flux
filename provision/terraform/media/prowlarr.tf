@@ -8,13 +8,13 @@ variable "default-sync_level" {
 }
 
 locals {
-  prowlarr_url = "http://prowlarr:${var.ports["prowlarr"]}"
+  prowlarr_url = "http://prowlarr:${module.api.ports["prowlarr"]}"
 }
 
 # Applications
 resource "prowlarr_application_sonarr" "sonarr" {
   name                  = "Sonarr"
-  base_url              = "http://sonarr:${var.ports["sonarr"]}"
+  base_url              = "http://sonarr:${module.api.ports["sonarr"]}"
   prowlarr_url          = local.prowlarr_url
   api_key               = module.api.keys["sonarr"]
   sync_level            = var.default-sync_level
@@ -24,7 +24,7 @@ resource "prowlarr_application_sonarr" "sonarr" {
 
 resource "prowlarr_application_radarr" "radarr" {
   name            = "Radarr"
-  base_url        = "http://radarr:${var.ports["radarr"]}"
+  base_url        = "http://radarr:${module.api.ports["radarr"]}"
   prowlarr_url    = local.prowlarr_url
   api_key         = module.api.keys["radarr"]
   sync_level      = var.default-sync_level
@@ -33,7 +33,7 @@ resource "prowlarr_application_radarr" "radarr" {
 
 resource "prowlarr_application_readarr" "readarr" {
   name            = "Readarr"
-  base_url        = "http://readarr:${var.ports["readarr"]}"
+  base_url        = "http://readarr:${module.api.ports["readarr"]}"
   prowlarr_url    = local.prowlarr_url
   api_key         = module.api.keys["readarr"]
   sync_level      = var.default-sync_level
@@ -42,7 +42,7 @@ resource "prowlarr_application_readarr" "readarr" {
 
 resource "prowlarr_application_lidarr" "lidarr" {
   name            = "Lidarr"
-  base_url        = "http://lidarr:${var.ports["lidarr"]}"
+  base_url        = "http://lidarr:${module.api.ports["lidarr"]}"
   prowlarr_url    = local.prowlarr_url
   api_key         = module.api.keys["lidarr"]
   sync_level      = var.default-sync_level

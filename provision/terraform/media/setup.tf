@@ -36,26 +36,26 @@ module "api" {
 }
 
 provider "prowlarr" {
-  url     = "https://prowlarr.${var.domain_name}"
+  url     = "https://prowlarr.${module.api.domain_name}"
   api_key = module.api.keys["prowlarr"]
 }
 
 provider "radarr" {
-  url     = "https://radarr.${var.domain_name}"
+  url     = "https://radarr.${module.api.domain_name}"
   api_key = module.api.keys["radarr"]
 }
 
 provider "sonarr" {
-  url     = "https://sonarr.${var.domain_name}"
+  url     = "https://sonarr.${module.api.domain_name}"
   api_key = module.api.keys["sonarr"]
 }
 
 provider "lidarr" {
-  url     = "https://lidarr.${var.domain_name}"
+  url     = "https://lidarr.${module.api.domain_name}"
   api_key = module.api.keys["lidarr"]
 }
 
 provider "readarr" {
-  url     = "https://readarr.${var.domain_name}"
+  url     = "https://readarr.${module.api.domain_name}"
   api_key = module.api.keys["readarr"]
 }
