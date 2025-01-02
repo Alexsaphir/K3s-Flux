@@ -109,7 +109,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/loadBalancerIPs: ${LB_LLDAP}
+          metallb.io/loadBalancerIPs: ${LB_LLDAP}
         ports:
           http:
             port: *port

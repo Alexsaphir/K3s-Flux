@@ -85,7 +85,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          metallb.universe.tf/address-pool: metallb-pool
+          metallb.io/address-pool: metallb-pool
         ports:
           rust-udp:
             enabled: true

@@ -96,7 +96,7 @@ spec:
         controller: satisfactory
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: ${LB_SATISFACTORY_ADDR}
+          metallb.io/loadBalancerIPs: ${LB_SATISFACTORY_ADDR}
         ports:
           game-udp:
             enabled: true
