@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - atlantis.yaml
   - authelia.yaml
+  - authentik.yaml
   - backstage.yaml
   - backube.yaml
   - bjw-s.yaml

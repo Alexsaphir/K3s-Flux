@@ -173,6 +173,7 @@ access_control:
 
     - domain:
         - 'gitlab-staging.${DOMAIN_NAME}'
+        - 'authentik.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'user:alexsaphir'
