@@ -138,7 +138,7 @@ spec:
         use_ssl: false
 
       redis:
-        host: 'authentik-dragonfly.{{ .Release.Namespace }}.svc.cluster.local:6379'
+        host: 'authentik-dragonfly.{{ .Release.Namespace }}.svc.cluster.local'
 
 
     prometheus:
