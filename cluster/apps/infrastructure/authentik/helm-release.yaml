@@ -137,12 +137,10 @@ spec:
         port: 1025
         use_ssl: false
 
+      redis:
+        host: 'authentik-dragonfly.{{ .Release.Namespace }}.svc.cluster.local:6379'
+
+
     prometheus:
       rules:
         enabled: false
-
-    postgresql:
-      enabled: false
-
-    redis:
-      host: 'authentik-dragonfly.{{ .Release.Namespace }}.svc.cluster.local:6379'
