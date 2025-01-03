@@ -76,8 +76,12 @@ access_control:
   rules:
     - domain:
         - 'auth.${DOMAIN_NAME}'
-        - 'homer.${DOMAIN_NAME}'
+        - 'authentik.${DOMAIN_NAME}'
         - 'vaultwarden.${DOMAIN_NAME}'
+      policy: bypass
+
+    - domain:
+        - 'homer.${DOMAIN_NAME}'
       policy: bypass
 
     # Expose public metrics
@@ -173,7 +177,6 @@ access_control:
 
     - domain:
         - 'gitlab-staging.${DOMAIN_NAME}'
-        - 'authentik.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'user:alexsaphir'
