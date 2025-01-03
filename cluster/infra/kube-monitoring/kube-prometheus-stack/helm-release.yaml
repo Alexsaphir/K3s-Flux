@@ -200,7 +200,7 @@ spec:
               key: objstore.yml
         podMetadata:
           annotations:
-            reloader.stakater.com/auto: 'true'
+            secret.reloader.stakater.com/reload: *secret
         retention: 6h
         retentionSize: 15GB
         externalLabels:
