@@ -4,7 +4,7 @@ terraform {
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.49.1"
+      version = "5.0.0-alpha1"
     }
 
     sops = {
@@ -12,4 +12,13 @@ terraform {
       version = "1.1.1"
     }
   }
+}
+
+
+module "config" {
+  source = "./modules/config"
+}
+
+provider "cloudflare" {
+  api_token = module.config.token
 }
