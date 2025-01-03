@@ -48,7 +48,7 @@ spec:
         replicas: 1
 
         annotations:
-          configmap.reloader.stakater.com/reload: &config homer-config
+          reloader.stakater.com/auto: 'true'
 
         containers:
           app:

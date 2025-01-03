@@ -35,7 +35,7 @@ spec:
     controllers:
       bitwarden-cli:
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
 
         containers:
           app:

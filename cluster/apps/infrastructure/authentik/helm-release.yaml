@@ -36,7 +36,7 @@ spec:
   values:
     global:
       podAnnotations:
-        reloader.stakater.com/auto: "true"
+        reloader.stakater.com/auto: 'true'
 
       envFrom:
         - secretRef:

@@ -40,7 +40,7 @@ spec:
 
   values:
     podAnnotations:
-      reloader.stakater.com/search: "true"
+      reloader.stakater.com/auto: 'true'
 
     # watchNamespace: "default"
 

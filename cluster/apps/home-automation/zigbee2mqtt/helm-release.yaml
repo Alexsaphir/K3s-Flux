@@ -42,7 +42,7 @@ spec:
     controllers:
       zigbee2mqtt:
         annotations:
-          reloader.stakater.com/reload: 'zigbee2mqtt-secrets'
+          reloader.stakater.com/auto: 'true'
         containers:
           app:
             image:

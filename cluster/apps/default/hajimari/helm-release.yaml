@@ -60,4 +60,4 @@ spec:
         existingClaim: hajimari-config
 
     podAnnotations:
-      configmap.reloader.stakater.com/reload: 'hajimari-settings'
+      reloader.stakater.com/auto: 'true'

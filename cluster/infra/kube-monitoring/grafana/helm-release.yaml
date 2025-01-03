@@ -152,7 +152,7 @@ spec:
       - redis-datasource
 
     podAnnotations:
-      configmap.reloader.stakater.com/reload: *app
+      reloader.stakater.com/auto: 'true'
 
     serviceMonitor:
       enabled: true

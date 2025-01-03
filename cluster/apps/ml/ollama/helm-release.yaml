@@ -42,7 +42,7 @@ spec:
         type: deployment
         strategy: Recreate
         annotations:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
 
         containers:
           app:

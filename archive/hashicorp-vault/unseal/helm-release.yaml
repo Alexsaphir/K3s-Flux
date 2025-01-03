@@ -28,7 +28,7 @@ spec:
 
   values:
     podAnnotations:
-      secret.reloader.stakater.com/reload: 'vault-root-token,vault-keys'
+      reloader.stakater.com/auto: 'true'
 
     settings:
       vault_url: 'http://hashicorp-vault.kube-system.svc.cluster.local:8200'

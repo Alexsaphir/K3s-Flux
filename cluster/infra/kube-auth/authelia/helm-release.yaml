@@ -51,8 +51,7 @@ spec:
 
         pod:
           annotations:
-            configmap.reloader.stakater.com/reload: authelia-configmap
-            secret.reloader.stakater.com/reload: authelia-secret,authelia-oauth-secret,redis-standalone,database-authelia,glauth-search
+            reloader.stakater.com/auto: 'true'
 
         containers:
           app:

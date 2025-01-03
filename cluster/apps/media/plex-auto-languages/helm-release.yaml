@@ -38,7 +38,7 @@ spec:
     controllers:
       plex-auto-languages:
         annotations:
-          secret.reloader.stakater.com/reload: &secret media-secret
+          reloader.stakater.com/auto: 'true'
 
         containers:
           app:
@@ -52,7 +52,7 @@ spec:
               PLEX_TOKEN:
                 valueFrom:
                   secretKeyRef:
-                    name: *secret
+                    name: media-secret
                     key: plex-token
             probes:
               liveness:

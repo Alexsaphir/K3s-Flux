@@ -60,8 +60,7 @@ spec:
       logFormat: 'standard'
 
       extraLabels:
-        configmap.reloader.stakater.com/reload: hashicorp-vault-config
-        secrets.reloader.stakater.com/reload: database-vault
+        reloader.stakater.com/auto: 'true'
 
       extraEnvironmentVars:
         TZ: ${TIMEZONE}

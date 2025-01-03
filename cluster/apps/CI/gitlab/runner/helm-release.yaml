@@ -36,7 +36,7 @@ spec:
     nameOverride: gitlab-runner
 
     podAnnotations:
-      secret.reloader.stakater.com/reload: gitlab-runner-secret, gitlab-runner-s3access-secret
+      reloader.stakater.com/auto: 'true'
 
     revisionHistoryLimit: 1
 

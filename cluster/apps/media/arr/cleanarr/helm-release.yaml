@@ -41,7 +41,7 @@ spec:
     controllers:
       cleanarr:
         annotations:
-          secret.reloader.stakater.com/reload: cleanarr-secret,media-secret
+          reloader.stakater.com/auto: 'true'
         containers:
           app:
             image:

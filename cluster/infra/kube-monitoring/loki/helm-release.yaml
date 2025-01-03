@@ -63,7 +63,7 @@ spec:
 
     loki:
       podAnnotations:
-        secret.reloader.stakater.com/reload: *s3-secret
+        reloader.stakater.com/auto: 'true'
 
       ingester:
         chunk_encoding: snappy

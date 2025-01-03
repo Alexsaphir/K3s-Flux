@@ -246,8 +246,7 @@ spec:
       from: 'Netbox <netbox@domain.com>'
 
     podAnnotations:
-      secret.reloader.stakater.com/reload: "netbox-secret,netbox-s3-secret,netbox-redis-secret"
-      config.reloader.stakater.com/reload: netbox
+      reloader.stakater.com/auto: 'true'
 
     csrf:
       cookieName: csrftoken
