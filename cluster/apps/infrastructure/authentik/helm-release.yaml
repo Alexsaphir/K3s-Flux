@@ -35,11 +35,6 @@ spec:
 
   values:
     global:
-      image:
-        repository: ghcr.io/goauthentik/server
-        tag: "2024.12.1"
-        pullPolicy: IfNotPresent
-
       podAnnotations:
         reloader.stakater.com/auto: "true"
 
@@ -78,14 +73,31 @@ spec:
         - name: AUTHENTIK_STORAGE__MEDIA__S3__ENDPOINT
           value: minio.minio.svc.cluster.local
 
+    authentik:
+      log_level: info
+      error_reporting:
+        enabled: true
+
+      avatars: initials
+
+      email:
+        from: "Authentik <authentik@domain.com>"
+        host: mailpit.mail.svc.cluster.local
+        port: 1025
+        use_ssl: false
+
+      redis:
+        host: 'authentik-dragonfly.{{ .Release.Namespace }}.svc.cluster.local'
+
     server:
       name: server
 
-      replicas: 1
+      replicas: 2
 
       pdb:
-        # -- Deploy a [PodDistrubtionBudget] for the authentik server
-        enabled: false
+        enabled: true
+        minAvailable: 1
+        maxUnavailable: 1
 
       ingress:
         enabled: true
@@ -103,44 +115,35 @@ spec:
 
       resources:
         requests:
-          cpu: 19m
-          memory: 562Mi
+          cpu: 100m
+          memory: 512Mi
         limits:
-          memory: 587Mi
+          memory: 2Gi
 
     worker:
-      replicas: 1
+      replicas: 2
 
       pdb:
-        # -- Deploy a [PodDistrubtionBudget] for the authentik server
-        enabled: false
+        enabled: true
+        minAvailable: 1
+        maxUnavailable: 1
 
       resources:
         requests:
-          cpu: 11m
-          memory: 604Mi
+          cpu: 50m
+          memory: 512Mi
         limits:
-          memory: 629Mi
+          memory: 1Gi
 
     serviceAccount:
       # -- Create service account. Needed for managed outposts
       create: true
 
-    authentik:
-      log_level: info
-      error_reporting:
-        enabled: true
-
-      email:
-        from: "Authentik <authentik@domain.com>"
-        host: mailpit.mail.svc.cluster.local
-        port: 1025
-        use_ssl: false
-
-      redis:
-        host: 'authentik-dragonfly.{{ .Release.Namespace }}.svc.cluster.local'
-
-
     prometheus:
       rules:
-        enabled: false
+        enabled: true
+
+    postgresql:
+      enabled: false
+    redis:
+      enabled: false
