@@ -411,6 +411,12 @@ spec:
           url: https://raw.githubusercontent.com/SonarSource/helm-chart-sonarqube/sonarqube-10.3.0-sonarqube-dce-10.3.0/examples/grafana/sonarqube-dashboard.json
           datasource: *datasource
 
+        exportarr-media:
+          url: https://raw.githubusercontent.com/onedr0p/exportarr/refs/tags/v2.0.1/examples/grafana/dashboard2.json
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+
       storage:
         longhorn:
           # renovate: depName= "Longhorn Example v1.4.0"
