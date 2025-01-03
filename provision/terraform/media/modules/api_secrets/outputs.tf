@@ -1,7 +1,7 @@
 locals {
   decoded_secrets = {
     for app, secret in data.kubernetes_secret.secrets :
-    app => secret.data[app == "readarr" ? "${upper(app)}__API_KEY" : "${upper(app)}__AUTH__APIKEY"]
+    app => secret.data["api_key"]
   }
 
   decoded_ports = {
