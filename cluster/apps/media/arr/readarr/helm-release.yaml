@@ -54,19 +54,21 @@ spec:
               tag: 0.4.6.2711@sha256:0a4eaa2b8996a45539fead59159733694aba2d60c1080b23e0b9d894114fbd53
 
             env:
-              READARR__AUTHENTICATION_METHOD: None
-              # READARR__AUTHENTICATION_METHOD: External
-              # READARR__AUTHENTICATION_REQUIRED: Enabled
+              READARR__AUTH_METHOD: External
+              READARR__AUTH_REQUIRED: Enabled
               READARR__INSTANCE_NAME: Readarr
               READARR__PORT: &port 8787
               READARR__LOG_LEVEL: info
               READARR__THEME: light
               READARR__ANALYTICSENABLED: 'false'
-              TZ: ${TIMEZONE}
 
-            envFrom:
-              - secretRef:
-                  name: readarr-secret
+              READARR__API_KEY: &apikey
+                valueFrom:
+                  secretKeyRef:
+                    name: readarr-secret
+                    key: api_key
+
+              TZ: ${TIMEZONE}
 
             probes:
               liveness:
@@ -89,12 +91,39 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: [ 'ALL' ] }
 
+          metrics:
+            dependsOn: app
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1
+
+            args: [ 'readarr' ]
+
+            env:
+              PORT: &metricsPort 9707
+              URL: 'http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.app.ports.http.port }}'
+              APIKEY: *apikey
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 125Mi
+
     service:
       app:
+        primary: true
         controller: readarr
         ports:
           http:
             port: *port
+      metrics:
+        nameOverride: metrics
+        controller: readarr
+        ports:
+          metrics:
+            port: *metricsPort
 
     ingress:
       app:

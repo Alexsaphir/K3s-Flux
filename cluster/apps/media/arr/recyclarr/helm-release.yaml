@@ -70,12 +70,12 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: sonarr-secret
-                    key: SONARR__AUTH__APIKEY
+                    key: api_key
               RADARR_API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: radarr-secret
-                    key: RADARR__AUTH__APIKEY
+                    key: api_key
 
             resources:
               limits:

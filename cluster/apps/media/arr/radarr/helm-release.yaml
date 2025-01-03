@@ -62,11 +62,14 @@ spec:
               RADARR__LOG__LEVEL: info
               RADARR__APP__THEME: light
               RADARR__UPDATE__BRANCH: develop
-              TZ: ${TIMEZONE}
 
-            envFrom:
-              - secretRef:
-                  name: radarr-secret
+              RADARR__AUTH__APIKEY: &apikey
+                valueFrom:
+                  secretKeyRef:
+                    name: radarr-secret
+                    key: api_key
+
+              TZ: ${TIMEZONE}
 
             probes:
               liveness:
@@ -89,12 +92,39 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: [ 'ALL' ] }
 
+          metrics:
+            dependsOn: app
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1
+
+            args: [ 'radarr' ]
+
+            env:
+              PORT: &metricsPort 9707
+              URL: 'http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.app.ports.http.port }}'
+              APIKEY: *apikey
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 125Mi
+
     service:
       app:
+        primary: true
         controller: radarr
         ports:
           http:
             port: *port
+      metrics:
+        nameOverride: metrics
+        controller: radarr
+        ports:
+          metrics:
+            port: *metricsPort
 
     ingress:
       app:

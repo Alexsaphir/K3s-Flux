@@ -59,11 +59,14 @@ spec:
               PROWLARR__LOG__LEVEL: info
               PROWLARR__APP__THEME: light
               PROWLARR__UPDATE__BRANCH: develop
-              TZ: ${TIMEZONE}
 
-            envFrom:
-              - secretRef:
-                  name: prowlarr-secret
+              PROWLARR__AUTH__APIKEY: &apikey
+                valueFrom:
+                  secretKeyRef:
+                    name: prowlarr-secret
+                    key: api_key
+
+              TZ: ${TIMEZONE}
 
             probes:
               liveness:
@@ -89,12 +92,39 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: [ 'ALL' ] }
 
+          metrics:
+            dependsOn: app
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v2.0.1
+
+            args: [ 'prowlarr' ]
+
+            env:
+              PORT: &metricsPort 9707
+              URL: 'http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.app.ports.http.port }}'
+              APIKEY: *apikey
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 125Mi
+
     service:
       app:
+        primary: true
         controller: prowlarr
         ports:
           http:
             port: *port
+      metrics:
+        nameOverride: metrics
+        controller: prowlarr
+        ports:
+          metrics:
+            port: *metricsPort
 
     ingress:
       app:
