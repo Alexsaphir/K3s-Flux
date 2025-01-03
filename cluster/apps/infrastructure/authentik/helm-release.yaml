@@ -78,8 +78,6 @@ spec:
       error_reporting:
         enabled: true
 
-      avatars: initials
-
       email:
         from: "Authentik <authentik@domain.com>"
         host: mailpit.mail.svc.cluster.local

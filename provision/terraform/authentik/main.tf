@@ -4,6 +4,7 @@ resource "authentik_service_connection_kubernetes" "main" {
 }
 
 resource "authentik_system_settings" "settings" {
+  avatars                      = "initials"
   default_user_change_name     = false
   default_user_change_username = false
   default_user_change_email    = false
