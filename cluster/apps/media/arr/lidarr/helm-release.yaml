@@ -113,6 +113,7 @@ spec:
 
     service:
       app:
+        primary: true
         controller: lidarr
         ports:
           http:
