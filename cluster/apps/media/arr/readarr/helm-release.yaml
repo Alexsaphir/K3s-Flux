@@ -125,6 +125,17 @@ spec:
           metrics:
             port: *metricsPort
 
+    serviceMonitor:
+      metrics:
+        enabled: true
+        serviceName: readarr
+        endpoints:
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 30m
+            scrapeTimeout: 2m
+
     ingress:
       app:
         className: traefik
