@@ -352,6 +352,12 @@ spec:
           datasource: *datasource
 
       system:
+        authentik:
+          # renovate: depName="authentik"
+          gnetId: 14837
+          revision: 2
+          datasource: Prometheus
+
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: *datasource
