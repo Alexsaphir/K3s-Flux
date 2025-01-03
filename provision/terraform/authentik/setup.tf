@@ -19,6 +19,6 @@ module "api" {
 }
 
 provider "authentik" {
-  url   = "authentik.${module.api.domain_name}"
+  url   = "https://authentik.${module.api.domain_name}"
   token = module.api.bootstrap_token
 }
