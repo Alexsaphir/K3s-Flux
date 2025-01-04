@@ -28,7 +28,7 @@ resource "prowlarr_indexer" "nzbgeek" {
     },
     {
       name       = "vipExpiration"
-      text_value = "2025/11/18"
+      text_value = "2025-11-18"
     },
     {
       name         = "baseSettings.limitsUnit"
