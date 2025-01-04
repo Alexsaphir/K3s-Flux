@@ -105,6 +105,7 @@ spec:
               URL: 'http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.app.ports.http.port }}'
               APIKEY: *apikey
               ENABLE_ADDITIONAL_METRICS: true
+              LOG_LEVEL: warn
 
             resources:
               requests:
