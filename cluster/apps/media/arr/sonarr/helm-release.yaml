@@ -129,12 +129,12 @@ spec:
     serviceMonitor:
       metrics:
         enabled: true
-        serviceName: sonarr
+        serviceName: sonarr-metrics
         endpoints:
           - port: metrics
             scheme: http
             path: /metrics
-            interval: 30m
+            interval: 10m
             scrapeTimeout: 2m
 
     ingress:
