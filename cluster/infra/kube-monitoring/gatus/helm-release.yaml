@@ -44,7 +44,7 @@ spec:
     controllers:
       gatus:
         annotations:
-          reloader.stakater.com/auto: 'true'
+          reloader.stakater.com/auto: "true"
         initContainers:
           init-config:
             restartPolicy: Always
