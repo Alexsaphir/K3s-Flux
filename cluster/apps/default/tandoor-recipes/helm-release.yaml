@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
-              tag: 1.5.26
+              tag: 1.5.27
 
             envFrom:
               - secretRef:
