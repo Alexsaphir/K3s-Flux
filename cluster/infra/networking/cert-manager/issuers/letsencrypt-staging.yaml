@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "${SECRET_ISSUER_EMAIL}"
+    email: "${CLOUDFLARE_ISSUER_EMAIL}"
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
@@ -18,4 +18,4 @@ spec:
               key: token
         selector:
           dnsZones:
-            - ${SECRET_CF_DOMAIN}
+            - ${CLOUDFLARE_DOMAIN}
