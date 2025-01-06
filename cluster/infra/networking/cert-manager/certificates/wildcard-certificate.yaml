@@ -21,8 +21,8 @@ spec:
     - "*.s3.${DOMAIN_NAME}"
     - "*.workspace.${DOMAIN_NAME}"
 
-    - "*.${SECRET_DOMAIN_NAME}"
-    - "*.monitoring.${SECRET_DOMAIN_NAME}"
-    - "*.gitlab.${SECRET_DOMAIN_NAME}"
-    - "*.jupyter.${SECRET_DOMAIN_NAME}"
-    - "*.workspace.${SECRET_DOMAIN_NAME}"
+    - "*.${OLD_DOMAIN_NAME}"
+    - "*.monitoring.${OLD_DOMAIN_NAME}"
+    - "*.gitlab.${OLD_DOMAIN_NAME}"
+    - "*.jupyter.${OLD_DOMAIN_NAME}"
+    - "*.workspace.${OLD_DOMAIN_NAME}"

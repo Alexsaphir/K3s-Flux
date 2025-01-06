@@ -19,7 +19,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: network-system-redirect-k3s-to-top-domain@kubernetescrd
 spec:
   rules:
-    - host: "*.k3s.${DOMAIN_NAME}"
+    - host: "*.${OLD_DOMAIN_NAME}"
       http:
         paths:
           - path: /
