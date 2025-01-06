@@ -8,9 +8,9 @@ terraform {
   }
 }
 
-data "kubernetes_secret" "cluster-secrets" {
+data "kubernetes_secret" "cloudflare-secrets" {
   metadata {
-    name      = "cluster-secrets"
-    namespace = "flux-system"
+    name      = "cloudflare-provision-secrets"
+    namespace = "flux-provision"
   }
 }

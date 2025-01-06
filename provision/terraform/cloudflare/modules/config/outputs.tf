@@ -1,9 +1,9 @@
 output "zone" {
-  value     = data.kubernetes_secret.cluster-secrets.data["SECRET_CF_DOMAIN"]
+  value     = data.kubernetes_secret.cloudflare-secrets.data["domain"]
   sensitive = true
 }
 
 output "token" {
-  value     = data.kubernetes_secret.cluster-secrets.data["SECRET_CF_TOKEN"]
+  value     = data.kubernetes_secret.cloudflare-secrets.data["token"]
   sensitive = true
 }
