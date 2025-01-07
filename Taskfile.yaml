@@ -8,7 +8,6 @@ vars:
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/cluster"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
-  VAGRANT_DIR: "{{.PROJECT_DIR}}/provision/vagrant"
 
 dotenv: [ ".config.env", ".flux.env" ]
 
@@ -20,7 +19,6 @@ includes:
   cluster-debug: .taskfiles/ClusterDebugTasks.yaml
   debug: .taskfiles/DebugTasks.yaml
   ansible: .taskfiles/AnsibleTasks.yaml
-  vagrant: .taskfiles/VagrantTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
 
 tasks:
