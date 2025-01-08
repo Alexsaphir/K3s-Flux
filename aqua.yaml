@@ -12,7 +12,7 @@ packages:
   - name: firecow/gitlab-ci-local@4.56.2
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.9.3
-  - name: hashicorp/terraform@v1.10.3
+  - name: hashicorp/terraform@v1.10.4
   - name: terraform-linters/tflint@v0.54.0
   - name: fluxcd/flux2@v2.4.0
   - name: kubernetes/kubectl@v1.32.0
@@ -24,7 +24,7 @@ packages:
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.27.3
   - name: derailed/k9s@v0.32.7
-  - name: FairwindsOps/nova@v3.11.1
+  - name: FairwindsOps/nova@v3.11.2
   - name: FairwindsOps/pluto@v5.21.1
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.4
@@ -32,7 +32,7 @@ packages:
   - name: stern/stern@v1.31.0
   - name: yannh/kubeconform@v0.6.7
   - name: zegl/kube-score@v1.19.0
-  - name: cilium/cilium-cli@v0.16.22
+  - name: cilium/cilium-cli@v0.16.23
   - name: siderolabs/talos@v1.9.1
   - name: budimanjojo/talhelper@v3.0.14
   - name: lsd-rs/lsd@v1.1.5
