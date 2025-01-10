@@ -54,7 +54,7 @@ spec:
           kube-vip:
             image:
               repository: ghcr.io/kube-vip/kube-vip
-              tag: v0.8.8@sha256:e0a31e4c82f9dd884eeaf4306a01fd0a2fa225aa46538e6457ee55a0ac233052
+              tag: v0.8.8@sha256:f25fefb6f5a76036f5e4b0484889cdb1d337b6c7367905c7a7bc82903df8f943
               pullPolicy: IfNotPresent
             args:
               - manager
