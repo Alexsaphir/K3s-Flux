@@ -13,13 +13,13 @@ packages:
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.9.3
   - name: hashicorp/terraform@v1.10.4
-  - name: terraform-linters/tflint@v0.54.0
+  - name: terraform-linters/tflint@v0.55.0
   - name: fluxcd/flux2@v2.4.0
   - name: kubernetes/kubectl@v1.32.0
   - name: helm/helm@v3.16.4
   - name: kubernetes-sigs/kustomize@kustomize/v5.5.0
   - name: jqlang/jq@jq-1.7.1
-  - name: mikefarah/yq@v4.44.6
+  - name: mikefarah/yq@v4.45.1
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.27.3
