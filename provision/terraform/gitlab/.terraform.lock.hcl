@@ -1,0 +1,58 @@
+# This file is maintained automatically by "tofu init".
+# Manual edits may be lost in future updates.
+
+provider "registry.opentofu.org/carlpett/sops" {
+  version     = "1.1.1"
+  constraints = "1.1.1"
+  hashes = [
+    "h1:hqyownSt8teS7g0+XDOxmAtuAHB5kDNQkW1voBhLmZU=",
+    "zh:175ec198e1b4d1cad1ae559ebe8cdf574617805010c22dfb8af93a2057ba8332",
+    "zh:2b550b2372f71408e7b47b099f314d981bbb82b263cb55248a36a9af8afd44a1",
+    "zh:684544ed3460c34585b090b5de1d4e0caf8eba8e6ba50ad0734cda818a6c86f0",
+    "zh:6ab656d3f3645b8158769f34c16820523a621b9e735c1b3233cecf010ac61dda",
+    "zh:6b1f0007569ea36903c9b2b1b114c3cec7c163d9b83946362c3e165e255f64e7",
+    "zh:7d562f2fc76c954f974f2745557059a4d33dacb8d46e9f1cf09323348dcf5ddc",
+    "zh:cc7e97d8b55ebd90a4c1424cf9cb930af76e98a11c6eeb07e51d648369859fa1",
+  ]
+}
+
+provider "registry.opentofu.org/gitlabhq/gitlab" {
+  version     = "17.7.0"
+  constraints = "17.7.0"
+  hashes = [
+    "h1:AVuM9ZBpOyKyE8unz+TGxt89lH9zJfV+HtMRwS+zW60=",
+    "zh:03dea610379c3ae08c2a2a852055f3277320d847844271bcf1eb6a1bf68567f4",
+    "zh:138841e2eb743d703373b6b9fdf409c6776958954e8948912248d8da304a48a9",
+    "zh:2a7ba3fa47db4c155a34f78a6929a3b8fc124c76f2f765143edbfa36096cd7eb",
+    "zh:54f53d9ed6ba8da733b7ed3d86da4c64b1c4ff54c7f9dd7d1ade60a446f8c464",
+    "zh:5f2a08dc1a61f88a34b2e045214e860f8e6c3a484d5b6020eeee184118d0acc1",
+    "zh:776fd6278cf66bf7941e8474c199b8f3568cb149239f8448b175c245493ff2be",
+    "zh:817802f1807fb8f30586e23d4adaf80bf6125653f46d2e641b57d99bd3737252",
+    "zh:8d30e3a524dd08f00477a93226d603d53a8b827c44545136362143aad98822dd",
+    "zh:933d4b53e0c9e3095c4b0458cf0deb0e52c4272b28ef594abb0e0de5903e3cc5",
+    "zh:d533758a61d46b7181da64ebb317c19638b96c344c9b917549197e0ca0559571",
+    "zh:dfaf8fb3374660905e703d2a67660202c6f2d3e950ad4bec30d4e262c21c45ea",
+    "zh:e2f506f3be61ec16e8661bd32a6bde1a7e51f4002bcff8aa1bc45ba09c5d6d96",
+    "zh:ed766b5294bd3bdb06e699e0d470889d395f5e0175dbdbd90cc2c325c7309125",
+    "zh:eee862ea172ba0e1919229c6b2158f25a44672703868130100f14ba2af0108da",
+    "zh:f809ab383cca0a5f83072981c64208cbd7fa67e986a86ee02dd2c82333221e32",
+  ]
+}
+
+provider "registry.opentofu.org/hashicorp/kubernetes" {
+  version     = "2.35.1"
+  constraints = "2.35.1"
+  hashes = [
+    "h1:HvgGiweJx159xJsHIgkMQl1eVTcISwGvd8ADXFU46Rk=",
+    "zh:0a569918d9e81755bdacb2380e70ed304c442e957a029984cbcd9ec88e5d3635",
+    "zh:1d4d1241cf51d7d4a036c774add1384bb1ba9ca16146334d17c730e1b41ad3e0",
+    "zh:243219f415f5d8caf32a4e6b6bf596c11cf7db5501ccb4ae77cc0b084bb5d108",
+    "zh:2f3a33cba73918adc6f580c76b252881f22beb75277df8ca26a01eb5411348f9",
+    "zh:3b5247f69e72d1e94ac965fa570f448436cedb278f3f29836f6a345aa1bbd5b6",
+    "zh:4206bca7bf30708e235535af50529565b14f30262dc43142153a1774ee5086af",
+    "zh:490c80454b8808bb937498aea98e4076a74887446b05feb6e200015613b5e065",
+    "zh:5e39824289f7b29711681bce98fbb6c27ed221b071a8c78fd0de7f6c2dae4371",
+    "zh:a7bf7892217bdb0464664f62485d89d014874b0dfb564e99c364fc6dd20c6a3b",
+    "zh:e8251170bad1c3e2d9c22d0f4dae7239f1a364f05732f7dff5c8e4ec76a95c5a",
+  ]
+}
