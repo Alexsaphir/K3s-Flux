@@ -136,8 +136,11 @@ spec:
 
       # Entrypoints
       web:
-        redirectTo:
-          port: websecure
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
         advertisedPort: 80
 
       websecure:
@@ -148,7 +151,7 @@ spec:
         #   - network-system-error-pages@kubernetescrd
 
         http3:
-          enabled: false
+          enabled: true
         tls:
           enabled: true
           options: "default"
