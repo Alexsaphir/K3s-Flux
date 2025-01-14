@@ -8,4 +8,5 @@ resources:
   - planka
   - planka-prod
   - forgejo
+  - jetbrains
   #  - gitlab

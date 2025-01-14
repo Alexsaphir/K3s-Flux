@@ -18,6 +18,7 @@ resources:
   - coredns.yaml
   - csi-driver-nfs.yaml
   - csi-driver-secrets-store.yaml
+  - datalore.yaml
   - datashim.yaml
   - deliveryhero.yaml
   - descheduler.yaml

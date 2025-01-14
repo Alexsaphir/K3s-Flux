@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: datalore
+  namespace: flux-charts
+spec:
+  interval: 1h
+  url: https://jetbrains.github.io/datalore-configs/charts
+  timeout: 3m
