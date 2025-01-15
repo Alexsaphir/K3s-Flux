@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app datalore
+  name: datalore
 spec:
   interval: 15m
   timeout: 20m
@@ -66,4 +66,4 @@ spec:
     volumes:
       - name: storage
         persistentVolumeClaim:
-          claimName: *app
+          claimName: jetbrains-datalore
