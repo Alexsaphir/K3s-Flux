@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: datalore
+  name: hub
 spec:
   interval: 15m
   timeout: 20m
   chart:
     spec:
-      chart: datalore
+      chart: hub
       version: 0.2.24
       sourceRef:
         kind: HelmRepository
@@ -27,39 +27,25 @@ spec:
     remediation:
       retries: 3
 
-  valuesFrom:
-    - kind: Secret
-      name: &database-secret database-jetbrains-datalore
-      valuesKey: LOGIN
-      targetPath: dataloreEnv.DB_USER
-    - kind: Secret
-      name: *database-secret
-      valuesKey: POSTGRES_JDBC_URL
-      targetPath: dataloreEnv.DB_URL
-
-  # https://github.com/JetBrains/datalore-configs/blob/2024.5/charts/datalore/values.yaml
+  # https://github.com/JetBrains/datalore-configs/blob/2024.5/charts/hub/values.yaml
   values:
-    # Configure external postgres
-    internalDatabase: false
-    databaseSecret:
-      create: false
-      name: *database-secret
-      key: PASSWORD
-
-    dataloreEnv:
-      DATALORE_PUBLIC_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
-
-      GIT_TASK_K8S_NAMESPACE: '{{ .Release.Namespace }}'
-
     podAnnotations:
       reloader.stakater.com/auto: 'true'
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
 
     ingress:
       enabled: true
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
       hosts:
-        - host: datalore.${DOMAIN_NAME}
+        - host: hub.${DOMAIN_NAME}
           paths:
             - path: /
               pathType: Prefix
@@ -67,4 +53,18 @@ spec:
     volumes:
       - name: storage
         persistentVolumeClaim:
-          claimName: jetbrains-datalore
+          claimName: jetbrains-hub
+
+    volumeMounts:
+      - name: storage
+        mountPath: /opt/hub/data
+        subPath: data
+      - name: storage
+        mountPath: /opt/hub/conf
+        subPath: conf
+      - name: storage
+        mountPath: /opt/hub/logs
+        subPath: logs
+      - name: storage
+        mountPath: /opt/hub/backups
+        subPath: backups

@@ -177,6 +177,7 @@ access_control:
 
     - domain:
         - 'datalore.${DOMAIN_NAME}'
+        - 'hub.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'user:alexsaphir'
