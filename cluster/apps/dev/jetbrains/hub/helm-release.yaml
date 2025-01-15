@@ -31,6 +31,9 @@ spec:
   values:
     podAnnotations:
       reloader.stakater.com/auto: 'true'
+    podSecurityContext:
+      fsGroup: 13001
+      fsGroupChangePolicy: OnRootMismatch
 
     resources:
       limits:
@@ -57,14 +60,4 @@ spec:
 
     volumeMounts:
       - name: storage
-        mountPath: /opt/hub/data
-        subPath: data
-      - name: storage
-        mountPath: /opt/hub/conf
-        subPath: conf
-      - name: storage
-        mountPath: /opt/hub/logs
-        subPath: logs
-      - name: storage
-        mountPath: /opt/hub/backups
-        subPath: backups
+        mountPath: /opt/hub
