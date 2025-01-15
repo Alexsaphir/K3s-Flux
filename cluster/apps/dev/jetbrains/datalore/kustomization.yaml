@@ -5,3 +5,4 @@ namespace: jetbrains-datalore
 resources:
   - namespace.yaml
   - resources
+  - helm-release.yaml
