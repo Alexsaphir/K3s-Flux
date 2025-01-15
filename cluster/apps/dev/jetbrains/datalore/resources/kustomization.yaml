@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - pvc.yaml
   - postgres.yaml
-  - dragonfly
