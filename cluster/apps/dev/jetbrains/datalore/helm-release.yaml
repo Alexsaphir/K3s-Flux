@@ -59,10 +59,6 @@ spec:
             - path: /
               pathType: Prefix
 
-    agentsConfig:
-      k8s:
-        namespace: '{{ .Release.Namespace }}'
-
     volumes:
       - name: storage
         persistentVolumeClaim:
