@@ -49,7 +49,6 @@ spec:
     dataloreEnv:
       DATALORE_PUBLIC_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
 
-      DATABASES_K8S_NAMESPACE: '{{ .Release.Namespace }}'
       GIT_TASK_K8S_NAMESPACE: '{{ .Release.Namespace }}'
 
     ingress:
