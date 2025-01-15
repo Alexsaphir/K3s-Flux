@@ -176,6 +176,12 @@ access_control:
         - 'user:alexsaphir'
 
     - domain:
+        - 'datalore.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'user:alexsaphir'
+
+    - domain:
         - 'gitlab-staging.${DOMAIN_NAME}'
       policy: two_factor
       subject:
