@@ -51,6 +51,9 @@ spec:
 
       GIT_TASK_K8S_NAMESPACE: '{{ .Release.Namespace }}'
 
+    podAnnotations:
+      reloader.stakater.com/auto: 'true'
+
     ingress:
       enabled: true
       hosts:
