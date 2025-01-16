@@ -6,5 +6,4 @@ resources:
   - namespace.yaml
   - secret.sops.yaml
   - postgres.yaml
-  - pvc.yaml
   - helm-release.yaml
