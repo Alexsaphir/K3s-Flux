@@ -38,10 +38,9 @@ spec:
     resources:
       limits:
         cpu: 100m
-        memory: 128Mi
       requests:
         cpu: 100m
-        memory: 128Mi
+        memory: 512Mi
 
     ingress:
       enabled: true
@@ -60,4 +59,14 @@ spec:
 
     volumeMounts:
       - name: storage
-        mountPath: /opt/hub
+        mountPath: /opt/hub/data
+        subPath: data
+      - name: storage
+        mountPath: /opt/hub/conf
+        subPath: conf
+      - name: storage
+        mountPath: /opt/hub/logs
+        subPath: logs
+      - name: storage
+        mountPath: /opt/hub/backups
+        subPath: backups
