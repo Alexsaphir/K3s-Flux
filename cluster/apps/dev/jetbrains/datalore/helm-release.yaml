@@ -62,7 +62,7 @@ spec:
     ingress:
       enabled: true
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-headers@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: network-system-authelia-auth@kubernetescrd
       hosts:
         - host: datalore.${DOMAIN_NAME}
           paths:
