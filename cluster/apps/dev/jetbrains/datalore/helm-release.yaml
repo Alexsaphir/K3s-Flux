@@ -49,7 +49,7 @@ spec:
     dataloreEnvExternalSecret: datalore-auth-secret
 
     dataloreEnv:
-      DATALORE_PUBLIC_URL: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
+      DATALORE_PUBLIC_URL: 'https://datalore.${DOMAIN_NAME}'
 
       HUB_PUBLIC_BASE_URL: 'https://hub.${DOMAIN_NAME}'
       HUB_INTERNAL_BASE_URL: 'http://hub:8082/hub'
