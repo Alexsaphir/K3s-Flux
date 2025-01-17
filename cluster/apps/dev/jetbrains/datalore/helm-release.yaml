@@ -51,7 +51,7 @@ spec:
     dataloreEnv:
       DATALORE_PUBLIC_URL: 'https://datalore.${DOMAIN_NAME}'
 
-      HUB_PUBLIC_BASE_URL: 'https://hub.${DOMAIN_NAME}'
+      HUB_PUBLIC_BASE_URL: 'https://hub.${DOMAIN_NAME}/hub'
       HUB_INTERNAL_BASE_URL: 'http://hub:8082/hub'
 
       GIT_TASK_K8S_NAMESPACE: '{{ .Release.Namespace }}'
