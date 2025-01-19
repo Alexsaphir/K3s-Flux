@@ -31,6 +31,14 @@ spec:
     vaultwarden:
       domain_name: &domain_name vaultwarden.${DOMAIN_NAME}
 
+      # https://github.com/dani-garcia/vaultwarden/blob/main/.env.template#L343-L356
+      feature_flags:
+        - autofill-v2
+        - ssh-key-vault-item
+        - ssh-agent
+        - fido2-vault-credentials
+        - inline-menu-positioning-improvements
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -61,7 +69,7 @@ spec:
               SIGNUPS_ALLOWED: 'false'
               INVITATIONS_ALLOWED: 'false'
               ORG_GROUPS_ENABLED: 'true'
-              EXPERIMENTAL_CLIENT_FEATURE_FLAGS: autofill-v2,ssh-key-vault-item,ssh-agent
+              EXPERIMENTAL_CLIENT_FEATURE_FLAGS: '{{ .Values.vaultwarden.feature_flags | join "," }}'
 
               DOMAIN: 'https://{{ .Values.vaultwarden.domain_name }}'
 
