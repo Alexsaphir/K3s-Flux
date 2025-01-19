@@ -51,7 +51,7 @@ spec:
           app:
             image:
               repository: ghcr.io/larivierec/lidarr
-              tag: 2.9.3.4527@sha256:31ae1f33a19903a5cb0c76ebba241dfaaeead38c1f1569ed3cb8fe59ef9311f9
+              tag: 2.9.4.4539@sha256:8ceffd9ba74653ad83d3da2ea3d8d80a9df44c946ebf5d3929b12ecd6866c7f3
 
             env:
               LIDARR__AUTHENTICATION_METHOD: External
