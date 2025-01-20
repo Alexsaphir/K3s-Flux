@@ -44,3 +44,5 @@ terraform.rc
 .terragrunt-cache
 
 backend.tf
+
+.bitwarden
