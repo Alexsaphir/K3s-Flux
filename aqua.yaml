@@ -11,7 +11,7 @@ packages:
   - name: gitleaks/gitleaks@v8.23.2
   - name: firecow/gitlab-ci-local@4.57.0
   - name: FiloSottile/age@v1.2.1
-  - name: mozilla/sops@v3.9.3
+  - name: mozilla/sops@v3.9.4
   - name: hashicorp/terraform@v1.10.5
   - name: terraform-linters/tflint@v0.55.0
   - name: fluxcd/flux2@v2.4.0
