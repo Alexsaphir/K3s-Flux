@@ -37,7 +37,7 @@ spec:
         - ssh-key-vault-item
         - ssh-agent
         - fido2-vault-credentials
-        # - inline-menu-positioning-improvements
+        - inline-menu-positioning-improvements
 
     defaultPodOptions:
       securityContext:
