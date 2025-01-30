@@ -36,7 +36,7 @@ spec:
   values:
     immich:
       # renovate: datasource=github-releases depName=immich-app/immich
-      version: &immichVersion v1.125.6
+      version: &immichVersion v1.125.7
       logLevel: 'log'
 
       concurrency:
