@@ -40,10 +40,6 @@
   lockFileMaintenance: {
     enabled: true,
   },
-  poetry: {
-    enabled: true,
-    rangeStrategy: 'bump',
-  },
   flux: {
     fileMatch: [
       '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
