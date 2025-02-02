@@ -34,7 +34,7 @@ repos:
       - id: forbid-bidi-controls
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.146.1
+    rev: 39.156.1
     hooks:
       - id: renovate-config-validator
 
