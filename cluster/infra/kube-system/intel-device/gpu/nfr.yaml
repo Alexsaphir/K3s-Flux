@@ -2,7 +2,7 @@
 apiVersion: nfd.k8s-sigs.io/v1alpha1
 kind: NodeFeatureRule
 metadata:
-  name: intel-dp-gpu-device
+  name: intel-gpu-device
 spec:
   rules:
     - name: intel.gpu
