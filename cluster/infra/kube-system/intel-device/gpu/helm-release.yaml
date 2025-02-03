@@ -30,3 +30,5 @@ spec:
     name: intel-gpu-plugin
     sharedDevNum: 6
     nodeFeatureRule: false
+
+    tolerations: [ ]
