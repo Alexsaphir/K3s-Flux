@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.306.1 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.308.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.35.0
   - name: go-task/task@v3.41.0
@@ -34,11 +34,11 @@ packages:
   - name: zegl/kube-score@v1.19.0
   - name: cilium/cilium-cli@v0.16.24
   - name: siderolabs/talos@v1.9.3
-  - name: budimanjojo/talhelper@v3.0.17
+  - name: budimanjojo/talhelper@v3.0.18
   - name: lsd-rs/lsd@v1.1.5
   - name: opentofu/opentofu@v1.9.0
   - name: runatlantis/atlantis@v0.33.0
-  - name: kyverno/kyverno@v1.13.2
+  - name: kyverno/kyverno@v1.13.3
   - name: homeport/dyff@v1.9.4
-  - name: gruntwork-io/terragrunt@v0.72.6
+  - name: gruntwork-io/terragrunt@v0.72.8
   - name: breml/tfreveal@v0.0.4
