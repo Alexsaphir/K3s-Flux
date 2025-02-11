@@ -97,7 +97,7 @@ spec:
               DEBUG: 0
               GUNICORN_MEDIA: 0
               ENABLE_SIGNUP: 0
-              ENABLE_METRICS: 1
+              ENABLE_METRICS: 0
               ENABLE_PDF_EXPORT: 1
 
               # Users default preference
@@ -112,6 +112,11 @@ spec:
               SPACE_DEFAULT_ALLOW_SHARING: 1 # Allow users to share recipes with public links
 
               SORT_TREE_BY_NAME: 1
+
+              # Email
+              EMAIL_HOST: mailpit.mail.svc.cluster.local
+              # email sender address (default 'webmaster@localhost')
+              DEFAULT_FROM_EMAIL: tandoor-recipes@domain.com
 
               # LDAP auth
               LDAP_AUTH: 0
