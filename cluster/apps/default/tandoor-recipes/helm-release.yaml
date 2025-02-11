@@ -158,6 +158,7 @@ spec:
           # language=json
           SOCIALACCOUNT_PROVIDERS: |
             {
+              "OAUTH_PKCE_ENABLED": "True",
               "openid_connect": {
                 "APPS": [
                   {
