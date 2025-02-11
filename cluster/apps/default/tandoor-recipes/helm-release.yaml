@@ -96,7 +96,7 @@ spec:
 
               DEBUG: 0
               GUNICORN_MEDIA: 0
-              ENABLE_SIGNUP: 1
+              ENABLE_SIGNUP: 0
               ENABLE_METRICS: 1
               ENABLE_PDF_EXPORT: 1
 
