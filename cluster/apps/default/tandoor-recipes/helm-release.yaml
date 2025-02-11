@@ -96,7 +96,7 @@ spec:
 
               DEBUG: 0
               GUNICORN_MEDIA: 0
-              ENABLE_SIGNUP: 0
+              ENABLE_SIGNUP: 1
               ENABLE_METRICS: 1
               ENABLE_PDF_EXPORT: 1
 
@@ -114,7 +114,7 @@ spec:
               SORT_TREE_BY_NAME: 1
 
               # LDAP auth
-              LDAP_AUTH: 1
+              LDAP_AUTH: 0
               AUTH_LDAP_SERVER_URI: ldap://lldap.kube-auth.svc.cluster.local:389
               AUTH_LDAP_BIND_DN: uid=search,ou=people,dc=home,dc=arpa
               AUTH_LDAP_USER_SEARCH_BASE_DN: ou=people,dc=home,dc=arpa
