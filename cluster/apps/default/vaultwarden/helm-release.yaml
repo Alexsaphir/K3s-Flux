@@ -62,12 +62,17 @@ spec:
             envFrom:
               - secretRef:
                   name: vaultwarden-secret
+              - secretRef:
+                  name: vaultwarden-push-secret
+              - secretRef:
+                  name: vaultwarden-duo-secret
             env:
               TZ: '${TIMEZONE}'
 
               PUSH_ENABLED: 'true'
               SIGNUPS_ALLOWED: 'false'
               INVITATIONS_ALLOWED: 'false'
+              INVITATION_ORG_NAME: 'Vaultwarden_Alexsaphir'
               ORG_GROUPS_ENABLED: 'true'
               EXPERIMENTAL_CLIENT_FEATURE_FLAGS: '{{ .Values.vaultwarden.feature_flags | join "," }}'
 
