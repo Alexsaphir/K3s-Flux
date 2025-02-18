@@ -23,7 +23,7 @@ packages:
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.28.0
-  - name: derailed/k9s@v0.40.4
+  - name: derailed/k9s@v0.40.5
   - name: FairwindsOps/nova@v3.11.2
   - name: FairwindsOps/pluto@v5.21.1
   - name: instrumenta/kubeval@v0.16.1
@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.33.0
   - name: kyverno/kyverno@v1.13.4
   - name: homeport/dyff@v1.9.4
-  - name: gruntwork-io/terragrunt@v0.73.6
+  - name: gruntwork-io/terragrunt@v0.73.7
   - name: breml/tfreveal@v0.0.4
