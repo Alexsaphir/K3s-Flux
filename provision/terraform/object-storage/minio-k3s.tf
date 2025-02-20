@@ -9,7 +9,8 @@ variable "k3s-buckets" {
     "recipes",
     "renovate",
     "wikijs",
-    "cdash"
+    "cdash",
+    "zipline"
   ]
 }
 
