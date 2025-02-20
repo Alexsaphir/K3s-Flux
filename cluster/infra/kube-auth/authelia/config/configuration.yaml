@@ -11,7 +11,6 @@ notifier:
 
     sender: 'Authelia <authelia@domain.com>'
     disable_require_tls: true
-    disable_starttls: true
 
 authentication_backend:
   refresh_interval: 1m
@@ -228,7 +227,7 @@ identity_providers:
     clients:
       - client_id: grafana
         client_name: Grafana
-        client_secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/GRAFANA_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -239,7 +238,7 @@ identity_providers:
 
       - client_id: immich
         client_name: Immich
-        client_secret: "${IMMICH_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/IMMICH_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -252,7 +251,7 @@ identity_providers:
 
       - client_id: weave-gitops
         client_name: Weave GitOps
-        client_secret: "${WEAVE_GITOPS_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/WEAVE_GITOPS_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -262,7 +261,7 @@ identity_providers:
 
       - client_id: portainer
         client_name: Portainer
-        client_secret: "${PORTAINER_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/PORTAINER_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -272,7 +271,7 @@ identity_providers:
 
       - client_id: minio
         client_name: Minio
-        client_secret: "${MINIO_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/MINIO_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -282,7 +281,7 @@ identity_providers:
 
       - client_id: planka
         client_name: Planka
-        client_secret: "${PLANKA_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/PLANKA_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -294,7 +293,7 @@ identity_providers:
 
       - client_id: forgejo
         client_name: Forgejo
-        client_secret: "${FORGEJO_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/FORGEJO_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -304,7 +303,7 @@ identity_providers:
 
       - client_id: gitlab
         client_name: GitLab
-        client_secret: "${GITLAB_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/GITLAB_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -315,7 +314,7 @@ identity_providers:
 
       - client_id: ollama
         client_name: Ollama
-        client_secret: "${OLLAMA_UI_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/OLLAMA_UI_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -326,7 +325,7 @@ identity_providers:
 
       - client_id: mealie
         client_name: Mealie
-        client_secret: "${MEALIE_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/MEALIE_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -339,7 +338,7 @@ identity_providers:
 
       - client_id: wikijs
         client_name: Wiki.js
-        client_secret: "${WIKIJS_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/WIKIJS_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -351,7 +350,7 @@ identity_providers:
 
       - client_id: tandoor-recipes
         client_name: Tandoor Recipes
-        client_secret: "${TANDOOR_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/TANDOOR_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -363,7 +362,7 @@ identity_providers:
 
       - client_id: zipline
         client_name: Zipline
-        client_secret: "${ZIPLINE_OAUTH_CLIENT_SECRET}"
+        client_secret: '{{ secret "/config/secret/ZIPLINE_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
