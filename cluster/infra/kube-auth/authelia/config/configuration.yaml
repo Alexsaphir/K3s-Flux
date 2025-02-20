@@ -110,6 +110,7 @@ access_control:
         - 'recipes.${DOMAIN_NAME}'
         - 'mealie.${DOMAIN_NAME}'
         - 'foundry.${DOMAIN_NAME}'
+        - 'z.${DOMAIN_NAME}'
 
         - 'codecov.${DOMAIN_NAME}'
         - 'sonarqube.${DOMAIN_NAME}'
@@ -172,7 +173,6 @@ access_control:
     - domain:
         - 'actual.${DOMAIN_NAME}'
         - 'zigbee2mqtt.${DOMAIN_NAME}'
-        - 'z.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'user:alexsaphir'
