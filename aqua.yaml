@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.319.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.319.1 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.35.0
   - name: go-task/task@v3.41.0
@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.33.0
   - name: kyverno/kyverno@v1.13.4
   - name: homeport/dyff@v1.9.4
-  - name: gruntwork-io/terragrunt@v0.73.10
+  - name: gruntwork-io/terragrunt@v0.73.11
   - name: breml/tfreveal@v0.0.4
