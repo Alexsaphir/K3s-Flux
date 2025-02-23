@@ -34,7 +34,7 @@ repos:
       - id: forbid-bidi-controls
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 39.174.3
+    rev: 39.177.1
     hooks:
       - id: renovate-config-validator
 
@@ -61,7 +61,7 @@ repos:
         entry: env YAMLLINT_CONFIG_FILE=.gitlab/linters/.yamllint.yaml ansible-lint
 
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.25
+    rev: v0.1.26
     hooks:
       - id: terraform-fmt
       - id: tflint
