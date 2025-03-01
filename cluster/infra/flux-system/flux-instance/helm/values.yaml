@@ -16,6 +16,7 @@ instance:
     url: https://gitlab.alexsaphir.com/Homelab/Talos-Flux
     ref: refs/heads/main
     path: cluster/flux/cluster
+    name: talos-kubernetes
     interval: 1h
 
   commonMetadata:

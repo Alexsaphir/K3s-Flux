@@ -17,8 +17,8 @@ spec:
   wait: false
 
   targetNamespace: *namespace
-  path: ./cluster/infra/networking/cert-manager/app
+  path: cluster/infra/networking/cert-manager/app
   sourceRef:
     kind: GitRepository
-    name: home-kubernetes
+    name: talos-kubernetes
     namespace: flux-system

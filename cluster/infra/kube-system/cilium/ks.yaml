@@ -17,8 +17,8 @@ spec:
   wait: false
 
   targetNamespace: *namespace
-  path: ./cluster/infra/kube-system/cilium
+  path: cluster/infra/kube-system/cilium
   sourceRef:
     kind: GitRepository
-    name: home-kubernetes
+    name: talos-kubernetes
     namespace: flux-system

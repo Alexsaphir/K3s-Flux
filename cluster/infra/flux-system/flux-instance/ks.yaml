@@ -17,8 +17,8 @@ spec:
   wait: false
 
   targetNamespace: *namespace
-  path: ./cluster/infra/flux/flux-instance
+  path: cluster/infra/flux-system/flux-instance
   sourceRef:
     kind: GitRepository
-    name: home-kubernetes
+    name: talos-kubernetes
     namespace: flux-system
