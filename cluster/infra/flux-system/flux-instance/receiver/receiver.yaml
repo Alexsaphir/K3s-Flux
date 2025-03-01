@@ -1,0 +1,24 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1
+kind: Receiver
+metadata:
+  name: gitlab-webhook
+spec:
+  type: gitlab
+  events:
+    - "Push Hook"
+    - "Tag Push Hook"
+
+  secretRef:
+    name: gitlab-webhook-token-secret
+
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: GitRepository
+      name: home-kubernetes
+      namespace: &namespace flux-system
+
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      name: flux-system
+      namespace: *namespace

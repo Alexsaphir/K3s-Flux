@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app flux-instance
+  namespace: &namespace flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+
+  interval: 1h
+  timeout: 5m
+  retryInterval: 2m
+
+  prune: false # never should be deleted
+  wait: false
+
+  targetNamespace: *namespace
+  path: ./cluster/infra/flux/flux-instance
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
