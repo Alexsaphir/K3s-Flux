@@ -8,7 +8,7 @@
     ':dependencyDashboard',
     ':enablePreCommit',
     ':semanticCommits',
-    'github>aquaproj/aqua-renovate-config#2.3.0'
+    'github>aquaproj/aqua-renovate-config#2.7.0'
   ],
   enabled: true,
   prConcurrentLimit: 3,
@@ -29,9 +29,5 @@
   ],
   lockFileMaintenance: {
     enabled: true,
-  },
-  poetry: {
-    enabled: true,
-    rangeStrategy: 'bump',
   },
 }

@@ -1,23 +1,26 @@
-[tool.poetry]
+[project]
 name = "Talos-Flux"
-version = "0.1.0"
-description = ""
-authors = ["Alexsaphir <git@alexsaphir.com>"]
+version = "0.0.0"
+description = "Add your description here"
 readme = "README.md"
+requires-python = ">=3.13"
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "flux-local>=6.0.2",
+    "pre-commit>=4.0.1",
+]
 
-package-mode = false
+[dependency-groups]
+linters = [
+    "prettier>=0.0.7",
+    "pyproject-fmt>=2.5",
+    "yamllint>=1.35.1",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
+[tool.uv]
+package = false
 
-[tool.poetry.group.ci.dependencies]
-pre-commit = "^3.7.1"
-flux-local = "^5.3.1"
-
-[tool.poetry.group.linter.dependencies]
-prettier = "^0.0.7"
-yamllint = "^1.35.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+default-groups = ['linters']
