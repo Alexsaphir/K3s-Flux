@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.9.2
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.32.2
+
+clusterName: home-cluster
+endpoint: https://192.168.0.100:6443
+
+clusterPodNets:
+  - "10.42.0.0/16"
+clusterSvcNets:
+  - "10.43.0.0/16"
+
+additionalApiServerCertSans: &sans
+  - "127.0.0.1"
+  - "192.168.0.100"
+  - "talos.cluster.alexsaphir.com"
+additionalMachineCertSans: *sans
+
+# Disable built-in Flannel to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "ms-01"
+    ipAddress: "192.168.0.113"
+    controlPlane: true
+    installDiskSelector:
+      serial: S7GCNL0XA11778T
+    machineDisks:
+      - device: /dev/nvme1n1
+        partitions:
+          - mountpoint: /var/mnt/extra
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/495176274ce8f9e87ed052dbc285c67b2a0ed7c5a6212f5c4d086e1a9a1cf614
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "58:47:ca:7a:c6:c8"
+        dhcp: false
+        addresses:
+          - "192.168.0.113/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "192.168.0.1"
+        mtu: 1500
+        vip:
+          ip: "192.168.0.100"
+
+    nodeAnnotations:
+      installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
+
+    patches:
+      - "@./patches/nodes/ms-01/sysfs.yaml"
+
+# Global patches
+patches:
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-install.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-local-storage.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctls.yaml"
+  - "@./patches/global/machine-time.yaml"
+
+# Controller patches
+controlPlane:
+  nodeLabels:
+    topology.kubernetes.io/zone: controlPlane
+
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/iscsi-tools
+          - siderolabs/util-linux-tools
+
+  patches:
+    - "@./patches/controller/admission-controller-patch.yaml"
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/machine-features.yaml"
+
+worker:
+  nodeLabels:
+    topology.kubernetes.io/zone: worker
+
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/iscsi-tools
+          - siderolabs/util-linux-tools
