@@ -4,8 +4,8 @@ machine:
     stableHostname: true
     kubernetesTalosAPIAccess:
       enabled: true
-      allowedRoles: ["os:admin"]
-      allowedKubernetesNamespaces: ["actions-runner-system", "system-upgrade"]
+      allowedRoles: [ "os:admin" ]
+      allowedKubernetesNamespaces: [ "system-upgrade" ]
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:

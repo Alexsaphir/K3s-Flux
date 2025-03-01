@@ -5,7 +5,7 @@ talosVersion: v1.9.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.32.2
 
-clusterName: home-cluster
+clusterName: &clusterName talos-cluster
 endpoint: https://192.168.0.100:6443
 
 clusterPodNets:
@@ -14,9 +14,9 @@ clusterSvcNets:
   - "10.43.0.0/16"
 
 additionalApiServerCertSans: &sans
-  - "127.0.0.1"
-  - "192.168.0.100"
-  - "talos.cluster.alexsaphir.com"
+  - 127.0.0.1
+  - &talosControlplaneVip 192.168.0.100
+  - talos.cluster.alexsaphir.com
 additionalMachineCertSans: *sans
 
 # Disable built-in Flannel to use Cilium
@@ -30,12 +30,11 @@ nodes:
     installDiskSelector:
       serial: S7GCNL0XA11778T
     machineDisks:
-      - device: /dev/nvme1n1
+      - device: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_1TB_S7GCNL0XA16195E
         partitions:
           - mountpoint: /var/mnt/extra
     machineSpec:
       secureboot: false
-    talosImageURL: factory.talos.dev/installer/495176274ce8f9e87ed052dbc285c67b2a0ed7c5a6212f5c4d086e1a9a1cf614
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "58:47:ca:7a:c6:c8"
@@ -44,16 +43,34 @@ nodes:
           - "192.168.0.113/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.0.1"
+            gateway: "192.168.0.254"
         mtu: 1500
         vip:
-          ip: "192.168.0.100"
+          ip: *talosControlplaneVip
 
     nodeAnnotations:
       installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
 
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+            - siderolabs/thunderbolt
+            # Coral
+            - siderolabs/gasket-driver
+            # Gpu
+            - siderolabs/nvidia-container-toolkit-production
+            - siderolabs/nvidia-open-gpu-kernel-modules-production
+
     patches:
       - "@./patches/nodes/ms-01/sysfs.yaml"
+      - "@./patches/nodes/ms-01/nvidia.yaml"
+      - "@./patches/nodes/ms-01/thunderbolt.yaml"
+      - "@./patches/udev/intel-gpu.yaml"
+      - "@./patches/udev/thunderbolt.yaml"
 
 # Global patches
 patches:
@@ -68,6 +85,7 @@ patches:
 # Controller patches
 controlPlane:
   nodeLabels:
+    topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: controlPlane
 
   schematic:
@@ -84,15 +102,4 @@ controlPlane:
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/machine-features.yaml"
 
-worker:
-  nodeLabels:
-    topology.kubernetes.io/zone: worker
-
-  schematic:
-    customization:
-      extraKernelArgs:
-        - net.ifnames=0
-      systemExtensions:
-        officialExtensions:
-          - siderolabs/iscsi-tools
-          - siderolabs/util-linux-tools
+#
