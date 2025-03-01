@@ -1,0 +1,29 @@
+---
+version: "3"
+
+set:
+  - pipefail
+shopt:
+  - globstar
+
+vars:
+  BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
+  CLUSTER_DIR: '{{.ROOT_DIR}}/cluster'
+  SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
+  TALOS_DIR: '{{.ROOT_DIR}}/talos'
+
+  TALHELPER_CLUSTER_DIR: '{{.TALOS_DIR}}/clusterconfig'
+  TALOSCONFIG: '{{.TALHELPER_CLUSTER_DIR}}/talosconfig'
+
+env:
+  KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
+  SOPS_AGE_KEY_FILE: '~/.config/sops/age/K3s-Flux.agekey'
+  TALOSCONFIG: '{{.TALOSCONFIG}}'
+
+includes:
+  talos: .taskfiles/talos
+  talos:helper: .taskfiles/talos-helper
+  bootstrap: .taskfiles/bootstrap
+
+tasks:
+  default: task --list

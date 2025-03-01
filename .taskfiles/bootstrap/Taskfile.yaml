@@ -1,0 +1,53 @@
+---
+version: "3"
+
+tasks:
+  talos:
+    desc: Bootstrap the Talos cluster
+    dir: '{{.TALOS_DIR}}'
+    cmds:
+      - '[ -f talsecret.sops.yaml ] || talhelper gensecret | sops --filename-override talos/talsecret.sops.yaml --encrypt /dev/stdin > talsecret.sops.yaml'
+      - talhelper genconfig
+      - talhelper gencommand apply --extra-flags="--insecure" | bash
+      - until talhelper gencommand bootstrap | bash; do sleep 10; done
+      - until talhelper gencommand kubeconfig --extra-flags="{{.ROOT_DIR}} --force" | bash; do sleep 10; done
+    preconditions:
+      - test -f {{.SOPS_CONFIG_FILE}}
+      - test -f {{.SOPS_AGE_KEY_FILE}}
+      - test -f {{.TALOS_DIR}}/talconfig.yaml
+      - which talhelper sops
+
+  deploy:
+    cmds:
+      - task: deploy:namespace
+      - task: deploy:config
+      - task: deploy:secret
+      - task: deploy:helm
+
+  deploy:namespace:
+    internal: true
+    cmd: kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+
+  deploy:config:
+    internal: true
+    cmds:
+      - cmd: kubectl --namespace flux-system apply --server-side --filename {{ .ITEM }}
+        for:
+          - '{{ .CLUSTER_DIR }}/components/common/cluster-settings.yaml'
+
+  deploy:secret:
+    internal: true
+    cmds:
+      - cmd: sops exec-file {{ .ITEM }} "kubectl --namespace flux-system apply --server-side --filename {}"
+        for:
+          - '{{ .CLUSTER_DIR }}/components/common/sops-age.sops.yaml'
+          - '{{ .CLUSTER_DIR }}/components/common/cluster-secrets.sops.yaml'
+
+  deploy:helm:
+    internal: true
+    vars:
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.yaml'
+    cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
+    preconditions:
+      - test -f {{ .helm_file }}
+      - which helmfile
