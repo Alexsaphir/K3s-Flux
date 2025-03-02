@@ -1,0 +1,99 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  packageRules: [
+    {
+      description: 'Flux Group',
+      groupName: 'Flux',
+      matchPackagePatterns: [
+        'fluxcd'
+      ],
+      matchDatasources: [
+        'docker',
+        'github-tags',
+        'github-releases'
+      ],
+      versioning: 'semver',
+      group: {
+        commitMessageTopic: '{{{groupName}}} group'
+      },
+      separateMinorPatch: true
+    },
+    {
+      description: 'Codecov Group',
+      groupName: 'Codecov',
+      matchPackagePatterns: [
+        'codecov'
+      ],
+      matchDatasources: [
+        'docker',
+        'github-releases'
+      ],
+      group: {
+        'commitMessageTopic': '{{{groupName}}} group'
+      },
+      separateMinorPatch: true
+    },
+    {
+      "description": "System Upgrade Controller Group",
+      "groupName": "System Upgrade Controller",
+      "matchPackagePatterns": [
+        "rancher/system-upgrade-controller"
+      ],
+      "matchDatasources": [
+        "docker",
+        "github-releases"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      description: 'Immich Group',
+      groupName: 'immich',
+      matchPackagePatterns: [
+        'immich-app'
+      ],
+      matchDatasources: [
+        'github-releases',
+        'docker',
+      ],
+      versioning: 'semver',
+      group: {
+        commitMessageTopic: '{{{groupName}}}'
+      },
+      separateMinorPatch: true
+    },
+    {
+      description: "Dragonfly operator",
+      groupName: "Dragonfly Operator",
+      matchPackagePatterns: [
+        "dragonfly(?:db)?.operator"
+      ],
+      matchDatasources: [
+        "docker",
+        "github-releases"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group"
+      },
+      separateMinorPatch: true
+    },
+    {
+      description: "Aquaproj/aqua group",
+      groupName: 'Aqua',
+      matchFileNames: [
+        '**/aqua.yaml',
+        '**/.aqua.yaml',
+        '**/.devcontainer.json'
+      ]
+    },
+    {
+      description: "Pre-Commit",
+      groupName: 'Pre-Commit',
+      matchManagers: [
+        'pre-commit'
+      ]
+    }
+  ]
+}

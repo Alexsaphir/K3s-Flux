@@ -3,20 +3,28 @@
   extends: [
     'config:recommended',
     'docker:enableMajor',
-    'replacements:k8s-registry-move',
     ':disableRateLimiting',
     ':dependencyDashboard',
-    ':enablePreCommit',
     ':semanticCommits',
-    'github>aquaproj/aqua-renovate-config#2.7.0'
+    ':enablePreCommit',
+    ":timezone(Europe/Paris)",
+    'mergeConfidence:all-badges',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/commitMessage.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/customManagers.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/grafanaDashboards.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/groups.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/labels.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/packageRules.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/semanticCommits.json5',
+    'security:openssf-scorecard',
+    'github>aquaproj/aqua-renovate-config#2.7.5',
   ],
-  enabled: true,
+  dependencyDashboard: true,
+  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
   prConcurrentLimit: 3,
   configWarningReuseIssue: true,
   configMigration: true,
-  dependencyDashboard: true,
-  dependencyDashboardTitle: 'Renovate Dashboard',
-  gitLabIgnoreApprovals: true,
+  gitLabIgnoreApprovals: false,
   suppressNotifications: [
     'prEditedNotification',
     'prIgnoreNotification',
@@ -26,8 +34,24 @@
   reviewersFromCodeOwners: true,
   ignorePaths: [
     '**/*.sops.*',
+    '**/archive/**',
   ],
   lockFileMaintenance: {
     enabled: true,
+  },
+  flux: {
+    fileMatch: [
+      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    ],
+  },
+  'helm-values': {
+    fileMatch: [
+      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    ],
+  },
+  kubernetes: {
+    fileMatch: [
+      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    ],
   },
 }
