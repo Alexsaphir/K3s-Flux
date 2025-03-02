@@ -32,8 +32,15 @@ releases:
     namespace: cert-manager
     chart: jetstack/cert-manager
     version: v1.17.1
-    values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/networking/cert-manager/app/helm/values.yaml' ]
+    values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/cert-manager/cert-manager/helm/values.yaml' ]
     needs: [ 'kube-system/coredns' ]
+
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.14.3
+    values: ['{{ requiredEnv "ROOT_DIR" }}/cluster/infra/external-secrets/external-secrets/helm/values.yaml']
+    needs: ['cert-manager/cert-manager']
 
   - name: flux-operator
     namespace: flux-system

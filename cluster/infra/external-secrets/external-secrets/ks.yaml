@@ -2,8 +2,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cert-manager
-  namespace: &namespace cert-manager
+  name: &app external-secrets
+  namespace: &namespace external-secrets
 spec:
   commonMetadata:
     labels:
@@ -17,7 +17,7 @@ spec:
   wait: false
 
   targetNamespace: *namespace
-  path: cluster/infra/networking/cert-manager/app
+  path: cluster/infra/external-secrets/external-secrets
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
