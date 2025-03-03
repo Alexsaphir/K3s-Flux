@@ -1,6 +1,6 @@
 [project]
 name = "talos-flux"
-version = "0.0.0"
+version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -16,7 +16,7 @@ dependencies = [
 [dependency-groups]
 linters = [
   "prettier==0.0.7",
-  "pyproject-fmt==2.5",
+  "pyproject-fmt==2.5.1",
   "yamllint==1.35.1",
 ]
 
