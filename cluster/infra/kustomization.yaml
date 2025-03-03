@@ -6,3 +6,4 @@ resources:
   - flux-system
   - cert-manager
   - external-secrets
+  - system-upgrade
