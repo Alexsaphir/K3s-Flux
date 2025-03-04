@@ -49,7 +49,7 @@ wheels = [
 
 [[package]]
 name = "flux-local"
-version = "7.1.0"
+version = "7.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -61,9 +61,9 @@ dependencies = [
     { name = "python-slugify" },
     { name = "pyyaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/86/6b/cf58338e14aa776e8b0375bbc46b323832590769324f42e951441172446f/flux_local-7.1.0.tar.gz", hash = "sha256:41a1d324122ed0e21b733290195bbd61a50a85edfd3956065fe21e3b5820aca4", size = 61161 }
+sdist = { url = "https://files.pythonhosted.org/packages/11/53/aac69b78895fc88f469e1eca804c11061f49586b33b85c9d36543b91de1f/flux_local-7.2.0.tar.gz", hash = "sha256:b70af3a2b80ac8a0b865c6d680d9466239ac1557740f29e2bb5350f1bc4ae144", size = 61516 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/19/97/19802550ed3d6f504a35c03f8152eb17acd35b0c97d450fc4cdecc9fed76/flux_local-7.1.0-py3-none-any.whl", hash = "sha256:d09fdeada9f6222c3ba76e82a783616348227bd3ee395a90c16d2964ac5c6c4d", size = 56100 },
+    { url = "https://files.pythonhosted.org/packages/d7/c4/c95de48c06010b67b6ea2350d4cfe4a6d1998e27e9f15b75faed02251f90/flux_local-7.2.0-py3-none-any.whl", hash = "sha256:a64891946fb31471796f4dc183d598b7ad3881697245a3b0621c7264b8d8748c", size = 56325 },
 ]
 
 [[package]]
@@ -289,7 +289,7 @@ wheels = [
 
 [[package]]
 name = "talos-flux"
-version = "0.3.0"
+version = "0.4.0"
 source = { virtual = "." }
 dependencies = [
     { name = "flux-local" },
@@ -305,7 +305,7 @@ linters = [
 
 [package.metadata]
 requires-dist = [
-    { name = "flux-local", specifier = "==7.1.0" },
+    { name = "flux-local", specifier = "==7.2.0" },
     { name = "pre-commit", specifier = "==4.1.0" },
 ]
 

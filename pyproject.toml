@@ -1,6 +1,6 @@
 [project]
 name = "talos-flux"
-version = "0.3.0"
+version = "0.4.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -9,7 +9,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "flux-local==7.1.0",
+  "flux-local==7.2.0",
   "pre-commit==4.1.0",
 ]
 
