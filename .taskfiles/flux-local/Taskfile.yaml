@@ -8,7 +8,7 @@ tasks:
   get-images:
     desc: Get images.
     cmd: |
-      uv run flux-local get cluster \
+      uvx flux-local@latest get cluster \
             --path {{ .FLUX_CLUSTER }} \
             --all-namespaces \
             --enable-images --only-images \
@@ -27,7 +27,27 @@ tasks:
     env:
       DIFF: 'dyff between --ignore-order-changes -l -g -o gitlab'
     cmd: |
-      flux-local diff {{ .FLUX_RESOURCE }} \
+      uvx flux-local@latest diff {{ .FLUX_RESOURCE }} \
             --path {{ .FLUX_CLUSTER }} \
             --branch-orig {{ .BRANCH_ORIGIN }} \
+            --all-namespaces
+
+  test:
+    desc: 'Test'
+    cmd: |
+      uvx flux-local@latest test \
+            --path {{ .FLUX_CLUSTER }} \
+            --enable-helm \
+            --verbose \
+            --all-namespaces
+
+  build:
+    desc: build
+    requires:
+      vars:
+        - name: FLUX_RESOURCE
+          enum: [ 'ks', 'hr' ]
+    cmd: |
+      uvx flux-local@latest build {{ .FLUX_RESOURCE }} \
+            --path {{ .FLUX_CLUSTER }} \
             --all-namespaces
