@@ -39,9 +39,6 @@
   lockFileMaintenance: {
     enabled: true,
   },
-  'pep621': {
-    bumpVersion: "minor"
-  },
   flux: {
     fileMatch: [
       '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
