@@ -2,14 +2,16 @@
 version: "3"
 
 vars:
-  FLUX_CLUSTER: 'cluster/flux/cluster'
+  flux_cluster: 'cluster/flux/cluster'
+  flux_source_name: 'talos-kubernetes'
 
 tasks:
   get-images:
     desc: Get images.
     cmd: |
       uvx flux-local@latest get cluster \
-            --path {{ .FLUX_CLUSTER }} \
+            --path {{ .flux_cluster }} \
+            --sources {{ .flux_source_name }} \
             --all-namespaces \
             --enable-images --only-images \
             --output yaml
@@ -28,7 +30,8 @@ tasks:
       DIFF: 'dyff between --ignore-order-changes -l -g -o gitlab'
     cmd: |
       uvx flux-local@latest diff {{ .FLUX_RESOURCE }} \
-            --path {{ .FLUX_CLUSTER }} \
+            --path {{ .flux_cluster }} \
+            --sources {{ .flux_source_name }} \
             --branch-orig {{ .BRANCH_ORIGIN }} \
             --all-namespaces
 
@@ -36,8 +39,10 @@ tasks:
     desc: 'Test'
     cmd: |
       uvx flux-local@latest test \
-            --path {{ .FLUX_CLUSTER }} \
+            --path {{ .flux_cluster }} \
+            --sources {{ .flux_source_name }} \
             --enable-helm \
+            --no-skip-crds \
             --verbose \
             --all-namespaces
 
@@ -49,5 +54,6 @@ tasks:
           enum: [ 'ks', 'hr' ]
     cmd: |
       uvx flux-local@latest build {{ .FLUX_RESOURCE }} \
-            --path {{ .FLUX_CLUSTER }} \
+            --path {{ .flux_cluster }} \
+            --sources {{ .flux_source_name }} \
             --all-namespaces
