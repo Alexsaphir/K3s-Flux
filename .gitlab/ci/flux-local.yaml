@@ -2,7 +2,7 @@
 .flux-local-diff:
   stage: flux-local
   image:
-    name: ghcr.io/alexsaphir/gitlabbot:v0.2.8
+    name: ghcr.io/alexsaphir/gitlabbot:v0.3.3
   parallel:
     matrix:
       - FLUX_RESOURCE:
@@ -17,6 +17,7 @@
       flux-local diff $FLUX_RESOURCE -A \
       --path $CLUSTER_PATH \
       --branch-orig main \
+      --all-namespaces \
       --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
       --output-file out.diff
     - |
@@ -35,5 +36,5 @@
 flux-local-diff:
   extends: .flux-local-diff
   variables:
-    CLUSTER_PATH: cluster
+    CLUSTER_PATH: cluster/flux/cluster
     COMMENT_MODE: recreate

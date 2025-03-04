@@ -24,6 +24,7 @@ includes:
   talos: .taskfiles/talos
   talos:helper: .taskfiles/talos-helper
   bootstrap: .taskfiles/bootstrap
+  flux-local: .taskfiles/flux-local
 
 tasks:
   default: task --list

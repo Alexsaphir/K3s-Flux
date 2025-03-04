@@ -1,0 +1,33 @@
+---
+version: "3"
+
+vars:
+  FLUX_CLUSTER: 'cluster/flux/cluster'
+
+tasks:
+  get-images:
+    desc: Get images.
+    cmd: |
+      uv run flux-local get cluster \
+            --path {{ .FLUX_CLUSTER }} \
+            --all-namespaces \
+            --enable-images --only-images \
+            --output yaml
+
+  diff:
+    desc: Generate diff
+    preconditions:
+      - dyff version
+    requires:
+      vars:
+        - name: FLUX_RESOURCE
+          enum: [ 'ks', 'hr' ]
+    vars:
+      BRANCH_ORIGIN: main
+    env:
+      DIFF: 'dyff between --ignore-order-changes -l -g -o gitlab'
+    cmd: |
+      flux-local diff {{ .FLUX_RESOURCE }} \
+            --path {{ .FLUX_CLUSTER }} \
+            --branch-orig {{ .BRANCH_ORIGIN }} \
+            --all-namespaces

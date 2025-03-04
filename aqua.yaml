@@ -9,6 +9,11 @@ packages:
   # Utils
   - name: direnv/direnv@v2.35.0
   - name: go-task/task@v3.41.0
+
+  # YAML utils
+  - name: homeport/dyff@v1.9.4
+  - name: mikefarah/yq@v4.45.1
+
   # Secrets
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.9.4
@@ -26,5 +31,4 @@ packages:
   - name: kubernetes/kubectl@v1.32.2
   - name: helm/helm@v3.17.1
   - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
-  - name: mikefarah/yq@v4.45.1
   - name: helmfile/helmfile@v0.171.0
