@@ -13,5 +13,6 @@ resources:
   - k8s-gateway.yaml
   - metrics-server.yaml
   - node-feature-discovery.yaml
+  - nvidia.yaml
   - spegel.yaml
   - stakater.yaml

@@ -2,6 +2,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - google-coral-device.yaml
-  - zigbee-device.yaml
-  - nvidia-gpu.yaml
+  - helm-release.yaml
+  - runtime-class.yaml
