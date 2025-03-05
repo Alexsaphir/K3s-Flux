@@ -2,7 +2,7 @@
 .flux-local-diff:
   stage: flux-local
   image:
-    name: ghcr.io/alexsaphir/gitlabbot:v0.2.8
+    name: ghcr.io/alexsaphir/gitlabbot:v0.3.4
   parallel:
     matrix:
       - FLUX_RESOURCE:
