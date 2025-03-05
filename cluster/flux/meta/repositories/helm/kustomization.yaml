@@ -8,6 +8,7 @@ resources:
   - coredns.yaml
   - external-secrets.yaml
   - ingress-nginx.yaml
+  - intel.yaml
   - jetstack.yaml
   - k8s-gateway.yaml
   - metrics-server.yaml
