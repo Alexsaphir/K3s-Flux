@@ -30,3 +30,5 @@ spec:
     nodeFeatureRule: false
 
     sharedDevNum: 6
+
+    tolerations: [ ]
