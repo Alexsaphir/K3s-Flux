@@ -29,19 +29,42 @@ spec:
       retries: 3
 
   values:
+    enableNodeFeatureApi: true
     nodeFeatureRule:
       createCRD: true
 
     master:
-      replicaCount: 2
+      replicaCount: 1
+
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ 'ALL' ]
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
 
       resources:
+        requests:
+          cpu: 21m
+          memory: 51Mi
         limits:
           memory: 256Mi
 
     worker:
       annotations:
         configmap.reloader.stakater.com/reload: node-feature-discovery-worker-conf
+
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ 'ALL' ]
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+
+      resources:
+        requests:
+          cpu: 5m
+          memory: 48Mi
 
       config:
         core:
