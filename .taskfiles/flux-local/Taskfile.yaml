@@ -36,15 +36,15 @@ tasks:
             --all-namespaces
 
   test:
-    desc: 'Test'
+    desc: 'Test (add `--enable-helm` for more intensive testing).'
     cmd: |
       uvx flux-local@latest test \
             --path {{ .flux_cluster }} \
             --sources {{ .flux_source_name }} \
-            --enable-helm \
             --no-skip-crds \
             --verbose \
-            --all-namespaces
+            --all-namespaces \
+            {{ .CLI_ARGS }}
 
   build:
     desc: build
@@ -56,4 +56,5 @@ tasks:
       uvx flux-local@latest build {{ .FLUX_RESOURCE }} \
             --path {{ .flux_cluster }} \
             --sources {{ .flux_source_name }} \
-            --all-namespaces
+            --all-namespaces \
+            {{ .CLI_ARGS }}
