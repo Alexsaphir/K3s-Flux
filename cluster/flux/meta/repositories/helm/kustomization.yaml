@@ -4,9 +4,6 @@ kind: Kustomization
 resources:
   - bjw-s.yaml
   - cilium.yaml
-  - controlplaneio.yaml
-  - coredns.yaml
-  - external-secrets.yaml
   - ingress-nginx.yaml
   - intel.yaml
   - jetstack.yaml
@@ -14,5 +11,3 @@ resources:
   - metrics-server.yaml
   - node-feature-discovery.yaml
   - nvidia.yaml
-  - spegel.yaml
-  - stakater.yaml
