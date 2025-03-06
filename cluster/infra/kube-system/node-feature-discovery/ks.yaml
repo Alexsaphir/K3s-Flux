@@ -9,6 +9,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
 
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
+
   interval: 1h
   timeout: 5m
   retryInterval: 2m
