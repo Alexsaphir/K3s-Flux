@@ -8,3 +8,4 @@ components:
   - ../../components/flux/substituteFrom
 resources:
   - external-secrets/ks.yaml
+  - bitwarden-sdk-server/ks.yaml

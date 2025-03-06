@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: bitwarden-sdk-server
+  namespace: external-secrets
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v0.3.2
+  url: oci://ghcr.io/external-secrets/charts/bitwarden-sdk-server
+  verify:
+    provider: cosign
