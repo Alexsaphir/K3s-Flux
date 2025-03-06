@@ -27,6 +27,7 @@ cluster:
       profiles:
         - schedulerName: default-scheduler
           plugins:
+            # Disable imagelocality
             score:
               disabled:
                 - name: ImageLocality
