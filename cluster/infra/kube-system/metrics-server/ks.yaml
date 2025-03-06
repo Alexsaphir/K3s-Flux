@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app metrics-server
+  namespace: &namespace kube-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+
+  interval: 1h
+  timeout: 5m
+  retryInterval: 2m
+
+  prune: true
+  wait: false
+
+  targetNamespace: *namespace
+  path: cluster/infra/kube-system/metrics-server
+  sourceRef:
+    kind: GitRepository
+    name: talos-kubernetes
+    namespace: flux-system
