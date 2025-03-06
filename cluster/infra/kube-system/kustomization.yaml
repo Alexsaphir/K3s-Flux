@@ -14,3 +14,5 @@ resources:
   - node-feature-discovery/ks.yaml
   - intel-device-plugin/ks.yaml
   - nvidia-device-plugin/ks.yaml
+
+  - reloader/ks.yaml
