@@ -11,5 +11,3 @@ spec:
   ref:
     tag: v0.3.2
   url: oci://ghcr.io/external-secrets/charts/bitwarden-sdk-server
-  verify:
-    provider: cosign
