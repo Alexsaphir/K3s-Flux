@@ -8,3 +8,4 @@ resources:
   - external-secrets
   - system-upgrade
   - operator
+  - metallb-system
