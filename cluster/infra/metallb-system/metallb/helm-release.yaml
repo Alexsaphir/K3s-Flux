@@ -16,6 +16,12 @@ spec:
 
   driftDetection:
     mode: enabled
+    ignore:
+    - paths:
+      - /spec/conversion/webhook/clientConfig/caBundle
+      target:
+        kind: CustomResourceDefinition
+
   install:
     crds: CreateReplace
     remediation:
