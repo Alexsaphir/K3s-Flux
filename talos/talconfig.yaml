@@ -1,23 +1,23 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
-# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.9.4
-# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.32.2
-
 clusterName: &clusterName talos-cluster
+
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
+
 endpoint: https://192.168.0.100:6443
 
-clusterPodNets:
-  - "10.42.0.0/16"
-clusterSvcNets:
-  - "10.43.0.0/16"
 
 additionalApiServerCertSans: &sans
   - 127.0.0.1
   - &talosControlplaneVip 192.168.0.100
   - talos.cluster.alexsaphir.com
 additionalMachineCertSans: *sans
+
+clusterPodNets:
+  - "10.42.0.0/16"
+clusterSvcNets:
+  - "10.43.0.0/16"
 
 # Disable built-in Flannel to use Cilium
 cniConfig:
