@@ -1,12 +1,14 @@
 ---
 fullnameOverride: coredns
+image:
+  repository: mirror.gcr.io/coredns/coredns
+replicaCount: 2
 k8sAppLabelOverride: kube-dns
 serviceAccount:
   create: true
 service:
   name: kube-dns
   clusterIP: "10.43.0.10"
-replicaCount: 1 # TODO: set back to `2`
 servers:
   - zones:
       - zone: .
