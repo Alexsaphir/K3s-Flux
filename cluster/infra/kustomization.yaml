@@ -9,3 +9,4 @@ resources:
   - system-upgrade
   - operator
   - metallb-system
+  - openebs-system
