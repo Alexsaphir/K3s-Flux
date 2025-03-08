@@ -8,7 +8,6 @@ resources:
   - intel.yaml
   - jetstack.yaml
   - k8s-gateway.yaml
-  - metallb.yaml
   - metrics-server.yaml
   - node-feature-discovery.yaml
   - nvidia.yaml
