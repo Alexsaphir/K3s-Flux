@@ -10,3 +10,4 @@ resources:
   - operator
   - metallb-system
   - openebs-system
+  - observability
