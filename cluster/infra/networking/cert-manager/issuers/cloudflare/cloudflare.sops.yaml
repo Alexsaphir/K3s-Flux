@@ -2,9 +2,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: cloudflare-token
-  namespace: flux-system
 stringData:
-  token: ENC[AES256_GCM,data:XbosN3gdnQoLAJ309oOhouECPLZPxAXEjpePVgT6uNBLLWeukMMMsA==,iv:Ile3zdnvgmB/F793KJGz8aiB/A6vInjcXK9FYNhGKv4=,tag:7UOsozWxC6P/sWc8CzU3rw==,type:str]
+  token: ENC[AES256_GCM,data:2w4QGh2r4v15HsKhPOTtM9lzLBeuc64CzXhe0nEuak5q3NJB37X46g==,iv:X58D2l1/gtRXRnF57Bue4vjwYn0Rn8lG2IE6JIlAJ9s=,tag:0FrxySkYY1GKnrlg8pE+3A==,type:str]
 sops:
   kms: []
   gcp_kms: []
@@ -14,15 +13,15 @@ sops:
     - recipient: age1euu8v7dznj6kjx28dqd4njgtxgw5thapckaptku9de3d4jrdy5nssvgcpz
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvcmV5UTFjZW1yYWl0RjdT
-        c1pQK2hDOC9TS3FQNXI0akVGRnZNZHhUaFFZCkdsR1QzYm4wVTNXZURaVjQwYi80
-        VU5yaGlodEhRcUppeUJNRkwvWUNpZUkKLS0tIEpraEZmUlljb1ViQ2ZEOVBlQUMv
-        OWJ2TmkxMVZTelhtNTJmU3NZT1crQWcKJqFs1ZHkVSwMDqB36uwoWky0QlJQGx/9
-        I/z+/h9CZdCPitNjuBvtVlHoHzzhILwCkCyxOQmPsd7Z1QJVF9W14Q==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0YkVPTUtiMFhnQUFFUVBl
+        MTF2MHhIOUErdmtNSGpaUk9wLzFWUyt4eENrCk9Mc1dzdGFPTC9HdS91Z3BuYUhw
+        VnEwQ2RlMExyN0J5NUF0SGRkbjZLYTQKLS0tIGFVcHZCODdjdzR1OTk5QVJQaG9L
+        Q0JGMnNCdWhZbGxUZUdXdmRGb3FycVkK02XYEcTtUgp5BOx9oJJK8Af+B+Q1D8D1
+        ItenoZ+XDuNBCS6l8H4yjPn2y6SCuSjFUjF2y9LyVeoQjKNrbxnhYw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-01-05T17:18:45Z"
-  mac: ENC[AES256_GCM,data:26kmrt8RpkyPV1E9oqPryRqeKNXKWYJJLBTWN8D5ZKzQwP+dprfUkDC6SVlNNwuDR+JfbtAThne1zPgfddp6gIsL8QmIalPA7cRzJWfQ8gC/fZMwhIzoi4YT0ZxBipRhcW/LRAwDj7ep8cOd3eO+cI+hViuSvLYXMmU77eF2H7s=,iv:JMuBlAF45n2fTgsEwtW0cJAMNDfeVUBY+sjTlX552w8=,tag:p2OUFRUMFYg+X0EmymD18w==,type:str]
+  lastmodified: "2025-03-09T19:46:38Z"
+  mac: ENC[AES256_GCM,data:2dpe1VY3+rCPtSxdiyk++Je1Puo9e71RP65fo+Ifc6+pmhUrofkypzCKh8mYRkqDaMAeBaIun3W30rKJryS66FMI+exbtOdbqjdNN+1WLY1WZyRj+R0VdeZ2nNfb2rIH23xyO2oBBCZkNO/vvaKfpim0Ywx+x/aaFl8ZghuY0Is=,iv:n8Aa3O61otD7XEWlhfaTPqR7Gp1Brvr1IKrZegPdTDM=,tag:rjwxZ+TzLPzbL5Is1+GJSA==,type:str]
   pgp: []
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
-  version: 3.9.3
+  version: 3.9.4
