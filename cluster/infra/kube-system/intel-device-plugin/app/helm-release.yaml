@@ -15,7 +15,7 @@ spec:
         namespace: flux-charts
 
   driftDetection:
-    mode: enabled
+    mode: warn
   maxHistory: 3
   install:
     crds: CreateReplace
@@ -26,8 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-
-  values:
-    manager:
-      devices:
-        gpu: true
