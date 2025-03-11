@@ -1,10 +1,19 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: node-feature-discovery
+  namespace: kube-system # Required for Renovate lookups
+spec:
+  interval: 12h
+  url: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: node-feature-discovery
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: node-feature-discovery
@@ -12,8 +21,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: node-feature-discovery
-        namespace: flux-charts
-      interval: 15m
+        namespace: kube-system
 
   driftDetection:
     mode: enabled

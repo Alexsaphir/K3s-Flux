@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app intel-device-plugin-operator
+  name: &app intel-device-plugins-operator
   namespace: &namespace kube-system
 spec:
   commonMetadata:
@@ -20,10 +20,9 @@ spec:
   retryInterval: 2m
 
   prune: true
-  wait: true
 
   targetNamespace: *namespace
-  path: cluster/infra/kube-system/intel-device-plugin/app
+  path: cluster/infra/kube-system/intel-device-plugins/app
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
@@ -33,7 +32,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app intel-device-plugin-gpu
+  name: &app intel-device-plugins-gpu
   namespace: &namespace kube-system
 spec:
   commonMetadata:
@@ -41,7 +40,7 @@ spec:
       app.kubernetes.io/name: *app
 
   dependsOn:
-    - name: intel-device-plugin-operator
+    - name: intel-device-plugins-operator
       namespace: *namespace
     - name: node-feature-discovery
       namespace: *namespace
@@ -63,10 +62,9 @@ spec:
   retryInterval: 2m
 
   prune: true
-  wait: true
 
   targetNamespace: *namespace
-  path: cluster/infra/kube-system/intel-device-plugin/gpu
+  path: cluster/infra/kube-system/intel-device-plugins/gpu
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

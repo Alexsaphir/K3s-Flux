@@ -26,7 +26,6 @@ spec:
   retryInterval: 2m
 
   prune: false # never should be deleted
-  wait: true
 
   targetNamespace: *namespace
   path: cluster/infra/cert-manager/cert-manager/

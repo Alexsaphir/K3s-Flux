@@ -20,7 +20,6 @@ spec:
   retryInterval: 2m
 
   prune: true
-  wait: true
 
   targetNamespace: *namespace
   path: cluster/infra/kube-system/node-feature-discovery/app
