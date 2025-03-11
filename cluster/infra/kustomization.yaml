@@ -10,3 +10,4 @@ resources:
   - operator
   - openebs-system
   - observability
+  - volsync-system
