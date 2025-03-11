@@ -17,7 +17,7 @@ spec:
   wait: true
 
   targetNamespace: *namespace
-  path: cluster/infra/operator/dragonfly/app
+  path: cluster/infra/operators/dragonfly/app
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

@@ -7,7 +7,7 @@ resources:
   - cert-manager
   - external-secrets
   - system-upgrade
-  - operator
+  - operators
   - openebs-system
   - observability
   - volsync-system
