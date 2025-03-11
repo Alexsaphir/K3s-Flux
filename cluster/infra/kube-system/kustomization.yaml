@@ -17,4 +17,5 @@ resources:
   - intel-device-plugins/ks.yaml
   - nvidia-device-plugin/ks.yaml
 
+  - descheduler/ks.yaml
   - reloader/ks.yaml
