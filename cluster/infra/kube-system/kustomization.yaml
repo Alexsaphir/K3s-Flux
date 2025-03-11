@@ -11,6 +11,7 @@ resources:
   - coredns/ks.yaml
   - spegel/ks.yaml
   - metrics-server/ks.yaml
+  - snapshot-controller/ks.yaml
 
   - node-feature-discovery/ks.yaml
   - intel-device-plugins/ks.yaml
