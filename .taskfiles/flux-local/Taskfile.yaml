@@ -35,8 +35,20 @@ tasks:
             --branch-orig {{ .BRANCH_ORIGIN }} \
             --all-namespaces
 
-  test:
-    desc: 'Test (add `--enable-helm` for more intensive testing).'
+
+  test:hr:
+    desc: 'Test helm releases (TARGET is the path to the desired resources).'
+    cmd: |
+      uvx flux-local@latest test \
+            --path {{ .flux_cluster }} \
+            --sources {{ .flux_source_name }} \
+            --no-skip-crds \
+            --enable-helm \
+            --verbose \
+            --all-namespaces \
+            {{ .TARGET }}
+  test:ks:
+    desc: 'Test kustomizations (TARGET is the path to the desired resources).'
     cmd: |
       uvx flux-local@latest test \
             --path {{ .flux_cluster }} \
@@ -44,17 +56,34 @@ tasks:
             --no-skip-crds \
             --verbose \
             --all-namespaces \
-            {{ .CLI_ARGS }}
+            {{ .TARGET }}
 
-  build:
-    desc: build
-    requires:
-      vars:
-        - name: FLUX_RESOURCE
-          enum: [ 'ks', 'hr' ]
+  test:
+    desc: 'Test `ks` and `hr`'
+    cmds:
+      - task: test:ks
+      - task: test:hr
+
+
+  build:ks:
+    desc: 'Build kustomizations (TARGET is the name of desired resources).'
     cmd: |
-      uvx flux-local@latest build {{ .FLUX_RESOURCE }} \
+      uvx flux-local@latest build ks \
             --path {{ .flux_cluster }} \
             --sources {{ .flux_source_name }} \
             --all-namespaces \
-            {{ .CLI_ARGS }}
+            {{ .TARGET }}
+  build:hr:
+    desc: 'Build helm releases (TARGET is the name of desired resources).'
+    cmd: |
+      uvx flux-local@latest build hr \
+            --path {{ .flux_cluster }} \
+            --sources {{ .flux_source_name }} \
+            --no-skip-crds \
+            --all-namespaces \
+            {{ .TARGET }}
+  build:
+    desc: 'Build `ks` and `hr`.'
+    cmds:
+      - task: build:ks
+      - task: build:hr

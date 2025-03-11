@@ -14,6 +14,8 @@ vars:
 
   TALHELPER_CLUSTER_DIR: '{{.TALOS_DIR}}/clusterconfig'
   TALOSCONFIG: '{{.TALHELPER_CLUSTER_DIR}}/talosconfig'
+  TALOS_CLUSTER_NAME:
+    sh: yq '.clusterName' < '{{.TALOS_DIR}}/talconfig.yaml'
 
 env:
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
@@ -28,3 +30,13 @@ includes:
 
 tasks:
   default: task --list
+
+  reconcile:
+    desc: Reconcile flux git repository.
+    cmd: flux reconcile source git talos-kubernetes
+
+  bootstrap:
+    desc: Bootstrap cluster.
+    cmds:
+      - task: bootstrap:talos
+      - task: bootstrap:apps

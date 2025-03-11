@@ -51,7 +51,7 @@ releases:
     chart: coredns/coredns
     version: 1.39.1
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/kube-system/coredns/helm/values.yaml' ]
-    needs: [ 'kube-system/cilium' ]
+    needs: [ kube-system/cilium ]
 
   - name: spegel
     namespace: kube-system
@@ -67,7 +67,7 @@ releases:
     chart: jetstack/cert-manager
     version: v1.17.1
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/cert-manager/cert-manager/helm/values.yaml' ]
-    needs: [ 'kube-system/coredns' ]
+    needs: [ kube-system/coredns ]
 
   - name: external-secrets
     namespace: external-secrets
@@ -75,7 +75,7 @@ releases:
     chart: external-secrets/external-secrets
     version: 0.14.4
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/external-secrets/external-secrets/helm/values.yaml' ]
-    needs: [ 'cert-manager/cert-manager' ]
+    needs: [ cert-manager/cert-manager ]
 
   - name: flux-operator
     namespace: flux-system
@@ -83,7 +83,7 @@ releases:
     chart: controlplaneio/flux-operator
     version: 0.17.0
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/flux-system/flux-operator/helm/values.yaml' ]
-    needs: [ 'cert-manager/cert-manager' ]
+    needs: [ cert-manager/cert-manager ]
 
   - name: flux-instance
     namespace: flux-system
@@ -92,4 +92,4 @@ releases:
     version: 0.17.0
     wait: false
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/flux-system/flux-instance/helm/values.yaml' ]
-    needs: [ 'flux-system/flux-operator' ]
+    needs: [ flux-system/flux-operator ]

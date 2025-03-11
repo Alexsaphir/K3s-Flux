@@ -2,34 +2,59 @@
 version: "3"
 
 tasks:
-  cluster:
-
-    desc: Bootstrap Talos, then apply helm file.
-    cmds:
-      - task: talos
-      - task: deploy
-
   talos:
-    desc: Bootstrap the Talos cluster
+    desc: Bootstrap the Talos cluster.
     dir: '{{.TALOS_DIR}}'
-    cmds:
-      - task: talhelper:secret
-      - task: talhelper:genconfig
-      - talhelper gencommand apply --extra-flags="--insecure" | bash
-      - until talhelper gencommand bootstrap | bash; do sleep 10; done
-      - until talhelper gencommand kubeconfig --extra-flags="{{.ROOT_DIR}} --force" | bash; do sleep 10; done
+    vars:
+      TALOS_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
+      - which talhelper sops jq
       - test -f {{.SOPS_CONFIG_FILE}}
       - test -f {{.SOPS_AGE_KEY_FILE}}
       - test -f {{.TALOS_DIR}}/talconfig.yaml
-      - which talhelper sops
-
-  deploy:
+      - talosctl config info
     cmds:
-      - task: deploy:namespace
-      - task: deploy:config
-      - task: deploy:secret
-      - task: deploy:helm
+      - # Enusre talos secrets are present.
+        task: talhelper:secret
+      - # Generate up-to-date config.
+        task: :talos:talhelper:generate-config
+      - cmd: until talosctl get systeminformations.hardware.talos.dev -i -n {{.TALOS_CONTROLLER}} -o yaml; do sleep 5; done
+      - # Apply config
+        talhelper gencommand apply --extra-flags="--insecure" | bash
+      # Bootstrap
+      - cmd: until talhelper gencommand bootstrap | bash; do sleep 5; done
+      - task: :talos:talhelper:kubeconfig
+
+
+  apps:
+    desc: Bootstrap Apps.
+    vars:
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.yaml'
+    env:
+      ROOT_DIR: '{{ .ROOT_DIR }}'
+      NODE_COUNT:
+        sh: talosctl config info --output json | jq --raw-output '.nodes | length'
+    preconditions:
+      - which sops helmfile kubectl talosctl
+      - test -f {{ .helm_file }}
+      - talosctl config info
+    interactive: true
+    cmds:
+#      - cmd: until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - # Create the namespace.
+        cmd: kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+      - # Apply configurations.
+        cmd: 'kubectl --namespace flux-system apply --server-side --filename {{ .CLUSTER_DIR }}/{{ .ITEM }}'
+        for:
+          - 'components/flux/substituteFrom/cluster-settings.yaml'
+      - # Apply secrets.
+        cmd: sops exec-file {{ .CLUSTER_DIR }}/{{ .ITEM }} "kubectl --namespace flux-system apply --server-side --filename {}"
+        for:
+          - 'components/flux/sops/sops-age.sops.yaml'
+          - 'components/flux/substituteFrom/cluster-secrets.sops.yaml'
+      - # Apply helmfile
+        cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
 
 
   talhelper:secret:
@@ -42,45 +67,3 @@ tasks:
       - test -f {{.SOPS_CONFIG_FILE}}
       - test -f {{.SOPS_AGE_KEY_FILE}}
       - which talhelper sops
-
-  talhelper:genconfig:
-    desc: Generate the config from `talhelper.yaml`.
-    dir: '{{.TALOS_DIR}}'
-    internal: true
-    run: once
-    cmd: talhelper genconfig
-    preconditions:
-      - test -f {{.TALOS_DIR}}/talconfig.yaml
-      - which talhelper
-
-
-  deploy:namespace:
-    internal: true
-    cmd: kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
-
-  deploy:config:
-    internal: true
-    cmds:
-      - cmd: echo {{ .CLUSTER_DIR }}
-      - cmd: 'kubectl --namespace flux-system apply --server-side --filename {{ .CLUSTER_DIR }}/{{ .ITEM }}'
-        for:
-          - 'components/common/cluster-settings.yaml'
-
-  deploy:secret:
-    internal: true
-    cmds:
-      - cmd: sops exec-file {{ .CLUSTER_DIR }}/{{ .ITEM }} "kubectl --namespace flux-system apply --server-side --filename {}"
-        for:
-          - 'components/common/sops-age.sops.yaml'
-          - 'components/common/cluster-secrets.sops.yaml'
-
-  deploy:helm:
-    internal: true
-    vars:
-      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.yaml'
-    env:
-      ROOT_DIR: '{{ .ROOT_DIR }}'
-    cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
-    preconditions:
-      - test -f {{ .helm_file }}
-      - which helmfile
