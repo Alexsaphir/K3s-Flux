@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - certificates.yaml
   - gateway.yaml
+  - helm-release.yaml
