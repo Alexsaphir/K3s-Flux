@@ -12,10 +12,10 @@ packages:
   - name: firecow/gitlab-ci-local@4.58.0
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.9.4
-  - name: hashicorp/terraform@v1.11.1
+  - name: hashicorp/terraform@v1.11.2
   - name: terraform-linters/tflint@v0.55.1
   - name: fluxcd/flux2@v2.5.1
-  - name: kubernetes/kubectl@v1.32.2
+  - name: kubernetes/kubectl@v1.32.3
   - name: helm/helm@v3.17.1
   - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
   - name: jqlang/jq@jq-1.7.1
@@ -23,7 +23,7 @@ packages:
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.28.0
-  - name: derailed/k9s@v0.40.7
+  - name: derailed/k9s@v0.40.8
   - name: FairwindsOps/nova@v3.11.3
   - name: FairwindsOps/pluto@v5.21.3
   - name: instrumenta/kubeval@v0.16.1
@@ -33,12 +33,12 @@ packages:
   - name: yannh/kubeconform@v0.6.7
   - name: zegl/kube-score@v1.19.0
   - name: cilium/cilium-cli@v0.18.2
-  - name: siderolabs/talos@v1.9.4
+  - name: siderolabs/talos@v1.9.5
   - name: budimanjojo/talhelper@v3.0.20
   - name: lsd-rs/lsd@v1.1.5
   - name: opentofu/opentofu@v1.9.0
   - name: runatlantis/atlantis@v0.33.0
   - name: kyverno/kyverno@v1.13.4
   - name: homeport/dyff@v1.10.1
-  - name: gruntwork-io/terragrunt@v0.75.5
+  - name: gruntwork-io/terragrunt@v0.75.6
   - name: breml/tfreveal@v0.0.4
