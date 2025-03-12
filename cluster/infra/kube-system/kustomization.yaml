@@ -8,6 +8,8 @@ components:
   - ../../components/flux/substituteFrom
 resources:
   - cilium/ks.yaml
+  - cilium-gateway/ks.yaml
+
   - coredns/ks.yaml
   - spegel/ks.yaml
   - metrics-server/ks.yaml

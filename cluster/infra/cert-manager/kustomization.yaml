@@ -8,4 +8,3 @@ components:
   - ../../components/flux/substituteFrom
 resources:
   - cert-manager/ks.yaml
-  - tls/ks.yaml
