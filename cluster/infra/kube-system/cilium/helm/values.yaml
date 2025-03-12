@@ -23,12 +23,17 @@ cgroup:
 # NOTE: devices might need to be set if you have more than one active NIC on your hosts
 # devices: eno+ eth+
 enableIPv4BIGTCP: true
+dashboards:
+  enabled: true
 endpointRoutes:
   enabled: true
 envoy:
-  enabled: false
-dashboards:
   enabled: true
+  rollOutPods: true
+gatewayAPI:
+  enabled: true
+  enableAlpn: true
+  xffNumTrustedHops: 1
 hubble:
   enabled: false
 ipam:
