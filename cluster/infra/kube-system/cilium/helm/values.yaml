@@ -20,8 +20,7 @@ cgroup:
   automount:
     enabled: false
   hostRoot: /sys/fs/cgroup
-# NOTE: devices might need to be set if you have more than one active NIC on your hosts
-# devices: eno+ eth+
+devices: enp+
 enableIPv4BIGTCP: true
 dashboards:
   enabled: true
