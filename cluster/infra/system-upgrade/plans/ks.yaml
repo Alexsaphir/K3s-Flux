@@ -25,7 +25,7 @@ spec:
   postBuild:
     substituteFrom:
       - kind: ConfigMap
-        name: system-upgrade-plan-versions
+        name: versions
 
   targetNamespace: *namespace
   path: cluster/infra/system-upgrade/plans

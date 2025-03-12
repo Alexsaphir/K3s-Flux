@@ -11,8 +11,8 @@ resources:
   - system-upgrade-controller/ks.yaml
   - plans/ks.yaml
 configMapGenerator:
-  - name: system-upgrade-plan-versions
+  - name: versions
     envs:
       - .env
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - kustomizeconfig.yaml
