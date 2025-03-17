@@ -5,8 +5,10 @@ metadata:
   name: satisfactory
 spec:
   secretName: satisfactory-tls
+  additionalOutputFormats:
+    - type: CombinedPEM
   issuerRef:
-    name: ${CONFIG_CERTIFICATE_ISSUER}
+    name: letsencrypt
     kind: ClusterIssuer
   dnsNames:
     - satisfactory.${DOMAIN_NAME}

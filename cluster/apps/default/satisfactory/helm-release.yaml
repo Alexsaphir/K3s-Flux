@@ -5,28 +5,22 @@ kind: HelmRelease
 metadata:
   name: satisfactory
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-charts
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-charts
 
-  driftDetection:
-    mode: enabled
-  maxHistory: 3
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       strategy: rollback
       retries: 3
-
 
   values:
     defaultPodOptions:
@@ -38,7 +32,7 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         fsGroup: 1000
-        fsGroupChangePolicy: 'OnRootMismatch'
+        fsGroupChangePolicy: Always
         seccompProfile: { type: RuntimeDefault }
 
     controllers:
@@ -53,16 +47,18 @@ spec:
               tag: v1.9.5@sha256:88507d728a683714a4fac54d881a8f80db418509bc7db7bad660deda64b72247
 
             env:
+              TZ: '${TIMEZONE}'
+
               ROOTLESS: true
 
               AUTOPAUSE: true
+              AUTOSAVEINTERVAL: 30
               AUTOSAVENUM: 30
               AUTOSAVEONDISCONNECT: true
               TIMEOUT: 30
 
               MAXPLAYERS: 4
-
-              MAXTICKRATE: 30 # default is 30, 120
+              MAXTICKRATE: 120 # default is 30, 120
               NETWORKQUALITY: 3 # 0-3, 3 is Ultra (default)
 
               CRASHREPORT: false
@@ -82,21 +78,13 @@ spec:
               readOnlyRootFilesystem: false
               capabilities: { drop: [ 'ALL' ] }
 
-        pod:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: node-role.kubernetes.io/control-plane
-                        operator: DoesNotExist
 
     service:
       app:
         controller: satisfactory
         type: LoadBalancer
         annotations:
-          metallb.io/loadBalancerIPs: ${LB_SATISFACTORY_ADDR}
+          io.cilium/lb-ipam-ips: 192.168.0.150
         ports:
           game-udp:
             enabled: true
@@ -122,18 +110,18 @@ spec:
             app:
               - path: /config/gamefiles
 
-#      certchain:
-#        type: secret
-#        name: satisfactory-tls
-#        globalMounts:
-#          - path: /config/gamefiles/FactoryGame/Certificates/cert_chain.pem
-#            subPath: tls.crt
-#            readOnly: true
-#
-#      privatekey:
-#        type: secret
-#        name: satisfactory-tls
-#        globalMounts:
-#          - path: /config/gamefiles/FactoryGame/Certificates/private_key.pem
-#            subPath: tls.key
-#            readOnly: true
+      certchain:
+        type: secret
+        name: satisfactory-tls
+        globalMounts:
+          - path: /config/gamefiles/FactoryGame/Certificates/cert_chain.pem
+            subPath: tls.crt
+            readOnly: true
+
+      privatekey:
+        type: secret
+        name: satisfactory-tls
+        globalMounts:
+          - path: /config/gamefiles/FactoryGame/Certificates/private_key.pem
+            subPath: tls.key
+            readOnly: true
