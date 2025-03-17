@@ -81,7 +81,7 @@ releases:
     namespace: flux-system
     atomic: true
     chart: controlplaneio/flux-operator
-    version: 0.17.0
+    version: 0.18.0
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/flux-system/flux-operator/helm/values.yaml' ]
     needs: [ cert-manager/cert-manager ]
 
@@ -89,7 +89,7 @@ releases:
     namespace: flux-system
     atomic: true
     chart: controlplaneio/flux-instance
-    version: 0.17.0
+    version: 0.18.0
     wait: false
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/flux-system/flux-instance/helm/values.yaml' ]
     needs: [ flux-system/flux-operator ]
