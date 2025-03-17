@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.326.1 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.328.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.35.0
   - name: go-task/task@v3.42.1
@@ -23,7 +23,7 @@ packages:
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.28.0
-  - name: derailed/k9s@v0.40.9
+  - name: derailed/k9s@v0.40.10
   - name: FairwindsOps/nova@v3.11.3
   - name: FairwindsOps/pluto@v5.21.3
   - name: instrumenta/kubeval@v0.16.1
@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.33.0
   - name: kyverno/kyverno@v1.13.4
   - name: homeport/dyff@v1.10.1
-  - name: gruntwork-io/terragrunt@v0.75.10
+  - name: gruntwork-io/terragrunt@v0.76.1
   - name: breml/tfreveal@v0.0.4
