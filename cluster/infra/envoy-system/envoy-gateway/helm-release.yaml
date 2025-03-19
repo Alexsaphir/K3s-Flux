@@ -1,0 +1,50 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: envoy-gateway
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v1.3.1
+  url: oci://docker.io/envoyproxy/gateway-helm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: envoy-gateway
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: envoy-gateway
+
+  driftDetection:
+    mode: enabled
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+
+  values:
+    deployment:
+      replicas: 1
+    config:
+      envoy-gateway:
+        gateway:
+          controllerName: gateway.envoyproxy.io/gatewayclass-controller
+
+        backendTlsConfig:
+          clientCertificateRef: chestr-dev-tls
+
+      logging:
+        level:
+          default: debug

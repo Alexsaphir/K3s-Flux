@@ -8,11 +8,9 @@ components:
   - ../../components/flux/substituteFrom
   - ../../components/repos/app-template
 resources:
-  - gateway-crds/ks.yaml
   - cilium/ks.yaml
-  - cilium-gateway/ks.yaml
-
   - coredns/ks.yaml
+
   - spegel/ks.yaml
   - metrics-server/ks.yaml
   - snapshot-controller/ks.yaml
