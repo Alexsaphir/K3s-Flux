@@ -10,3 +10,5 @@ resources:
   - main
   # HTTPRoute:
   - redirect-to-https.yaml
+
+  - helm-release.yaml

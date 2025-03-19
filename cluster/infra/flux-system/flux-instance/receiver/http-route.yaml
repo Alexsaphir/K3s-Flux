@@ -7,7 +7,7 @@ spec:
   hostnames: [ 'flux-webhook.${DOMAIN_NAME}' ]
   parentRefs:
     - name: main
-      namespace: kube-system
+      namespace: envoy-system
       sectionName: https
   rules:
     - backendRefs:

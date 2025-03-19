@@ -9,3 +9,4 @@ components:
   - ../../components/repos/app-template
 resources:
   - envoy-gateway/ks.yaml
+  - gateway/ks.yaml
