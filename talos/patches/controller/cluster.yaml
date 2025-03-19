@@ -42,4 +42,3 @@ cluster:
 
   extraManifests:
     - 'https://github.com/prometheus-operator/prometheus-operator/releases/download/${prometheusOperatorVersion}/stripped-down-crds.yaml'
-    - 'https://github.com/kubernetes-sigs/gateway-api/releases/download/${gatewayApiVersion}/experimental-install.yaml'

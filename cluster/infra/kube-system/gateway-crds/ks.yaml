@@ -1,8 +1,33 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: gateway-api-crd
+  namespace: kube-system
+spec:
+  interval: 30m
+  url: https://github.com/kubernetes-sigs/gateway-api
+  ref:
+    tag: v1.2.1
+  ignore: |
+    # exclude
+    /*
+    # include
+    !config/crd/experimental/gateway.networking.k8s.io_gatewayclasses.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_gateways.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_httproutes.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_referencegrants.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_tcproutes.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_udproutes.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_grpcroutes.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_backendtlspolicies.yaml
+    !config/crd/experimental/gateway.networking.k8s.io_backendlbpolicies.yaml
+---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app gateway-crds
+  name: &app gateway-api-crd
   namespace: &namespace kube-system
 spec:
   commonMetadata:
@@ -13,11 +38,9 @@ spec:
   timeout: 5m
   retryInterval: 2m
 
-  prune: false
-
+  prune: true
   targetNamespace: *namespace
-  path: cluster/infra/kube-system/gateway-crds
   sourceRef:
     kind: GitRepository
-    name: talos-kubernetes
-    namespace: flux-system
+    name: gateway-api-crd
+    namespace: kube-system
