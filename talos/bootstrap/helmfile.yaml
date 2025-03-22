@@ -25,7 +25,7 @@ releases:
   - name: coredns
     namespace: kube-system
     atomic: true
-    chart: ghcr.io/coredns/charts/coredns
+    chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.39.1
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/kube-system/coredns/helm/values.yaml' ]
     needs: [ kube-system/cilium ]
@@ -33,7 +33,7 @@ releases:
   - name: spegel
     namespace: kube-system
     atomic: true
-    chart: ghcr.io/spegel-org/helm-charts/spegel
+    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.30
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/kube-system/spegel/helm/values.yaml' ]
     needs: [ 'kube-system/coredns' ]
@@ -49,7 +49,7 @@ releases:
   - name: external-secrets
     namespace: external-secrets
     atomic: true
-    chart: ghcr.io/external-secrets/charts/external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.14.4
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/external-secrets/external-secrets/helm/values.yaml' ]
     needs: [ cert-manager/cert-manager ]
@@ -57,7 +57,7 @@ releases:
   - name: flux-operator
     namespace: flux-system
     atomic: true
-    chart: ghcr.io/controlplaneio-fluxcd/charts/flux-operator
+    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.18.0
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/flux-system/flux-operator/helm/values.yaml' ]
     needs: [ cert-manager/cert-manager ]
@@ -65,7 +65,7 @@ releases:
   - name: flux-instance
     namespace: flux-system
     atomic: true
-    chart: ghcr.io/controlplaneio-fluxcd/charts/flux-instance
+    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.18.0
     wait: false
     values: [ '{{ requiredEnv "ROOT_DIR" }}/cluster/infra/flux-system/flux-instance/helm/values.yaml' ]
