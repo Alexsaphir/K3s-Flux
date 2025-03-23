@@ -16,7 +16,7 @@ dependencies = [
 linters = [
   "prettier==0.0.7",
   "pyproject-fmt==2.5.1",
-  "yamllint==1.36.2",
+  "yamllint==1.37.0",
 ]
 
 [tool.uv]
