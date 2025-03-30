@@ -16,7 +16,7 @@ packages:
 
   # Secrets
   - name: FiloSottile/age@v1.2.1
-  - name: mozilla/sops@v3.9.4
+  - name: mozilla/sops@v3.10.0
 
   # Talos
   - name: siderolabs/talos@v1.9.5
