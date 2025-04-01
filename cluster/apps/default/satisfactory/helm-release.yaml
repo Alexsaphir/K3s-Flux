@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/wolveix/satisfactory-server
-              tag: v1.9.6@sha256:8dcf96610a4ea6c7f42035df2747d9b3dc57f27e01e4ce3b7c589d3e73cc096d
+              tag: v1.9.7@sha256:b2c6c80c497407803ad87b0b14121ac84b976fcc01adc273367a83fdee49c764
 
             env:
               TZ: '${TIMEZONE}'
