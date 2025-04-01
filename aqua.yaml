@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.33.0
   - name: kyverno/kyverno@v1.13.4
   - name: homeport/dyff@v1.10.1
-  - name: gruntwork-io/terragrunt@v0.77.5
+  - name: gruntwork-io/terragrunt@v0.77.6
   - name: breml/tfreveal@v0.0.4
