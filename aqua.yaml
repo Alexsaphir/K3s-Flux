@@ -8,7 +8,7 @@ registries:
 packages:
   - name: direnv/direnv@v2.36.0
   - name: go-task/task@v3.42.1
-  - name: gitleaks/gitleaks@v8.24.2
+  - name: gitleaks/gitleaks@v8.24.3
   - name: firecow/gitlab-ci-local@4.58.0
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.10.1
@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.34.0
   - name: kyverno/kyverno@v1.13.4
   - name: homeport/dyff@v1.10.1
-  - name: gruntwork-io/terragrunt@v0.77.12
+  - name: gruntwork-io/terragrunt@v0.77.13
   - name: breml/tfreveal@v0.0.4
