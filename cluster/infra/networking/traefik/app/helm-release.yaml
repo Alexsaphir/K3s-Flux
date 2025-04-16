@@ -136,6 +136,8 @@ spec:
 
       # Entrypoints
       web:
+        http:
+          maxHeaderBytes: 8388608
         redirections:
           entryPoint:
             to: websecure
@@ -148,7 +150,8 @@ spec:
 
         # middlewares:
         #   - network-system-error-pages@kubernetescrd
-
+        http:
+          maxHeaderBytes: 8388608
         http3:
           enabled: false
         tls:
