@@ -149,80 +149,80 @@ access_control:
       resources:
         - "^/api([/?].*)?$"
 
-        # Ingress for media protected by authelia
-        - domain:
-            - 'cleanarr.${DOMAIN_NAME}'
-            - 'prowlarr.${DOMAIN_NAME}'
-            - 'recyclarr.${DOMAIN_NAME}'
-            - 'sonarr.${DOMAIN_NAME}'
-            - 'radarr.${DOMAIN_NAME}'
-            - 'lidarr.${DOMAIN_NAME}'
-            - 'readarr.${DOMAIN_NAME}'
-          policy: two_factor
-          subject:
-            - 'group:authelia-media-automation'
+    # Ingress for media protected by authelia
+    - domain:
+        - 'cleanarr.${DOMAIN_NAME}'
+        - 'prowlarr.${DOMAIN_NAME}'
+        - 'recyclarr.${DOMAIN_NAME}'
+        - 'sonarr.${DOMAIN_NAME}'
+        - 'radarr.${DOMAIN_NAME}'
+        - 'lidarr.${DOMAIN_NAME}'
+        - 'readarr.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'group:authelia-media-automation'
 
-        # Apps for authenticated users
-        - domain:
-            - 'cyberchef.${DOMAIN_NAME}'
-            - 'zitadel.${DOMAIN_NAME}'
-            - 'cdash.${DOMAIN_NAME}'
-          policy: two_factor
+    # Apps for authenticated users
+    - domain:
+        - 'cyberchef.${DOMAIN_NAME}'
+        - 'zitadel.${DOMAIN_NAME}'
+        - 'cdash.${DOMAIN_NAME}'
+      policy: two_factor
 
-        - domain:
-            - 'spotify.${DOMAIN_NAME}'
-            - 'spotify-api.${DOMAIN_NAME}'
-          policy: bypass
+    - domain:
+        - 'spotify.${DOMAIN_NAME}'
+        - 'spotify-api.${DOMAIN_NAME}'
+      policy: bypass
 
-        - domain:
-            - 'actual.${DOMAIN_NAME}'
-            - 'zigbee2mqtt.${DOMAIN_NAME}'
-          policy: two_factor
-          subject:
-            - 'user:alexsaphir'
+    - domain:
+        - 'actual.${DOMAIN_NAME}'
+        - 'zigbee2mqtt.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'user:alexsaphir'
 
-        - domain:
-            - 'gitlab-staging.${DOMAIN_NAME}'
-          policy: two_factor
-          subject:
-            - 'user:alexsaphir'
+    - domain:
+        - 'gitlab-staging.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'user:alexsaphir'
 
-        # Ingresses for gitlab
-        - domain:
-            - 'workspace.${DOMAIN_NAME}'
-            - '*.workspace.${DOMAIN_NAME}'
-          policy: bypass
+    # Ingresses for gitlab
+    - domain:
+        - 'workspace.${DOMAIN_NAME}'
+        - '*.workspace.${DOMAIN_NAME}'
+      policy: bypass
 
-        - domain:
-            - 'hajimari.${DOMAIN_NAME}'
-            - 'lldap.${DOMAIN_NAME}'
-          policy: two_factor
+    - domain:
+        - 'hajimari.${DOMAIN_NAME}'
+        - 'lldap.${DOMAIN_NAME}'
+      policy: two_factor
 
-        - domain:
-            - 'gitops.${DOMAIN_NAME}'
-            - 'hubble.${DOMAIN_NAME}'
-            - 'longhorn.${DOMAIN_NAME}'
-            - 'netbox.${DOMAIN_NAME}'
-            - 'portainer.${DOMAIN_NAME}'
-            - 'grafana.${DOMAIN_NAME}'
-            - 'atlantis.${DOMAIN_NAME}'
-            - 'git.${DOMAIN_NAME}'
-            - 'ollama.${DOMAIN_NAME}'
-            - 'bytebase.${DOMAIN_NAME}'
-            - 'mail.${DOMAIN_NAME}'
-          policy: two_factor
-          subject:
-            - 'group:cluster-admins'
+    - domain:
+        - 'gitops.${DOMAIN_NAME}'
+        - 'hubble.${DOMAIN_NAME}'
+        - 'longhorn.${DOMAIN_NAME}'
+        - 'netbox.${DOMAIN_NAME}'
+        - 'portainer.${DOMAIN_NAME}'
+        - 'grafana.${DOMAIN_NAME}'
+        - 'atlantis.${DOMAIN_NAME}'
+        - 'git.${DOMAIN_NAME}'
+        - 'ollama.${DOMAIN_NAME}'
+        - 'bytebase.${DOMAIN_NAME}'
+        - 'mail.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'group:cluster-admins'
 
-        - domain:
-            - '*.monitoring.${DOMAIN_NAME}'
-          policy: two_factor
-          subject:
-            - 'group:cluster-admins-analytics'
+    - domain:
+        - '*.monitoring.${DOMAIN_NAME}'
+      policy: two_factor
+      subject:
+        - 'group:cluster-admins-analytics'
 
-        - domain:
-            - '*.${DOMAIN_NAME}'
-          policy: deny
+    - domain:
+        - '*.${DOMAIN_NAME}'
+      policy: deny
 
 identity_providers:
   oidc:
