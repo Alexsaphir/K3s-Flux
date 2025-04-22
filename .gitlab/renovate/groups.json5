@@ -2,21 +2,13 @@
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   packageRules: [
     {
-      description: 'Flux Group',
-      groupName: 'Flux',
-      matchPackagePatterns: [
-        'fluxcd'
-      ],
-      matchDatasources: [
-        'docker',
-        'github-tags',
-        'github-releases'
-      ],
-      versioning: 'semver',
+      description: "Flux Operator Group",
+      groupName: "Flux Operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
       group: {
-        commitMessageTopic: '{{{groupName}}} group'
-      },
-      separateMinorPatch: true
+        commitMessageTopic: "{{{groupName}}} group"
+      }
     },
     {
       description: 'Codecov Group',
@@ -34,50 +26,45 @@
       separateMinorPatch: true
     },
     {
-      "description": "System Upgrade Controller Group",
-      "groupName": "System Upgrade Controller",
-      "matchPackagePatterns": [
-        "rancher/system-upgrade-controller"
-      ],
-      "matchDatasources": [
-        "docker",
-        "github-releases"
-      ],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
-    },
-    {
-      description: 'Immich Group',
-      groupName: 'immich',
-      matchPackagePatterns: [
-        'immich-app'
-      ],
-      matchDatasources: [
-        'github-releases',
-        'docker',
-      ],
-      versioning: 'semver',
-      group: {
-        commitMessageTopic: '{{{groupName}}}'
-      },
-      separateMinorPatch: true
-    },
-    {
-      description: "Dragonfly operator",
-      groupName: "Dragonfly Operator",
-      matchPackagePatterns: [
-        "dragonfly(?:db)?.operator"
-      ],
-      matchDatasources: [
-        "docker",
-        "github-releases"
-      ],
+      description: "CoreDNS Group",
+      groupName: "CoreDNS",
+      matchPackageNames: ["/ghcr.io\/coredns\/charts\/coredns/", "/coredns/"],
+      matchDatasources: ["docker", "helm"],
       group: {
         commitMessageTopic: "{{{groupName}}} group"
       },
       separateMinorPatch: true
+    },
+    {
+      description: "Immich Group",
+      groupName: "Immich",
+      matchPackagePatterns: ["immich"],
+      matchDatasources: ["docker", "github-releases", "helm"],
+      matchUpdateTypes: ["minor", "patch"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group"
+      },
+      separateMinorPatch: false
+    },
+    {
+      description: "Snapshot Controller Group",
+      groupName: "SnapshotController",
+      matchPackagePatterns: ["snapshot-validation-webhook", "snapshot-controller"],
+      matchDatasources: ["docker", "github-releases"],
+      matchUpdateTypes: ["minor", "patch"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group"
+      },
+      separateMinorPatch: false
+    },
+    {
+      description: "Dragonfly Operator Group",
+      groupName: "DragonflyOperator",
+      matchPackagePatterns: ["docker.dragonflydb.io/dragonflydb/operator", "dragonflydb/dragonfly-operator"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group"
+      },
+      separateMinorPatch: false
     },
     {
       description: "Aquaproj/aqua group",
@@ -94,6 +81,51 @@
       matchManagers: [
         'pre-commit'
       ]
+    },
+        {
+      description: "Cert-Manager Group",
+      groupName: "Cert-Manager",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/cert-manager/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Cilium Group",
+      groupName: "Cilium",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/cilium/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "External Secrets Operator Group",
+      groupName: "External Secrets Operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/external-secrets/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Intel Device Plugins Group",
+      groupName: "Intel-Device-Plugins",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Spegel Group",
+      groupName: "Spegel",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/spegel/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
     }
   ]
 }
