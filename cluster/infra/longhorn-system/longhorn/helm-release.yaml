@@ -1,0 +1,113 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: longhorn
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.8.1
+  url: oci://ghcr.io/home-operations/charts-mirror/longhorn
+  verify:
+    provider: cosign
+    matchOIDCIdentity:
+      - issuer: '^https://token.actions.githubusercontent.com$'
+        subject: '^https://github.com/home-operations/charts-mirror.*$'
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: longhorn
+
+  driftDetection:
+    mode: enabled
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+
+  values:
+    preUpgradeChecker:
+      jobEnabled: false
+
+    csi:
+      attacherReplicaCount: 2
+      provisionerReplicaCount: 2
+      resizerReplicaCount: 2
+      snapshotterReplicaCount: 2
+
+    persistence:
+      defaultClass: true
+      defaultFsType: ext4
+      defaultClassReplicaCount: 1
+      defaultDataLocality: best-effort
+      migratable: true
+      removeSnapshotsDuringFilesystemTrim: enabled
+
+
+    defaultSettings:
+      defaultReplicaCount: 1
+      createDefaultDiskLabeledNodes: true
+
+      nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+      removeSnapshotsDuringFilesystemTrim: true
+
+      defaultLonghornStaticStorageClass: longhorn
+      defaultDataPath: /var/lib/longhorn
+      defaultDataLocality: best-effort
+      allowEmptyDiskSelectorVolume: false
+
+      concurrentAutomaticEngineUpgradePerNodeLimit: 2
+      storageOverProvisioningPercentage: 100
+      storageMinimalAvailablePercentage: 10
+      guaranteedInstanceManagerCPU: 5
+
+      fastReplicaRebuildEnabled: true
+      snapshotDataIntegrity: fast-check
+      snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: false
+      snapshotDataIntegrityCronjob: 0 8 */7 * *
+
+      allowCollectingLonghornUsageMetrics: false
+      autoCleanupSnapshotWhenDeleteBackup: true
+      detachManuallyAttachedVolumesWhenCordoned: true
+      orphanAutoDeletion: true
+
+
+      replicaDiskSoftAntiAffinity: false
+      replicaSoftAntiAffinity: true
+      replicaZoneSoftAntiAffinity: true
+
+      upgradeChecker: false
+      v1DataEngine: true
+      v2DataEngine: false
+
+
+    defaultBackupStore:
+      backupTarget: 's3://backup-longhorn-talos@us-east-1/'
+      backupTargetCredentialSecret: 'longhorn-backup'
+
+    global:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+
+    longhornUI:
+      replicas: 1
+
+    metrics:
+      serviceMonitor:
+        enabled: true

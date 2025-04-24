@@ -7,6 +7,7 @@ resources:
   - envoy-system
 
   - openebs-system
+  - longhorn-system
   - volsync-system
 
   - cert-manager
