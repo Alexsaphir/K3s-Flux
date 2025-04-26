@@ -51,6 +51,9 @@ nodes:
     nodeAnnotations:
       installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
 
+    nodeLabels:
+      'node.longhorn.io/create-default-disk': 'true'
+
     schematic:
       customization:
         extraKernelArgs:

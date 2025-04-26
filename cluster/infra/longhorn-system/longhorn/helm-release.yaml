@@ -39,6 +39,10 @@ spec:
     remediation:
       retries: 3
 
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+
   values:
     preUpgradeChecker:
       jobEnabled: false
@@ -60,7 +64,9 @@ spec:
 
     defaultSettings:
       defaultReplicaCount: 1
+
       createDefaultDiskLabeledNodes: true
+      allowEmptyDiskSelectorVolume: false
 
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       removeSnapshotsDuringFilesystemTrim: true
@@ -68,7 +74,6 @@ spec:
       defaultLonghornStaticStorageClass: longhorn
       defaultDataPath: /var/lib/longhorn
       defaultDataLocality: best-effort
-      allowEmptyDiskSelectorVolume: false
 
       concurrentAutomaticEngineUpgradePerNodeLimit: 2
       storageOverProvisioningPercentage: 100
@@ -78,22 +83,23 @@ spec:
       fastReplicaRebuildEnabled: true
       snapshotDataIntegrity: fast-check
       snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: false
+      freezeFilesystemForSnapshot: true
       snapshotDataIntegrityCronjob: 0 8 */7 * *
+      autoCleanupSnapshotWhenDeleteBackup: true
+      allowRecurringJobWhileVolumeDetached: true
 
       allowCollectingLonghornUsageMetrics: false
-      autoCleanupSnapshotWhenDeleteBackup: true
       detachManuallyAttachedVolumesWhenCordoned: true
+      rwxVolumeFastFailover: true
       orphanAutoDeletion: true
 
-
       replicaDiskSoftAntiAffinity: false
-      replicaSoftAntiAffinity: true
+      replicaSoftAntiAffinity: false
       replicaZoneSoftAntiAffinity: true
 
       upgradeChecker: false
       v1DataEngine: true
       v2DataEngine: false
-
 
     defaultBackupStore:
       backupTarget: 's3://backup-longhorn-talos@us-east-1/'

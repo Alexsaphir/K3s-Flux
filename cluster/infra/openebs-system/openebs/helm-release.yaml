@@ -40,6 +40,10 @@ spec:
       strategy: rollback
       retries: 3
 
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+
   values:
     localpv-provisioner:
       localpv:
