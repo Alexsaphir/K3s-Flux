@@ -71,12 +71,13 @@ tasks:
       - test -f "${TALOSCONFIG}"
       - talosctl --nodes {{.NODE}} get machineconfig
     deps:
-      - task: talhelper:genconfig
+      - task: talhelper:generate-config
+      - task: apply-clusterconfig
     requires:
       vars: [ NODE ]
     vars:
       FILE:
-        sh: ls clusterconfig/{{.TALOS_CLUSTER_NAME}}-{{.NODE}}.yaml
+        sh: ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-{{.NODE}}.yaml
       TALOS_IMAGE:
         sh: yq '.machine.install.image' < "{{.FILE}}"
     cmds:
@@ -106,6 +107,7 @@ tasks:
 
   _apply-machineconfig:
     internal: true
+    dir: '{{.TALOS_DIR}}'
     desc: Apply a single Talos machineConfig to a Talos node
     preconditions:
       - which talosctl

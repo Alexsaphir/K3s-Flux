@@ -53,6 +53,15 @@ nodes:
 
     schematic:
       customization:
+        extraKernelArgs:
+          - net.ifnames=1
+          - apparmor=0              # Less security, faster puter
+          - init_on_alloc=0         # Less security, faster puter
+          - init_on_free=0          # Less security, faster puter
+          - mitigations=off         # Less security, faster puter
+          - security=none           # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
+
         systemExtensions:
           officialExtensions:
             - siderolabs/i915
@@ -64,6 +73,9 @@ nodes:
             # Gpu
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
+            # Longhorn
+            - siderolabs/iscsi-tools
+            - siderolabs/util-linux-tools
 
     patches:
       - "@./patches/nodes/ms-01/sysfs.yaml"
@@ -75,7 +87,6 @@ nodes:
 # Global patches
 patches:
   - "@./patches/global/machine-files.yaml"
-  - "@./patches/global/machine-install.yaml"
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-local-storage.yaml"
   - "@./patches/global/machine-network.yaml"
@@ -87,15 +98,6 @@ controlPlane:
   nodeLabels:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: controlPlane
-
-  schematic:
-    customization:
-      extraKernelArgs:
-        - net.ifnames=0
-      systemExtensions:
-        officialExtensions:
-          - siderolabs/iscsi-tools
-          - siderolabs/util-linux-tools
 
   patches:
     - "@./patches/controller/admission-controller-patch.yaml"
