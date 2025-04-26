@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app longhorn
+  name: &app longhorn-jobs
   namespace: &namespace longhorn-system
 spec:
   commonMetadata:
@@ -10,11 +10,8 @@ spec:
       app.kubernetes.io/name: *app
 
   dependsOn:
-    - name: minio-nas
-      namespace: minio-system
-
-    - name: snapshot-controller
-      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
 
   interval: 1h
   timeout: 5m
@@ -23,7 +20,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/infra/longhorn-system/longhorn
+  path: cluster/infra/longhorn-system/longhorn-jobs
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
