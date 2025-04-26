@@ -9,6 +9,7 @@ resources:
   - openebs-system
   - longhorn-system
   - volsync-system
+  - minio-system
 
   - cert-manager
   - external-secrets
