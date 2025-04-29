@@ -17,3 +17,5 @@ resources:
   - observability
 
   - operators
+
+  - kube-auth
