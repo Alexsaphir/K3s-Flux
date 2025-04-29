@@ -5,3 +5,4 @@ resources:
   - secret.sops.yaml
   - helm-release.yaml
   - volume-snapshot-class.yaml
+  - http-route.yaml
