@@ -1,0 +1,46 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  annotations:
+    kyverno.io/ignore: 'true'
+
+spec:
+  instances: 1
+
+  enableSuperuserAccess: false
+
+  resources:
+    requests:
+      memory: "2Gi"
+
+  bootstrap:
+    initdb:
+      database: authentik
+      owner: authentik
+
+      dataChecksums: true
+
+      secret:
+        name: postgres-authentik-secret
+
+  storage:
+    size: 10Gi
+    storageClass: openebs-hostpath
+
+  monitoring:
+    enablePodMonitor: true
+
+    podMonitorMetricRelabelings:
+      - sourceLabels: [ "cluster" ]
+        targetLabel: cnpg_cluster
+        action: replace
+      - regex: cluster
+        action: labeldrop
+
+  postgresql:
+    parameters:
+      max_connections: "800"
+      max_slot_wal_keep_size: 10GB
+      shared_buffers: "512MB"
