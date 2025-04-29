@@ -8,7 +8,7 @@ registries:
 packages:
   - name: direnv/direnv@v2.36.0
   - name: go-task/task@v3.43.3
-  - name: gitleaks/gitleaks@v8.24.3
+  - name: gitleaks/gitleaks@v8.25.0
   - name: firecow/gitlab-ci-local@4.59.0
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.10.2
