@@ -4,7 +4,7 @@ kind: HTTPRoute
 metadata:
   name: gitlab-webhook
 spec:
-  hostnames: [ 'flux-webhook.${DOMAIN_NAME}' ]
+  hostnames: [ 'flux-webhook.talos.${DOMAIN_NAME}' ]
   parentRefs:
     - name: main
       namespace: envoy-system
@@ -12,7 +12,6 @@ spec:
   rules:
     - backendRefs:
         - name: webhook-receiver
-          namespace: flux-system
           port: 80
       matches:
         - path:

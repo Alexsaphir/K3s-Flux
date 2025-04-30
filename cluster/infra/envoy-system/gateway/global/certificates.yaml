@@ -11,4 +11,4 @@ spec:
   commonName: ${DOMAIN_NAME}
   dnsNames:
     - '${DOMAIN_NAME}'
-    - '*.${DOMAIN_NAME}'
+    - '*.talos.${DOMAIN_NAME}'

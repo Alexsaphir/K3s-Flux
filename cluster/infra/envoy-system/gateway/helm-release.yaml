@@ -70,7 +70,7 @@ spec:
           - port: http
     route:
       app:
-        hostnames: [ '{{ .Release.Name }}.${DOMAIN_NAME}' ]
+        hostnames: [ '{{ .Release.Name }}.talos.${DOMAIN_NAME}' ]
         parentRefs:
           - name: main
             namespace: envoy-system

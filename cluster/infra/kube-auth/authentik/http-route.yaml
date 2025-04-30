@@ -4,7 +4,7 @@ kind: HTTPRoute
 metadata:
   name: authentik
 spec:
-  hostnames: [ 'sso.${DOMAIN_NAME}' ]
+  hostnames: [ 'sso.talos.${DOMAIN_NAME}' ]
   parentRefs:
     - name: main
       namespace: envoy-system

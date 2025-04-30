@@ -4,7 +4,7 @@ kind: HTTPRoute
 metadata:
   name: longhorn-frontend
 spec:
-  hostnames: [ 'longhorn.${DOMAIN_NAME}' ]
+  hostnames: [ 'longhorn.talos.${DOMAIN_NAME}' ]
   parentRefs:
     - name: main
       namespace: envoy-system
