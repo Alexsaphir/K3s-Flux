@@ -1,0 +1,85 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mailpit
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      mailpit:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: axllent/mailpit
+              tag: v1.24.1
+
+            args:
+              - --db-file
+              - /var/lib/mailpit/mailpit.db
+
+            env:
+              TIMEZONE: '${TIMEZONE}'
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    service:
+      app:
+        controller: mailpit
+        primary: true
+        ports:
+          smtp:
+            port: 1025
+
+      web:
+        controller: mailpit
+        nameOverride: &serviceName mailpit-web
+        ports:
+          http:
+            port: &port 8025
+
+    route:
+      app:
+        hostnames: [ 'mail.talos.${DOMAIN_NAME}' ]
+        parentRefs:
+          - name: main
+            namespace: envoy-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *serviceName
+                port: *port
+
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /var/lib/mailpit
