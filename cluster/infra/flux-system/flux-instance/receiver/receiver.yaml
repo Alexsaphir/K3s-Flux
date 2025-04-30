@@ -19,4 +19,4 @@ spec:
 
     - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
-      name: flux-system
+      name: talos-kubernetes
