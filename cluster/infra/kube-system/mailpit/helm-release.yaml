@@ -58,11 +58,6 @@ spec:
         ports:
           smtp:
             port: 1025
-
-      web:
-        controller: mailpit
-        nameOverride: &serviceName mailpit-web
-        ports:
           http:
             port: &port 8025
 
@@ -75,7 +70,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *serviceName
+              - name: *app
                 port: *port
 
     persistence:
