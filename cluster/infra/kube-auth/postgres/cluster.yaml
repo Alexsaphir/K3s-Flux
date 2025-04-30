@@ -8,6 +8,7 @@ metadata:
 
 spec:
   instances: 1
+  enablePDB: false # TODO: Remove when more than 1 node.
 
   enableSuperuserAccess: false
 
