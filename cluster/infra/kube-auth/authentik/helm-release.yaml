@@ -60,6 +60,11 @@ spec:
             name: authentik-secret
 
     authentik:
+      email:
+        host: 'mailpit.kube-system.svc'
+        port: '1025'
+        from: 'Authentik <authentik@talos.local>'
+
       redis:
         host: authentik-dragonfly
 
