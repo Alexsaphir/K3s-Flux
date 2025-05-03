@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.358.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.359.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   # Utils
   - name: direnv/direnv@v2.36.0
@@ -12,7 +12,7 @@ packages:
 
   # YAML utils
   - name: homeport/dyff@v1.10.1
-  - name: mikefarah/yq@v4.45.1
+  - name: mikefarah/yq@v4.45.2
 
   # Secrets
   - name: FiloSottile/age@v1.2.1
@@ -20,7 +20,7 @@ packages:
 
   # Talos
   - name: siderolabs/talos@v1.10.0
-  - name: budimanjojo/talhelper@v3.0.22
+  - name: budimanjojo/talhelper@v3.0.23
 
   # Cluster
   - name: fluxcd/flux2@v2.5.1
