@@ -11,6 +11,12 @@ spec:
 
   dependsOn: []
 
+  healthChecks:
+    - apiVersion: v1
+      kind: Pod
+      name: postgres-1
+      namespace: *namespace
+
   interval: 1h
   timeout: 5m
   retryInterval: 2m
