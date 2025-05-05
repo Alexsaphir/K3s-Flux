@@ -11,6 +11,10 @@ instance:
     - helm-controller
     - notification-controller
 
+  storage:
+    class: 'openebs-hostpath'
+    size: '10Gi'
+
   sync:
     kind: GitRepository
     url: https://gitlab.alexsaphir.com/Homelab/Talos-Flux
@@ -36,6 +40,7 @@ instance:
         target:
           group: kustomize.toolkit.fluxcd.io
           kind: Kustomization
+
       - # Increase the number of workers
         patch: |
           - op: add
@@ -47,6 +52,7 @@ instance:
         target:
           kind: Deployment
           name: (kustomize-controller|helm-controller|source-controller)
+
       - # Increase the memory limits
         patch: |
           apiVersion: apps/v1
@@ -64,6 +70,7 @@ instance:
         target:
           kind: Deployment
           name: (kustomize-controller|helm-controller|source-controller)
+
       - # Enable in-memory kustomize builds
         patch: |
           - op: add
@@ -78,6 +85,7 @@ instance:
         target:
           kind: Deployment
           name: kustomize-controller
+
       - # Enable Helm repositories caching
         patch: |
           - op: add
@@ -92,6 +100,7 @@ instance:
         target:
           kind: Deployment
           name: source-controller
+
       - # Flux near OOM detection for Helm
         patch: |
           - op: add

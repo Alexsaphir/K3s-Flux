@@ -32,7 +32,7 @@ tasks:
     vars:
       helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.yaml'
     env:
-      ROOT_DIR: '{{ .ROOT_DIR }}'
+      INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:
         sh: talosctl config info --output json | jq --raw-output '.nodes | length'
     preconditions:

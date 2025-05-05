@@ -3,3 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - helm-release.yaml
+configMapGenerator:
+  - name: openebs-values
+    files:
+      - values.yaml=helm/values.yaml
+configurations:
+  - helm/kustomizeconfig.yaml
