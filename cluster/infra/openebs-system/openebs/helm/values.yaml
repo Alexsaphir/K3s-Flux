@@ -11,6 +11,9 @@ localpv-provisioner:
     isDefaultClass: false
     basePath: *hostPath
 
+    xfsQuota:
+      enabled: true
+
   helperPod:
     image:
       registry: quay.io/
