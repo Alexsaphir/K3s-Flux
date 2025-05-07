@@ -50,7 +50,7 @@ releases:
     namespace: external-secrets
     atomic: true
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 0.16.1
+    version: 0.16.2
     values: [ '{{ requiredEnv "INFRA_DIR" }}/external-secrets/external-secrets/helm/values.yaml' ]
     needs: [ cert-manager/cert-manager ]
 
