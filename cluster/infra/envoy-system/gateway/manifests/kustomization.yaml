@@ -3,5 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - certificates.yaml
-  - gateway-class.yaml
+
+  - configuration.yaml
+  - gateway.yaml
+
+  - client-policy.yaml
   - redirect-to-https.yaml

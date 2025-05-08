@@ -2,8 +2,12 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
-  name: main-proxy-config
+  name: config
 spec:
+  logging:
+    level:
+      default: info
+
   provider:
     type: Kubernetes
     kubernetes:
@@ -11,7 +15,7 @@ spec:
         replicas: 1
 
       envoyService:
-        name: envoy-gateway-main
+        name: envoy-gateway-envoy
         patch:
           type: StrategicMerge
           value:

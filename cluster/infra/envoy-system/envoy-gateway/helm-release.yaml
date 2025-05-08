@@ -38,12 +38,12 @@ spec:
     deployment:
       replicas: 1
     config:
-      envoy-gateway:
+      envoyGateway:
         gateway:
           controllerName: gateway.envoyproxy.io/gatewayclass-controller
 
-        backendTlsConfig:
-          clientCertificateRef: chestr-dev-tls
+        provider:
+          type: Kubernetes
 
       logging:
         level:

@@ -4,9 +4,10 @@ kind: HTTPRoute
 metadata:
   name: gitlab-webhook
 spec:
+  # noinspection KubernetesUnknownValues
   hostnames: [ 'flux-webhook.talos.${DOMAIN_NAME}' ]
   parentRefs:
-    - name: main
+    - name: envoy
       namespace: envoy-system
       sectionName: https
   rules:

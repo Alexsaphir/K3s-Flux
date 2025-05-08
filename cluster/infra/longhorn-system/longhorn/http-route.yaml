@@ -4,9 +4,10 @@ kind: HTTPRoute
 metadata:
   name: longhorn-frontend
 spec:
+  # noinspection KubernetesUnknownValues
   hostnames: [ 'longhorn.talos.${DOMAIN_NAME}' ]
   parentRefs:
-    - name: main
+    - name: envoy
       namespace: envoy-system
       sectionName: https
   rules:

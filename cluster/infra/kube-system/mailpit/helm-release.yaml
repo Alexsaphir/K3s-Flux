@@ -65,7 +65,7 @@ spec:
       app:
         hostnames: [ 'mail.talos.${DOMAIN_NAME}' ]
         parentRefs:
-          - name: main
+          - name: envoy
             namespace: envoy-system
             sectionName: https
         rules:

@@ -6,8 +6,10 @@ metadata:
 
 spec:
   parentRefs:
-    - name: main
+    - name: envoy
       sectionName: http
+    - name: envoy
+      sectionName: http-root
 
   rules:
     - filters:
