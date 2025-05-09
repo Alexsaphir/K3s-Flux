@@ -80,7 +80,7 @@
       separateMinorPatch: true
     },
     {
-      description: "Aquaporj/aqua group",
+      description: "Aquaproj/aqua group",
       groupName: 'Aqua',
       matchFileNames: [
         '**/aqua.yaml',
@@ -94,6 +94,15 @@
       matchManagers: [
         'pre-commit'
       ]
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackagePatterns": [
+        "^ghcr\\.io/home-operations/.+arr$"
+      ],
+      "groupName": "home-operations *arr images"
     }
   ]
 }
