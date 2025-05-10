@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.362.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.364.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.36.0
   - name: go-task/task@v3.43.3
@@ -19,11 +19,11 @@ packages:
   - name: helm/helm@v3.17.3
   - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
   - name: jqlang/jq@jq-1.7.1
-  - name: mikefarah/yq@v4.45.2
+  - name: mikefarah/yq@v4.45.3
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.29.0
-  - name: derailed/k9s@v0.50.4
+  - name: derailed/k9s@v0.50.5
   - name: FairwindsOps/nova@v3.11.3
   - name: FairwindsOps/pluto@v5.21.4
   - name: instrumenta/kubeval@v0.16.1
@@ -34,11 +34,11 @@ packages:
   - name: zegl/kube-score@v1.20.0
   - name: cilium/cilium-cli@v0.18.3
   - name: siderolabs/talos@v1.10.1
-  - name: budimanjojo/talhelper@v3.0.23
+  - name: budimanjojo/talhelper@v3.0.24
   - name: lsd-rs/lsd@v1.1.5
   - name: opentofu/opentofu@v1.9.1
   - name: runatlantis/atlantis@v0.34.0
   - name: kyverno/kyverno@v1.14.1
   - name: homeport/dyff@v1.10.1
-  - name: gruntwork-io/terragrunt@v0.78.1
+  - name: gruntwork-io/terragrunt@v0.78.2
   - name: breml/tfreveal@v0.0.4
