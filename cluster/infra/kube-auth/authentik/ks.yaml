@@ -12,6 +12,8 @@ spec:
   dependsOn:
     - name: postgres
       namespace: *namespace
+    - name: mailpit
+      namespace: kube-system
 
   interval: 1h
   timeout: 5m
