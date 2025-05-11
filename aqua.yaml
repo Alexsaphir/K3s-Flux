@@ -12,7 +12,7 @@ packages:
 
   # YAML utils
   - name: homeport/dyff@v1.10.1
-  - name: mikefarah/yq@v4.45.3
+  - name: mikefarah/yq@v4.45.4
 
   # Secrets
   - name: FiloSottile/age@v1.2.1
