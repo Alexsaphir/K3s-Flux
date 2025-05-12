@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.364.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.365.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.36.0
   - name: go-task/task@v3.43.3
