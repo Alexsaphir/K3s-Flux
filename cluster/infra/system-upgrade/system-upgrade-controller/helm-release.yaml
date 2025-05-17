@@ -27,6 +27,7 @@ spec:
       system-upgrade-controller:
         strategy: RollingUpdate
         replicas: 2
+
         containers:
           app:
             image:
@@ -52,6 +53,9 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: [ "ALL" ] }
 
+        serviceAccount:
+          identifier: system-upgrade-controller
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -59,5 +63,4 @@ spec:
         runAsGroup: 1000
 
     serviceAccount:
-      name: *app
-      create: true
+      system-upgrade-controller: {}
