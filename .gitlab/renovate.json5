@@ -7,7 +7,7 @@
     ':dependencyDashboard',
     ':semanticCommits',
     ':enablePreCommit',
-    ":timezone(Europe/Paris)",
+    ':timezone(Europe/Paris)',
     'mergeConfidence:all-badges',
     'local>Homelab/Talos-Flux//.gitlab/renovate/commitMessage.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/customManagers.json5',
@@ -40,18 +40,18 @@
     enabled: true,
   },
   flux: {
-    fileMatch: [
-      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   'helm-values': {
-    fileMatch: [
-      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   kubernetes: {
-    fileMatch: [
-      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
 }
