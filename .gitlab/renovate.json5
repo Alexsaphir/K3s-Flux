@@ -41,20 +41,20 @@
     enabled: true,
   },
   flux: {
-    fileMatch: [
-      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   'helm-values': {
-    fileMatch: [
-      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    managerFilePatterns: [
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   kubernetes: {
-    fileMatch: [
-      '(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$',
-      '(^|/)ansible/.+\\.ya?ml(\\.j2)?$',
-      '(^|/)cluster/.+\\.ya?ml(\\.j2)?$',
+    managerFilePatterns: [
+      '/(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$/',
+      '/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/',
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   ignoreDeps: [
