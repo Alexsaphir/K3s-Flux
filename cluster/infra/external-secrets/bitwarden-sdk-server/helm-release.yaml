@@ -9,7 +9,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v0.4.0
+    tag: v0.4.1
   url: oci://ghcr.io/external-secrets/charts/bitwarden-sdk-server
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
