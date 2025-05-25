@@ -34,7 +34,7 @@ packages:
   - name: zegl/kube-score@v1.20.0
   - name: cilium/cilium-cli@v0.18.3
   - name: siderolabs/talos@v1.10.2
-  - name: budimanjojo/talhelper@v3.0.25
+  - name: budimanjojo/talhelper@v3.0.26
   - name: lsd-rs/lsd@v1.1.5
   - name: opentofu/opentofu@v1.9.1
   - name: runatlantis/atlantis@v0.34.0
