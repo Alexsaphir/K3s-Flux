@@ -13,6 +13,6 @@ resources:
 configMapGenerator:
   - name: versions
     envs:
-      - .env
+      - versions.env
 configurations:
   - kustomizeconfig.yaml
