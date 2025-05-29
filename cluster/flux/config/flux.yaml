@@ -1,5 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: flux-manifests
@@ -151,6 +151,15 @@ spec:
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --log-level="info"
+      target:
+        kind: Deployment
+        name: helm-controller
+
+    - # Disable chart digest tracking
+      patch: |
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --feature-gates=DisableChartDigestTracking=true
       target:
         kind: Deployment
         name: helm-controller
