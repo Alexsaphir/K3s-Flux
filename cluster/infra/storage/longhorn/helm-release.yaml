@@ -61,7 +61,7 @@ spec:
 
       backupTarget: s3://backup-longhorn@us-east-1/backupstore
       backupTargetCredentialSecret: longhorn-backup-secrets
-      backupstorePollInterval: 60
+      backupstorePollInterval: 0
       failedBackupTTL: 1440
       allowRecurringJobWhileVolumeDetached: true
       restoreVolumeRecurringJobs: true
