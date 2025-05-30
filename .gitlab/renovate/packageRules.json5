@@ -36,5 +36,19 @@
         "weekly"
       ],
     },
+    {
+      "matchPackageNames": [
+        "renovate",
+        "renovatebot/pre-commit-hooks"
+      ],
+      "schedule": [
+        "before 6am on monday"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "addLabels": [
+        "renovate/weekly-schedule"
+      ]
+    }
   ]
 }
