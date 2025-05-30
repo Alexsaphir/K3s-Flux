@@ -38,7 +38,8 @@
     },
     {
       "matchPackageNames": [
-        "renovate"
+        "renovate",
+        "renovatebot/pre-commit-hooks"
       ],
       "schedule": [
         "before 6am on monday"
