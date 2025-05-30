@@ -60,7 +60,7 @@ spec:
           database-config:
             image:
               repository: docker.io/library/alpine
-              tag: 3.21.3
+              tag: 3.22.0
 
             command: [ "/bin/sh", "-c" ]
             args:
