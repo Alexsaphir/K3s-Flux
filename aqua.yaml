@@ -18,7 +18,7 @@ packages:
   - name: kubernetes/kubectl@v1.33.1
   - name: helm/helm@v3.18.1
   - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
-  - name: jqlang/jq@jq-1.7.1
+  - name: jqlang/jq@jq-1.8.0
   - name: mikefarah/yq@v4.45.4
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
