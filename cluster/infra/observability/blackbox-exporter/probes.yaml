@@ -10,7 +10,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - tower.local
+        - 192.168.0.130
 
 ---
 apiVersion: monitoring.coreos.com/v1
@@ -24,4 +24,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - tower.local:2049
+        - 192.168.0.130:2049
