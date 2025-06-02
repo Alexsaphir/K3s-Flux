@@ -38,6 +38,12 @@ repos:
     hooks:
       - id: renovate-config-validator
 
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        args: [ '--config-file', '.gitlab/linters/.yamllint.yaml' ]
+
   # Leaks
   - repo: https://github.com/onedr0p/sops-pre-commit
     rev: v2.1.1
