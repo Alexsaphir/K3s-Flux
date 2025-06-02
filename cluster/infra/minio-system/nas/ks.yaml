@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
 
-  dependsOn: []
+  dependsOn: [ ]
 
   interval: 1h
   timeout: 5m

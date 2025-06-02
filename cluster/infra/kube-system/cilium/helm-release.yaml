@@ -71,4 +71,4 @@ spec:
         rollOutPods: true
 
     operator:
-      tolerations: []
+      tolerations: [ ]
