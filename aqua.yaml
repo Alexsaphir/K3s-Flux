@@ -23,7 +23,7 @@ packages:
   - name: budimanjojo/talhelper@v3.0.28
 
   # Cluster
-  - name: fluxcd/flux2@v2.6.0
+  - name: fluxcd/flux2@v2.6.1
   - name: cilium/cilium-cli@v0.18.3
   - name: kyverno/kyverno@v1.14.1
 
