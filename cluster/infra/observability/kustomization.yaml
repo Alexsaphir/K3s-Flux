@@ -9,3 +9,4 @@ components:
   - ../../components/repos/app-template
 resources:
   - kube-prometheus-stack/ks.yaml
+  - keda/ks.yaml
