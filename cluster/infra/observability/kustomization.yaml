@@ -13,3 +13,4 @@ resources:
   - blackbox-exporter/ks.yaml
   - smartctl-exporter/ks.yaml
   - kromgo/ks.yaml
+  - dcgm-exporter/ks.yaml
