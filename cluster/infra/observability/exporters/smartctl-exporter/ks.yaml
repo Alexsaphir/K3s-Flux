@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app blackbox-exporter
+  name: &app smartctl-exporter
   namespace: &namespace observability
 spec:
   commonMetadata:
@@ -23,7 +23,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/infra/observability/blackbox-exporter
+  path: cluster/infra/observability/exporters/smartctl-exporter
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

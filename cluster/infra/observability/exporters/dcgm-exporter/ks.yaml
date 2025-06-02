@@ -23,7 +23,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/infra/observability/dcgm-exporter
+  path: cluster/infra/observability/exporters/dcgm-exporter
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
