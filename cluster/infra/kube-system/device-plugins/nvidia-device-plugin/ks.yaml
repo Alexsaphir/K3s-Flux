@@ -17,7 +17,7 @@ spec:
   wait: true
 
   targetNamespace: *namespace
-  path: cluster/infra/kube-system/nvidia-device-plugin
+  path: cluster/infra/kube-system/device-plugins/nvidia-device-plugin
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

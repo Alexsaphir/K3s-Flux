@@ -16,8 +16,7 @@ resources:
   - snapshot-controller/ks.yaml
 
   - node-feature-discovery/ks.yaml
-  - intel-device-plugins/ks.yaml
-  - nvidia-device-plugin/ks.yaml
+  - device-plugins
 
   - descheduler/ks.yaml
   - reloader/ks.yaml

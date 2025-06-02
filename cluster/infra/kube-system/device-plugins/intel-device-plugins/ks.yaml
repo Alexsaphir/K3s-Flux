@@ -22,7 +22,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/infra/kube-system/intel-device-plugins/app
+  path: cluster/infra/kube-system/device-plugins/intel-device-plugins/app
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
@@ -64,7 +64,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/infra/kube-system/intel-device-plugins/gpu
+  path: cluster/infra/kube-system/device-plugins/intel-device-plugins/gpu
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
