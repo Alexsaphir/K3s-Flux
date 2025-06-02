@@ -39,6 +39,3 @@ cluster:
                   - maxSkew: 1
                     topologyKey: kubernetes.io/hostname
                     whenUnsatisfiable: ScheduleAnyway
-
-  extraManifests:
-    - 'https://github.com/prometheus-operator/prometheus-operator/releases/download/${prometheusOperatorVersion}/stripped-down-crds.yaml'

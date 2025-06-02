@@ -7,12 +7,18 @@ helmDefaults:
   waitForJobs: true
 
 releases:
+  - name: prometheus-operator-crds
+    namespace: observability
+    chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
+    version: 20.0.0
+
   - name: cilium
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/home-operations/charts-mirror/cilium
     version: 1.17.4
     values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/cilium/helm/values.yaml' ]
+    needs: [ observability/prometheus-operator-crds ]
     hooks:
       - # Wait for cilium CRDs to be available
         events: [ 'postsync' ]

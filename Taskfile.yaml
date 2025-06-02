@@ -35,7 +35,7 @@ tasks:
     desc: Reconcile flux git repository.
     cmd: flux reconcile source git talos-kubernetes
 
-  boot:
+  wol:
     desc: Send wol packets to start talos cluster.
     vars:
       mac_addresses:
