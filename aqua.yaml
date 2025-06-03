@@ -25,7 +25,7 @@ packages:
   # Cluster
   - name: fluxcd/flux2@v2.6.1
   - name: cilium/cilium-cli@v0.18.3
-  - name: kyverno/kyverno@v1.14.1
+  - name: kyverno/kyverno@v1.14.2
 
   # Kubernetes
   - name: kubernetes/kubectl@v1.33.1
