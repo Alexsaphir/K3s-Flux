@@ -165,6 +165,10 @@ spec:
             - { name: DS_PROMETHEUS, value: Prometheus }
             - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
 
+        nvidia-dcgm:
+          url: https://raw.githubusercontent.com/NVIDIA/dcgm-exporter/main/grafana/dcgm-exporter-dashboard.json
+          datasource: Prometheus
+
     sidecar:
       image:
         registry: ghcr.io
