@@ -69,7 +69,7 @@ spec:
 
     grafanaDashboard:
       enabled: true
-      folder: Storage
+      folder: Databases
       # -- Grafana dashboard configmap annotations.
       annotations:
         name: grafana_folder

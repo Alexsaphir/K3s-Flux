@@ -87,6 +87,90 @@ spec:
             options:
               path: /var/lib/grafana/dashboards/default
 
+          - name: kubernetes
+            orgId: 1
+            folder: Kubernetes
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/kubernetes
+
+          - name: observability
+            orgId: 1
+            folder: Observability
+            type: file
+            disableDeletion: true
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/observability
+
+          - name: flux
+            orgId: 1
+            folder: Flux
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/flux
+
+          - name: hardware
+            orgId: 1
+            folder: Hardware
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/hardware
+
+          - name: databases
+            orgId: 1
+            folder: Databases
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/databases
+
+          - name: networking
+            orgId: 1
+            folder: Networking
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/networking
+
+          - name: cilium
+            orgId: 1
+            folder: Cilium
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/cilium
+
+          - name: storage
+            orgId: 1
+            folder: Storage
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/storage
+
+          - name: kube-prometheus-stack
+            orgId: 1
+            folder: Kube-Prometheus-Stack
+            type: file
+            disableDeletion: true
+            editable: false
+            allowUiUpdates: false
+            options:
+              path: /var/lib/grafana/dashboards/kube-prometheus-stack
+
     dashboards:
       default:
         cert-manager:
@@ -94,6 +178,7 @@ spec:
           gnetId: 20842
           revision: 3
           datasource: Prometheus
+
         envoy:
           # renovate: depName="Envoy Proxy Monitoring gRPC"
           gnetId: 23239
@@ -101,6 +186,7 @@ spec:
           datasource:
             - { name: DS_AFRANET_PROMETHEUS, value: Prometheus }
 
+      kubernetes:
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
@@ -137,18 +223,19 @@ spec:
           revision: 14
           datasource: Prometheus
 
+      observability:
+        prometheus:
+          # renovate: depName="Prometheus"
+          gnetId: 19105
+          revision: 7
+          datasource: Prometheus
+
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 40
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-
-        prometheus:
-          # renovate: depName="Prometheus"
-          gnetId: 19105
-          revision: 7
-          datasource: Prometheus
 
         smartctl-exporter:
           # renovate: depName="SMARTctl Exporter Dashboard"
@@ -157,6 +244,35 @@ spec:
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
 
+      hardware:
+        nvidia-dcgm:
+          url: https://raw.githubusercontent.com/NVIDIA/dcgm-exporter/main/grafana/dcgm-exporter-dashboard.json
+          datasource: Prometheus
+
+      flux:
+        flux-cluster:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
+          datasource: Prometheus
+        flux-control-plane:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+          datasource: Prometheus
+        # flux-logs:
+        #   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
+        #   datasource: Loki
+
+      databases:
+        cnpg:
+          url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
+
+      storage:
+        longhorn:
+          # renovate: depName= "Longhorn Example v1.4.0"
+          gnetId: 17626
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS-LONGHORN
+              value: Prometheus
+
         volsync:
           # renovate: depName="VolSync Dashboard"
           gnetId: 21356
@@ -164,10 +280,6 @@ spec:
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
             - { name: VAR_REPLICATIONDESTNAME, value: .*-dst }
-
-        nvidia-dcgm:
-          url: https://raw.githubusercontent.com/NVIDIA/dcgm-exporter/main/grafana/dcgm-exporter-dashboard.json
-          datasource: Prometheus
 
     sidecar:
       image:
