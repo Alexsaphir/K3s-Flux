@@ -65,7 +65,7 @@ spec:
       runAsUser: 1000
 
     serviceMonitor:
-      enabled: true
+      enabled: false # Broken metrics
 
     grafanaDashboard:
       enabled: true
