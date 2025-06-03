@@ -10,5 +10,8 @@ components:
 resources:
   - kube-prometheus-stack/ks.yaml
   - keda/ks.yaml
+
+  - grafana/ks.yaml
+
   - kromgo/ks.yaml
   - exporters
