@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - prometheus-rule.yaml
+  - pod-monitors.yaml
   - receiver
 configMapGenerator:
   - name: flux-instance-values
