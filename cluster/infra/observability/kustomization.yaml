@@ -11,7 +11,9 @@ resources:
   - kube-prometheus-stack/ks.yaml
   - keda/ks.yaml
 
+  - exporters
+
   - grafana/ks.yaml
 
+  - gatus/ks.yaml
   - kromgo/ks.yaml
-  - exporters

@@ -81,8 +81,8 @@ spec:
       app:
         hostnames: [ '{{ .Release.Name }}.talos.${DOMAIN_NAME}' ]
         parentRefs:
-          - name: external
-            namespace: kube-system
+          - name: envoy
+            namespace: envoy-system
             sectionName: https
         rules:
           - backendRefs:
