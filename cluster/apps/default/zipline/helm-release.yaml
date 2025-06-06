@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: ghcr.io/diced/zipline
-              tag: v4@sha256:77189a3638c361b2dee3b76f4f3a0bb9933043cd0eb2ecb50773dedcfa552851
+              tag: v4@sha256:25fe764ca213de159e6d1739f95b84089a439feaca2a5d46258ce2dd75d92db5
 
             envFrom:
               - secretRef:
