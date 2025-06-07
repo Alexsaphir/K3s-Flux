@@ -19,3 +19,4 @@ resources:
   - operators
 
   - kube-auth
+#  - kube-guardian
