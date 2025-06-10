@@ -44,7 +44,28 @@ spec:
         forceConflicts: true
 
     alertmanager:
-      enabled: false
+      route:
+        main:
+          enabled: true
+          hostnames: [ 'alertmanager.talos.${DOMAIN_NAME}' ]
+          parentRefs:
+            - name: envoy
+              namespace: envoy-system
+              sectionName: https
+
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        externalUrl: https://alertmanager.talos.${DOMAIN_NAME}
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: openebs-hostpath
+              resources:
+                requests:
+                  storage: 1Gi
 
     kubeEtcd:
       service:
