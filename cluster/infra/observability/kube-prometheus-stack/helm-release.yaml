@@ -44,6 +44,7 @@ spec:
         forceConflicts: true
 
     alertmanager:
+      enable: true
       route:
         main:
           enabled: true
