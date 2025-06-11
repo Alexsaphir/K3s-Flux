@@ -1,0 +1,56 @@
+---
+apiVersion: monitoring.giantswarm.io/v1alpha1
+kind: Silence
+metadata:
+  name: nas-disk-high-utilization-disk
+spec:
+  matchers:
+    - name: alertname
+      value: NodeFilesystemAlmostOutOfSpace
+      isRegex: false
+
+    - name: instance
+      value: 192.168.0.130:9100
+      isRegex: false
+
+    - name: mountpoint
+      value: '^/mnt/disk[0-9]+'
+      isRegex: true
+
+---
+apiVersion: monitoring.giantswarm.io/v1alpha1
+kind: Silence
+metadata:
+  name: nas-disk-high-utilization-user
+spec:
+  matchers:
+    - name: alertname
+      value: NodeFilesystemAlmostOutOfSpace
+      isRegex: false
+
+    - name: instance
+      value: 192.168.0.130:9100
+      isRegex: false
+
+    - name: mountpoint
+      value: /mnt/user
+      isRegex: false
+
+---
+apiVersion: monitoring.giantswarm.io/v1alpha1
+kind: Silence
+metadata:
+  name: nas-disk-high-utilization-user0
+spec:
+  matchers:
+    - name: alertname
+      value: NodeFilesystemAlmostOutOfSpace
+      isRegex: false
+
+    - name: instance
+      value: 192.168.0.130:9100
+      isRegex: false
+
+    - name: mountpoint
+      value: /mnt/user0
+      isRegex: false
