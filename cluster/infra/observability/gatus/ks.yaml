@@ -10,11 +10,11 @@ spec:
       app.kubernetes.io/name: *app
       app.kubernetes.io/component: *app
 
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
+#  healthChecks:
+#    - apiVersion: helm.toolkit.fluxcd.io/v2
+#      kind: HelmRelease
+#      name: *app
+#      namespace: *namespace
 
   interval: 1h
   timeout: 5m
