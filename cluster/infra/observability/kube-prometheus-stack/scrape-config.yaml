@@ -6,7 +6,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 192.168.0.130:9100
+        - nas.hosts.alexsaphir.com:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -21,7 +21,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - 192.168.0.130:9633
+        - nas.hosts.alexsaphir.com:9633
   metricsPath: /metrics
   relabelings:
     - action: replace
