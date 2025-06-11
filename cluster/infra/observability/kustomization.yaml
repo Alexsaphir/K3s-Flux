@@ -12,6 +12,7 @@ resources:
   - keda/ks.yaml
 
   - exporters
+  - silence-operator
 
   - grafana/ks.yaml
 
