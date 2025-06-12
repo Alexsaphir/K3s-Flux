@@ -69,10 +69,8 @@ spec:
 
     service:
       app:
-        controller: kromgo
         ports:
           http:
-            primary: true
             port: *port
           health:
             port: *healthPort

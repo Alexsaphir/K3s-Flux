@@ -53,8 +53,6 @@ spec:
 
     service:
       app:
-        controller: mailpit
-        primary: true
         ports:
           smtp:
             port: 1025

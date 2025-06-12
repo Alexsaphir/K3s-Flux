@@ -21,7 +21,7 @@ spec:
 apiVersion: monitoring.giantswarm.io/v1alpha1
 kind: Silence
 metadata:
-  name: nas-disk-high-utilization-user
+  name: nas-disk-high-utilization-shfs
 spec:
   matchers:
     - name: alertname
@@ -32,8 +32,8 @@ spec:
       value: nas.hosts.alexsaphir.com:9100
       isRegex: false
 
-    - name: mountpoint
-      value: /mnt/user
+    - name: device
+      value: fuse.shfs
       isRegex: false
 
 ---
