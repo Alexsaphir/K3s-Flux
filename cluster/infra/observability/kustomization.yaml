@@ -10,6 +10,7 @@ components:
 resources:
   - kube-prometheus-stack/ks.yaml
   - keda/ks.yaml
+  - loki/ks.yaml
 
   - exporters
   - silence-operator
