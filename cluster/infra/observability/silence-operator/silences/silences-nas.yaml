@@ -33,24 +33,5 @@ spec:
       isRegex: false
 
     - name: device
-      value: fuse.shfs
-      isRegex: false
-
----
-apiVersion: monitoring.giantswarm.io/v1alpha1
-kind: Silence
-metadata:
-  name: nas-disk-high-utilization-user0
-spec:
-  matchers:
-    - name: alertname
-      value: NodeFilesystemAlmostOutOfSpace
-      isRegex: false
-
-    - name: instance
-      value: nas.hosts.alexsaphir.com:9100
-      isRegex: false
-
-    - name: mountpoint
-      value: /mnt/user0
+      value: shfs
       isRegex: false
