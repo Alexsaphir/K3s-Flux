@@ -13,6 +13,8 @@ spec:
   dependsOn:
     - name: nvidia-device-plugin
       namespace: kube-system
+    - name: kube-prometheus-stack
+      namespace: *namespace
 
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2

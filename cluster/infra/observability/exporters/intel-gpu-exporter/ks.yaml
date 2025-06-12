@@ -10,6 +10,12 @@ spec:
       app.kubernetes.io/name: *app
       app.kubernetes.io/component: *app
 
+  dependsOn:
+    - name: intel-device-plugins-gpu
+      namespace: kube-system
+    - name: kube-prometheus-stack
+      namespace: *namespace
+
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

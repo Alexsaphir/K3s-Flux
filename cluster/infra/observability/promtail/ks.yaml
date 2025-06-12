@@ -11,8 +11,8 @@ spec:
       app.kubernetes.io/component: *app
 
   dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
+    - name: loki
+      namespace: *namespace
 
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
