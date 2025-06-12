@@ -11,6 +11,7 @@ resources:
   - kube-prometheus-stack/ks.yaml
   - keda/ks.yaml
   - loki/ks.yaml
+  - promtail/ks.yaml
 
   - exporters
   - silence-operator
