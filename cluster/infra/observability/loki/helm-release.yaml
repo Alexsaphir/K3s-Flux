@@ -38,6 +38,11 @@ spec:
     deploymentMode: SingleBinary
 
     loki:
+      image:
+        registry: docker.io
+        repository: grafana/loki
+        tag: 3.5.1
+
       auth_enabled: false
 
       analytics:
