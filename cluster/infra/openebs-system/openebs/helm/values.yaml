@@ -1,8 +1,8 @@
 ---
 loki:
-  enable: false
+  enabled: false
 alloy:
-  enable: false
+  enabled: false
 minio:
   enabled: false
 
