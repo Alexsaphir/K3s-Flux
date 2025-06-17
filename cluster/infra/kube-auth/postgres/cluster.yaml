@@ -33,13 +33,6 @@ spec:
   monitoring:
     enablePodMonitor: true
 
-    podMonitorMetricRelabelings:
-      - sourceLabels: [ "cluster" ]
-        targetLabel: cnpg_cluster
-        action: replace
-      - regex: cluster
-        action: labeldrop
-
   postgresql:
     parameters:
       max_connections: "800"
