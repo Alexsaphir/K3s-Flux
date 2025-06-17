@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app plex
+  namespace: &namespace media
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+
+  dependsOn: [ ]
+
+  interval: 1h
+  timeout: 5m
+  retryInterval: 2m
+
+  prune: true
+
+  targetNamespace: *namespace
+  path: cluster/apps/media/plex
+  sourceRef:
+    kind: GitRepository
+    name: talos-kubernetes
+    namespace: flux-system

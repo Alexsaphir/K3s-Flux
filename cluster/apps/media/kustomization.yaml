@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media
+components:
+  - ../../components/namespace
+  - ../../components/flux/sops
+  - ../../components/flux/substituteFrom
+  - ../../components/repos/app-template
+resources:
+  - immich/ks.yaml
+  - plex/ks.yaml
