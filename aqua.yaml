@@ -23,12 +23,12 @@ packages:
   - name: budimanjojo/talhelper@v3.0.29
 
   # Cluster
-  - name: fluxcd/flux2@v2.6.1
+  - name: fluxcd/flux2@v2.6.2
   - name: cilium/cilium-cli@v0.18.4
   - name: kyverno/kyverno@v1.14.2
 
   # Kubernetes
   - name: kubernetes/kubectl@v1.33.1
-  - name: helm/helm@v3.18.2
+  - name: helm/helm@v3.18.3
   - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
   - name: helmfile/helmfile@v1.1.2
