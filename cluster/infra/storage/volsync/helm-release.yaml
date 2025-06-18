@@ -30,5 +30,13 @@ spec:
   # https://github.com/backube/volsync/blob/main/helm/volsync/values.yaml
   values:
     manageCRDs: true
+
+    replicaCount: 2
+
     metrics:
       disableAuth: true
+
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
