@@ -93,11 +93,10 @@ spec:
     compactor:
       enabled: false
       extraFlags:
-        - --compact.concurrency=4
         - --delete-delay=30m
       retentionResolutionRaw: 7d
       retentionResolution5m: 30d
-      retentionResolution1h: 2y
+      retentionResolution1h: 6m
       persistence:
         enabled: true
         storageClass: local-path
