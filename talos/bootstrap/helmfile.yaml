@@ -64,7 +64,7 @@ releases:
     namespace: openebs-system
     atomic: true
     chart: oci://ghcr.io/home-operations/charts-mirror/openebs
-    version: 4.3.0
+    version: 4.3.2
     values: [ '{{ requiredEnv "INFRA_DIR" }}/openebs-system/openebs/helm/values.yaml' ]
     needs: [ kube-system/coredns ]
 
