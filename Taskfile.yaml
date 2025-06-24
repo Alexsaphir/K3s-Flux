@@ -20,6 +20,7 @@ includes:
   debug: .taskfiles/DebugTasks.yaml
   ansible: .taskfiles/AnsibleTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
+  volsync: .taskfiles/volsync
 
 tasks:
   default:
