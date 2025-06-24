@@ -46,7 +46,7 @@ spec:
 
             env:
               TZ: '${TIMEZONE}'
-              LOG_LEVEL: debug
+              LOG_LEVEL: info
 
               MEND_RNV_ACCEPT_TOS: 'y'
               MEND_RNV_PLATFORM: 'gitlab'
