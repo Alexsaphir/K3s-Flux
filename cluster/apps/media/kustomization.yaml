@@ -9,4 +9,4 @@ components:
   - ../../components/repos/app-template
 resources:
   - immich/ks.yaml
-  - plex/ks.yaml
+  # - plex/ks.yaml
