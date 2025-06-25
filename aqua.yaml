@@ -36,7 +36,7 @@ packages:
   - name: siderolabs/talos@v1.10.4
   - name: budimanjojo/talhelper@v3.0.29
   - name: lsd-rs/lsd@v1.1.5
-  - name: opentofu/opentofu@v1.10.0
+  - name: opentofu/opentofu@v1.10.1
   - name: runatlantis/atlantis@v0.34.0
   - name: kyverno/kyverno@v1.14.3
   - name: homeport/dyff@v1.10.1
