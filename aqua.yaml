@@ -30,5 +30,5 @@ packages:
   # Kubernetes
   - name: kubernetes/kubectl@v1.33.2
   - name: helm/helm@v3.18.3
-  - name: kubernetes-sigs/kustomize@kustomize/v5.6.0
+  - name: kubernetes-sigs/kustomize@kustomize/v5.7.0
   - name: helmfile/helmfile@v1.1.2
