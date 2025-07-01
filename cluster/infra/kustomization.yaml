@@ -18,5 +18,6 @@ resources:
 
   - operators
 
+  - database
   - kube-auth
 #  - kube-guardian
