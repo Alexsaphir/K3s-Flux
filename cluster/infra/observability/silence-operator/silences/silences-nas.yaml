@@ -1,5 +1,5 @@
 ---
-apiVersion: monitoring.giantswarm.io/v1alpha1
+apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
   name: nas-disk-high-utilization-disk
@@ -7,18 +7,16 @@ spec:
   matchers:
     - name: alertname
       value: NodeFilesystemAlmostOutOfSpace
-      isRegex: false
 
     - name: instance
       value: nas.hosts.alexsaphir.com:9100
-      isRegex: false
 
     - name: mountpoint
       value: '^/mnt/disk[0-9]+'
-      isRegex: true
+      matchType: =~
 
 ---
-apiVersion: monitoring.giantswarm.io/v1alpha1
+apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
   name: nas-disk-high-utilization-shfs
@@ -26,12 +24,9 @@ spec:
   matchers:
     - name: alertname
       value: NodeFilesystemAlmostOutOfSpace
-      isRegex: false
 
     - name: instance
       value: nas.hosts.alexsaphir.com:9100
-      isRegex: false
 
     - name: device
       value: shfs
-      isRegex: false
