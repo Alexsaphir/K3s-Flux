@@ -43,6 +43,10 @@ spec:
       enabled: true
       replicas: 2
 
+    global:
+      checkNewVersion: false
+      sendAnonymousUsage: false
+
     service:
       enabled: true
       type: LoadBalancer
