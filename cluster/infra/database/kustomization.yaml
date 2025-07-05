@@ -8,3 +8,4 @@ components:
   - ../../components/flux/substituteFrom
 resources:
   - postgres/ks.yaml
+  - ext-postgres-operator/ks.yaml
