@@ -9,7 +9,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
 
-  dependsOn: [ ]
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: cloudnative-pg
 
   healthChecks:
     - apiVersion: v1
