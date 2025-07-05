@@ -50,7 +50,7 @@ spec:
           app:
             image:
               repository: ghcr.io/diced/zipline
-              tag: v4@sha256:eb1b7de290eacf0440d130e76c0da4ca15b331c3cfafbdd844f377f5711c8feb
+              tag: v4.2.0@sha256:aea86ef7d754e0ae8c1cbf86ed280b3752009f73aab30279540144054eb72094
 
             envFrom:
               - secretRef:
@@ -82,6 +82,32 @@ spec:
               SMTP_FROM_NAME: Vaultwarden
               SMTP_SECURITY: 'off'
               SMTP_PORT: 1025
+
+
+              CORE_RETURN_HTTPS_URLS: true
+              CORE_DEFAULT_DOMAIN: '{{ printf "%s" (first .Values.ingress.app.hosts).host }}'
+
+              FILES_RANDOM_WORDS_NUM_ADJECTIVES: 2
+              FEATURES_ROBOTS_TXT: true
+              FEATURES_OAUTH_REGISTRATION: true
+
+              INVITES_ENABLED: false
+              INVITES_LENGTH: 6
+
+              OAUTH_BYPASS_LOCAL_LOGIN: true
+              OAUTH_OIDC_CLIENT_ID: "zipline"
+              OAUTH_OIDC_AUTHORIZE_URL: "https://auth.${DOMAIN_NAME}/api/oidc/authorization"
+              OAUTH_OIDC_TOKEN_URL: "https://auth.${DOMAIN_NAME}/api/oidc/token"
+              OAUTH_OIDC_USERINFO_URL: "https://auth.${DOMAIN_NAME}/api/oidc/userinfo"
+              OAUTH_OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: zipline-oauth-secret
+                    key: OAUTH_AUTHELIA_CLIENT_SECRET
+
+              MFA_TOTP_ENABLED: true
+              MFA_PASSKEYS: false
+              PWA_ENABLED: false
 
             resources:
               requests:
