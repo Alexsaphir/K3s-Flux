@@ -50,25 +50,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: &certificateSecret wildcard-main-tls
-
-    - name: http-root
-      protocol: HTTP
-      port: 80
-      # noinspection KubernetesUnknownValues
-      hostname: &hostnameRoot 'talos.${DOMAIN_NAME}'
-      allowedRoutes:
-        namespaces:
-          from: Same
-
-    - name: https-root
-      protocol: HTTPS
-      port: 443
-      hostname: *hostnameRoot
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: *certificateSecret
+            name: wildcard-main-tls
