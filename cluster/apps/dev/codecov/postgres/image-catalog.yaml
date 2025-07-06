@@ -1,0 +1,9 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ImageCatalog
+metadata:
+  name: timescaledb
+spec:
+  images:
+    - major: 17
+      image: timescale/timescaledb-ha:pg17.5-ts2.20.3
