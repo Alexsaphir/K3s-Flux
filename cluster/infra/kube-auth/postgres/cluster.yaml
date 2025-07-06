@@ -2,19 +2,17 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: postgres-authentik
   annotations:
     kyverno.io/ignore: 'true'
 
 spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-9
+
   instances: 1
   enablePDB: false # TODO: Remove when more than 1 node.
 
   enableSuperuserAccess: false
-
-  resources:
-    requests:
-      memory: "2Gi"
 
   bootstrap:
     initdb:
@@ -26,15 +24,25 @@ spec:
       secret:
         name: postgres-authentik-secret
 
+  postgresql:
+    parameters:
+      max_connections: '800'
+      max_slot_wal_keep_size: 10GB
+      shared_buffers: '512MB'
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: minio-store
+
+  resources:
+    requests:
+      memory: '2Gi'
+
   storage:
     size: 10Gi
     storageClass: openebs-hostpath
 
   monitoring:
     enablePodMonitor: true
-
-  postgresql:
-    parameters:
-      max_connections: "800"
-      max_slot_wal_keep_size: 10GB
-      shared_buffers: "512MB"

@@ -16,7 +16,7 @@ spec:
   healthChecks:
     - apiVersion: v1
       kind: Pod
-      name: postgres-1
+      name: postgres-authentik-1
       namespace: *namespace
 
   interval: 1h
