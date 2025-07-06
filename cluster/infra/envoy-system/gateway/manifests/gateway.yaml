@@ -24,7 +24,7 @@ spec:
 
   infrastructure:
     annotations:
-      io.cilium/lb-ipam-ips: *ip
+      lbipam.cilium.io/ips: *ip
     parametersRef:
       group: gateway.envoyproxy.io
       kind: EnvoyProxy
