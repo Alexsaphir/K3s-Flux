@@ -1,0 +1,56 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-immich
+  annotations:
+    kyverno.io/ignore: 'true'
+    cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
+
+spec:
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.3
+
+  instances: 2
+  enablePDB: false # TODO: Remove when more than 1 node.
+
+  enableSuperuserAccess: false
+
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+
+      dataChecksums: true
+
+      secret:
+        name: postgres-immich-secret
+
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+
+
+  postgresql:
+    shared_preload_libraries:
+      - 'vchord.so'
+
+    parameters:
+      max_connections: '200'
+      max_slot_wal_keep_size: 5GB
+      shared_buffers: '128MB'
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: minio-store
+
+  resources:
+    requests:
+      memory: '512Mi'
+
+  storage:
+    size: 10Gi
+    storageClass: openebs-hostpath
+
+  monitoring:
+    enablePodMonitor: true

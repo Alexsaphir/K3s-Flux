@@ -7,6 +7,5 @@ components:
   - ../../components/flux/sops
   - ../../components/flux/substituteFrom
   - ../../components/repos/app-template
-resources:
-  - immich/ks.yaml
-  # - plex/ks.yaml
+resources: [ ]
+# - plex/ks.yaml
