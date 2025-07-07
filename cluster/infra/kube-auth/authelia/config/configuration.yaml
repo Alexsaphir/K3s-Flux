@@ -182,6 +182,7 @@ access_control:
     - domain:
         - 'actual.${DOMAIN_NAME}'
         - 'zigbee2mqtt.${DOMAIN_NAME}'
+        - 'store.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'user:alexsaphir'
