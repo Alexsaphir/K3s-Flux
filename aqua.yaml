@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.383.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.384.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   # Utils
   - name: direnv/direnv@v2.37.0
@@ -23,7 +23,7 @@ packages:
   - name: budimanjojo/talhelper@v3.0.30
 
   # Cluster
-  - name: fluxcd/flux2@v2.6.3
+  - name: fluxcd/flux2@v2.6.4
   - name: cilium/cilium-cli@v0.18.5
   - name: kyverno/kyverno@v1.14.4
 
