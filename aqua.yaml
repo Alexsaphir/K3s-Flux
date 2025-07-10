@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.384.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.385.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   # Utils
   - name: direnv/direnv@v2.37.0
@@ -12,7 +12,7 @@ packages:
 
   # YAML utils
   - name: homeport/dyff@v1.10.1
-  - name: mikefarah/yq@v4.45.4
+  - name: mikefarah/yq@v4.46.1
 
   # Secrets
   - name: FiloSottile/age@v1.2.1
