@@ -41,7 +41,7 @@ spec:
       image:
         registry: docker.io
         repository: grafana/loki
-        tag: 3.5.1
+        tag: 3.5.2
 
       auth_enabled: false
 
