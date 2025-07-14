@@ -5,3 +5,8 @@ machine:
     nameservers:
       - 1.1.1.1
       - 1.0.0.1
+
+    extraHostEntries:
+      - ip:
+        aliases:
+          - talos.cluster.alexsaphir.com

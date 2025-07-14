@@ -46,7 +46,7 @@ tasks:
     desc: Apply Talos config to a node [NODE=required]
     dir: '{{.TALOS_DIR}}'
     deps:
-      - task:talhelper:generate-config
+      - task: talhelper:generate-config
     preconditions:
       - which talhelper talosctl yq
       - test -f "${TALOSCONFIG}"

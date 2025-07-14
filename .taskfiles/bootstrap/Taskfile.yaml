@@ -54,7 +54,7 @@ tasks:
           - 'components/flux/sops/sops-age.sops.yaml'
           - 'components/flux/substituteFrom/cluster-secrets.sops.yaml'
       - # Apply helmfile
-        cmd: helmfile --file {{ .helm_file }} sync --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
+        cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
 
 
   talhelper:secret:
