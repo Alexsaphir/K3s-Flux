@@ -5,6 +5,8 @@ resources:
   - blackbox-exporter/ks.yaml
   - smartctl-exporter/ks.yaml
 
+  - unpoller/ks.yaml
+
   # GPUs
   - dcgm-exporter/ks.yaml
   - intel-gpu-exporter/ks.yaml
