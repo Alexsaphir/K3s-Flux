@@ -4,9 +4,10 @@ kind: CiliumLoadBalancerIPPool
 metadata:
   name: pool
 spec:
+  allowFirstLastIPs: "No"
   blocks:
-    - start: 192.168.42.51
-      stop: 192.168.42.200
+    - start: 192.168.42.50
+      stop: 192.168.42.250
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
