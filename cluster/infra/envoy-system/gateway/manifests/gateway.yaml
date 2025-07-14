@@ -20,7 +20,7 @@ spec:
   gatewayClassName: envoy
   addresses:
     - type: IPAddress
-      value: &ip 192.168.0.151
+      value: &ip 192.168.42.151
 
   infrastructure:
     annotations:

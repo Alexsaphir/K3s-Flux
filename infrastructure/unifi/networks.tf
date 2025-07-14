@@ -34,7 +34,7 @@ resource "unifi_network" "talos" {
 
   dhcp_enabled  = true
   dhcp_start    = "192.168.42.6"
-  dhcp_stop     = "192.168.42.254"
+  dhcp_stop     = "192.168.42.50"
   dhcp_v6_start = "::2"
   dhcp_v6_stop  = "::7d1"
 
