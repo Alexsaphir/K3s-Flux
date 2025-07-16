@@ -35,6 +35,7 @@ spec:
               UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://192.168.0.1
               UP_UNIFI_DEFAULT_VERIFY_SSL: false
+              UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
               UP_UNIFI_DEFAULT_API_KEY:
                 valueFrom:
                   secretKeyRef:
