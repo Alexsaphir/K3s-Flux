@@ -12,6 +12,7 @@ resources:
   - minio-system
 
   - cert-manager
+  - external-dns
   - external-secrets
   - system-upgrade
   - observability
