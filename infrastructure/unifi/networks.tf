@@ -18,12 +18,6 @@
 #
 # }
 
-
-# import {
-#   id = "68713ea09704354fee036a4e"
-#   to = unifi_network.default
-# }
-
 resource "unifi_network" "talos" {
   name    = "Talos"
   purpose = "corporate"
@@ -73,6 +67,10 @@ resource "unifi_network" "jetkvm" {
   multicast_dns = true
 }
 
+# import {
+#   id = "68713ea09704354fee036a4e"
+#   to = unifi_network.default
+# }
 import {
   id = "68726919d939bb501ffbc995"
   to = unifi_network.talos
