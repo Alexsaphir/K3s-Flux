@@ -42,7 +42,7 @@ tasks:
       mac_addresses:
         sh: yq '.nodes[].networkInterfaces[0].deviceSelector.hardwareAddr' < '{{.TALOS_DIR}}/talconfig.yaml'
       interface:
-        sh: "ip -o link show up | awk -F': ' '!/lo|docker|veth|br-|virbr/ {print $2; exit}'"
+        sh: "ip -o -4 addr show up | awk '$2 !~ /^(lo|docker|veth|br-|virbr|tailscale)/ {print $2; exit}'"
     cmds:
       - for:
           var: mac_addresses
