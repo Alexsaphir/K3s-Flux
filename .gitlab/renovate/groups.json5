@@ -103,6 +103,15 @@
         "^ghcr\\.io/home-operations/.+arr$"
       ],
       "groupName": "home-operations *arr images"
+    },
+    {
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackagePatterns": [
+        "gitlab"
+      ],
+      "groupName": "gitlab"
     }
   ]
 }
