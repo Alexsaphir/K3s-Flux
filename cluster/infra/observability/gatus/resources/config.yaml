@@ -1,6 +1,6 @@
 ---
 metrics: true
-debug: false
+debug: true
 
 web:
   port: $${WEB_PORT}
@@ -37,6 +37,7 @@ endpoints:
     url: https://status.talos.${DOMAIN_NAME}
     interval: 1m
     client:
+      timeout: 60s
       dns-resolver: tcp://192.168.0.1:53
     conditions:
       - "[STATUS] == 200"
