@@ -41,17 +41,17 @@
     enabled: true,
   },
   flux: {
-    fileMatch: [
+    managerFilePatterns: [
       '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   'helm-values': {
-    fileMatch: [
+    managerFilePatterns: [
       '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
     ],
   },
   kubernetes: {
-    fileMatch: [
+    managerFilePatterns: [
       '/(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$/',
       '/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/',
       '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
