@@ -1,6 +1,5 @@
 ---
 metrics: true
-debug: true
 
 web:
   port: $${WEB_PORT}
