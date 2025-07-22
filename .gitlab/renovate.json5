@@ -42,12 +42,12 @@
   },
   flux: {
     managerFilePatterns: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/'
     ],
   },
   'helm-values': {
     managerFilePatterns: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/',
+      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/'
     ],
   },
   kubernetes: {
