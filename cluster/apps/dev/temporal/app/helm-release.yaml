@@ -1,0 +1,113 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: temporal
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+
+  driftDetection:
+    mode: enabled
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+
+  valuesFrom:
+    - kind: Secret
+      name: &postgres-secret postgres-superuser
+      valuesKey: username
+      targetPath: postgres.POSTGRES_USER
+    - kind: Secret
+      name: *postgres-secret
+      valuesKey: password
+      targetPath: postgres.POSTGRES_PWD
+
+  values:
+    postgres: {}
+
+    controllers:
+      server:
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: temporalio/auto-setup
+              tag: 1.28.0.0@sha256:3ee84bf3ec5494f2be6ee0c1fea3b52684e50da3ddc5f997e6fa56ad340da9a8
+            env:
+              DB: postgres12
+              DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/dev-dynamic-config.yaml
+
+              DBNAME: temporal
+              DB_PORT: 5432
+              POSTGRES_SEEDS: 'postgres-temporal-rw.{{ .Release.Namespace }}.svc.cluster.local'
+              POSTGRES_USER: '{{ .Values.postgres.POSTGRES_USER }}'
+              POSTGRES_PWD: '{{ .Values.postgres.POSTGRES_PWD }}'
+
+      ui:
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: temporalio/ui
+              tag: 2.39.0@sha256:b768f87f18b59663a6749e98a2f7782c266e8e4e4749f92248e2ba41d6330d3f
+            env:
+              TEMPORAL_ADDRESS: &temporalAddress temporal-server:7233
+              TEMPORAL_CORS_ORIGINS: http://localhost:3000
+
+      admin-tools:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: temporalio/admin-tools
+              tag: 1.28@sha256:45bf84a03c978329639bea5722438b7dcda1559c06ef237e6a288662bb2fe603
+            env:
+              TEMPORAL_ADDRESS: *temporalAddress
+
+    service:
+      server:
+        primary: true
+        controller: server
+        ports:
+          http:
+            port: 7233
+      ui:
+        controller: ui
+        ports:
+          http:
+            port: &uiHttpPort 8080
+
+    route:
+      ui:
+        hostnames: [ 'temporal.talos.${DOMAIN_NAME}' ]
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: ui
+                port: *uiHttpPort
+
+    persistence:
+      dynamic-config:
+        type: configMap
+        name: temporal-configmap
+        advancedMounts:
+          server:
+            app:
+              - path: /etc/temporal/config/dynamicconfig
