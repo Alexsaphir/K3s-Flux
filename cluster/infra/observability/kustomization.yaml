@@ -9,14 +9,15 @@ components:
   - ../../components/repos/app-template
 resources:
   - kube-prometheus-stack/ks.yaml
-  - keda/ks.yaml
+
   - loki/ks.yaml
-  - promtail/ks.yaml
-
-  - exporters
-  - silence-operator
-
+  - alloy/ks.yaml
   - grafana/ks.yaml
+
+  - keda/ks.yaml
 
   - gatus/ks.yaml
   - kromgo/ks.yaml
+
+  - exporters
+  - silence-operator
