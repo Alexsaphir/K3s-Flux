@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.390.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.391.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   # Utils
   - name: direnv/direnv@v2.37.1
@@ -12,7 +12,7 @@ packages:
 
   # YAML utils
   - name: homeport/dyff@v1.10.1
-  - name: mikefarah/yq@v4.46.1
+  - name: mikefarah/yq@v4.47.1
 
   # Secrets
   - name: FiloSottile/age@v1.2.1
@@ -33,7 +33,7 @@ packages:
   - name: brumhard/krewfile@v0.6.3
 
   - name: helm/helm@v3.18.4
-  - name: kubernetes-sigs/kustomize@kustomize/v5.7.0
+  - name: kubernetes-sigs/kustomize@kustomize/v5.7.1
   - name: helmfile/helmfile@v1.1.3
 
   # Infrastructure
