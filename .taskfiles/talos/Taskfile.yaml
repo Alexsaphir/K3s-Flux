@@ -27,6 +27,8 @@ tasks:
     vars:
       CLUSTERCONFIG_FILES:
         sh: ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-*.yaml
+    deps:
+      - task: talhelper:generate-config
     preconditions:
       - which ls talhelper talosctl yq
       - test -f "${TALOSCONFIG}"

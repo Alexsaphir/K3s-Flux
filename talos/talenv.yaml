@@ -3,3 +3,8 @@
 talosVersion: v1.10.5
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.33.3
+
+nodeSubnetV4: 192.168.42.0/24
+nodeSubnetV6: 2a01:e0a:2a:5552::/64
+
+ipv6Prefix: 2a01:e0a:2a:5552

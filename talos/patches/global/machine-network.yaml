@@ -6,6 +6,6 @@ machine:
       - 192.168.0.1
 
     extraHostEntries:
-      - ip:
+      - ip: 192.168.42.100
         aliases:
           - talos.cluster.alexsaphir.com

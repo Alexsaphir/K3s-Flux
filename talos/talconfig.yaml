@@ -14,10 +14,14 @@ additionalApiServerCertSans: &sans
   - 127.0.0.1
 additionalMachineCertSans: *sans
 
+
+# UDA generated using https://unique-local-ipv6.com/#
 clusterPodNets:
-  - "10.42.0.0/16"
+  - 10.42.0.0/16
+  - fdd5:aa8:9535:42::/108
 clusterSvcNets:
-  - "10.43.0.0/16"
+  - 10.43.0.0/16
+  - fdd5:aa8:9535:43::/108
 
 # Disable built-in Flannel to use Cilium
 cniConfig:
@@ -35,10 +39,21 @@ nodes:
           - mountpoint: /var/mnt/extra
     machineSpec:
       secureboot: false
+
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 58:47:ca:7a:c6:c9
-        dhcp: true
+
+        dhcp: false
+        addresses:
+          - 192.168.42.10/32
+          - ${ipv6Prefix}::42:10/64
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.42.1
+          - network: ::/0
+            gateway: fe80::1e0b:8bff:fe16:9435
+
         mtu: 9000
         vip:
           ip: *talosControlplaneVip

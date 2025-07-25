@@ -9,6 +9,7 @@ machine:
           - bind
           - rshared
           - rw
+
       - destination: /var/lib/longhorn
         type: bind
         source: /var/lib/longhorn
