@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - flux-system
   - kube-system
-#  - envoy-system
+  - envoy-system
 
 #  - openebs-system
 #  - longhorn-system
