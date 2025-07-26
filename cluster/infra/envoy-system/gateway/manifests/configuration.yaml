@@ -8,6 +8,8 @@ spec:
     level:
       default: info
 
+  ipFamily: DualStack
+
   provider:
     type: Kubernetes
     kubernetes:
