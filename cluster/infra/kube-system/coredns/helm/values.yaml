@@ -8,7 +8,18 @@ serviceAccount:
   create: true
 service:
   name: kube-dns
-  clusterIP: 10.43.0.10
+
+  # By default, Talos sets kubelet clusterDNS to the 10th address of every service CIDR
+  # Uses `clusterSvcNets`
+  clusterIP: &ipv4 10.43.0.10
+  clusterIPs:
+    - *ipv4
+    - fdd5:aa8:9535:43::a
+
+  ipFamilies: [ 'IPV4', 'IPV6' ]
+  ipFamilyPolicy: PreferDualStack
+
+
 servers:
   - zones:
       - zone: .
@@ -42,6 +53,7 @@ servers:
       - name: log
         configBlock: |-
           class error
+
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -49,6 +61,7 @@ affinity:
         - matchExpressions:
             - key: node-role.kubernetes.io/control-plane
               operator: Exists
+
 tolerations:
   - key: CriticalAddonsOnly
     operator: Exists
