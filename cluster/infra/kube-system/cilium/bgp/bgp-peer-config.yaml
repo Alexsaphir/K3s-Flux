@@ -18,8 +18,8 @@ spec:
     - afi: ipv4
       safi: unicast
       advertisements:
-        matchExpressions:
-          - { key: advertise, operator: In, values: [ 'bgp', 'bgpv4' ] }
+        matchLabels:
+          advertise: bgp
 
 ---
 apiVersion: cilium.io/v2alpha1
@@ -41,5 +41,5 @@ spec:
     - afi: ipv6
       safi: unicast
       advertisements:
-        matchExpressions:
-          - { key: advertise, operator: In, values: [ 'bgp', 'bgpv6' ] }
+        matchLabels:
+          advertise: bgp

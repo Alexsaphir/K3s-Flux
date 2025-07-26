@@ -5,6 +5,7 @@ kind: CiliumBGPAdvertisement
 metadata:
   name: lb-services
   labels:
+    advertise: bgp
     bgp.home.arpa/peer: unifi
 spec:
   advertisements:
