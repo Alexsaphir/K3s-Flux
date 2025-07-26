@@ -11,9 +11,9 @@ service:
 
   # By default, Talos sets kubelet clusterDNS to the 10th address of every service CIDR
   # Uses `clusterSvcNets`
-  clusterIP: &ipv4 10.43.0.10
+  clusterIP: 10.43.0.10
   clusterIPs:
-    - *ipv4
+    - 10.43.0.10
     - fdd5:aa8:9535:43::a
 
   ipFamilies: [ 'IPV4', 'IPV6' ]
@@ -28,28 +28,39 @@ servers:
     port: 53
     plugins:
       - name: errors
+
       - name: health
         configBlock: |-
           lameduck 5s
+
       - name: ready
+
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
           pods verified
           fallthrough in-addr.arpa ip6.arpa
+
       - name: autopath
         parameters: "@kubernetes"
+
       - name: forward
         parameters: . /etc/resolv.conf
+
       - name: cache
         configBlock: |-
           prefetch 20
           serve_stale
+
       - name: loop
+
       - name: reload
+
       - name: loadbalance
+
       - name: prometheus
         parameters: 0.0.0.0:9153
+
       - name: log
         configBlock: |-
           class error
