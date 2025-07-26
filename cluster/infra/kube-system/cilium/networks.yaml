@@ -6,8 +6,9 @@ metadata:
 spec:
   allowFirstLastIPs: "No"
   blocks:
-    - start: 192.168.42.50
-      stop: 192.168.42.250
+    - cidr: 192.168.43.0/24
+    - cidr: 2a01:e0a:2a:5557::/64
+
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy

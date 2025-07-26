@@ -15,9 +15,28 @@ bpfClockProbe: true
 bgpControlPlane:
   enabled: true
 
+ipv4:
+  enabled: true
+ipv6:
+  enabled: true
+
+enableIPv4BIGTCP: true
+enableIPv6BIGTCP: true
+
+ipv4NativeRoutingCIDR: "10.42.0.0/16"
+ipv6NativeRoutingCIDR: fdd5:aa8:9535:42::/108
+
+l2announcements:
+  enabled: true
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+localRedirectPolicy: true
+
 cluster:
   id: 1
   name: main
+
 cni:
   # Required for pairing with Multus CNI
   exclusive: false
@@ -26,7 +45,6 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 devices: enp+
-enableIPv4BIGTCP: true
 dashboards:
   enabled: true
   annotations:
@@ -41,17 +59,12 @@ hubble:
   enabled: false
 ipam:
   mode: kubernetes
-ipv4NativeRoutingCIDR: "10.42.0.0/16"
+
 k8sServiceHost: 127.0.0.1
 k8sServicePort: 7445
 kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-l2announcements:
-  enabled: true
-loadBalancer:
-  algorithm: maglev
-  mode: dsr
-localRedirectPolicy: true
+
 operator:
   dashboards:
     enabled: true

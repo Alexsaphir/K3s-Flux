@@ -27,8 +27,37 @@ tasks:
       - task: :talos:talhelper:kubeconfig
 
 
+  cilium:
+    desc: Bootstrap cilium.
+    vars:
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile-cilium.yaml'
+    env:
+      INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
+      NODE_COUNT:
+        sh: talosctl config info --output json | jq --raw-output '.nodes | length'
+    preconditions:
+      - which sops helmfile kubectl talosctl
+      - test -f {{ .helm_file }}
+      - talosctl config info
+    interactive: true
+    cmds:
+      #      - cmd: until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - # Create the namespace.
+        cmd: kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+      - # Apply configurations.
+        cmd: 'kubectl --namespace flux-system apply --server-side --filename {{ .CLUSTER_DIR }}/{{ .ITEM }}'
+        for:
+          - 'components/flux/substituteFrom/cluster-settings.yaml'
+      - # Apply secrets.
+        cmd: sops exec-file {{ .CLUSTER_DIR }}/{{ .ITEM }} "kubectl --namespace flux-system apply --server-side --filename {}"
+        for:
+          - 'components/flux/sops/sops-age.sops.yaml'
+          - 'components/flux/substituteFrom/cluster-secrets.sops.yaml'
+      - # Apply helmfile
+        cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
+
   apps:
-    desc: Bootstrap Apps.
+    desc: Bootstrap apps.
     vars:
       helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.yaml'
     env:
@@ -41,18 +70,6 @@ tasks:
       - talosctl config info
     interactive: true
     cmds:
-#      - cmd: until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - # Create the namespace.
-        cmd: kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
-      - # Apply configurations.
-        cmd: 'kubectl --namespace flux-system apply --server-side --filename {{ .CLUSTER_DIR }}/{{ .ITEM }}'
-        for:
-          - 'components/flux/substituteFrom/cluster-settings.yaml'
-      - # Apply secrets.
-        cmd: sops exec-file {{ .CLUSTER_DIR }}/{{ .ITEM }} "kubectl --namespace flux-system apply --server-side --filename {}"
-        for:
-          - 'components/flux/sops/sops-age.sops.yaml'
-          - 'components/flux/substituteFrom/cluster-secrets.sops.yaml'
       - # Apply helmfile
         cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
 
