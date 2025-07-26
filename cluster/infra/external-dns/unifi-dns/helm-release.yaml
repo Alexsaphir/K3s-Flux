@@ -69,6 +69,12 @@ spec:
     policy: sync
     sources: [ 'gateway-httproute', 'service' ]
 
+    extraArgs:
+      - --managed-record-types=A
+      - --managed-record-types=AAAA
+      - --managed-record-types=CNAME
+      - --managed-record-types=TXT
+
     txtOwnerId: main
     txtPrefix: k8s.
 
