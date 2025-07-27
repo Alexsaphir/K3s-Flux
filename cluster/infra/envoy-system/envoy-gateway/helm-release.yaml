@@ -34,17 +34,6 @@ spec:
     remediation:
       retries: 3
 
-  values:
-    deployment:
-      replicas: 1
-    config:
-      envoyGateway:
-        gateway:
-          controllerName: gateway.envoyproxy.io/gatewayclass-controller
-
-        provider:
-          type: Kubernetes
-
-      logging:
-        level:
-          default: info
+  valuesFrom:
+    - kind: ConfigMap
+      name: envoy-gateway-values

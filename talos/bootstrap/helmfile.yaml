@@ -38,6 +38,14 @@ releases:
     values: [ '{{ requiredEnv "INFRA_DIR" }}/external-secrets/external-secrets/helm/values.yaml' ]
     needs: [ cert-manager/cert-manager ]
 
+  - name: envoy-gateway
+    namespace: envoy-system
+    atomic: true
+    chart: oci://docker.io/envoyproxy/gateway-helm
+    version: 1.4.2
+    values: [ '{{ requiredEnv "INFRA_DIR" }}/envoy-system/envoy-gateway/helm/values.yaml' ]
+    needs: [ kube-system/coredns ]
+
   - name: openebs
     namespace: openebs-system
     atomic: true
