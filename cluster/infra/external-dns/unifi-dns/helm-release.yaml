@@ -36,6 +36,8 @@ spec:
   values:
     fullnameOverride: *app
 
+    logLevel: &logLevel debug
+
     provider:
       name: webhook
       webhook:
@@ -51,6 +53,8 @@ spec:
               secretKeyRef:
                 name: &secret unifi-dns-secret
                 key: UNIFI_API_KEY
+          - name: LOG_LEVEL
+            value: *logLevel
 
         livenessProbe:
           httpGet:
