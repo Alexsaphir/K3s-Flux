@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-immich
+  name: &name postgres-immich
   annotations:
     kyverno.io/ignore: 'true'
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
@@ -16,18 +16,20 @@ spec:
   enableSuperuserAccess: false
 
   bootstrap:
-    initdb:
-      database: immich
-      owner: immich
+    #    initdb:
+    #      database: immich
+    #      owner: immich
+    #
+    #      dataChecksums: true
+    #
+    #      secret:
+    #        name: postgres-immich-secret
+    #
+    #      postInitSQL:
+    #        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
 
-      dataChecksums: true
-
-      secret:
-        name: postgres-immich-secret
-
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-
+    recovery:
+      source: source
 
   postgresql:
     shared_preload_libraries:
@@ -43,6 +45,14 @@ spec:
       isWALArchiver: true
       parameters:
         barmanObjectName: minio-store
+
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio-store
+          serverName: *name
 
   resources:
     requests:

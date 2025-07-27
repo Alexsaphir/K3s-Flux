@@ -2,9 +2,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-authentik
+  name: &name postgres-authentik
   annotations:
     kyverno.io/ignore: 'true'
+    cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5-9
@@ -15,14 +16,17 @@ spec:
   enableSuperuserAccess: false
 
   bootstrap:
-    initdb:
-      database: authentik
-      owner: authentik
+    #    initdb:
+    #      database: authentik
+    #      owner: authentik
+    #
+    #      dataChecksums: true
+    #
+    #      secret:
+    #        name: postgres-authentik-secret
 
-      dataChecksums: true
-
-      secret:
-        name: postgres-authentik-secret
+    recovery:
+      source: source
 
   postgresql:
     parameters:
@@ -36,6 +40,13 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio-store
+          serverName: *name
   resources:
     requests:
       memory: '2Gi'

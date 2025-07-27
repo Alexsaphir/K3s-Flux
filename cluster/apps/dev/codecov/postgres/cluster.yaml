@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-codecov
+  name: &name postgres-codecov
   annotations:
     kyverno.io/ignore: 'true'
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
@@ -23,17 +23,28 @@ spec:
   enableSuperuserAccess: false
 
   bootstrap:
-    initdb:
-      database: codecov
-      owner: codecov
+    #    initdb:
+    #      database: codecov
+    #      owner: codecov
+    #
+    #      dataChecksums: true
+    #
+    #      secret:
+    #        name: postgres-codecov-secret
+    #
+    #      postInitTemplateSQL:
+    #        - CREATE EXTENSION IF NOT EXISTS timescaledb;
 
-      dataChecksums: true
+    recovery:
+      source: source
 
-      secret:
-        name: postgres-codecov-secret
-
-      postInitTemplateSQL:
-        - CREATE EXTENSION IF NOT EXISTS timescaledb;
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio-store
+          serverName: *name
 
   postgresql:
     shared_preload_libraries:

@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: &name postgres
   annotations:
     kyverno.io/ignore: 'true'
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
@@ -23,11 +23,23 @@ spec:
       max_slot_wal_keep_size: 5GB
       shared_buffers: '128MB'
 
+  bootstrap:
+    recovery:
+      source: source
+
   plugins:
     - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
         barmanObjectName: minio-store
+
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio-store
+          serverName: *name
 
   resources:
     requests:
