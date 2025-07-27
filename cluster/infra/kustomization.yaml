@@ -6,19 +6,19 @@ resources:
   - kube-system
   - envoy-system
 
-#  - openebs-system
-#  - longhorn-system
-#  - volsync-system
-#  - minio-system
+  - openebs-system
+  - longhorn-system
+  - volsync-system
+  - minio-system
 #
   - cert-manager
   - external-dns
-#  - external-secrets
+  - external-secrets
   - system-upgrade
-#  - observability
+  - observability
 
-#  - operators
+  - operators
 
-#  - database
-#  - kube-auth
+  - database
+  - kube-auth
 #  - kube-guardian
