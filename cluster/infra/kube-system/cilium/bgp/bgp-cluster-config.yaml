@@ -10,18 +10,18 @@ spec:
       kubernetes.io/os: linux
 
   bgpInstances:
-    - name: instance-64600
-      localASN: 64600
+    - name: instance-65100
+      localASN: 65100
 
       peers:
-        - name: unifi-64700-ucgf-v4
-          peerASN: 64700
+        - name: unifi-64600-ucgf-v4
+          peerASN: 64600
           peerAddress: 192.168.0.1
           peerConfigRef:
             name: unifi-cilium-peer-v4
 
-        - name: peer-64700-ucgf-v6
-          peerASN: 64700
-          peerAddress: "fe80::1e0b:8bff:fe16:9435"
+        - name: peer-64600-ucgf-v6
+          peerASN: 64600
+          peerAddress: 192.168.0.1
           peerConfigRef:
             name: unifi-cilium-peer-v6
