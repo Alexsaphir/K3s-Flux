@@ -48,9 +48,6 @@ spec:
       analytics:
         reporting_enabled: false
 
-      server:
-        log_level: info
-
       commonConfig:
         replication_factor: 1
 
@@ -64,6 +61,11 @@ spec:
 
       limits_config:
         retention_period: 14d
+
+      server:
+        log_level: info
+        grpc_server_max_recv_msg_size: 10485760 # 10 MiB
+        grpc_server_max_send_msg_size: 10485760 # 10 MiB
 
       storage:
         type: filesystem
