@@ -27,10 +27,10 @@ tasks:
       - task: :talos:talhelper:kubeconfig
 
 
-  cilium:
-    desc: Bootstrap cilium.
+  network:
+    desc: Bootstrap network.
     vars:
-      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile-cilium.yaml'
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/network/helmfile.yaml'
     env:
       INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:

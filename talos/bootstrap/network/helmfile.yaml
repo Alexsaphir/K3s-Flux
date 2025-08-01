@@ -16,7 +16,7 @@ releases:
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/home-operations/charts-mirror/cilium
-    version: 1.17.6
+    version: 1.18.0
     values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/cilium/helm/values.yaml' ]
     needs: [ observability/prometheus-operator-crds ]
     hooks:
@@ -27,3 +27,11 @@ releases:
           - -c
           - until kubectl get crd ciliuml2announcementpolicies.cilium.io ciliumloadbalancerippools.cilium.io &>/dev/null; do sleep 10; done
         showlogs: true
+
+  - name: coredns
+    namespace: kube-system
+    atomic: true
+    chart: oci://ghcr.io/coredns/charts/coredns
+    version: 1.43.0
+    values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/coredns/helm/values.yaml' ]
+    needs: [ kube-system/cilium ]

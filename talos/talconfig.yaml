@@ -47,9 +47,6 @@ nodes:
         dhcp: true
         dhcpOptions:
           ipv4: true
-          ipv6: true
-        addresses:
-          - ${ipv6Prefix}::42:10/64
 
         mtu: 9000
         vip:

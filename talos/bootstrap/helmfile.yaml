@@ -7,20 +7,12 @@ helmDefaults:
   waitForJobs: true
 
 releases:
-  - name: coredns
-    namespace: kube-system
-    atomic: true
-    chart: oci://ghcr.io/coredns/charts/coredns
-    version: 1.43.0
-    values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/coredns/helm/values.yaml' ]
-
   - name: spegel
     namespace: kube-system
     atomic: true
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: 0.3.0
     values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/spegel/helm/values.yaml' ]
-    needs: [ kube-system/coredns ]
 
   - name: cert-manager
     namespace: cert-manager
@@ -28,7 +20,6 @@ releases:
     chart: oci://ghcr.io/home-operations/charts-mirror/cert-manager
     version: v1.17.1
     values: [ '{{ requiredEnv "INFRA_DIR" }}/cert-manager/cert-manager/helm/values.yaml' ]
-    needs: [ kube-system/coredns ]
 
   - name: external-secrets
     namespace: external-secrets
@@ -44,7 +35,6 @@ releases:
     chart: oci://docker.io/envoyproxy/gateway-helm
     version: 1.4.2
     values: [ '{{ requiredEnv "INFRA_DIR" }}/envoy-system/envoy-gateway/helm/values.yaml' ]
-    needs: [ kube-system/coredns ]
 
   - name: openebs
     namespace: openebs-system
@@ -52,7 +42,6 @@ releases:
     chart: oci://ghcr.io/home-operations/charts-mirror/openebs
     version: 4.3.2
     values: [ '{{ requiredEnv "INFRA_DIR" }}/openebs-system/openebs/helm/values.yaml' ]
-    needs: [ kube-system/coredns ]
 
   - name: flux-operator
     namespace: flux-system
