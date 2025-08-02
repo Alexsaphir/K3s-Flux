@@ -1,12 +1,11 @@
 ---
-apiVersion: cilium.io/v2alpha1
+apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 # Defines prefixes that are injected into the BGP routing table.
 metadata:
   name: lb-services
   labels:
     advertise: bgp
-    bgp.home.arpa/peer: unifi
 spec:
   advertisements:
     - advertisementType: Service
