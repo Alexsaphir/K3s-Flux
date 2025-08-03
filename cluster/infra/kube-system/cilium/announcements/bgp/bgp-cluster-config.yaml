@@ -12,10 +12,18 @@ spec:
   bgpInstances:
     - name: instance-65100
       localASN: 65100
-
       peers:
-        - name: unifi-64600-ucgf
+        - name: unifi-64600-ucgf-v4
           peerASN: 64600
           peerAddress: 192.168.0.1
           peerConfigRef:
-            name: unifi-cilium-peer
+            name: unifi-cilium-peer-v4
+
+    - name: instance-65200
+      localASN: 65200
+      peers:
+        - name: unifi-64600-ucgf-v6
+          peerASN: 64600
+          peerAddress: fe80::1e0b:8bff:fe16:9435
+          peerConfigRef:
+            name: unifi-cilium-peer-v6
