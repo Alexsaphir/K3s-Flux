@@ -14,7 +14,7 @@ spec:
       localASN: 65100
 
       peers:
-        - name: unifi-64600-ucgf-v4
+        - name: unifi-64600-ucgf
           peerASN: 64600
           peerAddress: 192.168.0.1
           peerConfigRef:
