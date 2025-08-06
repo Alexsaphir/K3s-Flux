@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: temporalio/auto-setup
-              tag: 1.28.0.0@sha256:3ee84bf3ec5494f2be6ee0c1fea3b52684e50da3ddc5f997e6fa56ad340da9a8
+              tag: 1.28.1.0@sha256:607d68caa111338d754771efb876c92dfcdae06d056e4530bb31cd0f37406e6a
             env:
               DB: postgres12
               DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/dev-dynamic-config.yaml
