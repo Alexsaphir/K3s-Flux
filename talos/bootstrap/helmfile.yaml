@@ -33,7 +33,7 @@ releases:
     namespace: envoy-system
     atomic: true
     chart: oci://docker.io/envoyproxy/gateway-helm
-    version: 1.4.2
+    version: 1.5.0
     values: [ '{{ requiredEnv "INFRA_DIR" }}/envoy-system/envoy-gateway/helm/values.yaml' ]
 
   - name: openebs
