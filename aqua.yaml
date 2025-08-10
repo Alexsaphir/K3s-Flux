@@ -39,6 +39,6 @@ packages:
   - name: opentofu/opentofu@v1.10.5
   - name: runatlantis/atlantis@v0.35.1
   - name: kyverno/kyverno@v1.15.0
-  - name: homeport/dyff@v1.10.1
+  - name: homeport/dyff@v1.10.2
   - name: gruntwork-io/terragrunt@v0.84.1
   - name: breml/tfreveal@v0.0.4
