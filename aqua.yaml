@@ -4,14 +4,14 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.399.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.400.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   # Utils
   - name: direnv/direnv@v2.37.1
   - name: go-task/task@v3.44.1
 
   # YAML utils
-  - name: homeport/dyff@v1.10.1
+  - name: homeport/dyff@v1.10.2
   - name: mikefarah/yq@v4.47.1
 
   # Secrets
