@@ -42,7 +42,7 @@ spec:
             nameOverride: error-pages
             image:
               repository: ghcr.io/tarampampam/error-pages
-              tag: 3.3.3
+              tag: 3.4.1
 
             env:
               TZ: ${TIMEZONE}
