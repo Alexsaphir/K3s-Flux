@@ -24,11 +24,11 @@ packages:
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.30.0
   - name: derailed/k9s@v0.50.9
-  - name: FairwindsOps/nova@v3.11.7
-  - name: FairwindsOps/pluto@v5.22.3
+  - name: FairwindsOps/nova@v3.11.8
+  - name: FairwindsOps/pluto@v5.22.5
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.5
-  - name: kubescape/kubescape@v3.0.37
+  - name: kubescape/kubescape@v3.0.38
   - name: stern/stern@v1.32.0
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
