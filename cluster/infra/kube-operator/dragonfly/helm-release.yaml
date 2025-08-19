@@ -1,114 +1,78 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: dragonfly-operator
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: v1.2.0
+  url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm/dragonfly-operator
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app dragonfly-operator
+  name: dragonfly-operator
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-charts
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: dragonfly-operator
 
   driftDetection:
     mode: enabled
-  maxHistory: 3
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       strategy: rollback
       retries: 3
 
   values:
-    controllers:
-      dragonfly-operator:
-        strategy: RollingUpdate
-        containers:
-          app:
-            image:
-              repository: ghcr.io/dragonflydb/operator
-              tag: v1.2.0@sha256:8c3d35bc7a7fc3f08e90b963f0bf39a585f8bce08110ded01e35e73baf4f7b57
-            command: [ "/manager" ]
-            args:
-              - --health-probe-bind-address=:8081
-              - --metrics-bind-address=:8080
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthz
-                    port: &port 8081
-                  initialDelaySeconds: 15
-                  periodSeconds: 20
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /readyz
-                    port: *port
-                  initialDelaySeconds: 5
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
+    replicaCount: 1
 
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 128Mi
+    crds:
+      install: true
+      keep: false
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ "ALL" ] }
+    additionalLabels:
+      app: dragonfly-operator
 
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
-        seccompProfile: { type: RuntimeDefault }
+    manager:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
 
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: *app
+    podSecurityContext:
+      runAsNonRoot: true
+      seccompProfile: { type: RuntimeDefault }
 
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: *port
-          metrics:
-            port: 8080
+    securityContext:
+      capabilities: { drop: [ 'ALL' ] }
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
 
     serviceMonitor:
-      app:
-        serviceName: *app
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+      enabled: false # Broken metrics
 
-    serviceAccount:
-      create: true
-      name: *app
+    grafanaDashboard:
+      enabled: true
+      folder: Databases
+      # -- Grafana dashboard configmap annotations.
+      annotations:
+        name: grafana_folder
+
+      labels:
+        name: grafana_dashboard
