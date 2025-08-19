@@ -7,12 +7,12 @@ helmDefaults:
   waitForJobs: true
 
 releases:
-  - name: spegel
-    namespace: kube-system
-    atomic: true
-    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: 0.3.0
-    values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/spegel/helm/values.yaml' ]
+#  - name: spegel
+#    namespace: kube-system
+#    atomic: true
+#    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
+#    version: 0.3.0
+#    values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/spegel/helm/values.yaml' ]
 
   - name: cert-manager
     namespace: cert-manager
