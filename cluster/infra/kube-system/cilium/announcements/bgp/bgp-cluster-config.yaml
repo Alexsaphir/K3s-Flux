@@ -19,9 +19,6 @@ spec:
           peerConfigRef:
             name: unifi-cilium-peer-v4
 
-    - name: instance-65200
-      localASN: 65200
-      peers:
         - name: unifi-64600-ucgf-v6
           peerASN: 64600
           peerAddress: 2a01:e0a:2a:5552:1e0b:8bff:fe16:9435
