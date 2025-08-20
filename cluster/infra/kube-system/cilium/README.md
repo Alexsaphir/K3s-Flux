@@ -1,20 +1,29 @@
 # Cilium
 
-## UniFi BGP
+## Network choices
 
-```
-router bgp 64513
-  bgp router-id 192.168.0.1
-  no bgp ebgp-requires-policy
+The cluster use non routable ip internally.
+Only the nodes have a public ipv6, and is in vlan 42.
 
-  neighbor k8s peer-group
-  neighbor k8s remote-as 64514
+|                  | ipv4              | ipv6                     |
+|------------------|-------------------|--------------------------|
+| *clusterPodNets* | `10.42.0.0/16`    | `fdd5:aa8:9535:42::/112` |
+| *clusterSvcNets* | `10.43.0.0/16`    | `fdd5:aa8:9535:43::/112` |
+|                  |                   |                          |
+|                  |                   |                          |
+| Nodes            | `192.168.42.0/24` | `2a01:e0a:2a:5552::/64`  |
+| Annoucement      | `192.168.43.0/24` | `2a01:e0a:2a:5557::/64`  |
 
-  neighbor 192.168.42.10 peer-group k8s
+Cilium use another subnet for ipv4 and a public one for ipv6.
 
-  address-family ipv4 unicast
-    neighbor k8s next-hop-self
-    neighbor k8s soft-reconfiguration inbound
-  exit-address-family
-exit
-```
+They are announced on l2 and use BGP.
+
+|       | ipv4             | ipv6                       |
+|-------|------------------|----------------------------|
+|       |                  |                            |
+|       |                  |                            |
+| Envoy | `192.168.43.100` | `2a01:e0a:2a:5557::43:100` |
+
+## Firewall
+
+`2a01:e0a:2a:5557::/64` can be exposed to the internet.
