@@ -8,7 +8,7 @@ terraform {
     }
     radarr = {
       source  = "devopsarr/radarr"
-      version = "2.3.2"
+      version = "2.3.3"
     }
     sonarr = {
       source  = "devopsarr/sonarr"
