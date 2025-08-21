@@ -3,7 +3,7 @@ apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 # A common set of BGP peering setting. It can be used across multiple peers.
 metadata:
-  name: unifi-cilium-peer-v4
+  name: unifi-cilium-peer
 spec:
   ebgpMultihop: 4
 
