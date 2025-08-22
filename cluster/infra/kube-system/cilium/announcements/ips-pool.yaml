@@ -5,6 +5,9 @@ metadata:
   name: pool
 spec:
   allowFirstLastIPs: 'No'
+
   blocks:
-    - cidr: 192.168.43.0/24
+    - start: 192.168.43.2
+      stop: 192.168.43.254
+
     - cidr: 2a01:e0a:2a:5557::/64
