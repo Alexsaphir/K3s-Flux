@@ -15,10 +15,7 @@ spec:
       peers:
         - name: unifi-ipv4
           peerASN: 64600
-          autoDiscovery:
-            mode: 'DefaultGateway'
-            defaultGateway:
-              addressFamily: ipv4
+          peerAddress: 192.168.0.1
           peerConfigRef:
             name: unifi-cilium-peer
 
