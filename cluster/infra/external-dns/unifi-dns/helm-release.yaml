@@ -74,8 +74,8 @@ spec:
     policy: sync
     sources: [ 'gateway-httproute', 'service' ]
 
-    txtOwnerId: main
-    txtPrefix: k8s.main.
+    txtOwnerId: talos
+    txtPrefix: txt.
 
     domainFilters: [ 'talos.${DOMAIN_NAME}' ]
 
