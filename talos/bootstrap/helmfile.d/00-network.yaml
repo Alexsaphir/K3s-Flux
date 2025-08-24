@@ -17,7 +17,7 @@ releases:
     atomic: true
     chart: oci://ghcr.io/home-operations/charts-mirror/cilium
     version: 1.18.1
-    values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/cilium/helm/values.yaml' ]
+    values: [ '../templates/values.yaml.gotmpl' ]
     needs: [ observability/prometheus-operator-crds ]
     hooks:
       - # Wait for cilium CRDs to be available
@@ -33,5 +33,5 @@ releases:
     atomic: true
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.43.2
-    values: [ '{{ requiredEnv "INFRA_DIR" }}/kube-system/coredns/helm/values.yaml' ]
+    values: [ '../templates/values.yaml.gotmpl' ]
     needs: [ kube-system/cilium ]

@@ -4,9 +4,3 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - issuers
-configMapGenerator:
-  - name: cert-manager-values
-    files:
-      - values.yaml=helm/values.yaml
-configurations:
-  - helm/kustomizeconfig.yaml

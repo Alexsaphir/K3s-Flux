@@ -30,7 +30,7 @@ tasks:
   network:
     desc: Bootstrap network.
     vars:
-      helm_file: '{{ .TALOS_DIR }}/bootstrap/network/helmfile.yaml'
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/00-network.yaml'
     env:
       INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:
@@ -59,7 +59,7 @@ tasks:
   apps:
     desc: Bootstrap apps.
     vars:
-      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.yaml'
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/00-infra.yaml'
     env:
       INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:

@@ -38,6 +38,14 @@ spec:
       strategy: rollback
       retries: 3
 
-  valuesFrom:
-    - kind: ConfigMap
-      name: spegel-values
+
+  values:
+    spegel:
+      appendMirrors: true
+      containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+
+    serviceMonitor:
+      enabled: true
+
+    grafanaDashboard:
+      enabled: true
