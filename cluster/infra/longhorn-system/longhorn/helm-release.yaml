@@ -72,7 +72,7 @@ spec:
       removeSnapshotsDuringFilesystemTrim: true
 
       defaultLonghornStaticStorageClass: longhorn
-      defaultDataPath: /var/lib/longhorn
+      defaultDataPath: /var/mnt/longhorn
       defaultDataLocality: best-effort
 
       concurrentAutomaticEngineUpgradePerNodeLimit: 2
