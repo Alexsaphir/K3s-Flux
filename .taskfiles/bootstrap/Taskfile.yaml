@@ -27,10 +27,10 @@ tasks:
       - task: :talos:talhelper:kubeconfig
 
 
-  network:
+  helm:critical:
     desc: Bootstrap network.
     vars:
-      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/00-network.yaml'
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/00-critical.yaml'
     env:
       INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:
@@ -56,10 +56,27 @@ tasks:
       - # Apply helmfile
         cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
 
-  apps:
-    desc: Bootstrap apps.
+  helm:infra:
+    desc: Bootstrap infra.
     vars:
-      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/00-infra.yaml'
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/01-infra.yaml'
+    env:
+      INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
+      NODE_COUNT:
+        sh: talosctl config info --output json | jq --raw-output '.nodes | length'
+    preconditions:
+      - which sops helmfile kubectl talosctl
+      - test -f {{ .helm_file }}
+      - talosctl config info
+    interactive: true
+    cmds:
+      - # Apply helmfile
+        cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
+
+  helm:flux:
+    desc: Bootstrap infra.
+    vars:
+      helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/02-flux.yaml'
     env:
       INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:
