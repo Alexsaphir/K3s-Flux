@@ -7,10 +7,10 @@ resources:
   - envoy-system
 
   - openebs-system
-  - longhorn-system
+#  - longhorn-system
   - volsync-system
   - minio-system
-#
+
   - cert-manager
   - external-dns
   - external-secrets
@@ -20,5 +20,5 @@ resources:
   - operators
 
   - database
-  - kube-auth
+#  - kube-auth
 #  - kube-guardian
