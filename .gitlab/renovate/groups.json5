@@ -119,13 +119,14 @@
       },
     },
     {
-      description: "Spegel Group",
-      groupName: "Spegel",
+      description: "Talos Group",
+      groupName: "talos",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/spegel/"],
+      matchPackageNames: ["/installer/", "/talosctl/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-    }
+      minimumGroupSize: 2,
+    },
   ]
 }

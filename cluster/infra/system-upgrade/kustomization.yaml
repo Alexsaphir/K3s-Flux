@@ -10,9 +10,3 @@ components:
 resources:
   - system-upgrade-controller/ks.yaml
   - plans/ks.yaml
-configMapGenerator:
-  - name: versions
-    envs:
-      - versions.env
-configurations:
-  - kustomizeconfig.yaml

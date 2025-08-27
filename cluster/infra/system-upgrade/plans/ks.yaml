@@ -22,11 +22,6 @@ spec:
   prune: true
   wait: false
 
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: versions
-
   targetNamespace: *namespace
   path: cluster/infra/system-upgrade/plans
   sourceRef:
