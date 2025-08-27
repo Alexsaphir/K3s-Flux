@@ -8,6 +8,7 @@ resources:
 
   - openebs-system
 #  - longhorn-system
+  - rook-ceph
   - volsync-system
   - minio-system
 
