@@ -7,11 +7,10 @@ kubernetesVersion: "${kubernetesVersion}"
 
 endpoint: https://192.168.42.100:6443
 
-
 additionalApiServerCertSans: &sans
   - talos.cluster.alexsaphir.com
-  - &talosControlplaneVip 192.168.42.100
-  - 127.0.0.1
+  - &talosControlplaneVip ${talosControlplaneVip}
+  - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 
 
@@ -27,16 +26,16 @@ clusterSvcNets:
 cniConfig:
   name: none
 
+allowSchedulingOnMasters: true
+allowSchedulingOnControlPlanes: true
+
+
 nodes:
   - hostname: "ms-01"
     ipAddress: 192.168.42.10
     controlPlane: true
     installDiskSelector:
       serial: S7GCNL0XA11778T
-    machineDisks:
-      - device: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_1TB_S7GCNL0XA16195E
-        partitions:
-          - mountpoint: /var/mnt/extra
     machineSpec:
       secureboot: false
 
@@ -45,8 +44,6 @@ nodes:
           hardwareAddr: 58:47:ca:7a:c6:c9
 
         dhcp: true
-        dhcpOptions:
-          ipv4: true
 
         mtu: 9000
         vip:
@@ -56,6 +53,7 @@ nodes:
       installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
 
     nodeLabels:
+      topology.kubernetes.io/region: *clusterName
       'node.longhorn.io/create-default-disk': 'true'
 
     schematic:
@@ -71,13 +69,14 @@ nodes:
           - mitigations=off         # Less security, faster puter
           - security=none           # Less security, faster puter
           - talos.auditd.disabled=1 # Less security, faster puter
-
         systemExtensions:
           officialExtensions:
             - siderolabs/i915
             - siderolabs/intel-ucode
             - siderolabs/mei
             - siderolabs/thunderbolt
+            - siderolabs/lldpd
+            - siderolabs/nfsrahead              # NFS Performance
             # Coral
             - siderolabs/gasket-driver
             # Gpu
@@ -86,19 +85,21 @@ nodes:
             # Longhorn
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
+    extraManifests:
+      - manifests/disks.yaml
+      - manifests/lldpd.yaml
+      - manifests/watchdog.yaml
 
     patches:
       - "@./patches/nodes/ms-01/sysfs.yaml"
-      - "@./patches/nodes/ms-01/nvidia.yaml"
-      - "@./patches/nodes/ms-01/thunderbolt.yaml"
+      - "@./patches/nodes/nvidia.yaml"
+      - "@./patches/nodes/thunderbolt.yaml"
       - "@./patches/udev/intel-gpu.yaml"
-      - "@./patches/udev/thunderbolt.yaml"
 
 # Global patches
 patches:
   - "@./patches/global/machine-files.yaml"
   - "@./patches/global/machine-kubelet.yaml"
-  - "@./patches/global/machine-local-storage.yaml"
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"
@@ -106,7 +107,6 @@ patches:
 # Controller patches
 controlPlane:
   nodeLabels:
-    topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: controlPlane
 
   patches:

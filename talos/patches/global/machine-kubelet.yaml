@@ -2,9 +2,13 @@
 machine:
   kubelet:
     extraConfig:
+      featureGates:
+        ImageVolume: true
+
       maxPods: 150
       serializeImagePulls: false
       maxParallelImagePulls: 4
+
     nodeIP:
       validSubnets:
         - ${nodeSubnetV4}

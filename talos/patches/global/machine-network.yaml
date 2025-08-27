@@ -6,6 +6,6 @@ machine:
       - 192.168.0.1
 
     extraHostEntries:
-      - ip: 192.168.42.100
+      - ip: ${talosControlplaneVip}
         aliases:
           - talos.cluster.alexsaphir.com

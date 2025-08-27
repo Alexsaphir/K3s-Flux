@@ -1,0 +1,9 @@
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: lldpd
+configFiles:
+  - content: |
+      configure lldpd portidsubtype ifname
+      configure system description "Talos Node"
+    mountPath: /usr/local/etc/lldpd/lldpd.conf

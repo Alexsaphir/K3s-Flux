@@ -1,0 +1,30 @@
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  grow: false
+  maxSize: 150GB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: true
+  minSize: 150GB
+  maxSize: 250GB
+filesystem:
+  type: xfs
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn
+provisioning:
+  diskSelector:
+    match: system_disk
+  grow: true
+  minSize: 500GB
+filesystem:
+  type: xfs
