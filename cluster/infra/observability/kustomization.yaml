@@ -11,8 +11,8 @@ resources:
   - kube-prometheus-stack/ks.yaml
 
   #- loki/ks.yaml
-  - alloy/ks.yaml
-  - grafana/ks.yaml
+  #- alloy/ks.yaml
+  #- grafana/ks.yaml
 
   - keda/ks.yaml
 

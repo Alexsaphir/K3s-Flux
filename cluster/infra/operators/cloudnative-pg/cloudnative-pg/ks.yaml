@@ -23,7 +23,6 @@ spec:
   retryInterval: 2m
 
   prune: true
-  wait: true
 
   targetNamespace: *namespace
   path: cluster/infra/operators/cloudnative-pg/cloudnative-pg
