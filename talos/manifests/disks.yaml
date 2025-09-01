@@ -17,6 +17,7 @@ provisioning:
   maxSize: 250GB
 filesystem:
   type: xfs
+  projectQuotaSupport: true
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -28,3 +29,4 @@ provisioning:
   minSize: 500GB
 filesystem:
   type: xfs
+  projectQuotaSupport: true

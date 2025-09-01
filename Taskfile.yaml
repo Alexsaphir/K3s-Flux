@@ -52,5 +52,5 @@ tasks:
     desc: Bootstrap cluster.
     cmds:
       - task: bootstrap:talos
-      - task: bootstrap:cilium
-      - task: bootstrap:apps
+      - task: bootstrap:helm:critical
+      - task: bootstrap:helm:apps

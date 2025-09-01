@@ -8,7 +8,6 @@ machine:
       allowedRoles: [ "os:admin" ]
       allowedKubernetesNamespaces: [ "system-upgrade" ]
     apidCheckExtKeyUsage: true
-    diskQuotaSupport: true
     kubePrism:
       enabled: true
       port: 7445
