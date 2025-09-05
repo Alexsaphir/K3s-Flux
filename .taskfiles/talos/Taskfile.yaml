@@ -26,7 +26,8 @@ tasks:
     dir: '{{.TALOS_DIR}}'
     vars:
       CLUSTERCONFIG_FILES:
-        sh: ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-*.yaml
+        sh: >-
+          ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-*.yaml
     deps:
       - task: talhelper:generate-config
     preconditions:
@@ -40,7 +41,8 @@ tasks:
           asd:
           FILENAME: "{{.ITEM}}"
           HOSTNAME:
-            sh: yq '.machine.network.hostname' < '{{.ITEM}}'
+            sh: >-
+              yq '.machine.network.hostname | select(. != null)' < '{{.ITEM}}'
           DRY_RUN: "{{ .DRY_RUN }}"
           INSECURE: "{{ .INSECURE }}"
 
@@ -57,7 +59,8 @@ tasks:
       vars: [ NODE ]
     vars:
       FILE:
-        sh: ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-{{.NODE}}.yaml
+        sh: >-
+          ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-{{.NODE}}.yaml
     cmds:
       - task: _apply-machineconfig
         vars:
@@ -79,9 +82,11 @@ tasks:
       vars: [ NODE ]
     vars:
       FILE:
-        sh: ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-{{.NODE}}.yaml
+        sh: >-
+          ls {{.TALHELPER_CLUSTER_DIR}}/{{.TALOS_CLUSTER_NAME}}-{{.NODE}}.yaml
       TALOS_IMAGE:
-        sh: yq '.machine.install.image' < "{{.FILE}}"
+        sh: >-
+          yq '.machine.install.image | select(. != null)' < "{{.FILE}}"
     cmds:
       - talhelper gencommand upgrade --node {{.NODE}} --extra-flags "--image='{{.TALOS_IMAGE}}' --timeout=10m" | bash
       - talosctl --nodes {{.NODE}} health
@@ -92,7 +97,8 @@ tasks:
     cmd: talhelper gencommand upgrade-k8s --extra-flags "--to '{{.KUBERNETES_VERSION}}'" | bash
     vars:
       KUBERNETES_VERSION:
-        sh: yq '.kubernetesVersion' {{.TALOS_DIR}}/talenv.yaml
+        sh: >-
+          yq '.kubernetesVersion | select(. != null)' {{.TALOS_DIR}}/talenv.yaml
     preconditions:
       - talosctl config info
       - test -f {{.TALOSCONFIG}}
