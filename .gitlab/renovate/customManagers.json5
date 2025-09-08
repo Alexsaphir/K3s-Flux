@@ -21,7 +21,7 @@
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
     {
-      "fileMatch": [
+      "managerFilePatterns": [
         "\\.yaml$"
       ],
       "matchStrings": [
@@ -48,7 +48,7 @@
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)-(?<build>\\d+)$"
     },
     {
-      "fileMatch": [
+      "managerFilePatterns": [
         "\\.yaml$"
       ],
       "matchStrings": [
