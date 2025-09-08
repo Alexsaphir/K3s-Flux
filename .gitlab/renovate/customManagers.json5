@@ -4,7 +4,7 @@
     {
       "customType": "regex",
       "description": "Process custom dependencies",
-      "fileMatch": [
+      "managerFilePatterns": [
         "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
         "(^|/)cluster/.+\\.ya?ml(\\.j2)?$"
       ],
