@@ -143,3 +143,8 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /home/node/.cache
