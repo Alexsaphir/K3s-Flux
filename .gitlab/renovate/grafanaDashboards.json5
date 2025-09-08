@@ -13,7 +13,7 @@
     {
       "customType": "regex",
       "description": "Process Grafana dashboards",
-      "fileMatch": [
+      "managerFilePatterns": [
         "(^|/)cluster/.+\\.ya?ml(\\.j2)?$"
       ],
       "matchStrings": [
