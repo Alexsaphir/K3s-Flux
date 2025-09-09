@@ -40,13 +40,13 @@
     enabled: true,
   },
   flux: {
-    fileMatch: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/'
+    managerFilePatterns: [
+      '//(^|/)cluster/.+\\.ya?ml(\\.j2)?$//',
     ],
   },
   kubernetes: {
-    fileMatch: [
-      '/(^|/)cluster/.+\\.ya?ml(\\.j2)?$/'
+    managerFilePatterns: [
+      '//(^|/)cluster/.+\\.ya?ml(\\.j2)?$//',
     ],
   },
 }
