@@ -28,7 +28,7 @@ packages:
   - name: kyverno/kyverno@v1.15.1
 
   # Kubernetes
-  - name: kubernetes/kubectl@v1.34.0
+  - name: kubernetes/kubectl@v1.34.1
   - name: kubernetes-sigs/krew@v0.4.5
   - name: brumhard/krewfile@v0.6.3
 
