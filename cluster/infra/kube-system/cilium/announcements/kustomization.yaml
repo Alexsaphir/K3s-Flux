@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ips-pool.yaml
   - bgp
+  - services.yaml
