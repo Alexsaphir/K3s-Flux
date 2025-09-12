@@ -4,7 +4,7 @@
     {
       customType: "regex",
       description: "Process annotated dependencies",
-      fileMatch: [
+      matchPackageNames: [
         "/\\.env(?:\\.j2)?$/",
         "/\\.yaml(?:\\.j2)?$/",
       ],
