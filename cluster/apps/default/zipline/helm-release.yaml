@@ -148,8 +148,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /home/node/.cache
-
-      node_modules:
-        type: emptyDir
-        globalMounts:
-          - path: /zipline/node_modules
