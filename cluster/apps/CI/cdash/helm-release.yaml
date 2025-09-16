@@ -29,7 +29,7 @@ spec:
 
   values:
     # renovate: datasource=github-releases depName=kitware/cdash
-    version: &cdashVersion v4.3.0
+    version: &cdashVersion v4.4.0
 
     controllers:
       cdash:
