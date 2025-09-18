@@ -4,15 +4,15 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.411.1 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.412.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.37.1
-  - name: go-task/task@v3.45.3
+  - name: go-task/task@v3.45.4
   - name: gitleaks/gitleaks@v8.28.0
   - name: firecow/gitlab-ci-local@4.61.1
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.10.2
-  - name: hashicorp/terraform@v1.13.2
+  - name: hashicorp/terraform@v1.13.3
   - name: terraform-linters/tflint@v0.59.1
   - name: fluxcd/flux2@v2.6.4
   - name: kubernetes/kubectl@v1.34.1
@@ -23,12 +23,12 @@ packages:
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.32.2
-  - name: derailed/k9s@v0.50.9
+  - name: derailed/k9s@v0.50.11
   - name: FairwindsOps/nova@v3.11.8
   - name: FairwindsOps/pluto@v5.22.5
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.5
-  - name: kubescape/kubescape@v3.0.40
+  - name: kubescape/kubescape@v3.0.41
   - name: stern/stern@v1.33.0
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
@@ -37,8 +37,8 @@ packages:
   - name: budimanjojo/talhelper@v3.0.35
   - name: lsd-rs/lsd@v1.1.5
   - name: opentofu/opentofu@v1.10.6
-  - name: runatlantis/atlantis@v0.35.1
-  - name: kyverno/kyverno@v1.15.1
+  - name: runatlantis/atlantis@v0.36.0
+  - name: kyverno/kyverno@v1.15.2
   - name: homeport/dyff@v1.10.2
-  - name: gruntwork-io/terragrunt@v0.87.3
+  - name: gruntwork-io/terragrunt@v0.87.4
   - name: breml/tfreveal@v0.0.4
