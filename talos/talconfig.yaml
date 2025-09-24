@@ -5,11 +5,11 @@ clusterName: &clusterName talos-cluster
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
 
-endpoint: https://192.168.42.100:6443
+endpoint: https://192.168.43.100:6443
 
 additionalApiServerCertSans: &sans
   - talos.cluster.alexsaphir.com
-  - &talosControlplaneVip ${talosControlplaneVip}
+  - ${ciliumControlplaneVip}
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 
@@ -44,10 +44,7 @@ nodes:
           hardwareAddr: 58:47:ca:7a:c6:c9
 
         dhcp: true
-
         mtu: 9000
-        vip:
-          ip: *talosControlplaneVip
 
     nodeAnnotations:
       installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
