@@ -8,3 +8,4 @@ components:
   - ../../components/flux/substituteFrom
 resources:
   - tuppr/ks.yaml
+  - upgrades/ks.yaml
