@@ -7,5 +7,5 @@ resources:
   - configuration.yaml
   - gateway.yaml
 
-  - client-policy.yaml
+  - policy.yaml
   - redirect-to-https.yaml

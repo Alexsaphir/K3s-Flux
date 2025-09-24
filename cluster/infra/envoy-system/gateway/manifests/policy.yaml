@@ -1,0 +1,36 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: envoy-all
+spec:
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+
+  compression:
+    - type: Brotli
+    - type: Gzip
+
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: envoy-all
+spec:
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+
+  clientIPDetection:
+    xForwardedFor:
+      numTrustedHops: 1
+
+  tls:
+    minVersion: "1.2"
+    alpnProtocols:
+      - h2
+      - http/1.1
+
+  # Not supported yet: https://github.com/envoyproxy/gateway/pull/5671
+  # http3: {}

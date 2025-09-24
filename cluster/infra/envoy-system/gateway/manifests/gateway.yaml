@@ -33,7 +33,6 @@ spec:
     - name: http
       protocol: HTTP
       port: 80
-      hostname: &wildcard '*.talos.${DOMAIN_NAME}'
       allowedRoutes:
         namespaces:
           from: Same
@@ -41,7 +40,6 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: *wildcard
       allowedRoutes:
         namespaces:
           from: All
