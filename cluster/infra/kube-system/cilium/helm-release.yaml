@@ -67,6 +67,9 @@ spec:
     ipv4NativeRoutingCIDR: "10.42.0.0/16"
     ipv6NativeRoutingCIDR: fdd5:aa8:9535:42::/108
 
+    pmtuDiscovery:
+      enabled: true
+
     l2announcements:
       enabled: true
     loadBalancer:
