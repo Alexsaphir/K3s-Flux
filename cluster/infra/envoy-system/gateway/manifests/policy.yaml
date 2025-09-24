@@ -32,5 +32,4 @@ spec:
       - h2
       - http/1.1
 
-  # Not supported yet: https://github.com/envoyproxy/gateway/pull/5671
-  # http3: {}
+  http3: {}
