@@ -12,6 +12,15 @@ spec:
     - type: Brotli
     - type: Gzip
 
+  connection:
+    bufferLimit: 64Mi
+
+  tcpKeepalive: { }
+
+  timeout:
+    http:
+      requestTimeout: 0s
+
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
@@ -32,4 +41,13 @@ spec:
       - h2
       - http/1.1
 
-  http3: {}
+  http2:
+    onInvalidMessage: TerminateStream
+
+  http3: { }
+
+  tcpKeepalive: { }
+
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
