@@ -17,15 +17,19 @@ spec:
         apiVersions: [ "v1" ]
         operations: [ "CREATE", "UPDATE" ]
         resources: [ "jobs" ]
+
   matchConditions:
     - name: has-volsync-job-name-prefix
       expression: >
         object.metadata.name.startsWith("volsync-src-")
+
     - name: has-volsync-created-by-labels
       expression: >
-        object.metadata.labels["app.kubernetes.io/created-by"] == "volsync"
+        object.metadata.?labels["app.kubernetes.io/created-by"].orValue("") == "volsync"
+
   failurePolicy: Fail
   reinvocationPolicy: IfNeeded
+
   mutations:
     - patchType: JSONPatch
       jsonPatch:
