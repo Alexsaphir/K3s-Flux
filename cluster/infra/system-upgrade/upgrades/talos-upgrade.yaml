@@ -25,4 +25,4 @@ spec:
       apiVersion: longhorn.io/v1beta2
       kind: Volume
       expr: |-
-        status.conditions.filter(c, c.state == "attached").all(c, c.robustness == "healthy")
+        status.filter(c, c.state == "attached").all(c, c.robustness == "healthy")
