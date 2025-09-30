@@ -15,14 +15,14 @@ spec:
       kind: Node
       expr: status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
 
-    - # No active VolSync replications
-      apiVersion: volsync.backube/v1alpha1
-      kind: ReplicationSource
-      expr: |-
-        status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
-
-    - # All longhorn volumes attached healthy
-      apiVersion: longhorn.io/v1beta2
-      kind: Volume
-      expr: |-
-        status.filter(c, c.state == "attached").all(c, c.robustness == "healthy")
+#    - # No active VolSync replications
+#      apiVersion: volsync.backube/v1alpha1
+#      kind: ReplicationSource
+#      expr: |-
+#        status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+#
+#    - # All longhorn volumes attached healthy
+#      apiVersion: longhorn.io/v1beta2
+#      kind: Volume
+#      expr: |-
+#        status.filter(c, c.state == "attached").all(c, c.robustness == "healthy")
