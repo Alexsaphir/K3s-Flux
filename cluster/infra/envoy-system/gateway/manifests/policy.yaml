@@ -48,6 +48,10 @@ spec:
 
   tcpKeepalive: { }
 
+  connection:
+    bufferLimit: 64Mi
+    maxAcceptPerSocketEvent: 0
+
   timeout:
     http:
       requestReceivedTimeout: 0s
