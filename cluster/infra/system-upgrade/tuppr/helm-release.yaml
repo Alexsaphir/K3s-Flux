@@ -36,3 +36,7 @@ spec:
 
   values:
     replicaCount: 1
+
+    monitoring:
+      serviceMonitor:
+        enabled: true
