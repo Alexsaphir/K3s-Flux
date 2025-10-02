@@ -1,14 +1,15 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "customManagers": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  customManagers: [
     {
-      "customType": "regex",
-      "description": [ "Process annotated dependencies" ],
-      "managerFilePatterns": [
-        "(^|/).+\\.env$",
-        "(^|/).+\\.ya?ml(?:\\.j2)?$"
+      customType: "regex",
+      description: "Process annotated dependencies",
+      managerFilePatterns: [
+        "/\\.env(?:\\.j2)?$/",
+        "/\\.sh(?:\\.j2)?$/",
+        "/\\.yaml(?:\\.j2)?$/",
       ],
-      "matchStrings": [
+      matchStrings: [
         // # renovate: datasource=github-releases depName=k3s-io/k3s
         // k3s_release_version: &version v1.29.0+k3s1
         // # renovate: datasource=helm depName=cilium repository=https://helm.cilium.io
@@ -18,45 +19,20 @@
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
         // # renovate: datasource=docker depName=ghcr.io/prometheus-operator/prometheus-operator
         // https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+/(?<currentValue>(v|\\d)[^/]+)"
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+/(?<currentValue>(v|\\d)[^/]+)",
       ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
     {
-      "fileMatch": [
-        "\\.yaml$"
+      customType: "regex",
+      description: "Process OCI dependencies",
+      managerFilePatterns: [
+        "/\\.yaml(?:\\.j2)?$/",
       ],
-      "matchStrings": [
-        "# yaml-language-server: \\$schema=https:\\/\\/raw.githubusercontent.com\\/(?<depName>[^\\/]+/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
+      matchStrings: [
+        "oci://(?<depName>[^:]+):(?<currentValue>\\S+)",
       ],
-      "datasourceTemplate": "github-tags"
+      datasourceTemplate: "docker",
     },
-    {
-      "matchDatasources": [
-        "github-tags"
-      ],
-      "matchPackageNames": [
-        "bjw-s/helm-charts"
-      ],
-      "versioning": "regex:^(?<compatibility>.+)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchPackageNames": [
-        "ghcr.io/cloudnative-pg/postgresql"
-      ],
-      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)-(?<build>\\d+)$"
-    },
-    {
-      "fileMatch": [
-        "\\.yaml$"
-      ],
-      "matchStrings": [
-        "imageName: ['\"]?(?<depName>.+?):(?<currentValue>.+)['\"]?"
-      ],
-      "datasourceTemplate": "docker"
-    }
-  ]
+  ],
 }

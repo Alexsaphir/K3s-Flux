@@ -2,14 +2,130 @@
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   packageRules: [
     {
+      description: "1Password Connect Group",
+      groupName: "1password-connect",
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/1password/"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Flux Operator Group",
-      groupName: "Flux Operator",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      groupName: "flux-operator",
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/flux-operator/",
+        "/flux-instance/",
+        "/flux-operator-manifests/"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 3,
+    },
+    {
+      description: "Intel Device Plugins Group",
+      groupName: "intel-device-plugins",
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/intel-device-plugins-operator/",
+        "/intel-device-plugins-gpu/"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Kubernetes Group",
+      groupName: "kubernetes",
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/kube-apiserver/",
+        "/kube-controller-manager/",
+        "/kube-proxy/",
+        "/kube-scheduler/",
+        "/kubelet/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 5,
+    },
+    {
+      description: "Rook-Ceph Group",
+      groupName: "rook-ceph",
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/rook-ceph/",
+        "/rook-ceph-cluster/"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Talos Group",
+      groupName: "talos",
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/installer/"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
+      description: "Dragonfly Operator Group",
+      groupName: "DragonflyOperator",
+      matchPackagePatterns: [
+        "docker.dragonflydb.io/dragonflydb/operator",
+        "dragonflydb/dragonfly-operator"
+      ],
       group: {
         commitMessageTopic: "{{{groupName}}} group"
-      }
+      },
+      separateMinorPatch: false
     },
+    {
+      description: "Immich Group",
+      groupName: "Immich",
+      matchPackagePatterns: [
+        "immich"
+      ],
+      matchDatasources: [
+        "docker",
+        "github-releases",
+        "helm"
+      ],
+      matchUpdateTypes: [
+        "minor",
+        "patch"
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group"
+      },
+      separateMinorPatch: false
+    },
+
     {
       description: 'Codecov Group',
       groupName: 'Codecov',
@@ -26,45 +142,11 @@
       separateMinorPatch: true
     },
     {
-      description: "CoreDNS Group",
-      groupName: "CoreDNS",
-      matchPackageNames: ["/ghcr.io\/coredns\/charts\/coredns/", "/coredns/"],
-      matchDatasources: ["docker", "helm"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group"
-      },
-      separateMinorPatch: true
-    },
-    {
-      description: "Immich Group",
-      groupName: "Immich",
-      matchPackagePatterns: ["immich"],
-      matchDatasources: ["docker", "github-releases", "helm"],
-      matchUpdateTypes: ["minor", "patch"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group"
-      },
-      separateMinorPatch: false
-    },
-    {
-      description: "Snapshot Controller Group",
-      groupName: "SnapshotController",
-      matchPackagePatterns: ["snapshot-validation-webhook", "snapshot-controller"],
-      matchDatasources: ["docker", "github-releases"],
-      matchUpdateTypes: ["minor", "patch"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group"
-      },
-      separateMinorPatch: false
-    },
-    {
-      description: "Dragonfly Operator Group",
-      groupName: "DragonflyOperator",
-      matchPackagePatterns: ["docker.dragonflydb.io/dragonflydb/operator", "dragonflydb/dragonfly-operator"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group"
-      },
-      separateMinorPatch: false
+      description: "Pre-Commit",
+      groupName: 'Pre-Commit',
+      matchManagers: [
+        'pre-commit'
+      ]
     },
     {
       description: "Aquaproj/aqua group",
@@ -74,59 +156,6 @@
         '**/.aqua.yaml',
         '**/.devcontainer.json'
       ]
-    },
-    {
-      description: "Pre-Commit",
-      groupName: 'Pre-Commit',
-      matchManagers: [
-        'pre-commit'
-      ]
-    },
-        {
-      description: "Cert-Manager Group",
-      groupName: "Cert-Manager",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/cert-manager/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-    },
-    {
-      description: "Cilium Group",
-      groupName: "Cilium",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/cilium/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-    },
-    {
-      description: "External Secrets Operator Group",
-      groupName: "External Secrets Operator",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/external-secrets/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-    },
-    {
-      description: "Intel Device Plugins Group",
-      groupName: "Intel-Device-Plugins",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-    },
-    {
-      description: "Talos Group",
-      groupName: "talos",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/installer/", "/talosctl/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
     },
   ]
 }

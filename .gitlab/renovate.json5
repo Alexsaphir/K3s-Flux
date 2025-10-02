@@ -9,11 +9,12 @@
     ':enablePreCommit',
     ':timezone(Europe/Paris)',
     'mergeConfidence:all-badges',
-    'local>Homelab/Talos-Flux//.gitlab/renovate/commitMessage.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/changelogs.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/customManagers.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/grafanaDashboards.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/groups.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/labels.json5',
+    'local>Homelab/Talos-Flux//.gitlab/renovate/overrides.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/packageRules.json5',
     'local>Homelab/Talos-Flux//.gitlab/renovate/semanticCommits.json5',
     'security:openssf-scorecard',
@@ -40,18 +41,12 @@
     enabled: true,
   },
   flux: {
-    managerFilePatterns: [
-      '/\\.yaml(?:\\.j2)?$/',
-    ],
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
-  'helm-values': {
-    managerFilePatterns: [
-      '/\\.yaml(?:\\.j2)?$/'
-    ],
+  "helm-values": {
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
   kubernetes: {
-    managerFilePatterns: [
-      '/\\.yaml(?:\\.j2)?$/',
-    ],
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
 }

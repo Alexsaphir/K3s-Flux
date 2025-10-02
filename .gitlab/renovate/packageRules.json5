@@ -2,22 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
-      matchPackagePatterns: [
-        '^intel-device-plugins',
-      ],
-      groupName: 'intel-device-plugins',
-    },
-    {
-      "description": "Loose versioning for non-semver packages",
-      "matchDatasources": [
-        "docker"
-      ],
-      "versioning": "loose",
-      "matchPackageNames": [
-        "/plex/",
-      ]
-    },
-    {
       "description": "Use custom versioning for Minio",
       "matchDatasources": [
         "docker"
