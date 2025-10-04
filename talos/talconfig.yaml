@@ -5,11 +5,10 @@ clusterName: &clusterName talos-cluster
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
 
-endpoint: https://192.168.43.100:6443
+endpoint: https://talos.cluster.alexsaphir.com:6443
 
 additionalApiServerCertSans: &sans
   - talos.cluster.alexsaphir.com
-  - ${ciliumControlplaneVip}
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 
