@@ -25,7 +25,7 @@ releases:
   - name: envoy-gateway
     namespace: envoy-system
     atomic: true
-    chart: oci://docker.io/envoyproxy/gateway-helm
+    chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
     version: 1.5.0
     values: [ '../templates/values.yaml.gotmpl' ]
 
