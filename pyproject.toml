@@ -15,7 +15,7 @@ dependencies = [
 [dependency-groups]
 linters = [
   "prettier==0.0.7",
-  "pyproject-fmt==2.8.0",
+  "pyproject-fmt==2.10.0",
   "yamllint==1.37.1",
 ]
 
