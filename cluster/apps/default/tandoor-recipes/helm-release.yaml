@@ -39,6 +39,8 @@ spec:
         client_id: tandoor-recipes
 
     defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         fsGroupChangePolicy: OnRootMismatch
 
@@ -50,7 +52,7 @@ spec:
           app:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
-              tag: 2.2.7
+              tag: 2.3.1
 
             envFrom:
               - secretRef:
@@ -141,7 +143,7 @@ spec:
         controller: tandoor-recipes
         ports:
           http:
-            port: 8080
+            port: 80
 
     ingress:
       app:
