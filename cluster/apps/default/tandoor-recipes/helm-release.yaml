@@ -62,6 +62,8 @@ spec:
             env:
               TZ: '${TIMEZONE}'
 
+              TANDOOR_PORT: &port 8080
+
               ALLOWED_HOSTS: &host recipes.${DOMAIN_NAME}
               SESSION_COOKIE_DOMAIN: *host
               SESSION_COOKIE_NAME: tandoor-recipes-sessionid
@@ -143,7 +145,7 @@ spec:
         controller: tandoor-recipes
         ports:
           http:
-            port: 80
+            port: *port
 
     ingress:
       app:
