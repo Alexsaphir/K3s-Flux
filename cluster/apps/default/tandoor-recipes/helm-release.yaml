@@ -134,10 +134,6 @@ spec:
               REMOTE_USER_AUTH: 0
               SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities: { drop: [ 'ALL' ] }
-
     service:
       app:
         controller: tandoor-recipes
