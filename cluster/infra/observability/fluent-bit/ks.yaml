@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
       namespace: *namespace
-    - name: loki
+    - name: victoria-logs
       namespace: *namespace
 
   healthChecks:
