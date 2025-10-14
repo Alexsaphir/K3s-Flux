@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app grafana
+  name: &app grafana-instance
   namespace: &namespace observability
 spec:
   commonMetadata:
@@ -11,10 +11,9 @@ spec:
       app.kubernetes.io/component: *app
 
   dependsOn:
+    - name: grafana-operator
     - name: kube-prometheus-stack
-      namespace: *namespace
     - name: victoria-logs
-      namespace: *namespace
     - name: ext-postgres-operator
       namespace: database
 
@@ -31,7 +30,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/infra/observability/grafana
+  path: cluster/infra/observability/grafana/instance
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
