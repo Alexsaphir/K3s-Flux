@@ -4,7 +4,7 @@ kind: Dragonfly
 metadata:
   name: renovate-dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.34.1
+  image: ghcr.io/dragonflydb/dragonfly:v1.34.2
 
   replicas: 2
 
