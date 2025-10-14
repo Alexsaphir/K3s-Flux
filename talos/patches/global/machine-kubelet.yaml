@@ -4,6 +4,7 @@ machine:
     extraConfig:
       featureGates:
         ImageVolume: true
+        ResourceHealthStatus: true
 
       maxPods: 150
       serializeImagePulls: false

@@ -81,16 +81,16 @@ nodes:
             # Longhorn
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
-    extraManifests:
-      - manifests/disks.yaml
-      - manifests/lldpd.yaml
-      - manifests/watchdog.yaml
 
     patches:
       - "@./patches/nodes/ms-01/sysfs.yaml"
       - "@./patches/nodes/nvidia.yaml"
       - "@./patches/nodes/thunderbolt.yaml"
       - "@./patches/udev/intel-gpu.yaml"
+
+      - '@./manifests/disks.yaml'
+      - '@./manifests/lldpd.yaml'
+      - '@./manifests/watchdog.yaml'
 
 # Global patches
 patches:
