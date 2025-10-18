@@ -4,7 +4,7 @@ terraform {
   required_providers {
     gitlab = {
       source  = "gitlabhq/gitlab"
-      version = "18.4.1"
+      version = "18.5.0"
     }
     sops = {
       source  = "carlpett/sops"
