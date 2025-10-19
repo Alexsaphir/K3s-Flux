@@ -91,8 +91,6 @@ spec:
     devices: enp+
     dashboards:
       enabled: true
-      annotations:
-        grafana_folder: Cilium
     endpointRoutes:
       enabled: true
     envoy:
@@ -116,8 +114,6 @@ spec:
           enabled: true
         dashboards:
           enabled: true
-          annotations:
-            grafana_folder: Cilium
 
       relay:
         enabled: true
@@ -140,8 +136,6 @@ spec:
     operator:
       dashboards:
         enabled: true
-        annotations:
-          grafana_folder: Cilium
       prometheus:
         enabled: true
         serviceMonitor:

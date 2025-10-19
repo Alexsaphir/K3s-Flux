@@ -43,3 +43,10 @@ releases:
     version: 0.28.0
     values: [ '../templates/values.yaml.gotmpl' ]
     needs: [ external-secrets/external-secrets ]
+
+  - name: grafana-operator
+    namespace: observability
+    atomic: true
+    chart: oci://ghcr.io/grafana/helm-charts/grafana-operator
+    version: v5.19.4
+    values: [ '../templates/values.yaml.gotmpl' ]
