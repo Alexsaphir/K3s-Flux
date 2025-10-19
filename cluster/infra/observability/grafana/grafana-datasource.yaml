@@ -1,0 +1,54 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+
+  datasource:
+    type: prometheus
+    name: prometheus
+    access: proxy
+    isDefault: true
+    url: http://prometheus-operated.observability.svc.cluster.local:9090
+
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: alertmanager
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+
+  datasource:
+    type: alertmanager
+    name: alertmanager
+    access: proxy
+    jsonData:
+      implementation: prometheus
+    url: http://alertmanager-operated.observability.svc.cluster.local:9093
+
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: victoria-logs
+spec:
+  instanceSelector:
+    matchLabels:
+      grafana.internal/instance: grafana
+
+  datasource:
+    type: victoriametrics-logs-datasource
+    name: victoria-logs-server
+    access: proxy
+    url: http://victoria-logs-server.observability.svc.cluster.local:9428
+
+  plugins:
+    - name: victoriametrics-logs-datasource
+      version: latest

@@ -12,9 +12,11 @@ resources:
 
   - victoria-logs/ks.yaml
   - fluent-bit/ks.yaml
-  - grafana-operator/ks.yaml
 
   - keda/ks.yaml
+
+  - grafana-operator/ks.yaml
+  - grafana/ks.yaml
 
   - gatus/ks.yaml
   - kromgo/ks.yaml

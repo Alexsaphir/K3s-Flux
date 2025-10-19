@@ -1,0 +1,104 @@
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana
+  labels:
+    grafana.internal/instance: grafana
+spec:
+  disableDefaultAdminSecret: true
+
+  config:
+    auth:
+      disable_login_form: 'false'
+    auth.anonymous:
+      enabled: 'true'
+
+    analytics:
+      check_for_updates: 'false'
+      check_for_plugin_updates: 'false'
+      feedback_links_enabled: 'false'
+      reporting_enabled: 'false'
+
+    database:
+      type: postgres
+
+    # Configure HA for Grafana alerting
+    # https://grafana.com/docs/grafana/latest/alerting/set-up/configure-high-availability/
+    #unified_alerting:
+    #  enabled: true
+    #  ha_listen_address: "${POD_IP}:9094"
+    #  ha_peers: "grafana-alerting:9094"
+    #  ha_advertise_address: "${POD_IP}:9094"
+    #  ha_peer_timeout: 15s
+    #  ha_reconnect_timeout: 2m
+
+    log:
+      mode: console
+    metrics:
+      enabled: 'true'
+
+    news:
+      news_feed_enabled: 'false'
+    plugins:
+      plugin_admin_enabled: 'false'
+    security:
+      angular_support_enabled: 'true'
+
+    server:
+      enable_gzip: 'true'
+      root_url: https://grafana.talos.${DOMAIN_NAME}
+
+
+  deployment:
+    spec:
+      strategy:
+        type: Recreate
+
+      template:
+        spec:
+          containers:
+            - name: grafana
+              env:
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-admin-password-secret
+                      key: GF_SECURITY_ADMIN_PASSWORD
+
+                - name: GF_DATABASE_SSL_MODE
+                  value: disable
+                - name: GF_DATABASE_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: database-grafana
+                      key: DATABASE_NAME
+                - name: GF_DATABASE_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: database-grafana
+                      key: HOST
+                - name: GF_DATABASE_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: database-grafana
+                      key: LOGIN
+                - name: GF_DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: database-grafana
+                      key: PASSWORD
+
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: { drop: [ 'ALL' ] }
+
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+  disableDefaultSecurityContext: All
