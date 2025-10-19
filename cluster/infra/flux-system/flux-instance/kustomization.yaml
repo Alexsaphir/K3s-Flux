@@ -6,3 +6,4 @@ resources:
   - prometheus-rule.yaml
   - pod-monitors.yaml
   - receiver
+  - grafana-dashboard.yaml
