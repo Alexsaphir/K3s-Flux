@@ -33,6 +33,14 @@ spec:
       retries: 3
 
   values:
+    logLevel: warn
+
+    dashboards:
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
+
     config:
       service: |-
         [SERVICE]
@@ -70,7 +78,6 @@ spec:
         [FILTER]
           name nest
           match kubernetes.*
-          wildcard pod_name
           operation lift
           nested_under kubernetes
           add_prefix k_
@@ -99,17 +106,12 @@ spec:
 
       outputs: |-
         [OUTPUT]
-          Name http
-          Match kubernetes.*
+          name http
+          match kubernetes.*
           host victoria-logs-server.observability.svc.cluster.local
           port 9428
           uri /insert/jsonline?_stream_fields=stream,k_namespace_name,k_pod_name,app&_msg_field=log&_time_field=date
           format json_lines
           json_date_format iso8601
           compress gzip
-
-    dashboards:
-      enabled: true
-
-    serviceMonitor:
-      enabled: true
+          log_response_payload false
