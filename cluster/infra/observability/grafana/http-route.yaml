@@ -8,8 +8,8 @@ spec:
   hostnames: [ 'grafana.talos.${DOMAIN_NAME}' ]
 
   parentRefs:
-    - name: envoy-internal
-      namespace: network
+    - name: envoy
+      namespace: envoy-system
       sectionName: https
   rules:
     - backendRefs:
