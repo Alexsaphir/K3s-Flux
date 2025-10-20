@@ -4,8 +4,6 @@ kind: Kustomization
 namespace: external-secrets
 components:
   - ../../components/namespace
-  - ../../components/flux/sops
-  - ../../components/flux/substituteFrom
 resources:
   - external-secrets/ks.yaml
   - bitwarden-sdk-server/ks.yaml

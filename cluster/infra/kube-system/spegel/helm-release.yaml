@@ -27,18 +27,6 @@ spec:
     kind: OCIRepository
     name: spegel
 
-  driftDetection:
-    mode: enabled
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
-
-
   values:
     spegel:
       appendMirrors: true

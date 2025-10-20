@@ -22,18 +22,6 @@ spec:
     kind: OCIRepository
     name: grafana-operator
 
-  driftDetection:
-    mode: enabled
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-
   values:
     dashboard:
       enabled: true

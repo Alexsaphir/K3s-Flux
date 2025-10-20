@@ -27,18 +27,6 @@ spec:
     kind: OCIRepository
     name: longhorn
 
-  driftDetection:
-    mode: enabled
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-
   dependsOn:
     - name: volsync
       namespace: volsync-system

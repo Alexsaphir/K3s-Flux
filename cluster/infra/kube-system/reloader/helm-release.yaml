@@ -22,19 +22,6 @@ spec:
     kind: OCIRepository
     name: reloader
 
-  driftDetection:
-    mode: enabled
-  maxHistory: 3
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-
   values:
     reloader:
       reloadStrategy: annotations

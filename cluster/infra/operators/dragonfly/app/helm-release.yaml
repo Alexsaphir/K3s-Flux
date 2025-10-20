@@ -22,19 +22,6 @@ spec:
     kind: OCIRepository
     name: dragonfly-operator
 
-  driftDetection:
-    mode: enabled
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      strategy: rollback
-      retries: 3
-
   values:
     replicaCount: 1
 

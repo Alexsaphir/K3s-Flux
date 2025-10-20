@@ -5,6 +5,7 @@ metadata:
   name: &app gateway
   namespace: &namespace envoy-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -20,10 +21,6 @@ spec:
       kind: Certificate
       failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

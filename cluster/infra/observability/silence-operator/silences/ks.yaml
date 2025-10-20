@@ -5,6 +5,7 @@ metadata:
   name: &app silences
   namespace: &namespace observability
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -13,10 +14,6 @@ spec:
   dependsOn:
     - name: silence-operator
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

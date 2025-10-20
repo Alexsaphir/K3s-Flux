@@ -5,6 +5,7 @@ metadata:
   name: &app bitwarden-sdk-server
   namespace: &namespace external-secrets
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -12,10 +13,6 @@ spec:
   dependsOn:
     - name: external-secrets
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
   wait: false

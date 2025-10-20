@@ -22,19 +22,6 @@ spec:
     kind: OCIRepository
     name: node-feature-discovery
 
-  driftDetection:
-    mode: enabled
-  maxHistory: 3
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-
   values:
     enableNodeFeatureApi: true
     nodeFeatureRule:

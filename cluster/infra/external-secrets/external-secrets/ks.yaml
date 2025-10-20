@@ -5,13 +5,10 @@ metadata:
   name: &app external-secrets
   namespace: &namespace external-secrets
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: false # never should be deleted
   wait: false

@@ -4,8 +4,6 @@ kind: Kustomization
 namespace: database
 components:
   - ../../components/namespace
-  - ../../components/flux/sops
-  - ../../components/flux/substituteFrom
 resources:
   - postgres/ks.yaml
   - ext-postgres-operator/ks.yaml

@@ -5,13 +5,10 @@ metadata:
   name: &app coredns
   namespace: &namespace kube-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: false # never should be deleted
   wait: false

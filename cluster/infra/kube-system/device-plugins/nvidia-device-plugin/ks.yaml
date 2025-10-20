@@ -5,6 +5,7 @@ metadata:
   name: &app nvidia-device-plugin
   namespace: &namespace kube-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -12,10 +13,6 @@ spec:
   dependsOn:
     - name: node-feature-discovery
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
   wait: true

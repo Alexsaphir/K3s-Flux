@@ -27,18 +27,6 @@ spec:
     kind: OCIRepository
     name: external-secrets
 
-  driftDetection:
-    mode: enabled
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-
   values:
     installCRDs: true
     replicaCount: 1

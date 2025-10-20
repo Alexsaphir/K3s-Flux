@@ -22,16 +22,4 @@ spec:
     kind: OCIRepository
     name: kube-guardian
 
-  driftDetection:
-    mode: enabled
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-
   values: { }

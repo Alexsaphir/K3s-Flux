@@ -5,6 +5,7 @@ metadata:
   name: &app authentik
   namespace: &namespace kube-auth
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -14,10 +15,6 @@ spec:
       namespace: *namespace
     - name: mailpit
       namespace: kube-system
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

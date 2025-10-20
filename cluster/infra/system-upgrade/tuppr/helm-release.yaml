@@ -22,18 +22,6 @@ spec:
     kind: OCIRepository
     name: tuppr
 
-  driftDetection:
-    mode: enabled
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-
   values:
     replicaCount: 1
 

@@ -5,6 +5,7 @@ metadata:
   name: &app node-feature-discovery
   namespace: &namespace kube-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -14,10 +15,6 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 
@@ -34,6 +31,7 @@ metadata:
   name: &app node-feature-discovery-rules
   namespace: &namespace kube-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -41,10 +39,6 @@ spec:
   dependsOn:
     - name: node-feature-discovery
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
   wait: false

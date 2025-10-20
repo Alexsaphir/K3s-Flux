@@ -4,9 +4,6 @@ kind: Kustomization
 namespace: temporal
 components:
   - ../../../components/namespace
-  - ../../../components/flux/sops
-  - ../../../components/flux/substituteFrom
-  - ../../../components/repos/app-template
 resources:
   - postgres/ks.yaml
   - app/ks.yaml

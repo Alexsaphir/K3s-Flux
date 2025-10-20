@@ -5,6 +5,7 @@ metadata:
   name: &app cloudnative-pg-operator
   namespace: &namespace cloudnative-pg
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -12,10 +13,6 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
       namespace: observability
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
   wait: true

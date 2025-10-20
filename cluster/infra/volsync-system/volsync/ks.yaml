@@ -5,6 +5,7 @@ metadata:
   name: &app volsync
   namespace: &namespace volsync-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -18,10 +19,6 @@ spec:
       kind: HelmRelease
       name: *app
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

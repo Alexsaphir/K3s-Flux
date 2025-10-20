@@ -5,15 +5,12 @@ metadata:
   name: &app minio-nas
   namespace: &namespace minio-system
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
 
   dependsOn: [ ]
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

@@ -4,9 +4,6 @@ kind: Kustomization
 namespace: ai
 components:
   - ../../components/namespace
-  - ../../components/flux/sops
-  - ../../components/flux/substituteFrom
-  - ../../components/repos/app-template
 resources:
   - ollama/ks.yaml
   - ollama-ui/ks.yaml

@@ -27,21 +27,10 @@ spec:
   driftDetection:
     mode: enabled
     ignore:
-      # Ignore "validated" annotation which is not inserted during install
+      # Ignore the "validated" annotation which is not inserted during installation
       - paths: [ "/metadata/annotations/prometheus-operator-validated" ]
         target:
           kind: PrometheusRule
-
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      strategy: rollback
-      retries: 3
 
   values:
     crds:

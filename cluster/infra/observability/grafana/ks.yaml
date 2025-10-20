@@ -5,6 +5,7 @@ metadata:
   name: &app grafana-instance
   namespace: &namespace observability
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -16,10 +17,6 @@ spec:
     - name: victoria-logs
     - name: ext-postgres-operator
       namespace: database
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

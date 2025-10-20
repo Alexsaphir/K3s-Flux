@@ -5,6 +5,7 @@ metadata:
   name: &app postgres
   namespace: &namespace kube-auth
 spec:
+  interval: 1h
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -18,10 +19,6 @@ spec:
       kind: Pod
       name: postgres-authentik-1
       namespace: *namespace
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
 
   prune: true
 

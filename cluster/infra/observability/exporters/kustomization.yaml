@@ -9,4 +9,3 @@ resources:
 
   # GPUs
   - dcgm-exporter/ks.yaml
-  - intel-gpu-exporter/ks.yaml

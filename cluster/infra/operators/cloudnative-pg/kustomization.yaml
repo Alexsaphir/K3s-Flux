@@ -4,9 +4,6 @@ kind: Kustomization
 namespace: cloudnative-pg
 components:
   - ../../../components/namespace
-  - ../../../components/flux/sops
-  - ../../../components/flux/substituteFrom
-  - ../../../components/repos/app-template
 resources:
   - cnpg-barman-cloud/git-repository.yaml
 
