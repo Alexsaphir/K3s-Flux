@@ -1,0 +1,10 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: gitlab-status
+spec:
+  type: gitlab
+  address: https://gitlab.alexsaphir.com/Homelab/Talos-Flux
+  secretRef:
+    name: gitlab-provider-token
