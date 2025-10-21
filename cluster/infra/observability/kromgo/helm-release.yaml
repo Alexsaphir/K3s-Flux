@@ -87,7 +87,6 @@ spec:
         parentRefs:
           - name: envoy
             namespace: envoy-system
-            sectionName: https
 
     persistence:
       config-file:

@@ -39,7 +39,6 @@ spec:
           parentRefs:
             - name: envoy
               namespace: envoy-system
-              sectionName: https
 
       alertmanagerSpec:
         alertmanagerConfiguration:
@@ -71,7 +70,6 @@ spec:
           parentRefs:
             - name: envoy
               namespace: envoy-system
-              sectionName: https
 
       prometheusSpec:
         externalUrl: https://prometheus.talos.${DOMAIN_NAME}
