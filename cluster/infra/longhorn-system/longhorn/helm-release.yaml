@@ -11,11 +11,6 @@ spec:
   ref:
     tag: 1.9.2
   url: oci://ghcr.io/home-operations/charts-mirror/longhorn
-  verify:
-    provider: cosign
-    matchOIDCIdentity:
-      - issuer: '^https://token.actions.githubusercontent.com$'
-        subject: '^https://github.com/home-operations/charts-mirror.*$'
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
