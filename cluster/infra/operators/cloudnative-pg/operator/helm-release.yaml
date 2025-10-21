@@ -49,4 +49,4 @@ spec:
           regex: controller_runtime_reconcile_time_seconds_bucket
 
       grafanaDashboard:
-        create: false # Install custom version that uses cnpg_cluster label.
+        create: false # Install a custom version that uses cnpg_cluster label.
