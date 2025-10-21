@@ -35,5 +35,25 @@ spec:
       serviceMonitor:
         enabled: true
 
+
+      route:
+        enabled: true
+        hostnames: [ 'logs.talos.${DOMAIN_NAME}' ]
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+        extraRules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /select/vmui/
+                  statusCode: 302
+            matches:
+              - path:
+                  type: Exact
+                  value: /
+
     dashboards:
       enabled: true
