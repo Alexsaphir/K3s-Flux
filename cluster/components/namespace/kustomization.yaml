@@ -4,3 +4,4 @@ kind: Component
 resources:
   - namespace.yaml
   - substituteFrom
+  - alerts
