@@ -61,32 +61,24 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
             resources:
+              claims:
+                - name: gpu
+
               requests:
-                gpu.intel.com/i915: 1
                 cpu: 100m
                 memory: 1000Mi
-              limits:
-                gpu.intel.com/i915: 1
 
     defaultPodOptions:
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: 'true'
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: DoesNotExist
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: plex
 
       securityContext:
+        runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [ 44, 104, 109, 100 ]
-        seccompProfile: { type: RuntimeDefault }
 
     service:
       app:
