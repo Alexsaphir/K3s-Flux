@@ -6,7 +6,7 @@ repos:
     hooks:
       - id: check-merge-conflict
       - id: check-added-large-files
-        args: [ --enforce-all --maxkb=700 ]
+        args: [ --enforce-all, --maxkb=700 ]
       - id: fix-byte-order-marker
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
