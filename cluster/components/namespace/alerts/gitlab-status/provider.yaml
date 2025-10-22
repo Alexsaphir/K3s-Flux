@@ -5,6 +5,6 @@ metadata:
   name: gitlab-status
 spec:
   type: gitlab
-  address: https://gitlab.alexsaphir.com/Homelab/Talos-Flux
+  address: https://gitlab.alexsaphir.com/83
   secretRef:
     name: gitlab-provider-token
