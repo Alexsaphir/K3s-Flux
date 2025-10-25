@@ -107,6 +107,15 @@ spec:
               kind: Deployment
               name: kustomize-controller
 
+          - # Cache Secrets and ConfigMaps
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=CacheSecretsAndConfigMaps=true
+            target:
+              kind: Deployment
+              name: source-controller
+
           - # Enable Helm repositories caching
             patch: |
               - op: add
