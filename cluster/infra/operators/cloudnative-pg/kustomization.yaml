@@ -5,8 +5,6 @@ namespace: cloudnative-pg
 components:
   - ../../../components/namespace
 resources:
-  - cnpg-barman-cloud/git-repository.yaml
-
   - operator/ks.yaml
   - cnpg-barman-cloud/ks.yaml
 
