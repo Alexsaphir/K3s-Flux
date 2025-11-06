@@ -30,81 +30,101 @@ allowSchedulingOnControlPlanes: true
 
 
 nodes:
+  - hostname: "ms-03"
+    ipAddress: 192.168.42.12
+    controlPlane: true
+    installDiskSelector:
+      serial: ''
+
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: '58:47:ca:::'
+        dhcp: true
+        mtu: 9000
+
+  - hostname: "ms-02"
+    ipAddress: 192.168.42.11
+    controlPlane: true
+    installDiskSelector:
+      serial: ''
+
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: '58:47:ca:::'
+        dhcp: true
+        mtu: 9000
+
   - hostname: "ms-01"
     ipAddress: 192.168.42.10
     controlPlane: true
     installDiskSelector:
       serial: S7GCNL0XA11778T
-    machineSpec:
-      secureboot: false
 
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 58:47:ca:7a:c6:c9
-
         dhcp: true
         mtu: 9000
 
-    nodeAnnotations:
-      installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
-
-    nodeLabels:
-      topology.kubernetes.io/region: *clusterName
-      'node.longhorn.io/create-default-disk': 'true'
-
-    schematic:
-      customization:
-        extraKernelArgs:
-          - net.ifnames=1
-          - -init_on_alloc          # Less security, faster puter
-          - -init_on_free           # Less security, faster puter
-          - -selinux                # Less security, faster puter
-          - apparmor=0              # Less security, faster puter
-          - init_on_alloc=0         # Less security, faster puter
-          - init_on_free=0          # Less security, faster puter
-          - mitigations=off         # Less security, faster puter
-          - security=none           # Less security, faster puter
-          - talos.auditd.disabled=1 # Less security, faster puter
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/i915
-            - siderolabs/intel-ucode
-            - siderolabs/mei
-            - siderolabs/thunderbolt
-            - siderolabs/lldpd
-            - siderolabs/nfsrahead              # NFS Performance
-            # Coral
-            - siderolabs/gasket-driver
-            # Gpu
-            - siderolabs/nvidia-container-toolkit-production
-            - siderolabs/nvidia-open-gpu-kernel-modules-production
-            # Longhorn
-            - siderolabs/iscsi-tools
-            - siderolabs/util-linux-tools
-
     patches:
-      - "@./patches/nodes/ms-01/sysfs.yaml"
       - "@./patches/nodes/nvidia.yaml"
-      - "@./patches/nodes/thunderbolt.yaml"
-      - "@./patches/udev/intel-gpu.yaml"
 
-      - '@./manifests/disks.yaml'
-      - '@./manifests/lldpd.yaml'
-      - '@./manifests/watchdog.yaml'
 
-# Global patches
 patches:
-  - "@./patches/global/machine-files.yaml"
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctls.yaml"
-  - "@./patches/global/machine-time.yaml"
 
-# Controller patches
+
 controlPlane:
+  nodeAnnotations:
+    installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
+
+  machineSpec:
+    secureboot: false
+
   nodeLabels:
+    topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: controlPlane
 
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=1
+        - -init_on_alloc          # Less security, faster puter
+        - -init_on_free           # Less security, faster puter
+        - -selinux                # Less security, faster puter
+        - apparmor=0              # Less security, faster puter
+        - init_on_alloc=0         # Less security, faster puter
+        - init_on_free=0          # Less security, faster puter
+        - mitigations=off         # Less security, faster puter
+        - security=none           # Less security, faster puter
+        - talos.auditd.disabled=1 # Less security, faster puter
+
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/i915
+          - siderolabs/intel-ucode
+          - siderolabs/mei
+          - siderolabs/thunderbolt
+          - siderolabs/lldpd
+          - siderolabs/nfsrahead
+          - siderolabs/gasket-driver
+          - siderolabs/nvidia-container-toolkit-production
+          - siderolabs/nvidia-open-gpu-kernel-modules-production
   patches:
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/machine-features.yaml"
+
+    - |-
+      machine:
+        kernel:
+          modules:
+            - name: nbd
+
+    - "@./patches/nodes/sysfs.yaml"
+    - "@./patches/nodes/thunderbolt.yaml"
+
+    - '@./manifests/disks.yaml'
+    - '@./manifests/lldpd.yaml'
+    - '@./manifests/watchdog.yaml'
