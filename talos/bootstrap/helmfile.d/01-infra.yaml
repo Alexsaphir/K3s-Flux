@@ -7,6 +7,13 @@ helmDefaults:
   waitForJobs: true
 
 releases:
+  - name: spegel
+    namespace: kube-system
+    atomic: true
+    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
+    version: 0.5.1
+    values: [ '../templates/values.yaml.gotmpl' ]
+
   - name: cert-manager
     namespace: cert-manager
     atomic: true
