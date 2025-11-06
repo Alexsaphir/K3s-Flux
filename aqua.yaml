@@ -22,7 +22,7 @@ packages:
   - name: mikefarah/yq@v4.48.1
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
-  - name: bitnami-labs/sealed-secrets@v0.32.2
+  - name: bitnami-labs/sealed-secrets@v0.33.1
   - name: derailed/k9s@v0.50.16
   - name: FairwindsOps/nova@v3.11.9
   - name: FairwindsOps/pluto@v5.22.6
@@ -33,10 +33,10 @@ packages:
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
   - name: cilium/cilium-cli@v0.18.8
-  - name: siderolabs/talos@v1.11.3
+  - name: siderolabs/talos@v1.11.5
   - name: budimanjojo/talhelper@v3.0.38
   - name: lsd-rs/lsd@v1.2.0
-  - name: opentofu/opentofu@v1.10.6
+  - name: opentofu/opentofu@v1.10.7
   - name: runatlantis/atlantis@v0.36.0
   - name: kyverno/kyverno@v1.15.2
   - name: homeport/dyff@v1.10.2
