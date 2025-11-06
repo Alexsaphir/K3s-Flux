@@ -50,7 +50,7 @@ spec:
             restartPolicy: Always
             image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 2.0.3@sha256:0927d32e384d2ee38d861ea9de23acb3db8a6ac89ad1334d7cd4aacd2b3bf5ab
+              tag: 2.1.1@sha256:f7c84077f5c5fa53ac3a8f32ec16f8d77412a28b409cc3b61a3a6e15cd601e5e
             env:
               FOLDER: /config
               LABEL: gatus.io/enabled
