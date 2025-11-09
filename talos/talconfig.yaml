@@ -25,22 +25,48 @@ clusterSvcNets:
 cniConfig:
   name: none
 
-allowSchedulingOnMasters: true
 allowSchedulingOnControlPlanes: true
 
 
 nodes:
-  - hostname: "ms-03"
-    ipAddress: 192.168.42.12
+  - hostname: "ms-01"
+    ipAddress: 192.168.42.10
     controlPlane: true
     installDiskSelector:
-      serial: ''
+      serial: S7GCNL0XA11778T
 
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: '58:47:ca:::'
+          hardwareAddr: 58:47:ca:7a:c6:c9
         dhcp: true
         mtu: 9000
+
+      - # ms-02
+        deviceSelector:
+          driver: thunderbolt-net
+          busPath: 1-*
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.10/32
+        routes:
+          - network: 169.254.255.11/32
+            metric: 2048
+
+      - # ms-03
+        deviceSelector:
+          driver: thunderbolt-net
+          busPath: 0-*
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.10/32
+        routes:
+          - network: 169.254.255.12/32
+            metric: 2048
+
+    patches:
+      - "@./patches/nodes/nvidia.yaml"
 
   - hostname: "ms-02"
     ipAddress: 192.168.42.11
@@ -54,20 +80,65 @@ nodes:
         dhcp: true
         mtu: 9000
 
-  - hostname: "ms-01"
-    ipAddress: 192.168.42.10
+      - # ms-03
+        deviceSelector:
+          driver: thunderbolt-net
+          busPath: 1-*
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.11/32
+        routes:
+          - network: 169.254.255.12/32
+            metric: 2048
+
+      - # ms-01
+        deviceSelector:
+          driver: thunderbolt-net
+          busPath: 0-*
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.11/32
+        routes:
+          - network: 169.254.255.10/32
+            metric: 2048
+
+  - hostname: "ms-03"
+    ipAddress: 192.168.42.12
     controlPlane: true
     installDiskSelector:
-      serial: S7GCNL0XA11778T
+      serial: ''
 
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 58:47:ca:7a:c6:c9
+          hardwareAddr: '58:47:ca:::'
         dhcp: true
         mtu: 9000
 
-    patches:
-      - "@./patches/nodes/nvidia.yaml"
+      - # ms-01
+        deviceSelector:
+          driver: thunderbolt-net
+          busPath: 1-*
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.12/32
+        routes:
+          - network: 169.254.255.10/32
+            metric: 2048
+
+      - # ms-02
+        deviceSelector:
+          driver: thunderbolt-net
+          busPath: 0-*
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.12/32
+        routes:
+          - network: 169.254.255.11/32
+            metric: 2048
 
 
 patches:
@@ -112,6 +183,7 @@ controlPlane:
           - siderolabs/gasket-driver
           - siderolabs/nvidia-container-toolkit-production
           - siderolabs/nvidia-open-gpu-kernel-modules-production
+
   patches:
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/machine-features.yaml"
