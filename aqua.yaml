@@ -17,7 +17,7 @@ packages:
   - name: fluxcd/flux2@v2.7.3
   - name: kubernetes/kubectl@v1.34.1
   - name: helm/helm@v3.19.0
-  - name: kubernetes-sigs/kustomize@kustomize/v5.7.1
+  - name: kubernetes-sigs/kustomize@kustomize/v5.8.0
   - name: jqlang/jq@jq-1.8.1
   - name: mikefarah/yq@v4.48.1
   - name: ahmetb/kubectx@v0.9.5
