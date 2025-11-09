@@ -9,7 +9,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "pre-commit==4.3.0",
+  "pre-commit==4.4.0",
 ]
 
 [dependency-groups]
