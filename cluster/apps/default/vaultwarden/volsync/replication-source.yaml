@@ -10,19 +10,20 @@ spec:
     schedule: 0 * * * *
 
   kopia:
-    copyMethod: Snapshot
 
     cacheAccessModes:
       - ${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}
-    cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=5Gi}
-    cacheStorageClassName: ${VOLSYNC_CACHE_SNAPSHOTCLASS:=longhorn-volsync}
-
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
-    storageClassName: ${VOLSYNC_STORAGECLASS:=longhorn}
+
+    cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=5Gi}
+    cacheStorageClassName: ${VOLSYNC_CACHE_SNAPSHOTCLASS:=openebs-hostpath}
+
+    storageClassName: ${VOLSYNC_STORAGECLASS:=longhorn-volsync}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=longhorn}
 
     compression: zstd-fastest
+    copyMethod: Snapshot
 
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
