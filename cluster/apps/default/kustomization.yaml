@@ -16,3 +16,4 @@ resources:
   - your_spotify
   - mealie
   - zipline
+  - volsync-secret.sops.yaml

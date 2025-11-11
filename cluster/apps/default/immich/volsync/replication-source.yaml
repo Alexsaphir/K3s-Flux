@@ -2,7 +2,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: &name vaultwarden
+  name: &name immich-data
 spec:
   sourcePVC: *name
 

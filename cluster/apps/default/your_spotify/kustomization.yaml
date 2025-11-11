@@ -9,3 +9,4 @@ resources:
   - pvc.yaml
   - helm-release.yaml
   - gatus.yaml
+  - volsync
