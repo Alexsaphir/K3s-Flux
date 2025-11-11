@@ -5,3 +5,4 @@ resources:
   - patch-local-path.yaml
   - rwx.yaml
   - ssd.yaml
+  - volsync.yaml
