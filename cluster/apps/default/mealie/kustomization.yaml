@@ -9,3 +9,4 @@ resources:
   - secret.sops.yaml
   - helm-release.yaml
   - gatus.yaml
+  - volsync
