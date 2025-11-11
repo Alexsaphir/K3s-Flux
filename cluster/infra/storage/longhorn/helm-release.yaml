@@ -47,7 +47,7 @@ spec:
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
 
       concurrentAutomaticEngineUpgradePerNodeLimit: 2
-      storageOverProvisioningPercentage: 200
+      storageOverProvisioningPercentage: '200'
       storageMinimalAvailablePercentage: 10
       guaranteedInstanceManagerCPU: 5
 
