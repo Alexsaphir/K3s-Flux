@@ -16,7 +16,7 @@ packages:
   - name: terraform-linters/tflint@v0.59.1
   - name: fluxcd/flux2@v2.7.3
   - name: kubernetes/kubectl@v1.34.1
-  - name: helm/helm@v3.19.0
+  - name: helm/helm@v3.19.1
   - name: kubernetes-sigs/kustomize@kustomize/v5.8.0
   - name: jqlang/jq@jq-1.8.1
   - name: mikefarah/yq@v4.48.1
@@ -37,8 +37,8 @@ packages:
   - name: budimanjojo/talhelper@v3.0.39
   - name: lsd-rs/lsd@v1.2.0
   - name: opentofu/opentofu@v1.10.7
-  - name: runatlantis/atlantis@v0.36.0
+  - name: runatlantis/atlantis@v0.37.1
   - name: kyverno/kyverno@v1.16.0
   - name: homeport/dyff@v1.10.2
-  - name: gruntwork-io/terragrunt@v0.93.4
+  - name: gruntwork-io/terragrunt@v0.93.5
   - name: breml/tfreveal@v0.0.4
