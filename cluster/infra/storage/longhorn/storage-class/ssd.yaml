@@ -10,7 +10,6 @@ allowVolumeExpansion: true
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 parameters:
-  dataEngine: v1
   diskSelector: 'ssd'
   dataLocality: best-effort
   fromBackup: ''
