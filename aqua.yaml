@@ -7,7 +7,7 @@ registries:
     ref: v4.433.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.37.1
-  - name: go-task/task@v3.45.4
+  - name: go-task/task@v3.45.5
   - name: gitleaks/gitleaks@v8.29.0
   - name: firecow/gitlab-ci-local@4.63.0
   - name: FiloSottile/age@v1.2.1
@@ -28,7 +28,7 @@ packages:
   - name: FairwindsOps/pluto@v5.22.6
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.5
-  - name: kubescape/kubescape@v3.0.44
+  - name: kubescape/kubescape@v3.0.45
   - name: stern/stern@v1.33.1
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.37.1
   - name: kyverno/kyverno@v1.16.0
   - name: homeport/dyff@v1.10.2
-  - name: gruntwork-io/terragrunt@v0.93.5
+  - name: gruntwork-io/terragrunt@v0.93.6
   - name: breml/tfreveal@v0.0.4
