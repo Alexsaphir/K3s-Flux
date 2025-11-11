@@ -7,7 +7,7 @@ spec:
   sourcePVC: *name
 
   trigger:
-    schedule: 0 * * * *
+    schedule: 0 */6 * * *
 
   kopia:
 
@@ -45,7 +45,7 @@ spec:
   sourcePVC: *name
 
   trigger:
-    schedule: 0 * * * *
+    schedule: 0 */6 * * *
 
   kopia:
 
