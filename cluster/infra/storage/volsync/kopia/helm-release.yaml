@@ -81,7 +81,7 @@ spec:
     route:
       app:
         hostnames:
-          - '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
+          - '{{ .Release.Name }}.${DOMAIN_NAME}'
         parentRefs:
           - name: envoy
             namespace: envoy-system
