@@ -46,10 +46,10 @@ spec:
       orphanAutoDeletion: false
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
 
-      concurrentAutomaticEngineUpgradePerNodeLimit: 2
+      concurrentAutomaticEngineUpgradePerNodeLimit: '2'
       storageOverProvisioningPercentage: '200'
-      storageMinimalAvailablePercentage: 10
-      guaranteedInstanceManagerCPU: 5
+      storageMinimalAvailablePercentage: '10'
+      guaranteedInstanceManagerCPU: '5'
 
       createDefaultDiskLabeledNodes: true
       allowEmptyDiskSelectorVolume: false
@@ -57,26 +57,34 @@ spec:
       defaultLonghornStaticStorageClass: longhorn
       defaultDataPath: /var/lib/longhorn
       defaultDataLocality: best-effort
-      defaultReplicaCount: 2
+      defaultReplicaCount: '2'
 
       backupTarget: s3://backup-longhorn@us-east-1/backupstore
       backupTargetCredentialSecret: longhorn-backup-secrets
       backupstorePollInterval: 0
-      failedBackupTTL: 1440
+      failedBackupTTL: '1440'
       allowRecurringJobWhileVolumeDetached: true
       restoreVolumeRecurringJobs: true
 
-      snapshotDataIntegrity: fast-check
-      snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: false
-      snapshotDataIntegrityCronjob: 0 8 */7 * *
+      snapshotDataIntegrity: enabled
+      snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: "disabled"
+      snapshotDataIntegrityCronjob: "0 4 * * *"
+      fastReplicaRebuildEnabled: enabled
+      unmapMarkSnapChainRemoved: enabled
 
       autoCleanupSystemGeneratedSnapshot: true
+      autoCleanupRecurringJobBackupSnapshot: true
       autoDeletePodWhenVolumeDetachedUnexpectedly: true
       removeSnapshotsDuringFilesystemTrim: enabled
 
 
       upgradeChecker: false
+      v1DataEngine: true
       v2DataEngine: false
+
+      freezeFilesystemForSnapshot: enabled
+      autoCleanupSnapshotWhenDeleteBackup: true
+      autoCleanupSnapshotAfterOnDemandBackupCompleted: true
 
     csi:
       attacherReplicaCount: 2
