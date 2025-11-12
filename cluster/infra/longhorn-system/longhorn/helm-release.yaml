@@ -39,14 +39,14 @@ spec:
     persistence:
       defaultClass: true
       defaultFsType: ext4
-      defaultClassReplicaCount: 1
+      defaultClassReplicaCount: 3
       defaultDataLocality: best-effort
       migratable: true
       removeSnapshotsDuringFilesystemTrim: enabled
 
 
     defaultSettings:
-      defaultReplicaCount: 1
+      defaultReplicaCount: 3
 
       createDefaultDiskLabeledNodes: true
       allowEmptyDiskSelectorVolume: false
