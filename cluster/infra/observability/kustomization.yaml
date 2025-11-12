@@ -7,7 +7,7 @@ components:
 resources:
   - kube-prometheus-stack/ks.yaml
 
-  #- victoria-logs/ks.yaml
+  - victoria-logs/ks.yaml
   - fluent-bit/ks.yaml
 
   - keda/ks.yaml
