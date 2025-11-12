@@ -14,7 +14,6 @@ spec:
   dependsOn:
     - name: grafana-operator
     - name: kube-prometheus-stack
-    - name: victoria-logs
     - name: ext-postgres-operator
       namespace: database
 
