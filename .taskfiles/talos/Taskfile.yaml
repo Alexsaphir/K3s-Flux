@@ -110,7 +110,7 @@ tasks:
     prompt: This will destroy your cluster and reset the nodes back to maintenance mode... continue?
     preconditions:
       - which talhelper
-    cmd: talhelper gencommand reset --extra-flags="--reboot {{- if eq .CLI_FORCE false }} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL{{ end }} --graceful=false --wait=false" | bash
+    cmd: talhelper gencommand reset --extra-flags="--reboot {{- if eq .CLI_FORCE false }} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --system-labels-to-wipe u-openebs --system-labels-to-wipe r-rook-ceph {{ end }} --graceful=false --wait=false" | bash
 
 
   _apply-machineconfig:
