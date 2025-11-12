@@ -47,12 +47,11 @@ tasks:
       - # Apply configurations.
         cmd: 'kubectl --namespace flux-system apply --server-side --filename {{ .CLUSTER_DIR }}/{{ .ITEM }}'
         for:
-          - 'components/flux/substituteFrom/cluster-settings.yaml'
+          - 'components/namespace/substituteFrom/cluster-settings.yaml'
       - # Apply secrets.
         cmd: sops exec-file {{ .CLUSTER_DIR }}/{{ .ITEM }} "kubectl --namespace flux-system apply --server-side --filename {}"
         for:
-          - 'components/flux/sops/sops-age.sops.yaml'
-          - 'components/flux/substituteFrom/cluster-secrets.sops.yaml'
+          - 'infra/flux-system/flux-instance/sops-age.sops.yaml'
       - # Apply helmfile
         cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
 

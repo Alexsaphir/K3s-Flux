@@ -35,7 +35,8 @@ releases:
           - --namespace=kube-system
           - --server-side
           - --field-manager=kustomize-controller
-          - --filename=../../../cluster/infra/kube-system/cilium/announcements/kustomization.yaml
+          - -k
+          - ../../../cluster/infra/kube-system/cilium/announcements
         events:
           - postsync
         showlogs: true

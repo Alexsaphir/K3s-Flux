@@ -72,11 +72,11 @@ nodes:
     ipAddress: 192.168.42.11
     controlPlane: true
     installDiskSelector:
-      serial: ''
+      serial: 'S7GCNL0XA16201K'
 
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: '58:47:ca:::'
+          hardwareAddr: '58:47:ca:76:79:a6'
         dhcp: true
         mtu: 9000
 
@@ -108,11 +108,11 @@ nodes:
     ipAddress: 192.168.42.12
     controlPlane: true
     installDiskSelector:
-      serial: ''
+      serial: 'S7GCNL0XA16195E'
 
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: '58:47:ca:::'
+          hardwareAddr: '58:47:ca:76:6f:42'
         dhcp: true
         mtu: 9000
 
