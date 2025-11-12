@@ -65,6 +65,21 @@ nodes:
           - network: 169.254.255.12/32
             metric: 2048
 
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+            - siderolabs/thunderbolt
+            - siderolabs/lldpd
+            - siderolabs/nfsrahead
+            - siderolabs/gasket-driver
+            - siderolabs/nvidia-container-toolkit-production
+            - siderolabs/nvidia-open-gpu-kernel-modules-production
+
+
     patches:
       - "@./patches/nodes/nvidia.yaml"
 
@@ -104,6 +119,18 @@ nodes:
           - network: 169.254.255.10/32
             metric: 2048
 
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+            - siderolabs/thunderbolt
+            - siderolabs/lldpd
+            - siderolabs/nfsrahead
+            - siderolabs/gasket-driver
+
   - hostname: "ms-03"
     ipAddress: 192.168.42.12
     controlPlane: true
@@ -140,6 +167,17 @@ nodes:
           - network: 169.254.255.11/32
             metric: 2048
 
+    schematic:
+      customization:
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/mei
+            - siderolabs/thunderbolt
+            - siderolabs/lldpd
+            - siderolabs/nfsrahead
+            - siderolabs/gasket-driver
 
 patches:
   - "@./patches/global/machine-kubelet.yaml"
@@ -171,18 +209,6 @@ controlPlane:
         - mitigations=off         # Less security, faster puter
         - security=none           # Less security, faster puter
         - talos.auditd.disabled=1 # Less security, faster puter
-
-      systemExtensions:
-        officialExtensions:
-          - siderolabs/i915
-          - siderolabs/intel-ucode
-          - siderolabs/mei
-          - siderolabs/thunderbolt
-          - siderolabs/lldpd
-          - siderolabs/nfsrahead
-          - siderolabs/gasket-driver
-          - siderolabs/nvidia-container-toolkit-production
-          - siderolabs/nvidia-open-gpu-kernel-modules-production
 
   patches:
     - "@./patches/controller/cluster.yaml"
