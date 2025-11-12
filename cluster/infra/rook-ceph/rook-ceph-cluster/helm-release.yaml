@@ -33,7 +33,7 @@ spec:
     route:
       dashboard:
         host:
-          name: rook.${DOMAIN_NAME}
+          name: rook.talos.${DOMAIN_NAME}
           path: /
           pathType: PathPrefix
         parentRefs:
