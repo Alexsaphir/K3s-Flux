@@ -94,7 +94,7 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: false
-        devicePathFilter: /dev/disk/by-partlabel/r-rook-ceph
+        devicePathFilter: /dev/disk/by-partlabel/r-rook-*
         config:
           osdsPerDevice: '1'
 
