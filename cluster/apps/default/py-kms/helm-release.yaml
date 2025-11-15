@@ -41,7 +41,7 @@ spec:
           app:
             image:
               repository: ghcr.io/py-kms-organization/py-kms
-              tag: python3@sha256:3cea625b22e5d78bfff0708b72d63c987c96109c62dc85d124a1bb803da06141
+              tag: python3@sha256:c832acd4130fc8a7a8de2eab48a232a4229dbe18c719442681fe2ba61d079a07
 
             envFrom:
               - secretRef:
