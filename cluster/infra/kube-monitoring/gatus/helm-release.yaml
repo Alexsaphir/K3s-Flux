@@ -60,8 +60,6 @@ spec:
             resources: &resources
               requests:
                 cpu: 10m
-              limits:
-                memory: 128Mi
 
         containers:
           app:
