@@ -28,6 +28,9 @@ spec:
 
     config:
       envoyGateway:
+        extensionApis:
+          enableEnvoyPatchPolicy: true
+
         gateway:
           controllerName: gateway.envoyproxy.io/gatewayclass-controller
 
