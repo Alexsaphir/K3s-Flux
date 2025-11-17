@@ -4,7 +4,7 @@ kind: Dragonfly
 metadata:
   name: netbox-dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.34.2
+  image: ghcr.io/dragonflydb/dragonfly:v1.35.0
 
   replicas: 2
 
