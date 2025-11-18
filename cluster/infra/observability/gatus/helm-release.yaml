@@ -29,6 +29,22 @@ spec:
         annotations:
           reloader.stakater.com/auto: 'true'
 
+        initContainers:
+          gatus-sidecar:
+            image:
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.11@sha256:e60e29554acfa0ff85f6f889e4b66bedb049116e42c44cee7797a1e49546a755
+            args:
+              - --auto-httproute
+              - --enable-httproute
+              - --enable-service
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+            restartPolicy: Always
+
         containers:
           app:
             image:
@@ -36,10 +52,11 @@ spec:
               tag: v5.32.0@sha256:d848d9a767f64bb7b972a30b2c8a3cd2818c4d289ddad1032a5941c2d0af5a35
             env:
               TZ: '${TIMEZONE}'
-              GATUS_LOG_LEVEL: 'INFO'
+
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              WEB_PORT: &port 80
+              GATUS_WEB_PORT: &port 80
+
               POSTGRES_URL:
                 valueFrom:
                   secretKeyRef:
@@ -67,7 +84,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
+              capabilities: { add: [ 'NET_RAW' ], drop: [ 'ALL' ] }
 
             resources:
               requests:
@@ -96,6 +113,8 @@ spec:
 
     route:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames: [ 'status.talos.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
@@ -107,7 +126,10 @@ spec:
           type: ClusterRole
           rules:
             - apiGroups: [ '' ]
-              resources: [ 'configmaps', 'secrets' ]
+              resources: [ 'services', ]
+              verbs: [ 'get', 'watch', 'list' ]
+            - apiGroups: [ 'gateway.networking.k8s.io' ]
+              resources: [ 'gateways', 'httproutes' ]
               verbs: [ 'get', 'watch', 'list' ]
       bindings:
         gatus:
