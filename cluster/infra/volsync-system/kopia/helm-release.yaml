@@ -115,7 +115,7 @@ spec:
       repository:
         type: nfs
         server: nas.hosts.alexsaphir.com
-        path: /mnt/user/VolsyncKopia/talos
+        path: /mnt/user/VolsyncKopia
         globalMounts:
           - path: /repository
 
