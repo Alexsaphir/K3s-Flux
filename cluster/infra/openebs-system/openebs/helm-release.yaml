@@ -47,7 +47,7 @@ spec:
         basePath: *hostPath
 
         xfsQuota:
-          enabled: false
+          enabled: true
 
       helperPod:
         image:
