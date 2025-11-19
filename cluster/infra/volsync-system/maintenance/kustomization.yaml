@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - kopia-maintenance.yaml
   - mutating-admission-policy.yaml
+  - secret.sops.yaml
