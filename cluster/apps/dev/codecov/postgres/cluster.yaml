@@ -17,8 +17,8 @@ spec:
   postgresUID: 1000
   postgresGID: 1000
 
-  instances: 1
-  enablePDB: false # TODO: Remove when more than 1 node.
+  instances: 3
+  enablePDB: true
 
   enableSuperuserAccess: false
 

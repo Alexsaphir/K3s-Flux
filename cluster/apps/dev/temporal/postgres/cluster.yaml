@@ -10,8 +10,8 @@ metadata:
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5-9
 
-  instances: 1
-  enablePDB: false # TODO: Remove when more than 1 node.
+  instances: 3
+  enablePDB: true
 
   superuserSecret:
     name: postgres-superuser
