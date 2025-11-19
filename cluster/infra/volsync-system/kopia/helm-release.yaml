@@ -91,20 +91,19 @@ spec:
         data:
           repository.config: |-
             {
-              'storage': {
-                'type': 'filesystem',
-                'config': {
-                  'path': '/repository'
+              "storage": {
+                "type": "filesystem",
+                "config": {
+                  "path": "/repository"
                 }
               },
-              'hostname': 'volsync.{{ .Release.Namespace }}.svc.cluster.local',
-              'username': 'volsync',
-              'description': 'volsync',
-              'enableActions': false
+              "hostname": "volsync.{{ .Release.Namespace }}.svc.cluster.local",
+              "username": "volsync",
+              "description": "volsync",
+              "enableActions": false
             }
 
     persistence:
-
       config-file:
         type: configMap
         identifier: config
