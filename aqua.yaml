@@ -4,7 +4,7 @@
 # https://aquaproj.github.io/
 registries:
   - type: standard
-    ref: v4.436.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.437.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.37.1
   - name: go-task/task@v3.45.5
@@ -12,7 +12,7 @@ packages:
   - name: firecow/gitlab-ci-local@4.63.0
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.11.0
-  - name: hashicorp/terraform@v1.13.5
+  - name: hashicorp/terraform@v1.14.0
   - name: terraform-linters/tflint@v0.60.0
   - name: fluxcd/flux2@v2.7.3
   - name: kubernetes/kubectl@v1.34.2
