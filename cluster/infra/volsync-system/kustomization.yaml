@@ -6,3 +6,5 @@ components:
   - ../../components/namespace
 resources:
   - volsync/ks.yaml
+  - maintenance/ks.yaml
+  - kopia/ks.yaml

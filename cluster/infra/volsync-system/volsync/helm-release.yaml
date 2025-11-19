@@ -9,8 +9,8 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.13.1
-  url: oci://ghcr.io/home-operations/charts-mirror/volsync
+    tag: 0.17.15
+  url: oci://ghcr.io/home-operations/charts-mirror/volsync-perfectra1n
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -24,8 +24,18 @@ spec:
 
   values:
     manageCRDs: true
+    fullnameOverride: volsync # Required for volsync-perfectra1n fork
 
-    replicaCount: 2
+    image: &image
+      repository: ghcr.io/perfectra1n/volsync
+      tag: v0.16.13
+
+    kopia: *image
+    rclone: *image
+    restic: *image
+    rsync: *image
+    rsync-tls: *image
+    syncthing: *image
 
     metrics:
       disableAuth: true
@@ -34,4 +44,3 @@ spec:
       runAsNonRoot: true
       runAsUser: 1000
       runAsGroup: 1000
-      seccompProfile: { type: RuntimeDefault }
