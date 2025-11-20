@@ -31,10 +31,10 @@ spec:
       jobEnabled: false
 
     csi:
-      attacherReplicaCount: 2
-      provisionerReplicaCount: 2
-      resizerReplicaCount: 2
-      snapshotterReplicaCount: 2
+      attacherReplicaCount: 3
+      provisionerReplicaCount: 3
+      resizerReplicaCount: 3
+      snapshotterReplicaCount: 3
 
     persistence:
       defaultClass: true
