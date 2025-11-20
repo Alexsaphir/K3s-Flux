@@ -14,7 +14,7 @@ resources:
 
   - node-feature-discovery/ks.yaml
   - device-plugins
-  - multus/ks.yaml
+  #- multus/ks.yaml
 
   - descheduler/ks.yaml
   - reloader/ks.yaml
