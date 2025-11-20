@@ -22,4 +22,3 @@ resources:
 
   - database
 #  - kube-auth
-#  - kube-guardian
