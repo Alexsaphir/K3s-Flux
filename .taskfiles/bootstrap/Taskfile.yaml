@@ -26,11 +26,37 @@ tasks:
       - cmd: until talhelper gencommand bootstrap | bash; do sleep 5; done
       - task: :talos:talhelper:kubeconfig
 
+  kubectl:target-node:
+    internal: true
+    preconditions:
+      - which kubectl talosctl jq
+      - test -f $KUBECONFIG
+    vars:
+      TALOS_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+      CLUSTER_NAME:
+        sh: talosctl config info --output json | jq --raw-output '.context'
+    cmd: kubectl config set-cluster {{ .CLUSTER_NAME }} --server "https://{{ .TALOS_CONTROLLER }}:6443"
+
+  kubectl:target-cilium:
+    internal: true
+    preconditions:
+      - which kubectl talosctl jq
+      - test -f $KUBECONFIG
+      - test -f '{{.TALOS_DIR}}/talconfig.yaml'
+    vars:
+      CLUSTER_NAME:
+        sh: talosctl config info --output json | jq --raw-output '.context'
+      ENDPOINT:
+        sh: yq '.endpoint' < '{{.TALOS_DIR}}/talconfig.yaml'
+    cmd: kubectl config set-cluster {{ .CLUSTER_NAME }} --server "{{ .ENDPOINT }}"
 
   helm:critical:
     desc: Bootstrap network.
     vars:
       helm_file: '{{ .TALOS_DIR }}/bootstrap/helmfile.d/00-critical.yaml'
+      TALOS_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
       INFRA_DIR: '{{ .ROOT_DIR }}/cluster/infra'
       NODE_COUNT:
@@ -41,6 +67,8 @@ tasks:
       - talosctl config info
     interactive: true
     cmds:
+      - # Use a node as an endpoint
+        task: kubectl:target-node
       - cmd: until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - # Create the namespace.
         cmd: kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
@@ -54,6 +82,11 @@ tasks:
           - 'infra/flux-system/flux-instance/sops-age.sops.yaml'
       - # Apply helmfile
         cmd: helmfile --file {{ .helm_file }} apply --hide-notes --skip-diff-on-install --suppress-diff --suppress-secrets
+      - # Restore HA endpoint
+        task: kubectl:target-cilium
+      - # Check that all nodes are ready.
+        cmd: until kubectl wait nodes --for=condition=Ready=True --all --timeout=10m; do sleep 5; done
+
 
   helm:infra:
     desc: Bootstrap infra.
