@@ -3,6 +3,9 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: gitlab-webhook
+  annotations:
+    gatus.home-operations.com/endpoint: |-
+      conditions: ['[STATUS] == 404']
 spec:
   # noinspection KubernetesUnknownValues
   hostnames: [ 'flux-webhook.talos.${DOMAIN_NAME}' ]
