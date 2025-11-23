@@ -5,3 +5,4 @@ resources:
   - atlantis
   - codecov
   - renovate
+  - temporal
