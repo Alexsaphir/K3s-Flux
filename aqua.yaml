@@ -16,10 +16,10 @@ packages:
   - name: terraform-linters/tflint@v0.60.0
   - name: fluxcd/flux2@v2.7.4
   - name: kubernetes/kubectl@v1.34.2
-  - name: helm/helm@v4.0.0
+  - name: helm/helm@v4.0.1
   - name: kubernetes-sigs/kustomize@kustomize/v5.8.0
   - name: jqlang/jq@jq-1.8.1
-  - name: mikefarah/yq@v4.49.1
+  - name: mikefarah/yq@v4.49.2
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.33.1
@@ -40,5 +40,5 @@ packages:
   - name: runatlantis/atlantis@v0.37.1
   - name: kyverno/kyverno@v1.16.0
   - name: homeport/dyff@v1.10.2
-  - name: gruntwork-io/terragrunt@v0.93.10
+  - name: gruntwork-io/terragrunt@v0.93.11
   - name: breml/tfreveal@v0.0.4
