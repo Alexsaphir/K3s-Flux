@@ -14,4 +14,4 @@ machine:
     hostDNS:
       enabled: true
       resolveMemberNames: true
-      forwardKubeDNSToHost: false # Incompatible with Cilium bpf masquerade
+      forwardKubeDNSToHost: true # Requires Cilium socketLB features
