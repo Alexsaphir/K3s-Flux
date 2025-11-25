@@ -26,6 +26,8 @@ machine:
     sunrpc.tcp_slot_table_entries: 128     # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
 
+    net.ipv4.ping_group_range: 0 2147483647 # Allow ping without NET_RAW capability
+
     user.max_user_namespaces: 11255        # User namespaces
 
     vm.nr_hugepages: "1024"

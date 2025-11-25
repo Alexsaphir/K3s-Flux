@@ -24,11 +24,6 @@ spec:
 
   values:
     fullnameOverride: blackbox-exporter
-    securityContext:
-      readOnlyRootFilesystem: true
-      allowPrivilegeEscalation: false
-      capabilities:
-        add: [ 'NET_RAW' ]
 
     config:
       modules:
