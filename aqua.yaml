@@ -12,7 +12,7 @@ packages:
   - name: firecow/gitlab-ci-local@4.63.0
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.11.0
-  - name: hashicorp/terraform@v1.14.0
+  - name: hashicorp/terraform@v1.14.1
   - name: terraform-linters/tflint@v0.60.0
   - name: fluxcd/flux2@v2.7.5
   - name: kubernetes/kubectl@v1.34.2
@@ -38,7 +38,7 @@ packages:
   - name: lsd-rs/lsd@v1.2.0
   - name: opentofu/opentofu@v1.10.7
   - name: runatlantis/atlantis@v0.37.1
-  - name: kyverno/kyverno@v1.16.0
+  - name: kyverno/kyverno@v1.16.1
   - name: homeport/dyff@v1.10.2
   - name: gruntwork-io/terragrunt@v0.93.12
   - name: breml/tfreveal@v0.0.4
