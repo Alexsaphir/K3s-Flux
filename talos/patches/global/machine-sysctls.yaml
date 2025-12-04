@@ -14,11 +14,13 @@ machine:
 
     net.ipv4.tcp_congestion_control: bbr   # 2.5Gb/s
     net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
-    net.ipv4.tcp_mtu_probing: 1            # 10Gb/s | Jumbo frames
+    net.ipv4.tcp_mtu_probing: 1            # 2.5Gb/s | Jumbo frames
+    net.ipv4.tcp_notsent_lowat: 131072     # 2.5Gb/s
 
     net.ipv4.tcp_rmem: 4096 87380 33554432 # 2.5Gb/s
     net.ipv4.tcp_wmem: 4096 65536 33554432 # 2.5Gb/s
     net.ipv4.tcp_window_scaling: 1         # 2.5Gb/s
+    net.ipv4.tcp_slow_start_after_idle: 0  # Preserve congestion window after idle
 
     net.ipv6.conf.all.accept_ra: 2
     net.ipv6.conf.all.forwarding: 1
