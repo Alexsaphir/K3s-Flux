@@ -45,7 +45,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/actualbudget/actual-server
+              repository: ghcr.io/actualbudget/actual
               tag: 25.12.0
 
             resources:
