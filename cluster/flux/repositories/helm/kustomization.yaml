@@ -42,7 +42,6 @@ resources:
   - komodorio.yaml
   - kube-vip.yaml
   - kubereboot.yaml
-  - kubeshark.yaml
   - kyverno-reporter.yaml
   - kyverno.yaml
   - longhorn.yaml
@@ -55,7 +54,6 @@ resources:
   - nfs-provisioner.yaml
   - node-feature-discovery.yaml
   - onyxia.yaml
-  - openebs.yaml
   - opensearch.yaml
   - ori-edge.yaml
   - piraeus.yaml
