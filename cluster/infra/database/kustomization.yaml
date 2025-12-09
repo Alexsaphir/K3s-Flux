@@ -6,4 +6,5 @@ components:
   - ../../components/namespace
 resources:
   - postgres/ks.yaml
+  - timescaledb/ks.yaml
   - ext-postgres-operator/ks.yaml

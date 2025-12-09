@@ -10,7 +10,8 @@ spec:
       app.kubernetes.io/name: *app
 
   dependsOn:
-    - name: postgres-codecov
+    - name: timescaledb
+      namespace: database
 
   postBuild:
     substitute:

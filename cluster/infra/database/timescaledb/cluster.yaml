@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: &name postgres-codecov
+  name: &name timescaledb
   annotations:
     kyverno.io/ignore: 'true'
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
@@ -20,23 +20,13 @@ spec:
   instances: 3
   enablePDB: true
 
-  enableSuperuserAccess: false
+  superuserSecret:
+    name: postgres-superuser
+  enableSuperuserAccess: true
 
-  bootstrap:
-    #    initdb:
-    #      database: codecov
-    #      owner: codecov
-    #
-    #      dataChecksums: true
-    #
-    #      secret:
-    #        name: postgres-codecov-secret
-    #
-    #      postInitTemplateSQL:
-    #        - CREATE EXTENSION IF NOT EXISTS timescaledb;
-
-    recovery:
-      source: source
+#  bootstrap:
+#    recovery:
+#      source: source
 
   externalClusters:
     - name: source
