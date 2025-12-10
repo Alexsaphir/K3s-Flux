@@ -27,8 +27,6 @@ spec:
       NVIDIA_DRIVER_CAPABILITIES: all
       NVIDIA_VISIBLE_DEVICES: all
 
-    nodeSelector:
-      nvidia.feature.node.kubernetes.io/gpu: 'true'
     runtimeClassName: nvidia
 
     securityContext:
@@ -38,6 +36,19 @@ spec:
         add:
           - SYS_ADMIN
 
+    tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: extensions.talos.dev/nvidia-container-toolkit-production
+                  operator: Exists
+
     resources:
       limits:
         nvidia.com/gpu: 1
@@ -45,3 +56,5 @@ spec:
     serviceMonitor:
       interval: 15s
       honorLabels: true
+      labels:
+        prometheus: kube-prometheus-stack
