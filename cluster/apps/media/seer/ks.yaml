@@ -9,10 +9,21 @@ spec:
     labels:
       app.kubernetes.io/name: *app
 
+  components:
+    - ../../../components/nfs-scaler
+    - ../../../components/volsync
+
+  postBuild:
+    substitute:
+      APP: seerr
+      VOLSYNC_CAPACITY: 5Gi
+
   dependsOn:
-    - name: plex
-    - name: sonarr
-    - name: radarr
+    - name: longhorn
+      namespace: longhorn-system
+    #- name: plex
+    #- name: sonarr
+    #- name: radarr
 
   interval: 1h
   timeout: 5m
