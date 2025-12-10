@@ -2,8 +2,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app atlantis
-  namespace: &namespace atlantis
+  name: &app gitlab
+  namespace: &namespace gitlab
 spec:
   commonMetadata:
     labels:
@@ -22,7 +22,7 @@ spec:
   prune: true
 
   targetNamespace: *namespace
-  path: cluster/apps/dev/atlantis/app
+  path: cluster/apps/dev/gitlab/app
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
