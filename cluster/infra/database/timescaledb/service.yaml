@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: timescaledb-lb
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: timescaledb.svc.talos.${DOMAIN_NAME}
+spec:
+  type: LoadBalancer
+  ipFamilyPolicy: PreferDualStack
+  externalTrafficPolicy: Local
+  ports:
+    - name: timescaledb
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    cnpg.io/cluster: timescaledb
+    role: primary
