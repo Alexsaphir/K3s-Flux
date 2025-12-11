@@ -5,11 +5,19 @@ metadata:
   name: &app sonarr
   namespace: &namespace media
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/nfs-scaler
+    - ../../../../components/volsync
+
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: 10Gi
 
   dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
     - name: prowlarr
 
   interval: 1h
