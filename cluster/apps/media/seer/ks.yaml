@@ -15,8 +15,8 @@ spec:
 
   postBuild:
     substitute:
-      APP: seer
-      PVC_NAME: seer
+      APP: *app
+      PVC_NAME: *app
       VOLSYNC_CAPACITY: 5Gi
 
   dependsOn:

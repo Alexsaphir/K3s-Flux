@@ -9,8 +9,20 @@ spec:
     labels:
       app.kubernetes.io/name: *app
 
+  components:
+    - ../../../../components/nfs-scaler
+    - ../../../../components/volsync
+
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: 5Gi
+
   dependsOn:
-    - name: plex
+    - name: longhorn
+      namespace: longhorn-system
+    #- name: plex
 
   interval: 1h
   timeout: 5m

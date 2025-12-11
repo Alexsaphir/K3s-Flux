@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: seer
+  name: prowlarr
 spec:
   interval: 1h
   layerSelector:
@@ -15,70 +15,74 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: seer
+  name: prowlarr
 spec:
   interval: 15m
   chartRef:
     kind: OCIRepository
-    name: seer
+    name: prowlarr
 
   values:
     controllers:
-      seer:
+      prowlarr:
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
           app:
             image:
-              repository: ghcr.io/seerr-team/seerr
-              tag: develop@sha256:cebdcb3d23986bef88221717ed3352a595a05d4168409d69efa10f5fc5be19ff
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 2.3.0.5236@sha256:1a8a4b11972b2e62671b49949c622b8cb1110e2b5c77199ac795a6d79fe106e8
 
             env:
               TZ: '${TIMEZONE}'
-              LOG_LEVEL: 'info'
-              PORT: &port 80
 
-              API_KEY:
+              PROWLARR__AUTH__METHOD: External
+              PROWLARR__AUTH__REQUIRED: Enabled
+              PROWLARR__APP__INSTANCENAME: Prowlarr
+              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__LOG__ANALYTICS_ENABLED: 'false'
+              PROWLARR__LOG__LEVEL: info
+              PROWLARR__APP__THEME: light
+              PROWLARR__UPDATE__BRANCH: develop
+
+              PROWLARR__AUTH__APIKEY: &apikey
                 valueFrom:
                   secretKeyRef:
-                    name: '{{ .Release.Name }}-secret'
+                    name: prowlarr-secret
                     key: api_key
 
-              DB_TYPE: postgres
-              DB_HOST:
+              PROWLARR__LOG__DBENABLED: 'false'
+              PROWLARR__POSTGRES__HOST:
                 valueFrom:
                   secretKeyRef:
                     name: &db-secret 'database-{{ .Release.Name }}'
                     key: HOST
-              DB_NAME:
+              PROWLARR__POSTGRES__MAINDB:
                 valueFrom:
                   secretKeyRef:
                     name: *db-secret
                     key: DATABASE_NAME
-              DB_USER:
+              PROWLARR__POSTGRES__USER:
                 valueFrom:
                   secretKeyRef:
                     name: *db-secret
                     key: LOGIN
-              DB_PASS:
+              PROWLARR__POSTGRES__PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: *db-secret
                     key: PASSWORD
 
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
                 spec:
-                  httpGet:
-                    path: /api/v1/status
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             securityContext:
               allowPrivilegeEscalation: false
@@ -86,10 +90,12 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
             resources:
+              limits:
+                cpu: 250m
+                memory: 256Mi
               requests:
                 cpu: 10m
-              limits:
-                memory: 2Gi
+                memory: 128Mi
 
     defaultPodOptions:
       automountServiceAccountToken: false
@@ -121,7 +127,6 @@ spec:
     persistence:
       config:
         existingClaim: '{{ .Release.Name }}'
-        globalMounts:
-          - path: /app/config
+
       tmp:
         type: emptyDir
