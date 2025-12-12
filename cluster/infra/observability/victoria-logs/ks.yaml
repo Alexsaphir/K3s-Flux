@@ -5,12 +5,6 @@ metadata:
   name: &app victoria-logs
   namespace: &namespace observability
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-      app.kubernetes.io/component: *app
-
   dependsOn:
     - name: longhorn
       namespace: longhorn-system
@@ -22,8 +16,7 @@ spec:
       namespace: *namespace
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/observability/victoria-logs
   sourceRef:
     kind: GitRepository

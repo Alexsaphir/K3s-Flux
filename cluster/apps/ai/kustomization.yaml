@@ -4,6 +4,8 @@ kind: Kustomization
 namespace: ai
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
   - ollama/ks.yaml
   - ollama-ui/ks.yaml

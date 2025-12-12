@@ -4,4 +4,6 @@ kind: Kustomization
 namespace: planka
 components:
   - ../../../components/namespace
+replacements:
+  - path: ../../../components/replacements/ks.yaml
 resources: [ ]

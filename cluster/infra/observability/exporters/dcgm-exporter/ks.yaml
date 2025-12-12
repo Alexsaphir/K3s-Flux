@@ -5,17 +5,10 @@ metadata:
   name: &app dcgm-exporter
   namespace: &namespace observability
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-      app.kubernetes.io/component: *app
-
   dependsOn:
+    - name: kube-prometheus-stack
     - name: nvidia-device-plugin
       namespace: kube-system
-    - name: kube-prometheus-stack
-      namespace: *namespace
 
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
@@ -24,8 +17,7 @@ spec:
       namespace: *namespace
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/observability/exporters/dcgm-exporter
   sourceRef:
     kind: GitRepository

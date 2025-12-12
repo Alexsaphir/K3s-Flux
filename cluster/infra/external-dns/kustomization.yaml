@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: external-dns
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
   - unifi-dns/ks.yaml

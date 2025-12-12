@@ -2,20 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app volsync-maintenance
-  namespace: &namespace volsync-system
+  name: volsync-maintenance
+  namespace: volsync-system
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-
   dependsOn:
     - name: volsync
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/volsync-system/maintenance
   sourceRef:
     kind: GitRepository

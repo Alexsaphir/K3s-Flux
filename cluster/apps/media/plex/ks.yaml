@@ -3,15 +3,10 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app plex
-  namespace: &namespace media
+  namespace: media
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-#  components:
-#    - ../../../components/nfs-scaler
-
-  dependsOn: [ ]
+  components:
+    - ../../../components/nfs-scaler
 
   postBuild:
     substitute:
@@ -19,13 +14,8 @@ spec:
       VOLSYNC_CACHE_CAPACITY: 25Gi
       VOLSYNC_CAPACITY: 100Gi
 
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
-
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/apps/media/plex
   sourceRef:
     kind: GitRepository

@@ -4,8 +4,10 @@ kind: Kustomization
 namespace: media
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
-  - plex/ks.yaml
+  #- plex/ks.yaml
 
   - plex-auto-languages/ks.yaml
   - plex-image-cleanup/ks.yaml

@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: dragonfly-operator
 components:
   - ../../../components/namespace
+replacements:
+  - path: ../../../components/replacements/ks.yaml
 resources:
   - app/ks.yaml

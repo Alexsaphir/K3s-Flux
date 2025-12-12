@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: minio-system
 components:
   - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
 resources:
   - nas/ks.yaml

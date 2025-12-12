@@ -2,21 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cnpg-barman-cloud
-  namespace: &namespace cloudnative-pg
+  name: cnpg-barman-cloud
+  namespace: cloudnative-pg
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
-
   prune: true
   wait: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/operators/cloudnative-pg/cnpg-barman-cloud
   sourceRef:
     kind: GitRepository

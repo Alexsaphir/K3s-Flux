@@ -5,16 +5,3 @@ resources: [ ]
 #  - pvc.yaml
 #  - resource-claim-template.yaml
 #  - helm-release.yaml
-#
-#configMapGenerator:
-#  - name: plex-loki-rules
-#    files:
-#      - plex.yaml=loki-rule.yaml
-#    options:
-#      labels:
-#        loki_rule: "true"
-#
-#generatorOptions:
-#  disableNameSuffixHash: true
-#  annotations:
-#    kustomize.toolkit.fluxcd.io/substitute: disabled

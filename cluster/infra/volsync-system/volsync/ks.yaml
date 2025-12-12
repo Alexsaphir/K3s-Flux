@@ -5,11 +5,6 @@ metadata:
   name: &app volsync
   namespace: &namespace volsync-system
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-
   dependsOn:
     - name: snapshot-controller
       namespace: kube-system
@@ -21,8 +16,7 @@ spec:
       namespace: *namespace
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/volsync-system/volsync
   sourceRef:
     kind: GitRepository

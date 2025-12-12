@@ -2,14 +2,9 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app postgres
+  name: postgres
   namespace: &namespace database
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-
   dependsOn:
     - name: cloudnative-pg
       namespace: cloudnative-pg
@@ -21,8 +16,7 @@ spec:
       namespace: *namespace
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/database/postgres
   sourceRef:
     kind: GitRepository

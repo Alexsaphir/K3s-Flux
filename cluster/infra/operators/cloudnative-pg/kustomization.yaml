@@ -4,6 +4,8 @@ kind: Kustomization
 namespace: cloudnative-pg
 components:
   - ../../../components/namespace
+replacements:
+  - path: ../../../components/replacements/ks.yaml
 resources:
   - operator/ks.yaml
   - cnpg-barman-cloud/ks.yaml

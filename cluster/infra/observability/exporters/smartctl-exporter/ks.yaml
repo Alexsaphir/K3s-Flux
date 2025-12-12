@@ -5,15 +5,8 @@ metadata:
   name: &app smartctl-exporter
   namespace: &namespace observability
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-      app.kubernetes.io/component: *app
-
   dependsOn:
     - name: kube-prometheus-stack
-      namespace: *namespace
 
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
@@ -22,8 +15,7 @@ spec:
       namespace: *namespace
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/observability/exporters/smartctl-exporter
   sourceRef:
     kind: GitRepository

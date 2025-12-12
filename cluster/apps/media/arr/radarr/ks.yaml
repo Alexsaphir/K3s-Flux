@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app radarr
-  namespace: &namespace media
+  namespace: media
 spec:
   components:
     - ../../../../components/nfs-scaler
@@ -20,13 +20,8 @@ spec:
       namespace: longhorn-system
     - name: prowlarr
 
-  interval: 1h
-  timeout: 5m
-  retryInterval: 2m
-
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/apps/media/arr/radarr
   sourceRef:
     kind: GitRepository

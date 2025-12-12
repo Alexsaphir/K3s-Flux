@@ -4,6 +4,8 @@ kind: Kustomization
 namespace: immich
 components:
   - ../../../components/namespace
+replacements:
+  - path: ../../../components/replacements/ks.yaml
 resources:
   - postgres/ks.yaml
   - app/ks.yaml

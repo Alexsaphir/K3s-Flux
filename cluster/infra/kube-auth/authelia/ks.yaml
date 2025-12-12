@@ -5,11 +5,6 @@ metadata:
   name: &app authelia
   namespace: &namespace kube-auth
 spec:
-  interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-
   dependsOn:
     - name: lldap
 
@@ -20,8 +15,7 @@ spec:
       namespace: *namespace
 
   prune: true
-
-  targetNamespace: *namespace
+  interval: 1h
   path: cluster/infra/kube-auth/authelia
   sourceRef:
     kind: GitRepository
