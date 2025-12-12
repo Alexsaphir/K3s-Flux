@@ -97,6 +97,7 @@ spec:
     service:
       app:
         controller: plex
+        type: LoadBalancer
         ports:
           http:
             port: 32400
