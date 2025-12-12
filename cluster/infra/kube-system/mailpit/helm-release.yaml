@@ -15,7 +15,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mailpit
+  name: mailpit
 spec:
   interval: 1h
   chartRef:
@@ -62,7 +62,7 @@ spec:
           smtp:
             port: 1025
           http:
-            port: &port 8025
+            port: 8025
 
     route:
       app:

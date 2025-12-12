@@ -45,7 +45,7 @@ spec:
               PROWLARR__APP__THEME: light
               PROWLARR__UPDATE__BRANCH: develop
 
-              PROWLARR__AUTH__APIKEY: &apikey
+              PROWLARR__AUTH__APIKEY:
                 valueFrom:
                   secretKeyRef:
                     name: prowlarr-secret
