@@ -5,8 +5,8 @@ metadata:
   name: &app plex
   namespace: media
 spec:
-  components:
-    - ../../../components/nfs-scaler
+  components: [ ]
+  # - ../../../components/nfs-scaler
 
   postBuild:
     substitute:
