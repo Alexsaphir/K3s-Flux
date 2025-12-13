@@ -87,6 +87,7 @@ spec:
     service:
       app:
         controller: tautulli
+        type: LoadBalancer
         ports:
           http:
             port: *port
