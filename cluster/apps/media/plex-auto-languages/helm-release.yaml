@@ -1,0 +1,78 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: plex-auto-languages
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.5.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex-auto-languages
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: plex-auto-languages
+
+  values:
+    controllers:
+      plex-auto-languages:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          app:
+            image:
+              repository: ghcr.io/journeydocker/plex-auto-languages
+              tag: 1.4.0@sha256:822f4f7b9fef95cca3a957316e66f6667df0fab0f52ae1591904802cfcbcdfa4
+
+            env:
+              TZ: '${TIMEZONE}'
+              PLEX_URL: http://plex.media.svc.cluster.local:32400
+              REFRESH_LIBRARY_ON_SCAN: false
+              PLEX_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: plex-secret
+                    key: plex-token
+
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 100
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      config:
+        type: emptyDir
+      local:
+        type: emptyDir
+        globalMounts:
+          - path: /.local
