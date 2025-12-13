@@ -1,0 +1,107 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: nzbget
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.5.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nzbget
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: nzbget
+
+  values:
+    controllers:
+      nzbget:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/nzbget
+              tag: 25.4.0@sha256:7afaa93e1992f86a033a310eb0f012f1e4c6bd406caa608146df951e85298ff1
+
+            env:
+              TZ: ${TIMEZONE}
+
+              NZBGET__PORT: &port 80
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /jsonrpc/status
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 8Gi
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ['[STATUS] == 200']
+        hostnames:
+          - '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      config:
+        existingClaim: '{{ .Release.Name }}'
+
+      tmp:
+        type: emptyDir
+
+      media:
+        enabled: true
+        type: nfs
+        server: '192.168.0.130'
+        path: /mnt/user/Media/talos
+        globalMounts:
+          - path: /media/Downloads/nzbget
+            subPath: Downloads/nzbget
