@@ -26,7 +26,7 @@ spec:
   values:
     fullnameOverride: *app
 
-    logLevel: &logLevel debug
+    logLevel: &logLevel info
 
     provider:
       name: webhook
