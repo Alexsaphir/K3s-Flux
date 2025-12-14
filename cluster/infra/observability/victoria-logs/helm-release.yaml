@@ -38,6 +38,9 @@ spec:
 
       route:
         enabled: true
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            group: observability
         hostnames: [ 'logs.talos.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy

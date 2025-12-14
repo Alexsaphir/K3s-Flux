@@ -83,6 +83,10 @@ spec:
 
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ['[STATUS] == 404']
+            group: observability
         hostnames: [ '{{ .Release.Name }}.talos.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy

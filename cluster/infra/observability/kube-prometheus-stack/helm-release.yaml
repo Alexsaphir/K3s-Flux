@@ -35,6 +35,9 @@ spec:
       route:
         main:
           enabled: true
+          annotations:
+            gatus.home-operations.com/endpoint: |-
+              group: observability
           hostnames: [ 'alertmanager.talos.${DOMAIN_NAME}' ]
           parentRefs:
             - name: envoy
@@ -66,6 +69,9 @@ spec:
       route:
         main:
           enabled: true
+          annotations:
+            gatus.home-operations.com/endpoint: |-
+              group: observability
           hostnames: [ 'prometheus.talos.${DOMAIN_NAME}' ]
           parentRefs:
             - name: envoy
