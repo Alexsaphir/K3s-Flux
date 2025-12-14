@@ -112,6 +112,7 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ['[STATUS] == 200']
+            group: media
         hostnames:
           - '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
         parentRefs:
