@@ -9,7 +9,7 @@ packages:
   - name: direnv/direnv@v2.37.1
   - name: go-task/task@v3.45.5
   - name: gitleaks/gitleaks@v8.30.0
-  - name: firecow/gitlab-ci-local@4.64.0
+  - name: firecow/gitlab-ci-local@4.64.1
   - name: FiloSottile/age@v1.2.1
   - name: mozilla/sops@v3.11.0
   - name: hashicorp/terraform@v1.14.2
@@ -28,7 +28,7 @@ packages:
   - name: FairwindsOps/pluto@v5.22.7
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.5
-  - name: kubescape/kubescape@v3.0.46
+  - name: kubescape/kubescape@v3.0.47
   - name: stern/stern@v1.33.1
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
