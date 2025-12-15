@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sonarr-4k
+  name: &app radarr4k
   namespace: media
 spec:
   components:
@@ -22,7 +22,7 @@ spec:
 
   prune: true
   interval: 1h
-  path: cluster/apps/media/arr/sonarr-4k
+  path: cluster/apps/media/arr/radarr4k
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

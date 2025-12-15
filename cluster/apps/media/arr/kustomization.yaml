@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - prowlarr/ks.yaml
   - radarr/ks.yaml
-  - radarr-4k/ks.yaml
+  - radarr4k/ks.yaml
   - sonarr/ks.yaml
-  - sonarr-4k/ks.yaml
+  - sonarr4k/ks.yaml
   - cleanarr/ks.yaml
   - recyclarr/ks.yaml

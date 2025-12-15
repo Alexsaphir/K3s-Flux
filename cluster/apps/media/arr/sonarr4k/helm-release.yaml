@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: radarr-4k
+  name: sonarr4k
 spec:
   interval: 1h
   layerSelector:
@@ -15,42 +15,42 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: radarr-4k
+  name: sonarr4k
 spec:
   interval: 15m
   chartRef:
     kind: OCIRepository
-    name: radarr-4k
+    name: sonarr4k
 
   values:
     controllers:
-      radarr:
+      sonarr:
         annotations:
           reloader.stakater.com/auto: 'true'
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 6.1.0.10309@sha256:10f94c85f605d42e5e78de928f24758b5750a4e99eee8d0ef9ff150f7a2df033
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.16.2943@sha256:0a1b8f5cb5b072f7ad8c6ff64a25dc512115d1a114ecf19a58a3b4f870207ddd
 
             env:
               TZ: ${TIMEZONE}
 
-              RADARR__AUTH__METHOD: External
-              RADARR__AUTH__REQUIRED: Enabled
-              RADARR__AUTH__APIKEY:
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: Enabled
+              SONARR__AUTH__APIKEY:
                 valueFrom:
                   secretKeyRef:
                     name: '{{ .Release.Name }}-secret'
                     key: api_key
 
-              RADARR__APP__INSTANCENAME: '{{ .Release.Name }}'
-              RADARR__APP__THEME: light
-              RADARR__SERVER__PORT: &port 80
-              RADARR__LOG__LEVEL: info
-              RADARR__LOG__ANALYTICSENABLED: 'false'
-              RADARR__LOG__DBENABLED: 'False'
-              RADARR__UPDATE__BRANCH: develop
+              SONARR__APP__INSTANCENAME: '{{ .Release.Name }}'
+              SONARR__APP__THEME: light
+              SONARR__SERVER__PORT: &port 80
+              SONARR__LOG__LEVEL: info
+              SONARR__LOG__ANALYTICSENABLED: 'false'
+              SONARR__LOG__DBENABLED: 'False'
+              SONARR__UPDATE__BRANCH: develop
 
             probes:
               liveness: &probes
