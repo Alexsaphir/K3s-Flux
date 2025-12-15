@@ -51,6 +51,7 @@ spec:
         thumbnailGeneration: 10
         videoConversion: 1
         notifications: 5
+        ocr: 4
 
       machineLearning:
         clipModelName: ViT-B-16-SigLIP-384__webli
@@ -63,6 +64,9 @@ spec:
           minScore: 0.7 # 0-1
           maxDistance: 0.6 # 0-2
           minFaces: 4 # 2
+
+        ocr:
+          modelName: PP-OCRv5_server
 
       enablePasswordLogin: false
       oauth:
@@ -160,6 +164,9 @@ spec:
               TZ: ${TIMEZONE}
               NODE_ENV: *node-env
               MACHINE_LEARNING_CACHE_FOLDER: /cache
+              TRANSFORMERS_CACHE: /cache
+              HF_XET_CACHE: /cache/huggingface-xet
+              MPLCONFIGDIR: /cache/matplotlib-config
 
               MACHINE_LEARNING_PRELOAD__CLIP:
                 value: '{{ .Values.immich.machineLearning.clipModelName }}'
@@ -322,6 +329,8 @@ spec:
                 concurrency: {{ .Values.immich.concurrency.videoConversion }}
               notifications:
                 concurrency: {{ .Values.immich.concurrency.notifications }}
+              ocr:
+                concurrency: {{ .Values.immich.concurrency.ocr }}
 
             logging:
               enabled: true
@@ -342,11 +351,16 @@ spec:
                 minScore: {{ .Values.immich.machineLearning.facialRecognition.minScore }}
                 maxDistance: {{ .Values.immich.machineLearning.facialRecognition.maxDistance }}
                 minFaces: {{ .Values.immich.machineLearning.facialRecognition.minFaces }}
+              ocr:
+                enabled: true
+                modelName: {{ .Values.immich.machineLearning.ocr.modelName | quote }}
+                maxResolution: 736
+                minDetectionScore: 0.5
+                minRecognitionScore: 0.8
 
-            map:
-              enabled: true
-              lightStyle: 'https://tiles.immich.cloud/v1/style/light.json'
-              darkStyle: 'https://tiles.immich.cloud/v1/style/dark.json'
+            metadata:
+              faces:
+                import: true
 
             reverseGeocoding:
               enabled: true
