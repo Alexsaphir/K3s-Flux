@@ -49,6 +49,22 @@ spec:
       enable_gzip: 'true'
       root_url: https://grafana.talos.${DOMAIN_NAME}
 
+  httpRoute:
+    metadata:
+      annotations:
+        gatus.home-operations.com/endpoint: |-
+          group: observability
+
+    spec:
+      # noinspection KubernetesUnknownValues
+      hostnames: [ 'grafana.talos.${DOMAIN_NAME}' ]
+      parentRefs:
+        - name: envoy
+          namespace: envoy-system
+      rules:
+        - backendRefs:
+            - name: grafana-service
+              port: 3000
 
   deployment:
     spec:

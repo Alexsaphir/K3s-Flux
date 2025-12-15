@@ -8,5 +8,4 @@ resources:
   - grafana.yaml
   - grafana-datasource.yaml
 
-  - http-route.yaml
   - service-monitor.yaml
