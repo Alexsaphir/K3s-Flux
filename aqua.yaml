@@ -19,7 +19,7 @@ packages:
   - name: mozilla/sops@v3.11.0
 
   # Talos
-  - name: siderolabs/talos@v1.11.5
+  - name: siderolabs/talos@v1.11.6
   - name: budimanjojo/talhelper@v3.0.41
 
   # Cluster
