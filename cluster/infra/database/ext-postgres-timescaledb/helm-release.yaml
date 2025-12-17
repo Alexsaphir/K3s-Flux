@@ -1,4 +1,17 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: ext-postgres-timescaledb
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 2.3.0
+  url: oci://ghcr.io/movetokube/postgres-operator/charts/ext-postgres-operator
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -7,7 +20,7 @@ spec:
   interval: 15m
   chartRef:
     kind: OCIRepository
-    name: ext-postgres-operator
+    name: ext-postgres-timescaledb
 
   install:
     crds: Skip
@@ -25,6 +38,10 @@ spec:
       targetPath: postgres.password
 
   values:
+    image:
+      repository: ghcr.io/movetokube/postgres-operator
+      tag: 2.3.0@sha256:6c2cd12010bf2d62c036df7ab802f2e8ccb07baead25528b5ce8cb8ac9250b76
+
     podAnnotations:
       reloader.stakater.com/auto: 'true'
 
