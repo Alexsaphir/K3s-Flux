@@ -8,7 +8,7 @@ registries:
 packages:
   # Utils
   - name: direnv/direnv@v2.37.1
-  - name: go-task/task@v3.46.1
+  - name: go-task/task@v3.46.2
 
   # YAML utils
   - name: homeport/dyff@v1.10.2
