@@ -110,7 +110,6 @@ spec:
         enabled: true
         ingressClass: *name
         allowExternalNameServices: true
-        allowCrossNamespace: true
         # https://github.com/kubernetes-sigs/external-dns/issues/1940
         publishedService:
           enabled: false
@@ -144,7 +143,6 @@ spec:
             to: websecure
             scheme: https
             permanent: true
-        advertisedPort: 80
 
       websecure:
         asDefault: true
