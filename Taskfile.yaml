@@ -53,4 +53,4 @@ tasks:
     cmds:
       - task: bootstrap:talos
       - task: bootstrap:helm:critical
-      - task: bootstrap:helm:apps
+      - task: bootstrap:helm:infra
