@@ -7,7 +7,7 @@ registries:
     ref: v4.446.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: direnv/direnv@v2.37.1
-  - name: go-task/task@v3.45.5
+  - name: go-task/task@v3.46.1
   - name: gitleaks/gitleaks@v8.30.0
   - name: firecow/gitlab-ci-local@4.64.1
   - name: FiloSottile/age@v1.2.1
@@ -22,7 +22,7 @@ packages:
   - name: mikefarah/yq@v4.50.1
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
-  - name: bitnami-labs/sealed-secrets@v0.33.1
+  - name: bitnami-labs/sealed-secrets@v0.34.0
   - name: derailed/k9s@v0.50.16
   - name: FairwindsOps/nova@v3.11.10
   - name: FairwindsOps/pluto@v5.22.7
