@@ -16,7 +16,7 @@ spec:
     substitute:
       APP: *app
       PVC_NAME: *app
-      VOLSYNC_CAPACITY: 100Mi
+      VOLSYNC_CAPACITY: 5Gi
 
   prune: true
   interval: 1h
