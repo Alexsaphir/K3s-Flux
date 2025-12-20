@@ -30,7 +30,7 @@ spec:
   values:
     kroki:
       # renovate: datasource=github-releases depName=yuzutech/kroki
-      version: &version 0.28.0
+      version: &version 0.29.1
 
     defaultPodOptions:
       automountServiceAccountToken: false
