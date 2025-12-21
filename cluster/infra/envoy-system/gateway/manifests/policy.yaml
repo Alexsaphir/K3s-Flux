@@ -37,7 +37,9 @@ spec:
 
   clientIPDetection:
     xForwardedFor:
-      numTrustedHops: 1
+      trustedCIDRs:
+        - 10.42.0.0/16
+        - fdd5:aa8:9535:42::/108
 
   tls:
     minVersion: "1.2"
