@@ -1,7 +1,6 @@
 ---
 machine:
   features:
-    stableHostname: true
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles: [ "os:admin" ]

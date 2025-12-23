@@ -38,11 +38,12 @@ tasks:
           var: CLUSTERCONFIG_FILES
         task: _apply-machineconfig
         vars:
-          asd:
+
           FILENAME: "{{.ITEM}}"
+          NODE:
           HOSTNAME:
             sh: >-
-              yq '.machine.network.hostname | select(. != null)' < '{{.ITEM}}'
+              yq '.hostname | select(. != null)' < '{{.ITEM}}'
           DRY_RUN: "{{ .DRY_RUN }}"
           INSECURE: "{{ .INSECURE }}"
 
