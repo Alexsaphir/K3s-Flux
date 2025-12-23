@@ -146,7 +146,9 @@ spec:
 
       websecure:
         asDefault: true
-
+        http:
+          encodedCharacters:
+            allowEncodedSlash: true
         # middlewares:
         #   - network-system-error-pages@kubernetescrd
         http3:
