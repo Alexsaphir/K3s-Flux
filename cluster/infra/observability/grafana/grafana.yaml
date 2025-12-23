@@ -6,12 +6,12 @@ metadata:
   labels:
     grafana.internal/instance: grafana
 spec:
-  disableDefaultAdminSecret: true
-
   config:
     auth:
       disable_login_form: 'false'
     auth.anonymous:
+      enabled: 'true'
+    auth.basic:
       enabled: 'true'
 
     analytics:
@@ -98,6 +98,12 @@ spec:
                     secretKeyRef:
                       name: database-grafana
                       key: PASSWORD
+
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-admin-password-secret
+                      key: GF_SECURITY_ADMIN_PASSWORD
 
               securityContext:
                 allowPrivilegeEscalation: false
