@@ -40,7 +40,7 @@ releases:
     namespace: openebs-system
     atomic: true
     chart: oci://ghcr.io/home-operations/charts-mirror/openebs
-    version: 4.3.2
+    version: 4.4.0
     values: [ '../templates/values.yaml.gotmpl' ]
 
   - name: flux-operator
