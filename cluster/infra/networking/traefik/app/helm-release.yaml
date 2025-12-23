@@ -149,6 +149,12 @@ spec:
         http:
           encodedCharacters:
             allowEncodedSlash: true
+            allowEncodedBackSlash: true
+            allowEncodedNullCharacter: true
+            allowEncodedSemicolon: true
+            allowEncodedPercent: true
+            allowEncodedQuestionMark: true
+            allowEncodedHash: true
         # middlewares:
         #   - network-system-error-pages@kubernetescrd
         http3:
