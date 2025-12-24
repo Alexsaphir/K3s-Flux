@@ -173,6 +173,15 @@ spec:
               kind: Deployment
               name: (helm-controller|kustomize-controller)
 
+          - # Substitutions will fail if missing and no default
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=StrictPostBuildSubstitutions=true
+            target:
+              kind: Deployment
+              name: kustomize-controller
+
           - # Cancel health checks on new Kustomizations revisions
             patch: |-
               - op: add
