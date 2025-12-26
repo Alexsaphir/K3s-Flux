@@ -8,9 +8,13 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: *name
+    profile: tlsserver
     solvers:
       - dns01:
           cloudflare:
             apiTokenSecretRef:
               name: cloudflare-issuer-secret
               key: api-token
+        selector:
+          dnsZones:
+            - ${DOMAIN_NAME}
