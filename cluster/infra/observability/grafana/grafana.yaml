@@ -71,7 +71,7 @@ spec:
     spec:
       replicas: 3
       strategy:
-        type: Recreate
+        type: RollingUpdate
 
       template:
         spec:
