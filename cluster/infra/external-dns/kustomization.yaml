@@ -8,3 +8,4 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - unifi-dns/ks.yaml
+  - cloudflare-dns/ks.yaml
