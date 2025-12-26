@@ -15,7 +15,7 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        replicas: 1
+        replicas: 2
 
         container:
           imageRepository: mirror.gcr.io/envoyproxy/envoy
@@ -38,3 +38,12 @@ spec:
                   port: 19001
                   targetPort: 19001
                   protocol: TCP
+
+  shutdown:
+    drainTimeout: 180s
+
+  telemetry:
+    metrics:
+      prometheus:
+        compression:
+          type: Gzip
