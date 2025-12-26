@@ -3,10 +3,34 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets
-  namespace: external-secrets
+  namespace: &namespace external-secrets
 spec:
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+
+  healthChecks:
+    - apiVersion: &certApiVersion cert-manager.io/v1
+      kind: &certKind Certificate
+      name: bitwarden-tls-certs
+      namespace: *namespace
+
+    - apiVersion: &secretApiVersion external-secrets.io/v1
+      kind: &secretKind ClusterSecretStore
+      name: bitwarden
+
+  healthCheckExprs:
+    - apiVersion: *certApiVersion
+      kind: *certKind
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+
+    - apiVersion: *secretApiVersion
+      kind: *secretKind
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+
   prune: false # never should be deleted
-  wait: true
   interval: 1h
   path: cluster/infra/external-secrets/external-secrets
   sourceRef:

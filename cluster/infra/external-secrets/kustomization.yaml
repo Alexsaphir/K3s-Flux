@@ -8,4 +8,3 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - external-secrets/ks.yaml
-  - bitwarden-sdk-server/ks.yaml
