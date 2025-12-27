@@ -1,0 +1,33 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: renovate-operator
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.13.0
+  url: oci://ghcr.io/mogenius/helm-charts/renovate-operator
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name renovate-operator
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: *name
+
+  values:
+    fullnameOverride: *name
+
+    webhook:
+      enabled: true
+
+    config:
+      defaultJobBackoffLimit: 5
+      defaultJobActiveDeadlineSeconds: 3600
