@@ -45,12 +45,6 @@ spec:
               PROWLARR__APP__THEME: light
               PROWLARR__UPDATE__BRANCH: develop
 
-              PROWLARR__AUTH__APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: prowlarr-secret
-                    key: api_key
-
               PROWLARR__LOG__DBENABLED: 'false'
               PROWLARR__POSTGRES__HOST:
                 valueFrom:
@@ -72,6 +66,10 @@ spec:
                   secretKeyRef:
                     name: *db-secret
                     key: PASSWORD
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness:

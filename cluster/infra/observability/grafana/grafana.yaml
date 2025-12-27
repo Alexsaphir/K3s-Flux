@@ -101,12 +101,6 @@ spec:
                       name: database-grafana
                       key: PASSWORD
 
-                - name: GF_SECURITY_ADMIN_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin-password-secret
-                      key: GF_SECURITY_ADMIN_USER
-
                 - name: GF_SECURITY_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:

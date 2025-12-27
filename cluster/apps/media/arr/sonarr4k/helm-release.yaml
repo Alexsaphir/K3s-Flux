@@ -38,11 +38,6 @@ spec:
 
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: Enabled
-              SONARR__AUTH__APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: '{{ .Release.Name }}-secret'
-                    key: api_key
 
               SONARR__APP__INSTANCENAME: '{{ .Release.Name }}'
               SONARR__APP__THEME: light
@@ -51,6 +46,10 @@ spec:
               SONARR__LOG__ANALYTICSENABLED: 'false'
               SONARR__LOG__DBENABLED: 'False'
               SONARR__UPDATE__BRANCH: develop
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness: &probes

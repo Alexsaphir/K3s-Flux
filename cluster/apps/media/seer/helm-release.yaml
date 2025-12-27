@@ -38,12 +38,6 @@ spec:
               LOG_LEVEL: 'info'
               PORT: &port 80
 
-              API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: '{{ .Release.Name }}-secret'
-                    key: api_key
-
               DB_TYPE: postgres
               DB_HOST:
                 valueFrom:
@@ -65,6 +59,10 @@ spec:
                   secretKeyRef:
                     name: *db-secret
                     key: PASSWORD
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness: &probes
@@ -97,7 +95,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
-        runAsGroup: 100
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
 

@@ -38,11 +38,6 @@ spec:
 
               RADARR__AUTH__METHOD: External
               RADARR__AUTH__REQUIRED: Enabled
-              RADARR__AUTH__APIKEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: '{{ .Release.Name }}-secret'
-                    key: api_key
 
               RADARR__APP__INSTANCENAME: '{{ .Release.Name }}'
               RADARR__APP__THEME: light
@@ -51,6 +46,10 @@ spec:
               RADARR__LOG__ANALYTICSENABLED: 'false'
               RADARR__LOG__DBENABLED: 'False'
               RADARR__UPDATE__BRANCH: develop
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness: &probes

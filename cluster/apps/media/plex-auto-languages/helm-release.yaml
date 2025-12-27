@@ -37,11 +37,10 @@ spec:
               TZ: '${TIMEZONE}'
               PLEX_URL: http://plex.{{ .Release.Namespace }}.svc.cluster.local:32400
               REFRESH_LIBRARY_ON_SCAN: false
-              PLEX_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: plex-secret
-                    key: plex-token
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness:
@@ -65,7 +64,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
-        runAsGroup: 100
+        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
 

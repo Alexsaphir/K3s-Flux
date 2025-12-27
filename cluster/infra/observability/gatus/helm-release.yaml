@@ -65,7 +65,7 @@ spec:
 
             envFrom:
               - secretRef:
-                  name: pushover-secret
+                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness: &probes
