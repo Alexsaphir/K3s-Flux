@@ -1,0 +1,51 @@
+---
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: gitlab
+spec:
+  parallelism: 4
+  schedule: '0 */2 * * *'
+  image: ghcr.io/renovatebot/renovate:42.59.1
+
+  secretRef: renovate-gitlab-secret
+  extraEnv:
+    - name: LOG_LEVEL
+      value: info
+
+    - name: RENOVATE_ENDPOINT
+      value: 'https://gitlab.alexsaphir.com/api/v4'
+    - name: RENOVATE_PLATFORM
+      value: 'gitlab'
+
+    - name: RENOVATE_CONFIG_FILE
+      value: /config/config.js
+
+    - name: RENOVATE_ONBOARDING_CONFIG
+      valueFrom:
+        configMapKeyRef:
+          name: &renovate-config renovate-config
+          key: onboardingConfig
+
+
+  extraVolumes:
+    - name: *renovate-config
+      configMap:
+        name: *renovate-config
+  extraVolumeMounts:
+    - name: *renovate-config
+      mountPath: /config/config.js
+      subPath: config.js
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  webhook:
+    enabled: true
+    authentication:
+      enabled: true
+      secretRef:
+        name: renovate-gitlab-webhook-secret
+        key: webhook-token

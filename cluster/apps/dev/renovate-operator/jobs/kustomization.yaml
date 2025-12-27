@@ -4,3 +4,13 @@ kind: Kustomization
 resources:
   - external-secret.yaml
   - resources
+  - gitlab.yaml
+
+configMapGenerator:
+  - name: renovate-config
+    files:
+      - config.js=config/config.js
+      - onboardingConfig=config/onboardingConfig.json5
+
+generatorOptions:
+  disableNameSuffixHash: true
