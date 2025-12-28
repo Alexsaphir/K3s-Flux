@@ -242,5 +242,4 @@ terragrunt-debug.tfvars.json
 
 kubeconfig
 
-**/.terraform.lock.hcl
 **/.bw-provider-state

@@ -57,3 +57,8 @@ repos:
       - id: conventional-pre-commit
         stages: [ commit-msg ]
         args: [ ] # optional: list of Conventional Commits types to allow e.g. [feat, fix, ci, chore, test]
+
+  - repo: https://github.com/tofuutils/pre-commit-opentofu
+    rev: v2.2.2
+    hooks:
+      - id: tofu_fmt
