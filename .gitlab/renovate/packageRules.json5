@@ -23,6 +23,7 @@
     {
       "matchPackageNames": [
         "renovate",
+        "renovatebot/renovate",
         "renovatebot/pre-commit-hooks"
       ],
       "schedule": [

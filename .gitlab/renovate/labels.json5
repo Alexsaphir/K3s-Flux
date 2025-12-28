@@ -41,9 +41,5 @@
       "matchManagers": ["github-actions"],
       "addLabels": ["renovate/github-action"]
     },
-    {
-      "matchDatasources": ["poetry"],
-      "addLabels": ["renovate/poetry"]
-    },
   ]
 }
