@@ -241,3 +241,6 @@ terragrunt-debug.tfvars.json
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all,python,jupyternotebooks,terraform,terragrunt
 
 kubeconfig
+
+**/.terraform.lock.hcl
+**/.bw-provider-state
