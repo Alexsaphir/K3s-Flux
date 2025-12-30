@@ -6,4 +6,4 @@ metadata:
 spec:
   images:
     - major: 17
-      image: timescale/timescaledb-ha:pg17-ts2.24@sha256:c8ae2f0fb18a8f715d307082dd0d92d5a58cefdfa744de31a367c947fc190b73
+      image: timescale/timescaledb-ha:pg17-ts2.24@sha256:5256b6c66d20eba710281fc7b828f3c70913103291381cc6d78b84fef1759fe8
