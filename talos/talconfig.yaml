@@ -235,4 +235,5 @@ controlPlane:
 
     - '@./manifests/disks.yaml'
     - '@./manifests/lldpd.yaml'
+    - '@./manifests/oom-config.yaml'
     - '@./manifests/watchdog.yaml'
