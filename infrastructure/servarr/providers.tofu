@@ -15,7 +15,7 @@ terraform {
     }
     radarr = {
       source  = "devopsarr/radarr"
-      version = "2.3.3"
+      version = "2.3.4"
     }
   }
 }
@@ -33,24 +33,24 @@ provider "prowlarr" {
   api_key = yamldecode(data.bitwarden-secrets_secret.prowlarr.value).PROWLARR_API_KEY
 }
 
-provider "sonarr" {
-  url     = "https://sonarr.${var.domain_name}"
-  api_key = local.sonarr_apps.sonarr.api_key
-}
-
-provider "sonarr" {
-  url     = "https://sonarr4k.${var.domain_name}"
-  api_key = local.sonarr_apps.sonarr4k.api_key
-  alias   = "sonarr4k"
-}
-
 provider "radarr" {
   url     = "https://radarr.${var.domain_name}"
-  api_key = local.radarr_apps.radarr.api_key
+  api_key = local.radarr-api-key
 }
 
 provider "radarr" {
   url     = "https://radarr4k.${var.domain_name}"
-  api_key = local.radarr_apps.radarr4k.api_key
+  api_key = local.radarr4k-api-key
   alias   = "radarr4k"
+}
+
+provider "sonarr" {
+  url     = "https://sonarr.${var.domain_name}"
+  api_key = local.sonarr-api-key
+}
+
+provider "sonarr" {
+  url     = "https://sonarr4k.${var.domain_name}"
+  api_key = local.sonarr4k-api-key
+  alias   = "sonarr4k"
 }
