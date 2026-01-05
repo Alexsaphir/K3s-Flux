@@ -18,6 +18,10 @@ terraform {
       version = "2.3.4"
     }
   }
+
+  backend "pg" {
+    schema_name = "servarr"
+  }
 }
 
 provider "bitwarden-secrets" {
