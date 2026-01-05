@@ -15,7 +15,7 @@ tasks:
       - test -f {{.TALOS_DIR}}/talconfig.yaml
       - talosctl config info
     cmds:
-      - # Enusre talos secrets are present.
+      - # Ensure talos secrets are present.
         task: talhelper:secret
       - # Generate up-to-date config.
         task: :talos:talhelper:generate-config
@@ -28,6 +28,7 @@ tasks:
 
   kubectl:target-node:
     internal: true
+    desc: Target a control plane node for the kubernetes api.
     preconditions:
       - which kubectl talosctl jq
       - test -f $KUBECONFIG
@@ -40,6 +41,7 @@ tasks:
 
   kubectl:target-cilium:
     internal: true
+    desc: Target cilium vip for the kubernetes api.
     preconditions:
       - which kubectl talosctl jq
       - test -f $KUBECONFIG
