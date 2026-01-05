@@ -7,8 +7,12 @@ terraform {
     }
     unifi = {
       source  = "ubiquiti-community/unifi"
-      version = "0.41.3"
+      version = "0.41.4-rc1"
     }
+  }
+
+  backend "pg" {
+    schema_name = "unifi"
   }
 }
 
