@@ -42,28 +42,18 @@ nodes:
         mtu: 9000
 
       - # ms-03
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 1-*
+        deviceSelector: { busPath: 1-* }
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.10/32
-        routes:
-          - network: 169.254.255.12/32
-            metric: 2048
+        addresses: [ '${tb_ms_01}' ]
+        routes: [ { network: '${tb_ms_03}', metric: 2048 } ]
 
       - # ms-02
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 0-*
+        deviceSelector: { busPath: 0-* }
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.10/32
-        routes:
-          - network: 169.254.255.11/32
-            metric: 2048
+        addresses: [ '${tb_ms_01}' ]
+        routes: [ { network: '${tb_ms_02}', metric: 2048 } ]
 
     schematic:
       customization:
@@ -82,7 +72,6 @@ nodes:
             - siderolabs/iscsi-tools
             - siderolabs/util-linux-tools
 
-
     patches:
       - "@./patches/nodes/nvidia.yaml"
 
@@ -99,28 +88,18 @@ nodes:
         mtu: 9000
 
       - # ms-01
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 1-*
+        deviceSelector: { busPath: 1-* }
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.11/32
-        routes:
-          - network: 169.254.255.10/32
-            metric: 2048
+        addresses: [ '${tb_ms_02}' ]
+        routes: [ { network: '${tb_ms_01}', metric: 2048 } ]
 
       - # ms-03
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 0-*
+        deviceSelector: { busPath: 0-* }
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.11/32
-        routes:
-          - network: 169.254.255.12/32
-            metric: 2048
+        addresses: [ '${tb_ms_02}' ]
+        routes: [ { network: '${tb_ms_03}', metric: 2048 } ]
 
     schematic:
       customization:
@@ -150,28 +129,18 @@ nodes:
         mtu: 9000
 
       - # ms-02
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 1-*
+        deviceSelector: { busPath: 1-* }
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.12/32
-        routes:
-          - network: 169.254.255.11/32
-            metric: 2048
+        addresses: [ '${tb_ms_03}' ]
+        routes: [ { network: '${tb_ms_02}', metric: 2048 } ]
 
       - # ms-01
-        deviceSelector:
-          driver: thunderbolt-net
-          busPath: 0-*
+        deviceSelector: { busPath: 0-* }
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.12/32
-        routes:
-          - network: 169.254.255.10/32
-            metric: 2048
+        addresses: [ '${tb_ms_03}' ]
+        routes: [ { network: '${tb_ms_01}', metric: 2048 } ]
 
     schematic:
       customization:
