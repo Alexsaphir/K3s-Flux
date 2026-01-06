@@ -11,7 +11,6 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CACHE_CAPACITY: 25Gi
       VOLSYNC_CAPACITY: 100Gi
 
   prune: true

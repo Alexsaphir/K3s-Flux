@@ -12,11 +12,6 @@
 |----------------------------|-----------------|-------------|
 | `VOLSYNC_SNAP_ACCESSMODES` | `ReadWriteOnce` |             |
 
-| Name                          | Default            | Description |
-|-------------------------------|--------------------|-------------|
-| `VOLSYNC_CACHE_ACCESSMODES`   | `ReadWriteOnce`    |             |
-| `VOLSYNC_CACHE_CAPACITY`      | `5Gi`              |             |
-| `VOLSYNC_CACHE_SNAPSHOTCLASS` | `openebs-hostpath` |             |
 
 | Name           | Default | Description |
 |----------------|---------|-------------|
