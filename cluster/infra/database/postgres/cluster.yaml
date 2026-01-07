@@ -53,3 +53,19 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+  managed:
+    services:
+      disabledDefaultServices: [ 'ro', 'r' ]
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: postgres-lb
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: postgres.svc.talos.${DOMAIN_NAME}
+
+            spec:
+              type: LoadBalancer
+              ipFamilyPolicy: PreferDualStack
+              externalTrafficPolicy: Local

@@ -7,4 +7,3 @@ resources:
   - secret.sops.yaml
   - cluster.yaml
   - scheduled-backup.yaml
-  - service.yaml
