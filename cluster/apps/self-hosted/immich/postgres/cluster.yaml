@@ -8,12 +8,30 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17-system-bookworm
 
   instances: 3
   enablePDB: true
 
   enableSuperuserAccess: false
+
+  postgresql:
+    extensions:
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg17-v1.0.0
+        dynamic_library_path:
+          - /usr/lib/postgresql/17/lib/
+        extension_control_path:
+          - /usr/share/postgresql/17/
+
+    shared_preload_libraries:
+      - 'vchord'
+
+    parameters:
+      max_connections: '200'
+      max_slot_wal_keep_size: 5GB
+      shared_buffers: '128MB'
 
   bootstrap:
     #    initdb:
@@ -30,15 +48,6 @@ spec:
 
     recovery:
       source: source
-
-  postgresql:
-    shared_preload_libraries:
-      - 'vchord.so'
-
-    parameters:
-      max_connections: '200'
-      max_slot_wal_keep_size: 5GB
-      shared_buffers: '128MB'
 
   plugins:
     - name: barman-cloud.cloudnative-pg.io
@@ -64,3 +73,19 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+  managed:
+    services:
+      disabledDefaultServices: [ 'ro', 'r' ]
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: postgres-immich-lb
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: postgres-immich.svc.talos.${DOMAIN_NAME}
+
+            spec:
+              type: LoadBalancer
+              ipFamilyPolicy: PreferDualStack
+              externalTrafficPolicy: Local
