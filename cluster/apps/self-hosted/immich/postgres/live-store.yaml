@@ -1,0 +1,23 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: live-store
+spec:
+  retentionPolicy: '30d'
+
+  configuration:
+    destinationPath: s3://backup-cloudnative
+    endpointURL: http://nas.minio-system.svc.cluster.local:9000
+
+    wal:
+      compression: bzip2
+      maxParallel: 4
+
+    s3Credentials:
+      accessKeyId:
+        name: &secret postgres-s3-secret
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: *secret
+        key: ACCESS_SECRET_KEY

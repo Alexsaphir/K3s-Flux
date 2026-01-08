@@ -8,32 +8,26 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.3
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: pgvecto.rs
+    major: 16
 
   instances: 3
   enablePDB: true
 
-  enableSuperuserAccess: false
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: postgres-superuser
 
   bootstrap:
-    #    initdb:
-    #      database: immich
-    #      owner: immich
-    #
-    #      dataChecksums: true
-    #
-    #      secret:
-    #        name: postgres-immich-secret
-    #
-    #      postInitSQL:
-    #        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-
     recovery:
-      source: source
+      source: live
 
   postgresql:
     shared_preload_libraries:
-      - 'vchord.so'
+      - 'vectors.so'
 
     parameters:
       max_connections: '200'
@@ -53,6 +47,13 @@ spec:
         parameters:
           barmanObjectName: minio-store
           serverName: *name
+
+    - name: live
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: live-store
+          serverName: postgres-16-v6
 
   resources:
     requests:
