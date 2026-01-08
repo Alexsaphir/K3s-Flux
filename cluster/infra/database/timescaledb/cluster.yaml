@@ -12,7 +12,7 @@ spec:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog
     name: timescaledb
-    major: 17
+    major: 18
 
   postgresUID: 1000
   postgresGID: 1000
