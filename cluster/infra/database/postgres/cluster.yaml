@@ -8,7 +8,11 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-9
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql
+    major: 17
 
   instances: 3
   enablePDB: true

@@ -1,0 +1,52 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ClusterImageCatalog
+metadata:
+  name: postgresql
+  labels:
+    images.cnpg.io/family: postgresql
+    images.cnpg.io/type: standard
+    images.cnpg.io/os: trixie
+    images.cnpg.io/publisher: cnpg.io
+spec:
+  images:
+    - major: 18
+      image: ghcr.io/cloudnative-pg/postgresql:18.1-standard-trixie
+
+    - major: 17
+      image: ghcr.io/cloudnative-pg/postgresql:17.7-standard-trixie
+
+    - major: 16
+      image: ghcr.io/cloudnative-pg/postgresql:16.11-standard-trixie
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ClusterImageCatalog
+metadata:
+  name: timescaledb
+  labels:
+    images.cnpg.io/family: timescaledb
+    images.cnpg.io/publisher: timescale
+spec:
+  images:
+    - major: 18
+      image: timescale/timescaledb-ha:pg18.1-ts2.24
+
+    - major: 17
+      image: timescale/timescaledb-ha:pg17.7-ts2.24
+
+    - major: 16
+      image: timescale/timescaledb-ha:pg16.11-ts2.24
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ClusterImageCatalog
+metadata:
+  name: pgvecto.rs
+  labels:
+    images.cnpg.io/family: postgresql
+    images.cnpg.io/publisher: tensorchord
+spec:
+  images:
+    - major: 16
+      image: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1

@@ -10,7 +10,7 @@ metadata:
 spec:
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
-    kind: ImageCatalog
+    kind: ClusterImageCatalog
     name: timescaledb
     major: 17
 
@@ -24,9 +24,9 @@ spec:
     name: timescaledb-superuser
   enableSuperuserAccess: true
 
-#  bootstrap:
-#    recovery:
-#      source: source
+  bootstrap:
+    recovery:
+      source: source
 
   externalClusters:
     - name: source

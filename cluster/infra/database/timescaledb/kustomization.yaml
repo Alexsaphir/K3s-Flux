@@ -5,6 +5,5 @@ components:
   - ../../../components/postgres-store
 resources:
   - secret.sops.yaml
-  - image-catalog.yaml
   - cluster.yaml
   - scheduled-backup.yaml

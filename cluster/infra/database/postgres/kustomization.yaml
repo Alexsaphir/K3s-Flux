@@ -4,6 +4,7 @@ kind: Kustomization
 components:
   - ../../../components/postgres-store
 resources:
+  - image-catalogs.yaml
   - secret.sops.yaml
   - cluster.yaml
   - scheduled-backup.yaml
