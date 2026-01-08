@@ -30,13 +30,13 @@ metadata:
 spec:
   images:
     - major: 18
-      image: timescale/timescaledb-ha:pg18.1-ts2.24
+      image: timescale/timescaledb-ha:pg18-ts2.24
 
     - major: 17
-      image: timescale/timescaledb-ha:pg17.7-ts2.24
+      image: timescale/timescaledb-ha:pg17-ts2.24
 
     - major: 16
-      image: timescale/timescaledb-ha:pg16.11-ts2.24
+      image: timescale/timescaledb-ha:pg16-ts2.24
 
 ---
 apiVersion: postgresql.cnpg.io/v1
