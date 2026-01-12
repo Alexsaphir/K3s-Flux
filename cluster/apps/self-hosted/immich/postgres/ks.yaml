@@ -9,11 +9,11 @@ spec:
     - name: cloudnative-pg
       namespace: cloudnative-pg
 
-  healthChecks:
-    - apiVersion: v1
-      kind: Pod
-      name: postgres-immich-1
-      namespace: *namespace
+#  healthChecks:
+#    - apiVersion: v1
+#      kind: Pod
+#      name: postgres-immich-1
+#      namespace: *namespace
 
   prune: true
   interval: 1h
