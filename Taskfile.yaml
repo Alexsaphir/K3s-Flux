@@ -28,6 +28,7 @@ includes:
   bootstrap: .taskfiles/bootstrap
   flux-local: .taskfiles/flux-local
   volsync: .taskfiles/volsync
+  postgres: .taskfiles/postgres
 
 tasks:
   default: task --list

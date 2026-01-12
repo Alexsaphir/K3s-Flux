@@ -1,0 +1,57 @@
+---
+version: "3"
+
+vars:
+  PG_SRC: 192.168.0.200
+  PG_DST: postgres.svc.talos.alexsaphir.com
+
+  PG_PORT: 5432
+
+  SRC_KUBECONFIG: ../K3s-Flux/provision/kubeconfig
+
+tasks:
+  dump:
+    requires:
+      vars:
+        - TARGET
+        - NS
+
+    vars:
+      SRC_LOGIN:
+        sh: KUBECONFIG={{ .SRC_KUBECONFIG }} kubectl get secrets -n {{ .NS }} database-{{ .TARGET }} -o yaml | yq '.data.LOGIN' | base64 --decode
+      SRC_PASSWORD:
+        sh: KUBECONFIG={{ .SRC_KUBECONFIG }} kubectl get secrets -n {{ .NS }} database-{{ .TARGET }} -o yaml | yq '.data.PASSWORD' | base64 --decode
+    env:
+      PGPASSWORD: '{{ .SRC_PASSWORD }}'
+    cmds:
+      - >
+        pg_dump
+        -h {{ .PG_SRC }}
+        -p {{ .PG_PORT }}
+        -U {{ .SRC_LOGIN }}
+        -d {{ .TARGET }}
+        -f postgres-{{ .TARGET }}.dump
+        -F c
+        --no-owner --no-acl
+
+  restore:
+    requires:
+      vars:
+        - TARGET
+        - NS
+
+    vars:
+      DST_LOGIN:
+        sh: kubectl get secrets -n {{ .NS }} database-{{ .TARGET }} -o yaml | yq '.data.LOGIN' | base64 --decode
+      DST_PASSWORD:
+        sh: kubectl get secrets -n {{ .NS }} database-{{ .TARGET }} -o yaml | yq '.data.PASSWORD' | base64 --decode
+    env:
+      PGPASSWORD: '{{ .DST_PASSWORD }}'
+    cmds:
+      - >
+        pg_restore
+        -h {{ .PG_DST }}
+        -p {{ .PG_PORT }}
+        -U {{ .DST_LOGIN }}
+        -d {{ .TARGET }}
+        postgres-{{ .TARGET }}.dump

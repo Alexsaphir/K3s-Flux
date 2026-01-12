@@ -244,3 +244,5 @@ terragrunt-debug.tfvars.json
 kubeconfig
 
 **/.bw-provider-state
+
+postgres-*.dump
