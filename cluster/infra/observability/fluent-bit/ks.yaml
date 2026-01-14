@@ -6,10 +6,7 @@ metadata:
   namespace: &namespace observability
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
-      namespace: *namespace
     - name: victoria-logs
-      namespace: *namespace
 
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2

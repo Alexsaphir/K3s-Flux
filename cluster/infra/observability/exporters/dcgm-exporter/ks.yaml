@@ -6,7 +6,6 @@ metadata:
   namespace: &namespace observability
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
     - name: nvidia-device-plugin
       namespace: kube-system
 
