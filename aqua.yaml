@@ -21,11 +21,11 @@ packages:
 
   # Talos
   - name: siderolabs/talos@v1.12.1
-  - name: budimanjojo/talhelper@v3.0.45
+  - name: budimanjojo/talhelper@v3.1.0
 
   # Cluster
   - name: fluxcd/flux2@v2.7.5
-  - name: cilium/cilium-cli@v0.18.9
+  - name: cilium/cilium-cli@v0.19.0
   - name: kyverno/kyverno@v1.16.2
 
   # Kubernetes
@@ -38,6 +38,6 @@ packages:
   - name: helmfile/helmfile@v1.2.3
 
   # Infrastructure
-  - name: opentofu/opentofu@v1.11.2
+  - name: opentofu/opentofu@v1.11.3
   - name: gruntwork-io/terragrunt@v0.97.2
   - name: hashicorp/terraform@v1.14.3
