@@ -16,6 +16,12 @@ spec:
     - type: Zstd
       zstd: {}
 
+  retry:
+    numRetries: 2
+    retryOn:
+      triggers:
+        - reset
+
   tcpKeepalive: { }
 
   timeout:

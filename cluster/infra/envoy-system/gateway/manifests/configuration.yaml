@@ -18,26 +18,16 @@ spec:
         replicas: 2
 
         container:
-          imageRepository: mirror.gcr.io/envoyproxy/envoy
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.4
 
           resources:
             requests:
               cpu: 100m
             limits:
-              memory: 1Gi
+              memory: 2Gi
 
       envoyService:
-        name: envoy-gateway-envoy
-        externalTrafficPolicy: Cluster # Cilium's L2 announce doesn't support Local, since it announces on a different node than the pod is running on https://github.com/cilium/cilium/issues/27800
-        patch:
-          type: StrategicMerge
-          value:
-            spec:
-              ports:
-                - name: metrics
-                  port: 19001
-                  targetPort: 19001
-                  protocol: TCP
+        externalTrafficPolicy: Local
 
   shutdown:
     drainTimeout: 180s
@@ -46,4 +36,4 @@ spec:
     metrics:
       prometheus:
         compression:
-          type: Gzip
+          type: Zstd
