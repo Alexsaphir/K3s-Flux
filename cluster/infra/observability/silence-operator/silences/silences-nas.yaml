@@ -13,7 +13,7 @@ spec:
 
     - name: mountpoint
       value: '^/mnt/disk[0-9]+'
-      matchType: =~
+      matchType: '=~'
 
 ---
 apiVersion: observability.giantswarm.io/v1alpha2
