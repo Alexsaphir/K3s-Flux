@@ -94,7 +94,7 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: false
-        devicePathFilter: /dev/disk/by-partlabel/r-rook-*
+        devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZ1LB1T9HALS-*
         config:
           osdsPerDevice: '1'
 

@@ -8,4 +8,4 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - rook-ceph/ks.yaml
-#  - rook-ceph-cluster/ks.yaml
+  - rook-ceph-cluster/ks.yaml
