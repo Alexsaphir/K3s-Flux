@@ -22,6 +22,9 @@ spec:
     kind: OCIRepository
     name: rook-ceph-cluster
 
+  driftDetection:
+    mode: warn
+
   values:
     monitoring:
       enabled: true
