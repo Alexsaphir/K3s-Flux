@@ -7,7 +7,6 @@ resources:
   - envoy-system
 
   - openebs-system
-  - longhorn-system
   - rook-ceph
   - volsync-system
   - minio-system

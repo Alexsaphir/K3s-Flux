@@ -20,6 +20,31 @@ releases:
     chart: oci://ghcr.io/home-operations/charts-mirror/cert-manager
     version: v1.17.1
     values: [ '../templates/values.yaml.gotmpl' ]
+    hooks:
+      - # Apply cluster secret store configuration
+        events: [ postsync ]
+        command: kubectl
+        args:
+          - apply
+          - --namespace=cert-manager
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename
+          - ../../../cluster/infra/cert-manager/cert-manager/issuers/self-issuer.yaml
+          - --wait=true
+        showlogs: true
+
+      - # bitwarden needs its cert so it can come up, othewrise it just stays pending
+        events: [ postsync ]
+        command: kubectl
+        args:
+          - apply
+          - --namespace=external-secrets
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename
+          - ../../../cluster/infra/external-secrets/external-secrets/bitwarden-secret/certificate.yaml
+          - --wait=true
 
   - name: external-secrets
     namespace: external-secrets

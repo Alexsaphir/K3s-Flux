@@ -40,7 +40,7 @@ tasks:
     cmd: kubectl config set-cluster {{ .CLUSTER_NAME }} --server "https://{{ .TALOS_CONTROLLER }}:6443"
 
   kubectl:target-cilium:
-    internal: true
+    internal: false
     desc: Target cilium vip for the kubernetes api.
     preconditions:
       - which kubectl talosctl jq
