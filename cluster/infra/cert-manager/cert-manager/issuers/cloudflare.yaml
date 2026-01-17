@@ -5,9 +5,12 @@ metadata:
   name: &name letsencrypt
 spec:
   acme:
+    profile: shortlived
     server: https://acme-v02.api.letsencrypt.org/directory
+
     privateKeySecretRef:
       name: *name
+
     solvers:
       - dns01:
           cloudflare:

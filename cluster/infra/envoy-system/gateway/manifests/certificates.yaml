@@ -4,11 +4,16 @@ kind: Certificate
 metadata:
   name: wildcard-main
 spec:
-  secretName: wildcard-main-tls
-  issuerRef:
-    name: letsencrypt
-    kind: ClusterIssuer
-  commonName: ${DOMAIN_NAME}
   dnsNames:
     - '${DOMAIN_NAME}'
     - '*.talos.${DOMAIN_NAME}'
+
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
+  duration: 160h
+  usages:
+    - digital signature
+
+  secretName: wildcard-main-tls
