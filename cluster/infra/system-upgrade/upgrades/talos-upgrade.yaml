@@ -16,10 +16,10 @@ spec:
       kind: Node
       expr: status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
 
-    - apiVersion: longhorn.io/v1beta2
-      kind: Volume
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
       expr: |-
-        status.robustness != "degraded"
+        status.ceph.health in ['HEALTH_OK']
 
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
