@@ -9,13 +9,11 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "pre-commit==4.5.1",
 ]
 
 [dependency-groups]
 linters = [
   "prettier==0.0.7",
-  "pyproject-fmt==2.11.1",
   "yamllint==1.38.0",
 ]
 
