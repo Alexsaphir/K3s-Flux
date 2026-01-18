@@ -8,19 +8,20 @@ metadata:
 spec:
   trigger:
     manual: restore-once
+
   kopia:
-    storageClassName: ${VOLSYNC_STORAGECLASS:=longhorn-snapshot}
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=longhorn-snapclass}
     accessModes:
-      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
+      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
+    storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
 
     capacity: ${VOLSYNC_CAPACITY:=5Gi}
 
-    # cleanupCachePVC: true
-    # cleanupTempPVC: true
-
+    cleanupCachePVC: true
+    cleanupTempPVC: true
     copyMethod: Snapshot
     enableFileDeletion: true
+
     repository: ${PVC_NAME}-volsync-secret
     sourceIdentity:
       sourceName: ${PVC_NAME}

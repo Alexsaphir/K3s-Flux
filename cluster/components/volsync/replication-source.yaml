@@ -10,10 +10,10 @@ spec:
     schedule: 0 0/24 * * *
 
   kopia:
-    storageClassName: ${VOLSYNC_STORAGECLASS:=longhorn-snapshot}
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=longhorn-snapclass}
     accessModes:
-      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
+      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
+    storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
 
     compression: zstd-fastest
     copyMethod: Snapshot

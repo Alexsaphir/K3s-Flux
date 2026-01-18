@@ -5,4 +5,4 @@ resources:
   - external-secret.yaml
   - pvc.yaml
   - replication-source.yaml
-  # - replication-destination.yaml
+  - replication-destination.yaml
