@@ -1,12 +1,14 @@
 krew
 
-access-matrix
-oidc-login
-cnpg
 cert-manager
 cilium
-cnp-viz
+cnpg
 openebs
+rook-ceph
+
+access-matrix
+oidc-login
+cnp-viz
 browse-pvc
 deprecations
 popeye
