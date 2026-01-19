@@ -15,4 +15,4 @@ resources:
   - tautulli/ks.yaml
 
   #- arr
-  #- get
+  - get
