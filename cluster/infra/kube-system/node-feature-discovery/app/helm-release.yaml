@@ -40,7 +40,7 @@ spec:
       resources:
         requests:
           cpu: 21m
-          memory: 51Mi
+          memory: 64Mi
         limits:
           memory: 256Mi
 
@@ -58,7 +58,9 @@ spec:
       resources:
         requests:
           cpu: 5m
-          memory: 48Mi
+          memory: 64Mi
+        limits:
+          memory: 128Mi
 
       config:
         core:
