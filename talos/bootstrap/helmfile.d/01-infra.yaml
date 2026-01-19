@@ -17,8 +17,8 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     atomic: true
-    chart: oci://ghcr.io/home-operations/charts-mirror/cert-manager
-    version: v1.17.1
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.19.2
     values: [ '../templates/values.yaml.gotmpl' ]
     hooks:
       - # Apply cluster secret store configuration
@@ -34,6 +34,15 @@ releases:
           - --wait=true
         showlogs: true
 
+      - # create namespace
+        events: [ postsync ]
+        command: kubectl
+        args:
+          - create
+          - namespace
+          - external-secrets
+        showlogs: true
+
       - # bitwarden needs its cert so it can come up, othewrise it just stays pending
         events: [ postsync ]
         command: kubectl
@@ -45,6 +54,7 @@ releases:
           - --filename
           - ../../../cluster/infra/external-secrets/external-secrets/bitwarden-secret/certificate.yaml
           - --wait=true
+        showlogs: true
 
   - name: external-secrets
     namespace: external-secrets
@@ -64,7 +74,7 @@ releases:
   - name: openebs
     namespace: openebs-system
     atomic: true
-    chart: oci://ghcr.io/home-operations/charts-mirror/openebs
+    chart: oci://ghcr.io/openebs/charts/openebs
     version: 4.4.0
     values: [ '../templates/values.yaml.gotmpl' ]
 

@@ -7,6 +7,8 @@ metadata:
 spec:
   dependsOn:
     - name: rook-ceph
+    - name: external-secrets
+      namespace: external-secrets
     - name: volsync
       namespace: volsync-system
 
