@@ -207,9 +207,6 @@ spec:
               dataChunks: 2
               codingChunks: 1
 
-            parameters:
-              bulk: 'true'
-
           preservePoolsOnDelete: true
 
           gateway:
