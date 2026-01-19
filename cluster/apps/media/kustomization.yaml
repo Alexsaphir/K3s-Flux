@@ -11,8 +11,8 @@ resources:
 
   - plex-auto-languages/ks.yaml
 
-  #- seer/ks.yaml
+  - seer/ks.yaml
   - tautulli/ks.yaml
 
-  #- arr
+  - arr
   - get
