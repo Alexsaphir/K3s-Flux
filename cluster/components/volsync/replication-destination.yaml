@@ -24,7 +24,7 @@ spec:
 
     repository: ${PVC_NAME}-volsync-secret
     sourceIdentity:
-      sourceName: ${PVC_NAME}
+      sourceName: '${PVC_NAME}-src'
 
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
