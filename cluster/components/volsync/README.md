@@ -4,14 +4,13 @@
 |-------------------------|----------------------|------------------------------|
 | **PVC_NAME**            |                      |                              |
 | `VOLSYNC_CAPACITY`      | `5Gi`                |                              |
-| `VOLSYNC_STORAGECLASS`  | `longhorn`           |                              |
-| `VOLSYNC_SNAPSHOTCLASS` | `longhorn-snapclass` | `snapshot.storage.k8s.io/v1` |
+| `VOLSYNC_STORAGECLASS`  | `ceph-block`         |                              |
+| `VOLSYNC_SNAPSHOTCLASS` | `csi-ceph-blockpool` | `snapshot.storage.k8s.io/v1` |
 | `VOLSYNC_ACCESSMODES`   | `ReadWriteOnce`      |                              |
 
 | Name                       | Default         | Description |
 |----------------------------|-----------------|-------------|
 | `VOLSYNC_SNAP_ACCESSMODES` | `ReadWriteOnce` |             |
-
 
 | Name           | Default | Description |
 |----------------|---------|-------------|

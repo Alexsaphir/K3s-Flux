@@ -15,9 +15,7 @@ spec:
       PVC_NAME: *app
       VOLSYNC_CAPACITY: 5Gi
 
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
+  dependsOn: [ ]
     #- name: plex
     #- name: sonarr
     #- name: radarr

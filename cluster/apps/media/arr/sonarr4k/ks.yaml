@@ -16,8 +16,6 @@ spec:
       VOLSYNC_CAPACITY: 10Gi
 
   dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
     - name: prowlarr
 
   prune: true

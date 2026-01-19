@@ -68,9 +68,6 @@ nodes:
             - siderolabs/gasket-driver
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
-            # Longhorn
-            - siderolabs/iscsi-tools
-            - siderolabs/util-linux-tools
 
     patches:
       - "@./patches/nodes/nvidia.yaml"
@@ -112,9 +109,6 @@ nodes:
             - siderolabs/lldpd
             - siderolabs/nfsrahead
             - siderolabs/gasket-driver
-            # Longhorn
-            - siderolabs/iscsi-tools
-            - siderolabs/util-linux-tools
 
   - hostname: "ms-03"
     ipAddress: 192.168.42.12
@@ -153,9 +147,6 @@ nodes:
             - siderolabs/lldpd
             - siderolabs/nfsrahead
             - siderolabs/gasket-driver
-            # Longhorn
-            - siderolabs/iscsi-tools
-            - siderolabs/util-linux-tools
 
 patches:
   - "@./patches/global/machine-kubelet.yaml"
@@ -173,7 +164,6 @@ controlPlane:
   nodeLabels:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: controlPlane
-    'node.longhorn.io/create-default-disk': 'true'
 
   schematic:
     customization:

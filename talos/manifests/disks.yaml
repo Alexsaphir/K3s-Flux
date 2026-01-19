@@ -18,24 +18,3 @@ provisioning:
 filesystem:
   type: xfs
   projectQuotaSupport: true
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: longhorn
-provisioning:
-  diskSelector:
-    match: system_disk
-  grow: true
-  minSize: 500GB
-filesystem:
-  type: xfs
-  projectQuotaSupport: true
-#---
-#apiVersion: v1alpha1
-#kind: RawVolumeConfig
-#name: rook-ceph
-#provisioning:
-#  diskSelector:
-#    match: system_disk
-#  grow: true
-#  minSize: 500GB
