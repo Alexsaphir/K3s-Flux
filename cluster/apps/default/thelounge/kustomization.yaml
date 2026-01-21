@@ -6,4 +6,4 @@ resources:
   - secret.sops.yaml
   - pvc.yaml
   - helm-release.yaml
-  - volsync
+  #- volsync

@@ -1,5 +1,8 @@
 ---
-fail_fast: false
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -52,13 +55,6 @@ repos:
     hooks:
       - id: yamllint
         args: [ '--config-file', '.gitlab/linters/.yamllint.yaml' ]
-
-  - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v26.1.1
-    hooks:
-      - id: ansible-lint
-        args: [ '-c', '.gitlab/linters/.ansible-lint.yaml' ]
-        entry: env YAMLLINT_CONFIG_FILE=.gitlab/linters/.yamllint.yaml ansible-lint
 
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.30
