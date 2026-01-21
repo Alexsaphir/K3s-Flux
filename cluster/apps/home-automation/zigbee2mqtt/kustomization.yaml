@@ -7,4 +7,4 @@ resources:
   - pvc.yaml
   - helm-release.yaml
   - resources
-  #- volsync
+  - volsync/secret.sops.yaml
