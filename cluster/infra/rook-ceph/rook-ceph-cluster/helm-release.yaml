@@ -26,6 +26,10 @@ spec:
     mode: warn
 
   values:
+    annotations:
+      all:
+        reloader.stakater.com/search: 'true'
+
     monitoring:
       enabled: true
       createPrometheusRules: true
