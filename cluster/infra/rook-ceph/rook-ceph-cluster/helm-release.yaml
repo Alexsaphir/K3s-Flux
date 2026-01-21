@@ -30,6 +30,9 @@ spec:
       all:
         reloader.stakater.com/search: 'true'
 
+    cephImage:
+      imagePullPolicy: IfNotPresent
+
     monitoring:
       enabled: true
       createPrometheusRules: true
