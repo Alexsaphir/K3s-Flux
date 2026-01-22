@@ -33,7 +33,7 @@ packages:
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
   - name: cilium/cilium-cli@v0.19.0
-  - name: siderolabs/talos@v1.12.1
+  - name: siderolabs/talos@v1.12.2
   - name: budimanjojo/talhelper@v3.1.2
   - name: lsd-rs/lsd@v1.2.0
   - name: opentofu/opentofu@v1.11.4
