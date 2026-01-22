@@ -28,7 +28,7 @@ packages:
   - name: FairwindsOps/pluto@v5.22.7
   - name: instrumenta/kubeval@v0.16.1
   - name: kubernetes-sigs/krew@v0.4.5
-  - name: kubescape/kubescape@v3.0.47
+  - name: kubescape/kubescape@v3.0.48
   - name: stern/stern@v1.33.1
   - name: yannh/kubeconform@v0.7.0
   - name: zegl/kube-score@v1.20.0
