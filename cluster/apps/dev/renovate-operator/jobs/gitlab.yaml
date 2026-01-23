@@ -6,7 +6,7 @@ metadata:
 spec:
   parallelism: 4
   schedule: '0 */2 * * *'
-  image: ghcr.io/renovatebot/renovate:42.90.0
+  image: ghcr.io/renovatebot/renovate:42.90.2
 
   secretRef: renovate-gitlab-secret
   extraEnv:
