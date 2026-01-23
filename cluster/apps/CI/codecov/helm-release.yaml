@@ -32,7 +32,7 @@ spec:
 
     codecov:
       # renovate: datasource=github-releases depName=codecov/codecov-api
-      version: &codecovVersion 26.1.16
+      version: &codecovVersion 26.1.20
 
     codecovConfig:
       database:
