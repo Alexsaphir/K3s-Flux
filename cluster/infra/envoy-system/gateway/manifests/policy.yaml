@@ -31,18 +31,18 @@ spec:
   # Custom error page redirects - applies to all routes by default
   responseOverride:
     # 401 Unauthorized
-    - match:
-        statusCodes:
-          - type: Value
-            value: 401
-      redirect:
-        scheme: https
-        # noinspection KubernetesUnknownValues
-        hostname: &host 'error-pages.talos.${DOMAIN_NAME}'
-        path:
-          type: ReplaceFullPath
-          replaceFullPath: /401.html
-        statusCode: 302
+    #    - match:
+    #        statusCodes:
+    #          - type: Value
+    #            value: 401
+    #      redirect:
+    #        scheme: https
+    #        # noinspection KubernetesUnknownValues
+    #        hostname: &host 'error-pages.talos.${DOMAIN_NAME}'
+    #        path:
+    #          type: ReplaceFullPath
+    #          replaceFullPath: /401.html
+    #        statusCode: 302
 
     # 403 Forbidden
     - match:
@@ -51,7 +51,8 @@ spec:
             value: 403
       redirect:
         scheme: https
-        hostname: *host
+        # noinspection KubernetesUnknownValues
+        hostname: &host 'error-pages.talos.${DOMAIN_NAME}'
         path:
           type: ReplaceFullPath
           replaceFullPath: /403.html
