@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 #  - dev
   - media
-#  - self-hosted
+  - self-hosted

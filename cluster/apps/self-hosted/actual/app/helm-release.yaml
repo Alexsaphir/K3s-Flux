@@ -1,0 +1,90 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: actual
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actual
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: actual
+
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      actual:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/actualbudget/actual
+              tag: 26.1.0
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 256M
+
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              capabilities: { drop: [ 'ALL' ] }
+
+    service:
+      app:
+        ports:
+          http:
+            port: 5006
+
+    route:
+      app:
+        hostnames:
+          - '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      data:
+        existingClaim: actual
+        advancedMounts:
+          actual:
+            app:
+              - path: /data

@@ -5,9 +5,13 @@ metadata:
   name: &app actual
   namespace: actual
 spec:
+  components:
+    - ../../../../components/volsync
+
   postBuild:
     substitute:
-      APP: *app
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: 10Gi
 
   prune: true
   interval: 1h
