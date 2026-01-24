@@ -4,8 +4,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - volsync-secret.sops.yaml
-  - cyberchef
-  - hajimari
   - tandoor-recipes
   - py-kms
   - immich
