@@ -32,4 +32,4 @@ machine:
 
     user.max_user_namespaces: 11255        # User namespaces
 
-    vm.nr_hugepages: "1024"
+    vm.nr_hugepages: '1024'

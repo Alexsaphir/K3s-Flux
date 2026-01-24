@@ -59,15 +59,30 @@ nodes:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/i915
             - siderolabs/intel-ucode
+            - siderolabs/i915
             - siderolabs/mei
+            - siderolabs/gasket-driver
             - siderolabs/thunderbolt
             - siderolabs/lldpd
             - siderolabs/nfsrahead
-            - siderolabs/gasket-driver
             - siderolabs/nvidia-container-toolkit-production
             - siderolabs/nvidia-open-gpu-kernel-modules-production
+
+        extraKernelArgs: &extraKernelArgs
+          - intel_iommu=on
+          - iommu=pt
+          - mitigations=off
+          - net.ifnames=1
+
+          - -init_on_alloc          # Less security, faster puter
+          - -init_on_free           # Less security, faster puter
+          - -selinux                # Less security, faster puter
+          - apparmor=0              # Less security, faster puter
+          - init_on_alloc=0         # Less security, faster puter
+          - init_on_free=0          # Less security, faster puter
+          - security=none           # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
 
     patches:
       - "@./patches/nodes/nvidia.yaml"
@@ -102,13 +117,15 @@ nodes:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/i915
             - siderolabs/intel-ucode
+            - siderolabs/i915
             - siderolabs/mei
+            - siderolabs/gasket-driver
             - siderolabs/thunderbolt
             - siderolabs/lldpd
             - siderolabs/nfsrahead
-            - siderolabs/gasket-driver
+
+        extraKernelArgs: *extraKernelArgs
 
   - hostname: "ms-03"
     ipAddress: 192.168.42.12
@@ -140,13 +157,15 @@ nodes:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/i915
             - siderolabs/intel-ucode
+            - siderolabs/i915
             - siderolabs/mei
+            - siderolabs/gasket-driver
             - siderolabs/thunderbolt
             - siderolabs/lldpd
             - siderolabs/nfsrahead
-            - siderolabs/gasket-driver
+
+        extraKernelArgs: *extraKernelArgs
 
 patches:
   - "@./patches/global/machine-kubelet.yaml"
@@ -165,20 +184,6 @@ controlPlane:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: controlPlane
 
-  schematic:
-    customization:
-      extraKernelArgs:
-        - net.ifnames=1
-        - -init_on_alloc          # Less security, faster puter
-        - -init_on_free           # Less security, faster puter
-        - -selinux                # Less security, faster puter
-        - apparmor=0              # Less security, faster puter
-        - init_on_alloc=0         # Less security, faster puter
-        - init_on_free=0          # Less security, faster puter
-        - mitigations=off         # Less security, faster puter
-        - security=none           # Less security, faster puter
-        - talos.auditd.disabled=1 # Less security, faster puter
-
   patches:
     - "@./patches/controller/cluster.yaml"
     - "@./patches/controller/machine-features.yaml"
@@ -188,9 +193,10 @@ controlPlane:
         kernel:
           modules:
             - name: nbd
+            - name: thunderbolt
+            - name: thunderbolt_net
 
     - "@./patches/nodes/sysfs.yaml"
-    - "@./patches/nodes/thunderbolt.yaml"
 
     - '@./manifests/disks.yaml'
     - '@./manifests/lldpd.yaml'
