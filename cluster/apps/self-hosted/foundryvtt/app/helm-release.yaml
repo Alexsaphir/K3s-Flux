@@ -1,0 +1,110 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: foundryvtt
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: foundryvtt
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: foundryvtt
+
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      foundryvtt:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/felddy/foundryvtt
+              tag: 13.351.0
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
+
+            env:
+              FOUNDRY_HOSTNAME: &host '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
+
+              TIMEZONE: '${TIMEZONE}'
+              CONTAINER_CACHE: /data/container_cache
+              CONTAINER_PATCHES: /data/container_patches
+              CONTAINER_VERBOSE: 'true'
+
+              FOUNDRY_TELEMETRY: 'false'
+              FOUNDRY_LOCAL_HOSTNAME: *host
+              FOUNDRY_MINIFY_STATIC_FILES: 'true'
+              FOUNDRY_COMPRESS_WEBSOCKET: 'true'
+              FOUNDRY_PROTOCOL: '4'
+              FOUNDRY_PROXY_PORT: '443'
+              FOUNDRY_PROXY_SSL: 'true'
+              FOUNDRY_CSS_THEME: foundry
+
+              # CONTAINER_PATCH_URLS: https://gist.githubusercontent.com/felddy/a02d66c3817f8223652d96febe580153/raw/foundryvtt-module-check.sh
+
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 2Gi
+
+            securityContext:
+              readOnlyRootFilesystem: false
+              allowPrivilegeEscalation: false
+              capabilities: { drop: [ 'ALL' ] }
+
+    service:
+      app:
+        ports:
+          http:
+            port: 30000
+
+    route:
+      app:
+        hostnames:
+          - '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      data:
+        existingClaim: foundryvtt
+        advancedMounts:
+          foundryvtt:
+            app:
+              - path: /data
+
+      tmp:
+        type: emptyDir
+
+      npm-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /home/node/.npm
