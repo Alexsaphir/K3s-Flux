@@ -4,7 +4,11 @@ kind: Kustomization
 metadata:
   name: &app your-spotify
   namespace: your-spotify
+
 spec:
+  components:
+    - ../../../../components/volsync
+
   postBuild:
     substitute:
       PVC_NAME: *app

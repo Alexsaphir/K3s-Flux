@@ -27,36 +27,29 @@ spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
         seccompProfile: { type: RuntimeDefault }
 
     controllers:
       server:
-        strategy: &strat RollingUpdate
-        rollingUpdate: &ru
-          unavailable: 0
-
         annotations:
           reloader.stakater.com/auto: 'true'
 
         containers:
           app:
             image:
-              repository: yooooomi/your_spotify_server
-              tag: 1.17.0
+              repository: ghcr.io/yooooomi/your_spotify_server
+              tag: 1.17.0@sha256:6367c4a118ce966d2f37b626a0c3450daf10659b3dfb24620c6368c2ee3f731f
             env:
               TIMEZONE: ${TIMEZONE}
 
-              API_ENDPOINT: &api_endpoint https://spotify-api.talos.${DOMAIN_NAME}
+              API_ENDPOINT: &api_endpoint https://spotify.talos.${DOMAIN_NAME}/api
               CLIENT_ENDPOINT: https://spotify.talos.${DOMAIN_NAME}
-              MONGO_ENDPOINT: mongodb://your-spotify-mongodb:27017/your_spotify
+              MONGO_ENDPOINT: 'mongodb://{{ .Release.Name }}-mongodb:27017/your_spotify'
+              PORT: &port 80
 
             envFrom:
               - secretRef:
-                  name: your-spotify-secret
+                  name: '{{ .Release.Name }}-secret'
 
             probes: &probes
               liveness:
@@ -72,14 +65,11 @@ spec:
               capabilities: { drop: [ 'ALL' ] }
 
       web:
-        strategy: *strat
-        rollingUpdate: *ru
-
         containers:
           app:
             image:
-              repository: yooooomi/your_spotify_client
-              tag: 1.17.0
+              repository: ghcr.io/yooooomi/your_spotify_client
+              tag: 1.17.0@sha256:efe20e90bbfdad1b45bc62ef19cf73c63f1c8ddec52d838efe61a81b99daf1d1
 
             env:
               TIMEZONE: ${TIMEZONE}
@@ -90,7 +80,6 @@ spec:
 
       mongodb:
         type: statefulset
-        rollingUpdate: *ru
         statefulset:
           podManagementPolicy: OrderedReady
 
@@ -100,44 +89,62 @@ spec:
               repository: docker.io/library/mongo
               tag: 6.0.4-focal
 
-            env:
-              TZ: ${TIMEZONE}
-
             probes: *probes
 
     service:
       server:
-        controllers: server
+        controller: server
+        primary: true
         ports:
           http:
-            port: 8080
+            port: *port
+
       web:
-        controllers: web
+        controller: web
         ports:
           http:
-            port: 3000
+            port: &webport 3000
+
       mongodb:
-        controllers: mongodb
+        controller: mongodb
         ports:
           http:
             port: 27017
+
     route:
-      server:
-        hostnames:
-          - 'spotify-api.talos.${DOMAIN_NAME}'
-        parentRefs:
-          - name: envoy
-            namespace: envoy-system
-      web:
+      app:
         hostnames:
           - 'spotify.talos.${DOMAIN_NAME}'
         parentRefs:
           - name: envoy
             namespace: envoy-system
 
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: "/api"
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplacePrefixMatch
+                    replacePrefixMatch: "/"
+            backendRefs:
+              - identifier: server
+                port: *port
+
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: "/"
+            backendRefs:
+              - identifier: web
+                port: *webport
+
     persistence:
       config:
-        existingClaim: your-spotify
+        existingClaim: '{{ .Release.Name }}'
         advancedMounts:
           mongodb:
             app:
