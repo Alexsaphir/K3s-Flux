@@ -1,0 +1,29 @@
+---
+version: "3"
+
+vars:
+  KUBERNETES_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/debug/resources"
+
+tasks:
+  netshoot:
+    desc: Create a netshoot container for a cluster
+    summary: |
+      Args:
+        ns: Namespace (default: default)
+    interactive: true
+    cmd: |
+      kubectl run -n {{.ns}} netshoot --rm -i --tty --image ghcr.io/nicolaka/netshoot:latest {{.CLI_ARGS}}
+    vars:
+      ns: '{{.ns | default "default"}}'
+
+  privileged:
+    desc: Run a privileged pod
+    cmd: |
+      echo "Using envsubst: $(which envsubst)"
+      kubectl run privileged-{{.node}} -i --rm --image=null \
+        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml -o=json | envsubst)"
+    env:
+      node: "{{.node}}"
+    preconditions:
+      - which envsubst
+      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml

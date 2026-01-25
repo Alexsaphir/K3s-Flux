@@ -29,6 +29,7 @@ includes:
   flux-local: .taskfiles/flux-local
   volsync: .taskfiles/volsync
   postgres: .taskfiles/postgres
+  debug: .taskfiles/debug
 
 tasks:
   default: task --list
