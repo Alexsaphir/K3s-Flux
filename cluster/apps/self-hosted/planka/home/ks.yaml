@@ -2,24 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app tautulli
-  namespace: media
+  name: &app planka
+  namespace: planka
 spec:
-  components:
-    - ../../../components/volsync
-
   postBuild:
     substitute:
       APP: *app
-      PVC_NAME: *app
-      VOLSYNC_CAPACITY: 20Gi
-
-  dependsOn:
-    - name: plex
 
   prune: true
   interval: 1h
-  path: cluster/apps/media/tautulli
+  path: cluster/apps/self-hosted/planka/home
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

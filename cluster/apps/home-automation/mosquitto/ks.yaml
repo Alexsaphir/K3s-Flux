@@ -2,16 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app planka-prod
-  namespace: planka-prod
+  name: &app mosquitto
+  namespace: home-automation
 spec:
-  postBuild:
-    substitute:
-      APP: *app
+  components:
+    - ../../../components/volsync
 
   prune: true
   interval: 1h
-  path: cluster/apps/self-hosted/planka-prod/app
+  path: cluster/apps/home-automation/mosquitto
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

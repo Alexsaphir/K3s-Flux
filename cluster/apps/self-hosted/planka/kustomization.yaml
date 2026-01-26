@@ -6,4 +6,6 @@ components:
   - ../../../components/namespace
 replacements:
   - path: ../../../components/replacements/ks.yaml
-resources: [ ]
+resources:
+  - home/ks.yaml
+  - prod/ks.yaml

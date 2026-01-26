@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: home-automation
+components:
+  - ../../components/namespace
+replacements:
+  - path: ../../components/replacements/ks.yaml
+resources:
+  - mosquitto/ks.yaml
+  - zigbee2mqtt/ks.yaml

@@ -6,7 +6,6 @@ resources:
   - foundryvtt
   - immich
   - planka
-  - planka-prod
   - tandoor-recipes
   - vaultwarden
   - your-spotify
