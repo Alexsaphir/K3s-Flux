@@ -16,3 +16,11 @@ tasks:
     preconditions:
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
       - which kubectl
+
+  snapshots:
+    cmd: |
+      kubectl get replicationsources --no-headers -A | while read -r ns name _; do \
+          kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'; \
+      done
+    preconditions:
+      - which kubectl
