@@ -19,7 +19,7 @@ packages:
   - name: helm/helm@v4.1.0
   - name: kubernetes-sigs/kustomize@kustomize/v5.8.0
   - name: jqlang/jq@jq-1.8.1
-  - name: mikefarah/yq@v4.50.1
+  - name: mikefarah/yq@v4.52.2
   - name: ahmetb/kubectx@v0.9.5
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: bitnami-labs/sealed-secrets@v0.34.0
@@ -37,8 +37,8 @@ packages:
   - name: budimanjojo/talhelper@v3.1.3
   - name: lsd-rs/lsd@v1.2.0
   - name: opentofu/opentofu@v1.11.4
-  - name: runatlantis/atlantis@v0.39.0
+  - name: runatlantis/atlantis@v0.40.0
   - name: kyverno/kyverno@v1.16.3
   - name: homeport/dyff@v1.10.3
-  - name: gruntwork-io/terragrunt@v0.99.0
+  - name: gruntwork-io/terragrunt@v0.99.1
   - name: breml/tfreveal@v0.0.4
