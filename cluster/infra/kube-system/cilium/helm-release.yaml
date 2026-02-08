@@ -33,7 +33,6 @@ spec:
       datapathMode: netkit
       masquerade: true
       preallocateMaps: true
-      tproxy: true # L7 netpols stuff
 
     bpfClockProbe: true
     bgpControlPlane:
@@ -125,7 +124,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 1 # TODO: increase to 2
+      replicas: 2
       rollOutPods: true
     prometheus:
       enabled: true
