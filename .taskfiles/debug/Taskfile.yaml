@@ -27,3 +27,11 @@ tasks:
     preconditions:
       - which envsubst
       - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml
+
+  reset:talos-upgrade:
+    desc: Reset failed Talos upgrade
+    cmd: kubectl annotate talosupgrade talos tuppr.home-operations.com/reset="$(date)"
+
+  reset:kubernetes-upgrade:
+    desc: Reset failed Kubernetes upgrade
+    cmd: kubectl annotate kubernetesupgrade kubernetes tuppr.home-operations.com/reset
