@@ -4,3 +4,10 @@ kind: Kustomization
 resources:
   - external-secret.yaml
   - postgres.yaml
+
+configMapGenerator:
+  - name: authelia-config-tpl
+    files:
+      - ./config/configuration.yaml
+generatorOptions:
+  disableNameSuffixHash: true

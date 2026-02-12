@@ -1,0 +1,127 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/authelia/authelia/master/docs/static/schemas/v4.39/json-schema/configuration.json
+totp:
+  disable: false
+  issuer: auth.talos.${DOMAIN_NAME}
+
+webauthn:
+  disable: true
+
+duo_api:
+  disable: true
+
+log:
+  level: info
+  # format: json
+
+server:
+  buffers:
+    read: 16384
+    write: 16384
+
+storage:
+  encryption_key: '{{ .STORAGE_ENCRYPTION_KEY }}'
+
+notifier:
+  disable_startup_check: true
+  smtp:
+    address: 'smtp://mailpit.kube-system.svc.cluster.local:1025'
+
+    sender: 'Authelia <authelia@talos.${DOMAIN_NAME}>'
+    disable_require_tls: true
+
+authentication_backend:
+  refresh_interval: 1m
+  password_reset:
+    disable: true
+
+  ldap:
+    implementation: custom
+    timeout: 5s
+    start_tls: false
+    base_dn: dc=home,dc=arpa
+    additional_users_dn: ou=people
+    users_filter: (&({username_attribute}={input})(objectClass=person))
+
+    additional_groups_dn: ou=groups
+    groups_filter: (member={dn})
+    group_search_mode: filter
+
+    user: uid=search,ou=people,dc=home,dc=arpa
+
+    attributes:
+      username: uid
+      display_name: displayName
+      mail: mail
+      member_of: memberOf
+      group_name: cn
+
+regulation:
+  max_retries: 3
+  find_time: 2m
+  ban_time: 5m
+
+session:
+  same_site: lax
+  inactivity: 5m
+  expiration: 1h
+  remember_me: 1M
+  cookies:
+    - name: authelia-talos
+      domain: ${DOMAIN_NAME}
+      authelia_url: https://auth.talos.${DOMAIN_NAME}
+      default_redirection_url: https://${DOMAIN_NAME}
+
+identity_validation:
+  reset_password:
+    jwt_secret: "{{ .RESET_PASSWORD_JWT }}"
+
+access_control:
+  default_policy: deny
+  networks:
+    - name: internal
+      networks: [ '192.168.0.0/16' ]
+
+  rules:
+    - domain:
+        - 'auth.${DOMAIN_NAME}'
+      policy: bypass
+
+    # Webhook protected by secret
+    - domain:
+        - 'flux-webhook.talos.${DOMAIN_NAME}'
+      policy: bypass
+
+    - domain:
+        - '*.talos.${DOMAIN_NAME}'
+      policy: deny
+
+identity_providers:
+  oidc:
+    hmac_secret: '{{ .OIDC_HMAC_SECRET }}'
+    claims_policies:
+      default:
+        id_token:
+          - rat
+          - groups
+          - email
+          - email_verified
+          - alt_emails
+          - preferred_username
+          - name
+
+    jwks:
+      - # noinspection YAMLSchemaValidation
+        key: |
+          {{- .OIDC_JWKS_0_KEY | b64dec | nindent 10 }}
+      - # noinspection YAMLSchemaValidation
+        certificate_chain: |
+          {{- .OIDC_JWKS_0_CERT | b64dec | nindent 10 }}
+
+    cors:
+      endpoints:
+        - authorization
+        - token
+        - revocation
+        - introspection
+      allowed_origins_from_client_redirect_uris: true
