@@ -5,11 +5,11 @@ metadata:
   name: &app lldap
   namespace: &namespace kube-auth
 spec:
-#  healthChecks:
-#    - apiVersion: helm.toolkit.fluxcd.io/v2
-#      kind: HelmRelease
-#      name: *app
-#      namespace: *namespace
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: *app
+      namespace: *namespace
 
   prune: true
   interval: 1h

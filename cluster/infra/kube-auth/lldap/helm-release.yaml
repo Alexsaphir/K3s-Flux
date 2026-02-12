@@ -116,7 +116,7 @@ spec:
           gatus.home-operations.com/enabled: |-
             conditions: ['[STATUS] == 200']
             group: auth
-        hostnames: [ 'lldap.talos.${DOMAIN_NAME}' ]
+        hostnames: [ '{{ .Release.Name }}.talos.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system
