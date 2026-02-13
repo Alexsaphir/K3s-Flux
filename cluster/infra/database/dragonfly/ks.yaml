@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dragonfly
+  namespace: &namespace database
+spec:
+  dependsOn:
+    - name: dragonfly-operator
+      namespace: dragonfly-operator
+
+  prune: true
+  interval: 1h
+  path: cluster/infra/database/dragonfly
+  sourceRef:
+    kind: GitRepository
+    name: talos-kubernetes
+    namespace: flux-system
