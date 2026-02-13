@@ -19,6 +19,11 @@ server:
     read: 16384
     write: 16384
 
+  endpoints:
+    authz:
+      ext-authz:
+        implementation: 'ExtAuthz'
+
 storage:
   encryption_key: '{{ .STORAGE_ENCRYPTION_KEY }}'
 

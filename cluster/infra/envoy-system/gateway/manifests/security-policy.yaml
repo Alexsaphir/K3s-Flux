@@ -23,6 +23,6 @@ spec:
         - group: ''
           kind: Service
           name: authelia
-          namespace: kupe-auth
-          port: 8080
+          namespace: kube-auth
+          port: 80
       path: /api/authz/ext-authz/
