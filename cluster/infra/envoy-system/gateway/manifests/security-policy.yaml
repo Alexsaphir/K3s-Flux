@@ -12,12 +12,14 @@ spec:
   extAuth:
     failOpen: false
     headersToExtAuth:
-      - X-Forwarded-For # this is here so we can get the real IP
-      - X-Forwarded-Proto
-      - authorization
-      - proxy-authorization
       - accept
       - cookie
+      - authorization
+      - proxy-authorization
+      - x-forwarded-proto
+      - x-forwarded-host
+      - x-forwarded-uri
+      - x-forwarded-for
     http:
       backendRefs:
         - group: ''
@@ -26,3 +28,8 @@ spec:
           namespace: kube-auth
           port: 80
       path: /api/authz/ext-authz/
+      headersToBackend:
+        - Remote-User
+        - Remote-Groups
+        - Remote-Name
+        - Remote-Email

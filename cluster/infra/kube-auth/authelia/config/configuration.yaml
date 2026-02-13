@@ -75,9 +75,9 @@ session:
   remember_me: 1M
   cookies:
     - name: authelia-talos
-      domain: ${DOMAIN_NAME}
+      domain: talos.${DOMAIN_NAME}
       authelia_url: https://auth.talos.${DOMAIN_NAME}
-      default_redirection_url: https://${DOMAIN_NAME}
+      default_redirection_url: https://talos.${DOMAIN_NAME}
 
 identity_validation:
   reset_password:
@@ -101,6 +101,7 @@ access_control:
 
     - domain:
         - 'rook.talos.${DOMAIN_NAME}'
+        - 'grafana.talos.${DOMAIN_NAME}'
       policy: two_factor
 
     - domain:
