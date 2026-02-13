@@ -11,7 +11,7 @@ duo_api:
   disable: true
 
 log:
-  level: info
+  level: debug
   # format: json
 
 server:
