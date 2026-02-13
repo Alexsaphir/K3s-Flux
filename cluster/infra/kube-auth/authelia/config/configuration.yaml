@@ -113,10 +113,10 @@ identity_providers:
     jwks:
       - # noinspection YAMLSchemaValidation
         key: |
-          {{- .OIDC_JWKS_0_KEY | b64dec | nindent 10 }}
+          {{- .OIDC_JWKS_0_KEY | nindent 10 }}
       - # noinspection YAMLSchemaValidation
         certificate_chain: |
-          {{- .OIDC_JWKS_0_CERT | b64dec | nindent 10 }}
+          {{- .OIDC_JWKS_0_CERT | nindent 10 }}
 
     cors:
       endpoints:
