@@ -14,11 +14,11 @@ spec:
     headersToExtAuth:
       - accept
       - cookie
+      - location
       - authorization
       - proxy-authorization
+      - header-authorization
       - x-forwarded-proto
-      - x-forwarded-host
-      - x-forwarded-uri
       - x-forwarded-for
     http:
       backendRefs:
