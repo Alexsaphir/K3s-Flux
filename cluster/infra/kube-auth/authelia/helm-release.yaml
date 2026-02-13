@@ -29,7 +29,7 @@ spec:
         replicas: 3
         strategy: RollingUpdate
         annotations:
-          reloader.stakater.com/auto: 'true'
+          secret.reloader.stakater.com/reload: &authelia-config authelia-config
 
         containers:
           app:
@@ -73,10 +73,6 @@ spec:
                   secretKeyRef:
                     name: database-authelia
                     key: PASSWORD
-
-            envFrom:
-              - secretRef:
-                  name: '{{ .Release.Name }}-secret'
 
             probes:
               liveness: &probes
@@ -158,15 +154,10 @@ spec:
 
     persistence:
       config:
-        type: configMap
-        name: authelia-configmap
+        enabled: true
+        type: secret
+        name: *authelia-config
         globalMounts:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
             readOnly: true
-
-      secret-files:
-        type: secret
-        name: authelia-oauth-secret
-        globalMounts:
-          - path: /config/secret
