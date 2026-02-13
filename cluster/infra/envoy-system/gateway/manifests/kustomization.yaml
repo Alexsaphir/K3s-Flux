@@ -8,4 +8,5 @@ resources:
   - gateway.yaml
 
   - policy.yaml
+  - security-policy.yaml
   - redirect-to-https.yaml

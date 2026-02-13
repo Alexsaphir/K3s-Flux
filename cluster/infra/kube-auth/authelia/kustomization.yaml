@@ -5,6 +5,7 @@ resources:
   - external-secret.yaml
   - postgres.yaml
   - helm-release.yaml
+  - referance-grant.yaml
 
 configMapGenerator:
   - name: authelia-config-tpl
