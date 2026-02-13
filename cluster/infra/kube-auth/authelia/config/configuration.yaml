@@ -121,6 +121,10 @@ identity_providers:
       endpoints: [ userinfo, authorization, token, revocation, introspection ]
       allowed_origins_from_client_redirect_uris: true
 
+    claims_policies:
+      default:
+        id_token: [ 'groups', 'email', 'email_verified', 'alt_emails', 'preferred_username', 'name' ]
+
     clients:
       - client_id: immich
         client_name: Immich

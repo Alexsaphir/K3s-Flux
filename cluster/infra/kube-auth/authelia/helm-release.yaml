@@ -80,7 +80,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
+                    path: /api/health
                     port: &port 80
                   initialDelaySeconds: 0
                   periodSeconds: 10
