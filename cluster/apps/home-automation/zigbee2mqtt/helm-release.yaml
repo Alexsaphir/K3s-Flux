@@ -106,7 +106,7 @@ spec:
 
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter
-              tag: 1.10.0
+              tag: 1.11.1
 
             env:
               - { name: MAX_METRICS, value: 0 }
