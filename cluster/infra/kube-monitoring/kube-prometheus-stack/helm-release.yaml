@@ -193,7 +193,7 @@ spec:
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
         thanos:
-          image: quay.io/thanos/thanos:v0.40.1
+          image: quay.io/thanos/thanos:v0.41.0
           objectStorageConfig:
             existingSecret:
               name: &secret thanos-objstore-secret
