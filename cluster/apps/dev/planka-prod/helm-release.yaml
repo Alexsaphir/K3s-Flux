@@ -56,13 +56,11 @@ spec:
                     key: POSTGRES_URL
               BASE_URL:
                 value: '{{ printf "https://%s" (first .Values.ingress.app.hosts).host }}'
-              TRUST_PROXY: 1
+              TRUST_PROXY: 'true'
 
               OIDC_ENFORCED: 'true'
               OIDC_SCOPES: openid profile email
               OIDC_IGNORE_ROLES: 'true'
-
-              ALLOW_ALL_TO_CREATE_PROJECTS: 'true'
 
               # Email Notifications (https://nodemailer.com/smtp/)
               # - SMTP_HOST=

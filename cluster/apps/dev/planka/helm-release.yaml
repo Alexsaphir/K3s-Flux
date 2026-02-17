@@ -65,7 +65,7 @@ spec:
               REACT_APP_SERVER_BASE_URL:
                 value: *BASE_URL
 
-              TRUST_PROXY: 1
+              TRUST_PROXY: 'true'
 
               OIDC_ENFORCED: 'true'
               OIDC_ISSUER:
@@ -73,8 +73,6 @@ spec:
               OIDC_SCOPES: openid profile groups email
               OIDC_ADMIN_ROLES: planka-admin
               OIDC_ROLES_ATTRIBUTE: groups
-
-              ALLOW_ALL_TO_CREATE_PROJECTS: 'true'
 
               # Email Notifications (https://nodemailer.com/smtp/)
               SMTP_HOST: mailpit.mail.svc.cluster.local
