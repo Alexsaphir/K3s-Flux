@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/seerr-team/seerr
-              tag: develop@sha256:a28db02d90b33f20c1dac8cc8b5489c56f246087a790f7039e12a043279aec95
+              tag: develop@sha256:96f639220a3b2a58570ebe4917c76c8573ff7d4a4f09d88f1176f8eb90e8947f
 
             env:
               TZ: '${TIMEZONE}'
