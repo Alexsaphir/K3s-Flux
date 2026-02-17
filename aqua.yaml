@@ -9,7 +9,7 @@ packages:
   - name: direnv/direnv@v2.37.1
   - name: go-task/task@v3.48.0
   - name: gitleaks/gitleaks@v8.30.0
-  - name: firecow/gitlab-ci-local@4.66.0
+  - name: firecow/gitlab-ci-local@4.66.1
   - name: FiloSottile/age@v1.3.1
   - name: mozilla/sops@v3.11.0
   - name: hashicorp/terraform@v1.14.5
