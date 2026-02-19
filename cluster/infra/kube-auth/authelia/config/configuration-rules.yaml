@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/authelia/authelia/master/docs/static/schemas/v4.39/json-schema/configuration.json
+access_control:
+  default_policy: deny
+  networks:
+    - name: internal
+      networks: [ '192.168.0.0/16' ]
+
+  rules:
+    - domain:
+        - 'auth.talos.${DOMAIN_NAME}'
+      policy: bypass
+
+    # Webhook protected by secret
+    - domain:
+        - 'flux-webhook.talos.${DOMAIN_NAME}'
+      policy: bypass
+
+    - domain:
+        - 'rook.talos.${DOMAIN_NAME}'
+        - 'grafana.talos.${DOMAIN_NAME}'
+      policy: two_factor
+
+    - domain:
+        - '*.talos.${DOMAIN_NAME}'
+      policy: deny

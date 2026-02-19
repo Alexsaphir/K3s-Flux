@@ -29,7 +29,7 @@ spec:
         replicas: 3
         strategy: RollingUpdate
         annotations:
-          secret.reloader.stakater.com/reload: &authelia-config authelia-config
+          reloader.stakater.com/auto: 'true'
 
         containers:
           app:
@@ -47,7 +47,7 @@ spec:
               AUTHELIA_TELEMETRY_METRICS_ENABLED: 'true'
               AUTHELIA_THEME: grey
 
-              X_AUTHELIA_CONFIG: /config/configuration.yaml
+              X_AUTHELIA_CONFIG: /config/configuration.yaml,/config/configuration-rules.yaml
               X_AUTHELIA_CONFIG_FILTERS: template
 
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDRESS: 'ldap://lldap.kube-auth.svc.cluster.local:389'
@@ -156,8 +156,17 @@ spec:
       config:
         enabled: true
         type: secret
-        name: *authelia-config
+        name: authelia-config
         globalMounts:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
+            readOnly: true
+
+      config-rules:
+        enabled: true
+        type: configMap
+        name: authelia-config-rules
+        globalMounts:
+          - path: /config/configuration-rules.yaml
+            subPath: configuration-rules.yaml
             readOnly: true

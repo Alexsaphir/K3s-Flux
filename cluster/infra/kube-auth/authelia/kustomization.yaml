@@ -11,5 +11,8 @@ configMapGenerator:
   - name: authelia-config-tpl
     files:
       - ./config/configuration.yaml
+  - name: authelia-config-rules
+    files:
+      - ./config/configuration-rules.yaml
 generatorOptions:
   disableNameSuffixHash: true
