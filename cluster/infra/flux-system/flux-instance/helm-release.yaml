@@ -104,7 +104,7 @@ spec:
                       - name: manager
                         resources:
                           limits:
-                            memory: 512Mi
+                            memory: 1Gi
             target:
               kind: Deployment
               name: helm-controller
