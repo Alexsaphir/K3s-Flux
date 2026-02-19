@@ -17,9 +17,10 @@ access_control:
       policy: bypass
 
     - domain:
-        - 'rook.talos.${DOMAIN_NAME}'
-        - 'grafana.talos.${DOMAIN_NAME}'
+        - '*.talos.${DOMAIN_NAME}'
       policy: two_factor
+      subject:
+        - 'group:cluster-admins'
 
     - domain:
         - '*.talos.${DOMAIN_NAME}'
