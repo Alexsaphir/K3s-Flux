@@ -41,20 +41,6 @@ nodes:
         dhcp: true
         mtu: 9000
 
-      - # ms-03
-        deviceSelector: { busPath: 1-* }
-        dhcp: false
-        mtu: 65520
-        addresses: [ '${tb_ms_01}' ]
-        routes: [ { network: '${tb_ms_03}', metric: 2048 } ]
-
-      - # ms-02
-        deviceSelector: { busPath: 0-* }
-        dhcp: false
-        mtu: 65520
-        addresses: [ '${tb_ms_01}' ]
-        routes: [ { network: '${tb_ms_02}', metric: 2048 } ]
-
     schematic:
       customization:
         systemExtensions:
@@ -63,7 +49,6 @@ nodes:
             - siderolabs/i915
             - siderolabs/mei
             - siderolabs/gasket-driver
-            - siderolabs/thunderbolt
             - siderolabs/lldpd
             - siderolabs/nfsrahead
             - siderolabs/nvidia-container-toolkit-production
@@ -99,20 +84,6 @@ nodes:
         dhcp: true
         mtu: 9000
 
-      - # ms-01
-        deviceSelector: { busPath: 1-* }
-        dhcp: false
-        mtu: 65520
-        addresses: [ '${tb_ms_02}' ]
-        routes: [ { network: '${tb_ms_01}', metric: 2048 } ]
-
-      - # ms-03
-        deviceSelector: { busPath: 0-* }
-        dhcp: false
-        mtu: 65520
-        addresses: [ '${tb_ms_02}' ]
-        routes: [ { network: '${tb_ms_03}', metric: 2048 } ]
-
     schematic:
       customization:
         systemExtensions:
@@ -121,7 +92,6 @@ nodes:
             - siderolabs/i915
             - siderolabs/mei
             - siderolabs/gasket-driver
-            - siderolabs/thunderbolt
             - siderolabs/lldpd
             - siderolabs/nfsrahead
 
@@ -139,20 +109,6 @@ nodes:
         dhcp: true
         mtu: 9000
 
-      - # ms-02
-        deviceSelector: { busPath: 1-* }
-        dhcp: false
-        mtu: 65520
-        addresses: [ '${tb_ms_03}' ]
-        routes: [ { network: '${tb_ms_02}', metric: 2048 } ]
-
-      - # ms-01
-        deviceSelector: { busPath: 0-* }
-        dhcp: false
-        mtu: 65520
-        addresses: [ '${tb_ms_03}' ]
-        routes: [ { network: '${tb_ms_01}', metric: 2048 } ]
-
     schematic:
       customization:
         systemExtensions:
@@ -161,7 +117,6 @@ nodes:
             - siderolabs/i915
             - siderolabs/mei
             - siderolabs/gasket-driver
-            - siderolabs/thunderbolt
             - siderolabs/lldpd
             - siderolabs/nfsrahead
 
@@ -193,8 +148,6 @@ controlPlane:
         kernel:
           modules:
             - name: nbd
-            - name: thunderbolt
-            - name: thunderbolt_net
 
     - "@./patches/nodes/sysfs.yaml"
 
