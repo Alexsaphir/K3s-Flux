@@ -6,6 +6,9 @@ metadata:
   namespace: immich
 spec:
   dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
     - name: postgres-immich
 
   prune: true

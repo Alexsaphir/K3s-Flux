@@ -9,14 +9,17 @@ spec:
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
 
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
+    - name: prowlarr
+
   postBuild:
     substitute:
       APP: *app
       PVC_NAME: *app
       VOLSYNC_CAPACITY: 10Gi
-
-  dependsOn:
-    - name: prowlarr
 
   prune: true
   interval: 1h

@@ -8,14 +8,17 @@ spec:
   components:
     - ../../../components/volsync
 
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
+    - name: plex
+
   postBuild:
     substitute:
       APP: *app
       PVC_NAME: *app
       VOLSYNC_CAPACITY: 20Gi
-
-  dependsOn:
-    - name: plex
 
   prune: true
   interval: 1h

@@ -10,6 +10,9 @@ spec:
     - ../../../../components/volsync
 
   dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
     - name: plex
 
   postBuild:

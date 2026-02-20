@@ -8,14 +8,17 @@ spec:
   components:
     - ../../../components/volsync
 
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+
+    - name: mosquitto
+
   postBuild:
     substitute:
       APP: *app
       PVC_NAME: *app
       VOLSYNC_CAPACITY: 5Gi
-
-  dependsOn:
-    - name: mosquitto
 
   prune: true
   interval: 1h
