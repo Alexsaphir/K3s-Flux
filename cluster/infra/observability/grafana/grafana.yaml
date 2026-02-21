@@ -14,6 +14,23 @@ spec:
       enabled: 'true'
     auth.basic:
       enabled: 'true'
+    auth.generic_oauth:
+      enabled: 'true'
+      name: 'authelia'
+      allow_sign_up: 'true'
+
+      client_id: grafana
+      client_secret: $${AUTH_CLIENT_SECRET}
+
+      auth_url: https://auth.talos.${DOMAIN_NAME}/api/oidc/authorization
+      token_url: https://auth.talos.${DOMAIN_NAME}/api/oidc/token
+      api_url: https://auth.talos.${DOMAIN_NAME}/api/oidc/userinfo
+
+      scopes: 'openid email profile offline_access roles'
+      email_attribute_path: email
+      login_attribute_path: username
+      name_attribute_path: full_name
+      groups_attribute_path: groups
 
     analytics:
       check_for_updates: 'false'
@@ -77,9 +94,16 @@ spec:
         spec:
           containers:
             - name: grafana
+              envFrom:
+                - secretRef:
+                    name: grafana-admin-password-secret
+                - secretRef:
+                    name: grafana-oauth-secret
+
               env:
                 - name: GF_DATABASE_SSL_MODE
                   value: disable
+
                 - name: GF_DATABASE_NAME
                   valueFrom:
                     secretKeyRef:
@@ -100,17 +124,6 @@ spec:
                     secretKeyRef:
                       name: database-grafana
                       key: PASSWORD
-
-                - name: GF_SECURITY_ADMIN_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin-password-secret
-                      key: GF_SECURITY_ADMIN_USER
-                - name: GF_SECURITY_ADMIN_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin-password-secret
-                      key: GF_SECURITY_ADMIN_PASSWORD
 
               securityContext:
                 allowPrivilegeEscalation: false
