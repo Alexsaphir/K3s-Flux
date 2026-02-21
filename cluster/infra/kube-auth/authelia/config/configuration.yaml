@@ -112,7 +112,7 @@ identity_providers:
         authorization_policy: two_factor
         scopes: [ 'openid', 'profile', 'groups', 'email' ]
         redirect_uris:
-          [ 'https://grafana.${DOMAIN_NAME}/login/generic_oauth' ]
+          [ 'https://grafana.talos.${DOMAIN_NAME}/login/generic_oauth' ]
         userinfo_signed_response_alg: none
 
       - client_id: immich
@@ -122,8 +122,8 @@ identity_providers:
         authorization_policy: two_factor
         scopes: [ 'openid', 'profile', 'email' ]
         redirect_uris:
-          - 'https://photos.${DOMAIN_NAME}/auth/login'
-          - 'https://photos.${DOMAIN_NAME}/user-settings'
+          - 'https://photos.talos.${DOMAIN_NAME}/auth/login'
+          - 'https://photos.talos.${DOMAIN_NAME}/user-settings'
           - 'app.immich:///oauth-callback'
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_post
