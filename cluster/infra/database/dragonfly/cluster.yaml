@@ -20,10 +20,29 @@ spec:
     - --proactor_threads=2
     - --cluster_mode=emulated
     - --lock_on_hashtags
-    - --default_lua_flags=allow-undeclared-keys
+    - --default_lua_flags=allow-undeclared-keys # immich support
+    - --dbfilename=dragonflySnapshot
+
+  snapshot:
+    persistentVolumeClaimSpec:
+      storageClassName: openebs-hostpath
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 400Mi
 
   resources:
     requests:
       cpu: 100m
+      memory: 128Mi
     limits:
       memory: 512Mi
+
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/part-of: dragonfly
