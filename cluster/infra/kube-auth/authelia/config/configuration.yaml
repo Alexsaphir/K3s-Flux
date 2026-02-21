@@ -110,7 +110,7 @@ identity_providers:
         client_secret: '{{ .GRAFANA_OAUTH_CLIENT_DIGEST }}'
         public: false
         authorization_policy: two_factor
-        scopes: [ 'openid', 'profile', 'groups', 'email' ]
+        scopes: [ 'openid', 'profile', 'groups', 'email', 'offline_access' ]
         redirect_uris:
           [ 'https://grafana.talos.${DOMAIN_NAME}/login/generic_oauth' ]
         userinfo_signed_response_alg: none
