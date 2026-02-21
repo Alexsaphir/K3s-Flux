@@ -19,6 +19,7 @@ resources:
   #- multus/ks.yaml
 
   - descheduler/ks.yaml
+  - ksgate/ks.yaml
   - reloader/ks.yaml
 
   - mailpit/ks.yaml
