@@ -13,8 +13,9 @@ spec:
     auth.anonymous:
       enabled: 'false'
     auth.basic:
-      enabled: 'true'
-
+      enabled: 'true' # need to be enabled for the operator
+    auth.passwordless:
+      enabled: 'false'
     auth.generic_oauth:
       enabled: 'true'
       name: 'authelia'
@@ -96,11 +97,20 @@ spec:
             - name: grafana
               envFrom:
                 - secretRef:
-                    name: grafana-admin-password-secret
-                - secretRef:
                     name: grafana-oauth-secret
 
               env:
+                - name: GF_SECURITY_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_USER
+                      name: grafana-admin-password-secret
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_PASSWORD
+                      name: grafana-admin-password-secret
+
                 - name: GF_DATABASE_SSL_MODE
                   value: disable
 
