@@ -1,0 +1,82 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: garage-webui
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app garage-webui
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: garage-webui
+
+  values:
+    controllers:
+      garage-webui:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: docker.io/khairul169/garage-webui
+              tag: 1.1.0@sha256:17c793551873155065bf9a022dabcde874de808a1f26e648d4b82e168806439c
+
+            env:
+              TZ: ${TIMEZONE}
+              API_BASE_URL: http://garage.{{ .Release.Namespace }}.svc.cluster.local:3903
+              S3_ENDPOINT_URL: http://garage.{{ .Release.Namespace }}.svc.cluster.local:3900
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ ALL ] }
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 50Mi
+              limits:
+                memory: 128Mi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        ports:
+          http:
+            port: 3909
+
+    route:
+      app:
+        hostnames: [ 'garage.talos.${DOMAIN_NAME}' ]
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      config:
+        type: secret
+        name: garage-config
+        globalMounts:
+          - path: /etc/garage.toml
+            subPath: garage.toml
+            readOnly: true

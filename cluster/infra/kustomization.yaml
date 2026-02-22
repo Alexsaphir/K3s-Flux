@@ -10,6 +10,7 @@ resources:
   - rook-ceph
   - volsync-system
   - minio-system
+  - garage
 
   - cert-manager
   - external-dns
