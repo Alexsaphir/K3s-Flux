@@ -11,12 +11,12 @@ packages:
   - name: go-task/task@v3.48.0
 
   # YAML utils
-  - name: homeport/dyff@v1.10.4
+  - name: homeport/dyff@v1.10.5
   - name: mikefarah/yq@v4.52.4
 
   # Secrets
   - name: FiloSottile/age@v1.3.1
-  - name: mozilla/sops@v3.11.0
+  - name: mozilla/sops@v3.12.1
   - name: bitwarden/sdk-sm@bws-v1.0.0
 
   # Talos
@@ -34,7 +34,7 @@ packages:
 
   - name: helm/helm@v3.20.0
   - name: kubernetes-sigs/kustomize@kustomize/v5.8.1
-  - name: helmfile/helmfile@v1.3.0
+  - name: helmfile/helmfile@v1.3.1
 
   # Infrastructure
   - name: opentofu/opentofu@v1.11.5
