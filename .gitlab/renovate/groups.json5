@@ -128,5 +128,10 @@
         '**/.devcontainer.json'
       ]
     },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/yooooomi/your_spotify_*"],
+      "groupName": "yooooomi/your_spotify"
+    },
   ]
 }
