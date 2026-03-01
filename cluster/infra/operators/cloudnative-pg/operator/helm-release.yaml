@@ -25,8 +25,8 @@ spec:
   driftDetection:
     mode: enabled
     ignore:
-      # Ignore the "validated" annotation which is not inserted during installation
-      - paths: [ "/metadata/annotations/prometheus-operator-validated" ]
+      # Ignore the 'validated' annotation which is not inserted during installation
+      - paths: [ '/metadata/annotations/prometheus-operator-validated' ]
         target:
           kind: PrometheusRule
 
@@ -42,10 +42,10 @@ spec:
 
       podMonitorMetricRelabelings:
         - action: drop
-          sourceLabels: [ "__name__" ]
+          sourceLabels: [ '__name__' ]
           regex: workqueue_(work|queue)_duration_seconds_bucket
         - action: drop
-          sourceLabels: [ "__name__" ]
+          sourceLabels: [ '__name__' ]
           regex: controller_runtime_reconcile_time_seconds_bucket
 
       grafanaDashboard:

@@ -9,7 +9,7 @@ spec:
       rules:
         - alert: SmartDeviceHighTemperature
           expr: |
-            smartctl_device_temperature{temperature_type="current"} > 65
+            smartctl_device_temperature{temperature_type='current'} > 65
           for: 5m
           annotations:
             summary: >-
@@ -59,7 +59,7 @@ spec:
 
         - alert: SmartDeviceInterfaceSlow
           expr: |
-            smartctl_device_interface_speed{speed_type="current"} != on(device, instance, namespace, pod) smartctl_device_interface_speed{speed_type="max"}
+            smartctl_device_interface_speed{speed_type='current'} != on(device, instance, namespace, pod) smartctl_device_interface_speed{speed_type='max'}
           annotations:
             summary: >-
               Device {{ $labels.device }} on instance {{ $labels.instance }} interface is slower then it should be

@@ -26,7 +26,7 @@ spec:
     runtimeClassName: nvidia
 
     nodeSelector:
-      nvidia.feature.node.kubernetes.io/gpu: "true"
+      nvidia.feature.node.kubernetes.io/gpu: 'true'
 
     securityContext:
       privileged: true

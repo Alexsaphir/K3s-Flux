@@ -14,7 +14,7 @@ spec:
   healthChecks:
     - apiVersion: v1
       kind: Node
-      expr: status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+      expr: status.conditions.filter(c, c.type == 'Ready').all(c, c.status == 'True')
 
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster

@@ -6,8 +6,8 @@ metadata:
 spec:
   type: gitlab
   events:
-    - "Push Hook"
-    - "Tag Push Hook"
+    - 'Push Hook'
+    - 'Tag Push Hook'
 
   secretRef:
     name: gitlab-webhook-token-secret

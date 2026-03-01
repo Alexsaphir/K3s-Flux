@@ -45,7 +45,7 @@ spec:
         - fdd5:aa8:9535:42::/108
 
   tls:
-    minVersion: "1.2"
+    minVersion: '1.2'
     alpnProtocols:
       - h2
       - http/1.1

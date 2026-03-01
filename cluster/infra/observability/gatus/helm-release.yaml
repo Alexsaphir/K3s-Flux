@@ -114,7 +114,7 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/enabled: "false"
+          gatus.home-operations.com/enabled: 'false'
         hostnames: [ 'status.talos.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy

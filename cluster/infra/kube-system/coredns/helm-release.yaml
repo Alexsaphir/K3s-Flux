@@ -70,7 +70,7 @@ spec:
               fallthrough in-addr.arpa ip6.arpa
 
           - name: autopath
-            parameters: "@kubernetes"
+            parameters: '@kubernetes'
 
           - name: forward
             parameters: . /etc/resolv.conf

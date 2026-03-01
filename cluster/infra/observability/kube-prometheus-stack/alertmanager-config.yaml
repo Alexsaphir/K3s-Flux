@@ -47,11 +47,11 @@ spec:
         - html: true
           message: |-
             {{- range .Alerts }}
-              {{- if ne .Annotations.description "" }}
+              {{- if ne .Annotations.description '' }}
                 {{ .Annotations.description }}
-              {{- else if ne .Annotations.summary "" }}
+              {{- else if ne .Annotations.summary '' }}
                 {{ .Annotations.summary }}
-              {{- else if ne .Annotations.message "" }}
+              {{- else if ne .Annotations.message '' }}
                 {{ .Annotations.message }}
               {{- else }}
                 Alert description not available
@@ -66,11 +66,11 @@ spec:
             {{- end }}
           monospace: false
           priority: |-
-            {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+            {{ if eq .Status 'firing' }}1{{ else }}0{{ end }}
           sendResolved: true
           sound: gamelan
           title: >-
-            [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+            [{{ .Status | toUpper }}{{ if eq .Status 'firing' }}:{{ .Alerts.Firing | len }}{{ end }}]
             {{ .CommonLabels.alertname }}
           ttl: 86400s
           token:
