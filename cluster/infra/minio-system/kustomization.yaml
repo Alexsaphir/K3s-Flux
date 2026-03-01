@@ -8,3 +8,4 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - nas/ks.yaml
+#  - minio/ks.yaml
