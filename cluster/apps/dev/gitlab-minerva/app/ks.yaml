@@ -13,6 +13,7 @@ spec:
       APP: *app
       PVC_NAME: *app
       VOLSYNC_CAPACITY: 50Gi
+      VOLSYNC_CACHE_CAPACITY: 50Gi
       VOLSYNC_PUID: '0'
       VOLSYNC_PGID: '0'
 
