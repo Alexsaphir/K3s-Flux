@@ -58,6 +58,9 @@ spec:
 
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: gitlab-minerva.svc.talos.${DOMAIN_NAME}
         ports:
           http:
             port: 80
