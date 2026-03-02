@@ -1,0 +1,31 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app gitlab-minerva
+  namespace: &namespace gitlab-minerva
+spec:
+  components:
+    - ../../../../components/volsync
+
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: 50Gi
+      VOLSYNC_PUID: '0'
+      VOLSYNC_PGID: '0'
+
+#  healthChecks:
+#    - apiVersion: helm.toolkit.fluxcd.io/v2
+#      kind: HelmRelease
+#      name: *app
+#      namespace: *namespace
+
+  prune: true
+  interval: 1h
+  path: cluster/apps/dev/gitlab-minerva/app
+  sourceRef:
+    kind: GitRepository
+    name: talos-kubernetes
+    namespace: flux-system
