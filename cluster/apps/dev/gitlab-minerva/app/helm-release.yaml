@@ -22,4 +22,92 @@ spec:
     kind: OCIRepository
     name: *name
 
-  values: { }
+  values:
+    controllers:
+      gitlab:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          app:
+            image:
+              repository: gitlab/gitlab-ee
+              tag: 18.9.1-ee.0
+
+            env:
+              TZ: ${TIMEZONE}
+
+              GITLAB_LOG_LEVEL: 2
+              GITLAB_RAILS_RACK_TIMEOUT: 6000
+              GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: false
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        ports:
+          http:
+            port: 80
+          registry:
+            port: 5050
+          pages:
+            port: 8091
+
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ['[STATUS] == 200']
+            group: media
+        hostnames:
+          - '{{ .Release.Name }}.talos.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: '{{ .Release.Name }}-config-secret'
+        globalMounts:
+          - path: /omnibus_config.rb
+            subPath: config.rb
+            readOnly: true
+
+      data:
+        existingClaim: '{{ .Release.Name }}'
+        advancedMounts:
+          gitlab:
+            app:
+              - path: /etc/gitlab
+                subPath: config
+              - path: /var/log/gitlab
+                subPath: logs
+              - path: /var/opt/gitlab
+                subPath: data
+              - path: /opt/gitlab/etc/gitlab-kas/env
+                subPath: kas-env
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          gitlab:
+            app:
+              - path: /gitlab-tmp
+                subPath: gitlab-tmp
+              - path: /tmp
+                subPath: tmp
