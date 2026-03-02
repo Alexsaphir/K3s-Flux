@@ -91,6 +91,10 @@ spec:
             subPath: config.rb
             readOnly: true
 
+          - path: /opt/gitlab/embedded/service/gitlab-rails/.license_encryption_key.pub
+            subPath: license_key.pub
+            readOnly: true
+
       data:
         existingClaim: '{{ .Release.Name }}'
         advancedMounts:
