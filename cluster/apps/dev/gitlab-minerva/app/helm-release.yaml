@@ -112,5 +112,3 @@ spec:
             app:
               - path: /gitlab-tmp
                 subPath: gitlab-tmp
-              - path: /tmp
-                subPath: tmp
