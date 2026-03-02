@@ -27,7 +27,7 @@ includes:
   talos:helper: .taskfiles/talos-helper
   bootstrap: .taskfiles/bootstrap
   flux-local: .taskfiles/flux-local
-  volsync: .taskfiles/volsync
+  backup: .taskfiles/backup
   postgres: .taskfiles/postgres
   debug: .taskfiles/debug
 
