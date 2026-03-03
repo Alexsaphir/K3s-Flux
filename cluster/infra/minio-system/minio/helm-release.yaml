@@ -44,9 +44,9 @@ spec:
               TZ: '${TIMEZONE}'
 
               MINIO_UPDATE: 'off'
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.talos.${DOMAIN_NAME},https://s3.talos.${DOMAIN_NAME}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.talos.${DOMAIN_NAME}
-              MINIO_SERVER_URL: https://s3.talos.${DOMAIN_NAME}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${DOMAIN_NAME},https://s3.${DOMAIN_NAME}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${DOMAIN_NAME}
+              MINIO_SERVER_URL: https://s3.${DOMAIN_NAME}
 
               MINIO_REGION_NAME: us-east-1
 
@@ -73,20 +73,16 @@ spec:
                 memory: 100Mi
                 cpu: 100m
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
-
     defaultPodOptions:
       securityContext:
-        fsGroup: 1000
         fsGroupChangePolicy: 'OnRootMismatch'
         seccompProfile: { type: RuntimeDefault }
 
     service:
       app:
-        controller: minio
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: minio.svc.talos.${DOMAIN_NAME}
         ports:
           http:
             port: 9001
