@@ -5,9 +5,14 @@ metadata:
   name: &app vaultwarden
   namespace: vaultwarden
 spec:
+  components:
+    - ../../../../components/volsync
+
   postBuild:
     substitute:
       APP: *app
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: 5Gi
 
   prune: true
   interval: 1h
