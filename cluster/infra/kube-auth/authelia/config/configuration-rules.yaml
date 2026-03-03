@@ -8,20 +8,27 @@ access_control:
 
   rules:
     - domain:
-        - 'auth.talos.${DOMAIN_NAME}'
+        - 'auth.${DOMAIN_NAME}'
       policy: bypass
 
     # Webhook protected by secret
     - domain:
-        - 'flux-webhook.talos.${DOMAIN_NAME}'
+        - 'flux-webhook.${DOMAIN_NAME}'
+      policy: bypass
+
+    # Public media ingresses
+    - domain:
+        - 'plex.${DOMAIN_NAME}'
+        - 'tautulli.${DOMAIN_NAME}'
+        - 'seer.${DOMAIN_NAME}'
       policy: bypass
 
     - domain:
-        - '*.talos.${DOMAIN_NAME}'
+        - '*.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'
 
     - domain:
-        - '*.talos.${DOMAIN_NAME}'
+        - '*.${DOMAIN_NAME}'
       policy: deny
