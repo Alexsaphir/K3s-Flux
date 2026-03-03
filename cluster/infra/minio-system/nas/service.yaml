@@ -10,7 +10,12 @@ spec:
   type: ExternalName
   externalName: nas.hosts.alexsaphir.com
   ports:
-    - name: http
+    - name: s3
       port: &port 9000
+      protocol: TCP
+      targetPort: *port
+
+    - name: http
+      port: &port 9001
       protocol: TCP
       targetPort: *port

@@ -118,6 +118,6 @@ spec:
 
     persistence:
       config:
-        existingClaim: minio-data
+        existingClaim: minio
         globalMounts:
           - path: /data

@@ -14,8 +14,9 @@ spec:
 
   postBuild:
     substitute:
-      PVC_NAME: minio-data
-      VOLSYNC_CAPACITY: 200Gi
+      PVC_NAME: minio
+      VOLSYNC_CAPACITY: &capacity 200Gi
+      VOLSYNC_CACHE_CAPACITY: *capacity
 
   prune: true
   wait: false
