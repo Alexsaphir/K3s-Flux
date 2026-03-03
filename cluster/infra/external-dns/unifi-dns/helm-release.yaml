@@ -67,7 +67,7 @@ spec:
     txtOwnerId: talos
     txtPrefix: txt.
 
-    domainFilters: [ 'talos.${DOMAIN_NAME}', 'cluster.${DOMAIN_NAME}' ]
+    domainFilters: [ '${DOMAIN_NAME}', 'talos.${DOMAIN_NAME}', 'cluster.${DOMAIN_NAME}' ]
 
     serviceMonitor:
       enabled: true

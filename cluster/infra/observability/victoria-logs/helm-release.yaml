@@ -40,7 +40,7 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             group: observability
-        hostnames: [ 'logs.talos.${DOMAIN_NAME}' ]
+        hostnames: [ 'logs.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system

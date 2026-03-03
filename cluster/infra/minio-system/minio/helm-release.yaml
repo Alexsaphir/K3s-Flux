@@ -92,7 +92,7 @@ spec:
 
     route:
       app:
-        hostnames: [ 'minio.talos.${DOMAIN_NAME}' ]
+        hostnames: [ 'minio.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system
@@ -102,7 +102,7 @@ spec:
                 port: 9001
 
       s3:
-        hostnames: [ 's3.talos.${DOMAIN_NAME}' ]
+        hostnames: [ 's3.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system

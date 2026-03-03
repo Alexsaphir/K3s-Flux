@@ -56,7 +56,7 @@ spec:
     txtOwnerId: talos
     txtPrefix: k8s.
 
-    domainFilters: [ 'talos.${DOMAIN_NAME}' ]
+    domainFilters: [ '${DOMAIN_NAME}' ]
 
     serviceMonitor:
       enabled: true

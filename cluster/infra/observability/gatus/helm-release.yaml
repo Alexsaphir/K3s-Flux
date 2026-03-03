@@ -115,7 +115,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/enabled: 'false'
-        hostnames: [ 'status.talos.${DOMAIN_NAME}' ]
+        hostnames: [ 'status.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system

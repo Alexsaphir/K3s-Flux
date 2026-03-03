@@ -5,7 +5,7 @@ metadata:
   name: &name renovate-operator
 spec:
   # noinspection KubernetesUnknownValues
-  hostnames: [ 'renovate-operator.talos.${DOMAIN_NAME}' ]
+  hostnames: [ 'renovate-operator.${DOMAIN_NAME}' ]
   parentRefs:
     - name: envoy
       namespace: envoy-system

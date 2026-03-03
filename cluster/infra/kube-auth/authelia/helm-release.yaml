@@ -142,7 +142,7 @@ spec:
           gatus.home-operations.com/enabled: |-
             conditions: ['[STATUS] == 200']
             group: auth
-        hostnames: [ 'auth.talos.${DOMAIN_NAME}' ]
+        hostnames: [ 'auth.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system

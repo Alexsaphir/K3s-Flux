@@ -38,7 +38,7 @@ spec:
           annotations:
             gatus.home-operations.com/endpoint: |-
               group: observability
-          hostnames: [ 'alertmanager.talos.${DOMAIN_NAME}' ]
+          hostnames: [ 'alertmanager.${DOMAIN_NAME}' ]
           parentRefs:
             - name: envoy
               namespace: envoy-system
@@ -48,7 +48,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://alertmanager.talos.${DOMAIN_NAME}
+        externalUrl: https://alertmanager.${DOMAIN_NAME}
         storage:
           volumeClaimTemplate:
             spec:
@@ -72,13 +72,13 @@ spec:
           annotations:
             gatus.home-operations.com/endpoint: |-
               group: observability
-          hostnames: [ 'prometheus.talos.${DOMAIN_NAME}' ]
+          hostnames: [ 'prometheus.${DOMAIN_NAME}' ]
           parentRefs:
             - name: envoy
               namespace: envoy-system
 
       prometheusSpec:
-        externalUrl: https://prometheus.talos.${DOMAIN_NAME}
+        externalUrl: https://prometheus.${DOMAIN_NAME}
 
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false

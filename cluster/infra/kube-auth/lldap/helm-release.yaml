@@ -40,7 +40,7 @@ spec:
               TZ: '${TIMEZONE}'
 
               LLDAP_HTTP_PORT: &port 80
-              LLDAP_HTTP_URL: https://{{ .Release.Name }}.talos.${DOMAIN_NAME}
+              LLDAP_HTTP_URL: https://{{ .Release.Name }}.${DOMAIN_NAME}
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_VERBOSE: 'false'
 
@@ -116,7 +116,7 @@ spec:
           gatus.home-operations.com/enabled: |-
             conditions: ['[STATUS] == 200']
             group: auth
-        hostnames: [ '{{ .Release.Name }}.talos.${DOMAIN_NAME}' ]
+        hostnames: [ '{{ .Release.Name }}.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system

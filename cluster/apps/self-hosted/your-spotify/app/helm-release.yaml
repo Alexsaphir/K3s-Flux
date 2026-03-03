@@ -42,8 +42,8 @@ spec:
             env:
               TIMEZONE: ${TIMEZONE}
 
-              API_ENDPOINT: &api_endpoint https://spotify.talos.${DOMAIN_NAME}/api
-              CLIENT_ENDPOINT: https://spotify.talos.${DOMAIN_NAME}
+              API_ENDPOINT: &api_endpoint https://spotify.${DOMAIN_NAME}/api
+              CLIENT_ENDPOINT: https://spotify.${DOMAIN_NAME}
               MONGO_ENDPOINT: 'mongodb://{{ .Release.Name }}-mongodb:27017/your_spotify'
               PORT: &port 80
 
@@ -114,7 +114,7 @@ spec:
     route:
       app:
         hostnames:
-          - 'spotify.talos.${DOMAIN_NAME}'
+          - 'spotify.${DOMAIN_NAME}'
         parentRefs:
           - name: envoy
             namespace: envoy-system

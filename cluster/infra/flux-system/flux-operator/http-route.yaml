@@ -5,7 +5,7 @@ metadata:
   name: flux
 spec:
   # noinspection KubernetesUnknownValues
-  hostnames: [ 'flux.talos.${DOMAIN_NAME}' ]
+  hostnames: [ 'flux.${DOMAIN_NAME}' ]
   parentRefs:
     - name: envoy
       namespace: envoy-system

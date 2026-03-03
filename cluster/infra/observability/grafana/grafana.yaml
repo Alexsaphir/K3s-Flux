@@ -24,9 +24,9 @@ spec:
       client_id: grafana
       client_secret: $${AUTH_CLIENT_SECRET}
 
-      auth_url: https://auth.talos.${DOMAIN_NAME}/api/oidc/authorization
-      token_url: https://auth.talos.${DOMAIN_NAME}/api/oidc/token
-      api_url: https://auth.talos.${DOMAIN_NAME}/api/oidc/userinfo
+      auth_url: https://auth.${DOMAIN_NAME}/api/oidc/authorization
+      token_url: https://auth.${DOMAIN_NAME}/api/oidc/token
+      api_url: https://auth.${DOMAIN_NAME}/api/oidc/userinfo
       scopes: 'openid email profile groups offline_access'
     auth.generic_oauth.group_mapping:
       org_id: '1'
@@ -66,7 +66,7 @@ spec:
 
     server:
       enable_gzip: 'true'
-      root_url: https://grafana.talos.${DOMAIN_NAME}
+      root_url: https://grafana.${DOMAIN_NAME}
 
   httpRoute:
     metadata:
@@ -76,7 +76,7 @@ spec:
 
     spec:
       # noinspection KubernetesUnknownValues
-      hostnames: [ 'grafana.talos.${DOMAIN_NAME}' ]
+      hostnames: [ 'grafana.${DOMAIN_NAME}' ]
       parentRefs:
         - name: envoy
           namespace: envoy-system

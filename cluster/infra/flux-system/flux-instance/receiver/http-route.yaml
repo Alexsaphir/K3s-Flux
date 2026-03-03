@@ -8,7 +8,7 @@ metadata:
       conditions: ['[STATUS] == 404']
 spec:
   # noinspection KubernetesUnknownValues
-  hostnames: [ 'flux-webhook.talos.${DOMAIN_NAME}' ]
+  hostnames: [ 'flux-webhook.${DOMAIN_NAME}' ]
   parentRefs:
     - name: envoy
       namespace: envoy-system

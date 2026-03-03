@@ -87,7 +87,7 @@ spec:
           gatus.home-operations.com/endpoint: |-
             conditions: ['[STATUS] == 404']
             group: observability
-        hostnames: [ '{{ .Release.Name }}.talos.${DOMAIN_NAME}' ]
+        hostnames: [ '{{ .Release.Name }}.${DOMAIN_NAME}' ]
         parentRefs:
           - name: envoy
             namespace: envoy-system

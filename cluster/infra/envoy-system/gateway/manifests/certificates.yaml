@@ -6,6 +6,7 @@ metadata:
 spec:
   dnsNames:
     - '${DOMAIN_NAME}'
+    - '*.${DOMAIN_NAME}'
     - '*.talos.${DOMAIN_NAME}'
 
   issuerRef:

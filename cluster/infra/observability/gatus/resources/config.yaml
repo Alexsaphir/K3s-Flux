@@ -60,7 +60,7 @@ endpoints:
 
   - name: status
     group: external
-    url: https://status.talos.${DOMAIN_NAME}
+    url: https://status.${DOMAIN_NAME}
     interval: 1m
     client:
       timeout: 60s
