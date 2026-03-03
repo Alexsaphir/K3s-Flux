@@ -38,7 +38,7 @@ spec:
 
             envFrom:
               - secretRef:
-                  name: '{{ .Release.Namespace }}-secret'
+                  name: '{{ .Release.Name }}-secret'
 
             env:
               TZ: '${TIMEZONE}'
