@@ -7,13 +7,21 @@ access_control:
       networks: [ '192.168.0.0/16' ]
 
   rules:
-    - domain:
-        - 'auth.${DOMAIN_NAME}'
-      policy: bypass
-
     # Webhook protected by secret
     - domain:
         - 'flux-webhook.${DOMAIN_NAME}'
+      policy: bypass
+
+    - domain:
+        - 'auth.${DOMAIN_NAME}'
+        - 'status.${DOMAIN_NAME}'
+        - 'vaultwarden.${DOMAIN_NAME}'
+      policy: bypass
+
+    - domain:
+        - 'minio.${DOMAIN_NAME}'
+        - 's3.${DOMAIN_NAME}'
+        - 'gitlab.${DOMAIN_NAME}'
       policy: bypass
 
     # Public media ingresses

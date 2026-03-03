@@ -58,9 +58,6 @@ spec:
 
     service:
       app:
-        type: LoadBalancer
-        annotations:
-          external-dns.alpha.kubernetes.io/hostname: gitlab-minerva.svc.talos.${DOMAIN_NAME}
         ports:
           http:
             port: 80
@@ -71,15 +68,35 @@ spec:
 
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ['[STATUS] == 200']
-            group: media
         hostnames:
-          - '{{ .Release.Name }}.${DOMAIN_NAME}'
+          - 'gitlab.${DOMAIN_NAME}'
         parentRefs:
           - name: envoy
             namespace: envoy-system
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 80
+      registry:
+        hostnames:
+          - 'registry.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 5050
+      pages:
+        hostnames:
+          - '*.gitlab-pages.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8091
 
     persistence:
       config:
