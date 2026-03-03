@@ -14,8 +14,12 @@ access_control:
 
     - domain:
         - 'auth.${DOMAIN_NAME}'
-        - 'status.${DOMAIN_NAME}'
         - 'vaultwarden.${DOMAIN_NAME}'
+      policy: bypass
+
+    - domain:
+        - 'status.${DOMAIN_NAME}'
+        - 'kromgo.${DOMAIN_NAME}'
       policy: bypass
 
     - domain:
@@ -27,8 +31,9 @@ access_control:
     # Public media ingresses
     - domain:
         - 'plex.${DOMAIN_NAME}'
-        - 'tautulli.${DOMAIN_NAME}'
         - 'seer.${DOMAIN_NAME}'
+        - 'spotify.${DOMAIN_NAME}'
+        - 'tautulli.${DOMAIN_NAME}'
       policy: bypass
 
     - domain:
