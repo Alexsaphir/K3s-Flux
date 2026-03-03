@@ -5,13 +5,16 @@ metadata:
   name: &app plex
   namespace: media
 spec:
-  components: [ ]
-  # - ../../../components/nfs-scaler
+  components:
+    - ../../../components/volsync
+    - ../../../components/nfs-scaler
 
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 100Gi
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: &capacity 100Gi
+      VOLSYNC_CACHE_CAPACITY: *capacity
 
   prune: true
   interval: 1h

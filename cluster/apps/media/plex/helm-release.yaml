@@ -94,6 +94,10 @@ spec:
 
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: plex.svc.talos.${DOMAIN_NAME}
+
         ports:
           http:
             port: *port
