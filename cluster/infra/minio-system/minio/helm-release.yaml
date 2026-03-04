@@ -75,7 +75,7 @@ spec:
 
     defaultPodOptions:
       securityContext:
-        fsGroupChangePolicy: 'Always'
+        fsGroupChangePolicy: 'OnRootMismatch'
         seccompProfile: { type: RuntimeDefault }
 
     service:
