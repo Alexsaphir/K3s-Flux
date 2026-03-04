@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - external-secret.yaml
   - resources
-  #- gitlab.yaml
+  - gitlab.yaml
 
 configMapGenerator:
   - name: renovate-config
