@@ -23,11 +23,12 @@ spec:
     name: dcgm-exporter
 
   values:
-    extraEnv:
-      NVIDIA_DRIVER_CAPABILITIES: all
-      NVIDIA_VISIBLE_DEVICES: all
-
     runtimeClassName: nvidia
+    extraEnv:
+      - name: NVIDIA_DRIVER_CAPABILITIES
+        value: all
+      - name: NVIDIA_VISIBLE_DEVICES
+        value: all
 
     securityContext:
       privileged: true
@@ -50,7 +51,10 @@ spec:
                   operator: Exists
 
     resources:
+      requests:
+        memory: 128Mi
       limits:
+        memory: 1024Mi
         nvidia.com/gpu: 1
 
     serviceMonitor:
