@@ -7,16 +7,17 @@ access_control:
       networks: [ '192.168.0.0/16' ]
 
   rules:
-    # Webhook protected by secret
-    - domain:
-        - 'flux-webhook.${DOMAIN_NAME}'
-      policy: bypass
-
     - domain:
         - 'auth.${DOMAIN_NAME}'
+        - 'homer.${DOMAIN_NAME}'
         - 'vaultwarden.${DOMAIN_NAME}'
       policy: bypass
+    - domain:
+        - 'lldap.${DOMAIN_NAME}'
+      policy: two_factor
 
+
+    # Expose public metrics
     - domain:
         - 'status.${DOMAIN_NAME}'
         - 'kromgo.${DOMAIN_NAME}'
@@ -28,6 +29,13 @@ access_control:
         - 'gitlab.${DOMAIN_NAME}'
       policy: bypass
 
+
+    # Public ingresses using oauth
+    - domain:
+        - 'photos.${DOMAIN_NAME}'
+        - 'recipes.${DOMAIN_NAME}'
+      policy: bypass
+
     # Public media ingresses
     - domain:
         - 'plex.${DOMAIN_NAME}'
@@ -36,12 +44,27 @@ access_control:
         - 'tautulli.${DOMAIN_NAME}'
       policy: bypass
 
+
+    # Webhook protected by secret
+    - domain:
+        - 'flux-webhook.${DOMAIN_NAME}'
+      resources:
+        - '^/hook([/?].*)?$'
+      policy: bypass
+    - domain:
+        - 'renovate.${DOMAIN_NAME}'
+      resources:
+        - '^/webhook([/?].*)?$'
+      policy: bypass
+    # API protected with secret
+    - domain_regex: '^(sonarr|radarr|prowlarr)\.${DOMAIN_NAME}$'
+      policy: bypass
+      resources:
+        - "^/api([/?].*)?$"
+
+
     - domain:
         - '*.${DOMAIN_NAME}'
       policy: two_factor
       subject:
         - 'group:cluster-admins'
-
-    - domain:
-        - '*.${DOMAIN_NAME}'
-      policy: deny
