@@ -1,0 +1,104 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: tautulli
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tautulli
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: tautulli
+
+  values:
+    controllers:
+      tautulli:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+        containers:
+          app:
+            image:
+              repository: ghcr.io/tautulli/tautulli
+              tag: v2.16.1@sha256:5f3603345e3334bd30aadf9e1fa9b0acb401b5225cc42e9b7a3dbf660532fbd9
+
+            command: [ '/usr/local/bin/python', 'Tautulli.py' ]
+            args: [
+              '--config', '/config/config.ini',
+              '--datadir', '/config',
+              '--port', '80'
+            ]
+
+            env:
+              TZ: '${TIMEZONE}'
+
+
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /status
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+            resources:
+              requests:
+                cpu: 50m
+                memory: 512Mi
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ['[STATUS] == 200']
+            group: media
+        hostnames:
+          - '{{ .Release.Name }}.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      config:
+        existingClaim: '{{ .Release.Name }}'
+
+      tmp:
+        type: emptyDir
