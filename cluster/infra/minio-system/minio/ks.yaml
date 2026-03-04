@@ -17,6 +17,8 @@ spec:
       PVC_NAME: minio
       VOLSYNC_CAPACITY: &capacity 200Gi
       VOLSYNC_CACHE_CAPACITY: *capacity
+      VOLSYNC_PUID: '0'
+      VOLSYNC_PGID: '0'
 
   prune: true
   wait: false
