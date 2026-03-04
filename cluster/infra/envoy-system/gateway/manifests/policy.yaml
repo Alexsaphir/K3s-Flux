@@ -44,6 +44,10 @@ spec:
         - 10.42.0.0/16
         - fdd5:aa8:9535:42::/108
 
+  path:
+    disableMergeSlashes: true
+    escapedSlashesAction: KeepUnchanged
+
   tls:
     minVersion: '1.2'
     alpnProtocols:
