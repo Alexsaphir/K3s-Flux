@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - actual
   - foundryvtt
+  - homer
   - immich
   - planka
   - tandoor-recipes

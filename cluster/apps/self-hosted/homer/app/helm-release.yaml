@@ -1,0 +1,93 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: homer
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homer
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: homer
+
+  values:
+    controllers:
+      homer:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/bastienwirtz/homer
+              tag: v25.11.1@sha256:5c3a0fb561e0d09d00d3392684420186622fae45af70b2c3680b80961ddeeb6c
+
+            env:
+              INIT_ASSETS: 0
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    service:
+      app:
+        ports:
+          http:
+            port: 8080
+
+    route:
+      app:
+        hostnames:
+          - '{{ .Release.Name }}.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      config:
+        type: configMap
+        name: homer-config
+        globalMounts:
+          - path: '/www/assets/config.yml'
+            subPath: config.yml
+            readOnly: true
