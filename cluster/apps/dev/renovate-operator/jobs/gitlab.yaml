@@ -11,7 +11,7 @@ spec:
   secretRef: renovate-gitlab-secret
   extraEnv:
     - name: LOG_LEVEL
-      value: info
+      value: debug
 
     - name: RENOVATE_ENDPOINT
       value: 'https://gitlab.alexsaphir.com/api/v4'
