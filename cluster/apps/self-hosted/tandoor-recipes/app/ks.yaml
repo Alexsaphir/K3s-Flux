@@ -5,9 +5,14 @@ metadata:
   name: &app tandoor-recipes
   namespace: tandoor-recipes
 spec:
+  components:
+    - ../../../../components/volsync
+
   postBuild:
     substitute:
       APP: *app
+      PVC_NAME: *app
+      VOLSYNC_CAPACITY: 1Gi
 
   prune: true
   interval: 1h
