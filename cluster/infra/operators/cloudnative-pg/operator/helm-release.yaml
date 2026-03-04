@@ -33,20 +33,12 @@ spec:
   values:
     crds:
       create: true
-    config:
-      data:
-        INHERITED_ANNOTATIONS: kyverno.io/ignore
 
     monitoring:
       podMonitorEnabled: true
-
-      podMonitorMetricRelabelings:
-        - action: drop
-          sourceLabels: [ '__name__' ]
-          regex: workqueue_(work|queue)_duration_seconds_bucket
-        - action: drop
-          sourceLabels: [ '__name__' ]
-          regex: controller_runtime_reconcile_time_seconds_bucket
-
       grafanaDashboard:
-        create: false # Install a custom version that uses cnpg_cluster label.
+        create: true
+        mode: GrafanaOperator
+        grafanaOperator:
+          matchLabels:
+            grafana.internal/instance: grafana

@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - prometheus-rule.yaml
-  - grafana-dashboard.yaml
