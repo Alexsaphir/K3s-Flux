@@ -43,9 +43,9 @@ colors:
 message: ~
 
 links:
-  - name: "K3s"
+  - name: "Talos Cluster"
     icon: "fab fa-github"
-    url: "https://gitlab.${DOMAIN_NAME}/Homelab/K3s-Flux"
+    url: "https://gitlab.${DOMAIN_NAME}/Homelab/Talos-Flux"
     target: "_top"
 
   - name: "Authelia"
@@ -59,32 +59,6 @@ links:
     target: "_top"
 
 services:
-  - name: "Infrastructure"
-    items:
-      - name: "DNS"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/adguardhome.svg"
-        subtitle: ""
-        url: "https://dns.${DOMAIN_NAME}"
-        target: '_top'
-
-      - name: "Portainer"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/portainer.svg"
-        subtitle: ""
-        url: "https://portainer.${DOMAIN_NAME}"
-        target: '_top'
-
-      - name: "Semaphore"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/ansible.png"
-        subtitle: ""
-        url: "https://semaphore.${DOMAIN_NAME}"
-        target: '_top'
-
-      - name: "Vault"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/vault.svg"
-        subtitle: ""
-        url: "https://vault.${DOMAIN_NAME}"
-        target: '_top'
-
   - name: "CI/CD"
     items:
       - name: "GitLab"
@@ -93,19 +67,11 @@ services:
         url: "https://gitlab.${DOMAIN_NAME}/explore"
         target: '_top'
 
-      - name: "Codecov"
-        logo: "https://raw.githubusercontent.com/codecov/codecov-browser-extension/main/public/codecov-circle.png"
+      - name: "Renovate"
+        logo: "https://raw.githubusercontent.com/renovatebot/renovate/refs/heads/main/docs/usage/assets/images/logo.png"
         subtitle: ""
-        url: "https://codecov.${DOMAIN_NAME}"
+        url: "https://renovate.${DOMAIN_NAME}"
         target: '_top'
-        tag: 'sso'
-
-      - name: "SonarQube"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/sonarqube.png"
-        subtitle: ""
-        url: "https://sonarqube.${DOMAIN_NAME}"
-        target: '_top'
-        tag: 'sso'
 
       - name: "S3"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/minio.png"
@@ -113,20 +79,6 @@ services:
         url: "https://s3.${DOMAIN_NAME}"
         target: '_top'
 
-  - name: "Tools"
-    items:
-      - name: "Cyberchef"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/cyberchef.png"
-        subtitle: ""
-        url: "https://cyberchef.${DOMAIN_NAME}"
-        target: '_top'
-
-      - name: "Spotify"
-        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/spotify.svg"
-        subtitle: ""
-        url: "https://spotify.${DOMAIN_NAME}"
-        target: '_top'
-        tag: 'sso'
 
   - name: "Apps"
     icon: "fas fa-rocket"
@@ -139,7 +91,7 @@ services:
         tag: 'sso'
 
       - name: "VaultWarden"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/bitwarden.png"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/vaultwarden.png"
         subtitle: ""
         url: "https://vaultwarden.${DOMAIN_NAME}"
         target: '_top'
@@ -151,25 +103,25 @@ services:
         target: '_top'
         tag: 'sso'
 
-      - name: "Wiki"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/wikijs.png"
+      - name: "Spotify"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/spotify.svg"
         subtitle: ""
-        url: "https://wikijs.${DOMAIN_NAME}"
+        url: "https://spotify.${DOMAIN_NAME}"
         target: '_top'
         tag: 'sso'
 
   - name: "Media"
     items:
       - name: "Plex"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/plex.png"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/plex.svg"
         subtitle: ""
         url: "https://plex.${DOMAIN_NAME}/web/index.html"
         target: '_top'
 
-      - name: "Ombi"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/ombi.png"
+      - name: "Seer"
+        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/overseerr.svg"
         subtitle: ""
-        url: "https://ombi.${DOMAIN_NAME}"
+        url: "https://seer.${DOMAIN_NAME}"
         target: '_top'
 
       - name: "Tautulli"
@@ -199,26 +151,19 @@ services:
         url: "https://radarr.${DOMAIN_NAME}"
         target: '_top'
 
-      - name: "Lidarr"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/lidarr.svg"
-        subtitle: ""
-        url: "https://lidarr.${DOMAIN_NAME}"
-        target: '_top'
-
-      - name: "Readarr"
-        logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/readarr.svg"
-        subtitle: ""
-        url: "https://readarr.${DOMAIN_NAME}"
-        target: '_top'
-
       - name: "Prowlarr"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/svg/prowlarr.svg"
         subtitle: ""
         url: "https://prowlarr.${DOMAIN_NAME}"
         target: '_top'
 
-  - name: "Monitoring"
+  - name: "Cluster"
     items:
+      - name: "Gatus"
+        subtitle: ""
+        url: "https://status.${DOMAIN_NAME}"
+        target: '_top'
+
       - name: "Grafana"
         logo: "https://raw.githubusercontent.com/NX211/homer-icons/master/png/grafana.png"
         subtitle: ""
@@ -226,7 +171,15 @@ services:
         target: '_top'
         tag: 'sso'
 
-      - name: "Gatus"
+      - name: "Flux"
+        logo: "https://raw.githubusercontent.com/fluxcd/website/refs/heads/main/assets/icons/logo.svg"
         subtitle: ""
-        url: "https://status.${DOMAIN_NAME}"
+        url: "https://flux.${DOMAIN_NAME}"
+        target: '_top'
+
+
+      - name: "Kopia"
+        logo: "https://raw.githubusercontent.com/kopia/kopia/refs/heads/master/icons/kopia.svg"
+        subtitle: ""
+        url: "https://kopia.${DOMAIN_NAME}"
         target: '_top'
