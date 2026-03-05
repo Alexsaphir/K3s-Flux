@@ -5,15 +5,12 @@ metadata:
   name: postgres-immich
   namespace: &namespace immich
 spec:
+  components:
+    - ../../../../components/postgres-store
+
   dependsOn:
     - name: cloudnative-pg
       namespace: cloudnative-pg
-
-#  healthChecks:
-#    - apiVersion: v1
-#      kind: Pod
-#      name: postgres-immich-1
-#      namespace: *namespace
 
   prune: true
   interval: 1h

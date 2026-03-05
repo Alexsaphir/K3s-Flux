@@ -8,22 +8,48 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageCatalogRef:
-    apiGroup: postgresql.cnpg.io
-    kind: ClusterImageCatalog
-    name: pgvecto.rs
-    major: 16
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
 
-  instances: 3
+  instances: 1
   enablePDB: true
 
   enableSuperuserAccess: true
   superuserSecret:
     name: postgres-superuser
 
+  managed:
+    roles:
+      - name: immich
+        superuser: true
+        login: true
+        passwordSecret:
+          name: immich-postgres-user
+
+    services:
+      disabledDefaultServices: [ 'ro', 'r' ]
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: postgres-immich-lb
+              annotations:
+                external-dns.alpha.kubernetes.io/hostname: postgres-immich.svc.talos.${DOMAIN_NAME}
+
+            spec:
+              type: LoadBalancer
+              ipFamilyPolicy: PreferDualStack
+              externalTrafficPolicy: Local
+
   bootstrap:
-    recovery:
-      source: live
+    initdb:
+      database: immich
+      owner: immich
+      # secret:
+      #   name: immich-postgres-user
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   postgresql:
     shared_preload_libraries:
@@ -40,44 +66,6 @@ spec:
       parameters:
         barmanObjectName: minio-store
 
-  externalClusters:
-    - name: source
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: minio-store
-          serverName: *name
-
-    - name: live
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: live-store
-          serverName: postgres-16-v6
-
-  resources:
-    requests:
-      memory: '512Mi'
-
   storage:
     size: 10Gi
     storageClass: openebs-hostpath
-
-  monitoring:
-    enablePodMonitor: true
-
-  managed:
-    services:
-      disabledDefaultServices: [ 'ro', 'r' ]
-      additional:
-        - selectorType: rw
-          serviceTemplate:
-            metadata:
-              name: postgres-immich-lb
-              annotations:
-                external-dns.alpha.kubernetes.io/hostname: postgres-immich.svc.talos.${DOMAIN_NAME}
-
-            spec:
-              type: LoadBalancer
-              ipFamilyPolicy: PreferDualStack
-              externalTrafficPolicy: Local
