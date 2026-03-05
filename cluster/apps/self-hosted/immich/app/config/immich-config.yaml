@@ -1,4 +1,7 @@
 ---
+# Follow https://github.com/immich-app/immich/blob/main/server/src/config.ts
+# https://github.com/immich-app/immich/blob/main/docs/docs/install/config-file.md
+
 ffmpeg:
   accel: disabled
   accelDecode: false
