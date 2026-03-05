@@ -11,13 +11,15 @@ spec:
 
   kopia:
     accessModes:
-      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
+      - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
     storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
 
     capacity: ${VOLSYNC_CAPACITY:=5Gi}
     cacheCapacity: ${VOLSYNC_CACHE_CAPACITY:=8Gi}
     cacheStorageClassName: ${VOLSYNC_CACHE_STORAGECLASS:=openebs-hostpath}
+    cacheAccessModes:
+      - ReadWriteOnce
 
     cleanupCachePVC: true
     cleanupTempPVC: true
