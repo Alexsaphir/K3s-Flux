@@ -8,7 +8,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.5
 
   instances: 1
   enablePDB: true
@@ -47,13 +47,13 @@ spec:
       # secret:
       #   name: immich-postgres-user
       postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "vchord";
         - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   postgresql:
     shared_preload_libraries:
-      - 'vectors.so'
+      - 'vchord.so'
 
     parameters:
       max_connections: '200'
