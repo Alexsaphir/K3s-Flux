@@ -1,4 +1,12 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources: [ ]
+resources:
+  - external-secret.yaml
+
+configMapGenerator:
+  - name: immich-config-tpl
+    files:
+      - ./config/immich-config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
