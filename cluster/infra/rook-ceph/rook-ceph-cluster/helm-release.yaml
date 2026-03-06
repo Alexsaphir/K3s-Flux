@@ -48,13 +48,28 @@ spec:
         modules:
           - name: pg_autoscaler
             enabled: true
+          - name: nfs
+            enabled: true
+          - name: insights
+            enabled: true
+          - name: localpool
+            enabled: true
+          - name: progress
+            enabled: true
       network:
         connections:
           requireMsgr2: true
       resources:
+        mgr:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
         osd:
           limits:
-            memory: 6Gi
+            memory: 8Gi
 
       storage:
         devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZ1LB1T9HALS-*
