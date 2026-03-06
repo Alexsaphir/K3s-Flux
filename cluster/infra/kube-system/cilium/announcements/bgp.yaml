@@ -1,0 +1,73 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPAdvertisement
+# Defines services that are injected into the BGP routing table.
+metadata:
+  name: l3-bgp-advertisement
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: Service
+      service:
+        addresses: [ 'LoadBalancerIP' ]
+      selector:
+        matchExpressions:
+          - { key: io.cilium/bgp, operator: NotIn, values: [ 'deny', 'false' ] }
+          - { key: io.cilium/internal, operator: NotIn, values: [ 'true' ] }
+
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPPeerConfig
+# A common set of BGP peering setting. It can be used across multiple peers.
+metadata:
+  name: l3-bgp-peer-config
+spec:
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: bgp
+
+    - afi: ipv6
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: bgp
+
+  timers:
+    connectRetryTimeSeconds: 12
+    holdTimeSeconds: 9
+    keepAliveTimeSeconds: 3
+
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
+
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+# Defines BGP instances and peer configurations that are applied to multiple nodes.
+metadata:
+  name: l3-bgp-cluster-config
+spec:
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux
+
+  bgpInstances:
+    - name: instance-65100
+      localASN: 65100
+      peers:
+        - name: unifi-v4
+          peerASN: 64600
+          peerAddress: 192.168.42.1
+          peerConfigRef:
+            name: l3-bgp-peer-config
+
+        - name: unifi-v6
+          peerASN: 64600
+          peerAddress: 2a01:e0a:2a:5552:1e0b:8bff:fe16:9435
+          peerConfigRef:
+            name: l3-bgp-peer-config

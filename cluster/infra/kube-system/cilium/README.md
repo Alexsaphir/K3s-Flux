@@ -2,8 +2,8 @@
 
 ## Network choices
 
-The cluster use non routable ip internally.
-Only the nodes have a public ipv6, and is in vlan 42.
+The cluster uses non routable ip internally.
+Only the nodes have a public ipv6 and are in vlan 42.
 
 |                  | ipv4              | ipv6                     |
 |------------------|-------------------|--------------------------|
@@ -14,7 +14,7 @@ Only the nodes have a public ipv6, and is in vlan 42.
 | Nodes            | `192.168.42.0/24` | `2a01:e0a:2a:5552::/64`  |
 | Annoucement      | `192.168.43.0/24` | `2a01:e0a:2a:5557::/64`  |
 
-Cilium use another subnet for ipv4 and a public one for ipv6.
+Cilium uses another subnet for ipv4 and a public one for ipv6.
 
 They are announced on l2 and use BGP.
 
