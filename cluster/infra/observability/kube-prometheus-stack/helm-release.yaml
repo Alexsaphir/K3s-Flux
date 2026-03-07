@@ -120,7 +120,7 @@ spec:
         dashboardsConfigMapRefEnabled: true
         folder: observability/kube-prometheus-stack
         matchLabels:
-          grafana.internal/instance: grafana
+          dashboards: grafana
 
     additionalPrometheusRulesMap:
       dockerhub-rules:

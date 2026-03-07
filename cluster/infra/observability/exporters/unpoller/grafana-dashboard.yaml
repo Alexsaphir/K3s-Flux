@@ -7,7 +7,7 @@ spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
 
   datasources:
     - datasourceName: prometheus
@@ -24,7 +24,7 @@ spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
 
   datasources:
     - datasourceName: prometheus
@@ -41,7 +41,7 @@ spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
 
   datasources:
     - datasourceName: prometheus
@@ -58,7 +58,7 @@ spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
 
   datasources:
     - datasourceName: prometheus
