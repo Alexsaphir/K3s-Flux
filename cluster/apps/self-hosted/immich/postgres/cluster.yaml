@@ -8,7 +8,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.5
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.3.0
 
   instances: 1
   enablePDB: true
@@ -40,17 +40,6 @@ spec:
               type: LoadBalancer
               ipFamilyPolicy: PreferDualStack
               externalTrafficPolicy: Local
-
-  bootstrap:
-    initdb:
-      database: immich
-      owner: immich
-      # secret:
-      #   name: immich-postgres-user
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS "vchord";
-        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
-        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   postgresql:
     shared_preload_libraries:
