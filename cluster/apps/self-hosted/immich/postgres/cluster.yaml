@@ -8,7 +8,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.5
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.13-1.1.1
 
   instances: 1
   enablePDB: true
