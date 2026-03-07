@@ -189,8 +189,9 @@ spec:
           LOG_LEVEL: 'log'
           NODE_ENV: 'production'
 
-          REDIS_HOSTNAME: immich-dragonfly
+          REDIS_HOSTNAME: dragonfly.database.svc.cluster.local
           REDIS_PORT: '6379'
+          REDIS_DBINDEX: '3'
 
           IMMICH_CONFIG_FILE: /usr/src/app/immich-config.yaml
 
