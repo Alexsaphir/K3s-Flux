@@ -1,0 +1,12 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ImageCatalog
+metadata:
+  name: original
+spec:
+  images:
+    - major: 16
+      image: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.3-v0.2.1
+  #imageName: modelzai/pgvectors-vchord:0.2.0-0.3.0-16
+  #imageName: ghcr.io/immich-app/postgres:16-vectorchord0.4.3-pgvectors0.2.1
+  #imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.13-1.1.1

@@ -11,10 +11,14 @@ spec:
   owner: immich
 
   extensions:
-    - name: vector
+    - name: vectors
       ensure: present
-    - name: vchord
-      ensure: present
+
+    #    - name: vector
+    #      ensure: present
+    #    - name: vchord
+    #      ensure: present
+
     - name: cube
       ensure: present
     - name: earthdistance

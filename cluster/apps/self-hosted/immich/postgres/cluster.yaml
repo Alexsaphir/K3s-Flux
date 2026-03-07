@@ -8,7 +8,11 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: 'enabled'
 
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.13-1.1.1
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ImageCatalog
+    name: original
+    major: 16
 
   instances: 1
   enablePDB: true
@@ -25,6 +29,7 @@ spec:
         login: true
         passwordSecret:
           name: immich-postgres-user
+
 
     services:
       disabledDefaultServices: [ 'ro', 'r' ]
@@ -43,7 +48,8 @@ spec:
 
   postgresql:
     shared_preload_libraries:
-      - 'vchord.so'
+      - 'vectors.so'
+      #- 'vchord.so'
 
     parameters:
       max_connections: '200'

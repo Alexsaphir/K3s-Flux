@@ -6,3 +6,4 @@ resources:
   - secret-superuser.sops.yaml
   - cluster.yaml
   - database.yaml
+  - catalog.yaml
