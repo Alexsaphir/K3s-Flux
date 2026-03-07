@@ -28,7 +28,7 @@ spec:
       mode: GrafanaOperator
       grafanaOperator:
         matchLabels:
-          dashboards: grafana
+          grafana.internal/instance: grafana
 
     service:
       registry:

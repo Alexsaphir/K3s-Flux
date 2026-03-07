@@ -15,4 +15,4 @@ spec:
 
   selector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana

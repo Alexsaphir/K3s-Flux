@@ -6,7 +6,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
 
   uid: 659d3647-1d87-4fca-aaf7-dbf3647a2764
   datasource:
@@ -29,7 +29,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
 
   uid: f9c06a73-1fc7-4212-8751-424e2019b944
   datasource:
@@ -49,7 +49,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
 
   uid: 1db34a36-8be5-454d-8f10-bce05fc5f931
   datasource:
