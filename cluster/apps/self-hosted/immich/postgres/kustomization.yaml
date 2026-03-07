@@ -5,3 +5,4 @@ resources:
   - secret.sops.yaml
   - secret-superuser.sops.yaml
   - cluster.yaml
+  - database.yaml

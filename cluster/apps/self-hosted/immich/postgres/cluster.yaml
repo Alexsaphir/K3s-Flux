@@ -21,7 +21,6 @@ spec:
     roles:
       - name: immich
         ensure: present
-        createdb: true
         superuser: true
         login: true
         passwordSecret:
@@ -41,6 +40,17 @@ spec:
               type: LoadBalancer
               ipFamilyPolicy: PreferDualStack
               externalTrafficPolicy: Local
+
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+      # secret:
+      #   name: immich-postgres-user
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS "vchord";
+        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   postgresql:
     shared_preload_libraries:
