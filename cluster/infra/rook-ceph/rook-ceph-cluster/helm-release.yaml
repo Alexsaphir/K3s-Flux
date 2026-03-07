@@ -66,7 +66,7 @@ spec:
             memory: 512Mi
           limits:
             cpu: 1000m
-            memory: 2Gi
+            memory: 4Gi
         osd:
           limits:
             memory: 8Gi
