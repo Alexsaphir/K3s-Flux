@@ -47,9 +47,9 @@ spec:
               externalTrafficPolicy: Local
 
   postgresql:
-    shared_preload_libraries:
-      - 'vectors.so'
-      #- 'vchord.so'
+    shared_preload_libraries: [ ]
+      # - 'vectors.so'
+    #- 'vchord.so'
 
     parameters:
       max_connections: '200'

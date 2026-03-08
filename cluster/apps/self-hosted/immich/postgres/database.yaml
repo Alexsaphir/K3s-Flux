@@ -11,9 +11,6 @@ spec:
   owner: immich
 
   extensions:
-    - name: vectors
-      ensure: present
-
     #    - name: vector
     #      ensure: present
     #    - name: vchord
