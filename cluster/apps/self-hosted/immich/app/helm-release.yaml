@@ -58,21 +58,11 @@ spec:
               TZ: ${TIMEZONE}
               NODE_ENV: &node-env production
 
-              DB_HOSTNAME: postgres-immich-rw.{{ .Release.Namespace }}.svc.cluster.local
-              DB_PORT: 5432
-
-              DB_USERNAME:
+              DB_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: immich-postgres-user
-                    key: username
-              DB_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: immich-postgres-user
-                    key: password
-
-              DB_DATABASE_NAME: immich
+                    name: database-immich
+                    key: POSTGRES_URL
 
             envFrom:
               - configMapRef:

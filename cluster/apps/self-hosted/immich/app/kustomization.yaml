@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - external-secret.yaml
   - postgres.yaml
-  # - helm-release.yaml
+  - helm-release.yaml
 
 configMapGenerator:
   - name: immich-config-tpl

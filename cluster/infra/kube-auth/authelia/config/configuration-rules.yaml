@@ -32,7 +32,7 @@ access_control:
 
     # Public ingresses using oauth
     - domain:
-        - 'photos.${DOMAIN_NAME}'
+        # - 'photos.${DOMAIN_NAME}'
         - 'recipes.${DOMAIN_NAME}'
       policy: bypass
 
