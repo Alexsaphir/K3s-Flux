@@ -177,11 +177,7 @@ spec:
           - path: /usr/src/app/upload
 
       modelcache:
-        type: persistentVolumeClaim
-        storageClass: ceph-block
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        retain: true
+        existingClaim: immich-model-cache
         advancedMounts:
           machine-learning:
             app:
