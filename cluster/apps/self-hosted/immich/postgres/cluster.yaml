@@ -10,8 +10,8 @@ metadata:
 spec:
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
-    kind: ImageCatalog
-    name: original
+    kind: ClusterImageCatalog
+    name: postgresql
     major: 16
 
   instances: 1
