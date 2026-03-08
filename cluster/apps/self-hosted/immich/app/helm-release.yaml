@@ -38,7 +38,7 @@ spec:
   values:
     immich:
       # renovate: datasource=github-releases depName=immich-app/immich
-      version: &immichVersion v2.5.6
+      version: v2.5.6
 
     controllers:
       immich:
@@ -53,7 +53,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: *immichVersion
+              tag: '{{ .Values.immich.version }}'
             env:
               TZ: ${TIMEZONE}
               NODE_ENV: &node-env production
@@ -90,7 +90,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: *immichVersion
+              tag: '{{ .Values.immich.version }}-cuda'
 
             env:
               TZ: ${TIMEZONE}
@@ -100,19 +100,29 @@ spec:
               HF_XET_CACHE: /cache/huggingface-xet
               MPLCONFIGDIR: /cache/matplotlib-config
 
+              MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL: ViT-SO400M-16-SigLIP2-384__webli
+              MACHINE_LEARNING_PRELOAD__CLIP__VISUAL: ViT-SO400M-16-SigLIP2-384__webli
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION: buffalo_l
+              MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION: buffalo_l
+
             envFrom:
               - configMapRef:
                   name: *app
 
             resources:
               requests:
-                cpu: 100m
-                memory: 2500Mi
+                nvidia.com/gpu: 1
+              limits:
+                nvidia.com/gpu: 1
 
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: [ 'ALL' ] }
+        pod:
+          nodeSelector:
+            nvidia.feature.node.kubernetes.io/gpu: 'true'
+          runtimeClassName: nvidia
 
     defaultPodOptions:
       automountServiceAccountToken: false
@@ -168,7 +178,7 @@ spec:
 
       modelcache:
         type: persistentVolumeClaim
-        storageClass: longhorn
+        storageClass: ceph-block
         accessMode: ReadWriteOnce
         size: 10Gi
         retain: true

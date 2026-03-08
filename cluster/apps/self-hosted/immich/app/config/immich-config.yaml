@@ -72,13 +72,13 @@ machineLearning:
     - http://immich-machine-learning:3003
   clip:
     enabled: true
-    modelName: ViT-B-16-SigLIP-384__webli # ViT-B-32__openai
+    modelName: ViT-SO400M-16-SigLIP2-384__webli
   duplicateDetection:
     enabled: true
     maxDistance: 0.01 # 0.001-0.1
   facialRecognition:
     enabled: true
-    modelName: antelopev2 # buffalo_l
+    modelName: buffalo_l
     minScore: 0.7  # 0-1
     maxDistance: 0.6 # 0-2
     minFaces: 4 # 2
