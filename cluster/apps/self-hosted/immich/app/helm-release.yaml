@@ -149,6 +149,18 @@ spec:
           http:
             port: 3003
 
+    route:
+      app:
+        hostnames:
+          - photos.${DOMAIN_NAME}
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+
     persistence:
       settings:
         type: secret
