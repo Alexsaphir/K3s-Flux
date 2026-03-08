@@ -8,4 +8,3 @@ replacements:
   - path: ../../../components/replacements/ks.yaml
 resources:
   - app/ks.yaml
-  - postgres/ks.yaml
