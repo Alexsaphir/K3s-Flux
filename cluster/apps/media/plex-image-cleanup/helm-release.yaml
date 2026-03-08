@@ -1,0 +1,97 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: plex-image-cleanup
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex-image-cleanup
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: plex-image-cleanup
+
+  values:
+    controllers:
+      plex-image-cleanup:
+        type: cronjob
+        cronjob:
+          schedule: '30 8 * * 6'
+          timeZone: &timeZone '${TIMEZONE}'
+
+        containers:
+          app:
+            image:
+              repository: docker.io/meisnate12/plex-image-cleanup
+              tag: v1.0.2@sha256:257634cb149f104658079274139bd55d652962ecf331bfda01e71c10686f9e32
+
+            env:
+              TZ: *timeZone
+
+              PLEX_URL: http://plex.{{ .Release.Namespace }}.svc.cluster.local:32400
+              PLEX_PATH: /data/plex/Library/Application Support/Plex Media Server
+
+              MODE: remove
+              PHOTO_TRANSCODER: true
+              OPTIMIZE_DB: true
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
+
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values: [ 'plex' ]
+              topologyKey: kubernetes.io/hostname
+
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+
+      plex:
+        existingClaim: plex
+        globalMounts:
+          - path: /data/plex
