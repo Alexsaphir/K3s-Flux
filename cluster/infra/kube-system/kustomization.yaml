@@ -21,5 +21,6 @@ resources:
   - descheduler/ks.yaml
   - ksgate/ks.yaml
   - reloader/ks.yaml
+  - fstrim/ks.yaml
 
   - mailpit/ks.yaml
