@@ -11,6 +11,3 @@ resources:
   - ext-postgres-operator/ks.yaml
 
   - dragonfly/ks.yaml
-
-  #- timescaledb/ks.yaml
-  #- ext-postgres-timescaledb/ks.yaml
