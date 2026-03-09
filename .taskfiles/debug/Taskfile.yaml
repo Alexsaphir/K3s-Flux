@@ -28,6 +28,11 @@ tasks:
       - which envsubst
       - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml
 
+  ceph:
+    cmd: |
+      kubectl exec -i -t -n rook-ceph deploy/rook-ceph-tools -- bash
+
+
   reset:talos-upgrade:
     desc: Reset failed Talos upgrade
     cmd: kubectl annotate talosupgrade talos tuppr.home-operations.com/reset="$(date)"
