@@ -23,116 +23,23 @@ spec:
     name: cilium
 
   values:
-    autoDirectNodeRoutes: true
-
-    bandwidthManager:
-      enabled: true
-      bbr: true
-
-    bpf:
-      datapathMode: netkit
-      masquerade: true
-      preallocateMaps: true
-
-    bpfClockProbe: true
-    bgpControlPlane:
-      enabled: true
-
-    ipv4:
-      enabled: true
-    ipv6:
-      enabled: true
-
-    enableIPv4BIGTCP: true
-    enableIPv6BIGTCP: true
-
-    ipv4NativeRoutingCIDR: '10.42.0.0/16'
-    ipv6NativeRoutingCIDR: 'fdd5:aa8:9535:42::/108'
-
-    pmtuDiscovery:
-      enabled: true
-
-    l2announcements:
-      enabled: true
-    loadBalancer:
-      algorithm: maglev
-      mode: dsr
-      serviceTopology: true
-    localRedirectPolicies:
-      enabled: true
-
     cluster:
       id: 1
       name: main
 
-    cni:
-      # Required for pairing with Multus CNI
-      exclusive: false
-    cgroup:
-      automount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
-    devices: enp+
-    dashboards:
-      enabled: true
-    endpointRoutes:
-      enabled: true
-    envoy:
-      enabled: false
-    gatewayAPI:
-      enabled: false
+    # Native routing for best eBPF performance
+    routingMode: native
+    autoDirectNodeRoutes: true
+    ipv4NativeRoutingCIDR: '10.42.0.0/16'
+    ipv6NativeRoutingCIDR: 'fdd5:aa8:9535:42::/108'
 
-    hubble:
-      enabled: true
-
-      metrics:
-        enabled:
-          - dns:query
-          - drop
-          - tcp
-          - flow
-          - port-distribution
-          - icmp
-          - http
-        serviceMonitor:
-          enabled: true
-        dashboards:
-          enabled: true
-
-      relay:
-        enabled: true
-        rollOutPods: true
-        prometheus:
-          serviceMonitor:
-            enabled: true
-      ui:
-        enabled: true
-        rollOutPods: true
-
-    ipam:
-      mode: kubernetes
-
+    # Talos specific
     k8sServiceHost: 127.0.0.1
     k8sServicePort: 7445
-    kubeProxyReplacement: true
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-
-    operator:
-      dashboards:
-        enabled: true
-      prometheus:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-      replicas: 2
-      rollOutPods: true
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-    rollOutCiliumPods: true
-    routingMode: native
+    cgroup:
+      automount:
+        enabled: false  # TALOS REQUIRED - Talos provides mounts
+      hostRoot: /sys/fs/cgroup
     securityContext:
       capabilities:
         ciliumAgent:
@@ -156,6 +63,145 @@ spec:
           - PERFMON
           - BPF
 
+    # kube-proxy
+    kubeProxyReplacement: true
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+    # https://www.talos.dev/latest/talos-guides/network/host-dns/#forwarding-kube-dns-to-host-dns
+    # https://docs.cilium.io/en/stable/operations/performance/tuning/#ebpf-host-routing
+    bpfClockProbe: true
+    bpf:
+      datapathMode: netkit
+      masquerade: true  # Required for installNoConntrackIptablesRules
+      preallocateMaps: true
+
+      # Policy enforcement acceleration
+      policyMapMax: 65536    # Max policy entries
+
+    # https://docs.cilium.io/en/stable/network/concepts/ipam/
+    ipam:
+      mode: kubernetes
+
+    bgpControlPlane:
+      enabled: true
+    l2announcements:
+      enabled: false
+    loadBalancer:
+      # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
+      algorithm: maglev
+      mode: dsr
+      serviceTopology: true
+
+    ipv4:
+      enabled: true
+    ipv6:
+      enabled: true
+
+    # -- Enable path MTU discovery
+    pmtuDiscovery:
+      enabled: true
+
+    # PERFORMANCE - Bandwidth Manager + BBR Congestion Control
+    # Bandwidth Manager: Enables Fair Queue packet scheduling + optimal sysctl settings
+    # BBR (Bottleneck Bandwidth and RTT): Google's congestion control algorithm
+    # https://docs.cilium.io/en/stable/network/kubernetes/bandwidth-manager/
+    bandwidthManager:
+      enabled: true
+      bbr: true  # ENABLED: BBR congestion control for improved throughput
+
+    # PERFORMANCE - BIG TCP
+    # https://docs.cilium.io/en/stable/operations/performance/tuning/
+    # BIG TCP: Allows up to 192KB GSO/GRO packets (vs 64KB default)
+    enableIPv4BIGTCP: true
+    enableIPv6BIGTCP: true
+
+
     socketLB:
       enabled: true
       hostNamespaceOnly: true
+
+    # -- Enable Layer 7 network policy.
+    # HTTP/gRPC protocol visibility via Envoy proxy
+    # Required for: httpV2 metrics, L7 NetworkPolicies, API-level observability
+    l7Proxy: true
+    # -- Enable local redirect policies.
+    localRedirectPolicies:
+      enabled: true
+
+    cni:
+      # Required for pairing with Multus CNI
+      exclusive: false
+
+    devices: enp+
+    endpointRoutes:
+      enabled: true
+    envoy:
+      enabled: false
+    gatewayAPI:
+      enabled: false
+
+    dashboards:
+      enabled: true
+    hubble:
+      enabled: true
+
+      metrics:
+        enabled:
+          - dns
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - "httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction;sourceContext=workload-name|reserved-identity;destinationContext=workload-name|reserved-identity"
+        serviceMonitor:
+          enabled: true
+        dashboards:
+          enabled: true
+
+      relay:
+        enabled: true
+        rollOutPods: true
+        prometheus:
+          serviceMonitor:
+            enabled: true
+      ui:
+        enabled: true
+        rollOutPods: true
+    operator:
+      replicas: 3
+
+      rollOutPods: true
+
+      dashboards:
+        enabled: true
+
+      prometheus:
+        metricsService: true
+        enabled: true
+        port: 9963
+        serviceMonitor:
+          enabled: true
+
+      resources:
+        limits:
+          cpu: 1000m      # Increased for HA workload
+          memory: 512Mi   # Increased for stability
+        requests:
+          cpu: 100m       # Increased baseline
+          memory: 256Mi   # Increased for HA
+    rollOutCiliumPods: true
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 200m
+        memory: 256Mi
+    prometheus:
+      metricsService: true
+      enabled: true
+      port: 9962
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
