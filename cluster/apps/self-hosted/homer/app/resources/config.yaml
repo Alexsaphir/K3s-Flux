@@ -66,6 +66,7 @@ services:
         subtitle: ""
         url: "https://gitlab.${DOMAIN_NAME}/explore"
         target: '_top'
+        tag: 'sso'
 
       - name: "Renovate"
         logo: "https://raw.githubusercontent.com/renovatebot/renovate/refs/heads/main/docs/usage/assets/images/logo.png"
