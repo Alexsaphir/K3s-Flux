@@ -22,7 +22,7 @@ spec:
               annotation).
 
         - alert: TalosUpgradeFailed
-          expr: tuppr_talos_upgrade_phase{phase='Failed'} > 0
+          expr: tuppr_talos_upgrade_phase{phase="Failed"} > 0
           for: 1m
           labels:
             severity: critical
@@ -35,7 +35,7 @@ spec:
 
         - alert: TalosUpgradeStuck
           expr: >-
-            tuppr_talos_upgrade_phase{phase=~'Upgrading|Rebooting|Draining|HealthChecking'} > 0
+            tuppr_talos_upgrade_phase{phase=~"Upgrading|Rebooting|Draining|HealthChecking"} > 0
           for: 1h
           labels:
             severity: warning
@@ -51,7 +51,7 @@ spec:
       rules:
         # Fires when the Kubernetes upgrade object itself is in Failed phase.
         - alert: KubernetesUpgradeFailed
-          expr: tuppr_kubernetes_upgrade_phase{phase='Failed'} > 0
+          expr: tuppr_kubernetes_upgrade_phase{phase="Failed"} > 0
           for: 1m
           labels:
             severity: critical
@@ -64,7 +64,7 @@ spec:
 
         - alert: KubernetesUpgradeStuck
           expr: >-
-            tuppr_kubernetes_upgrade_phase{phase=~'Upgrading|HealthChecking'} > 0
+            tuppr_kubernetes_upgrade_phase{phase=~"Upgrading|HealthChecking"} > 0
           for: 45m
           labels:
             severity: warning
