@@ -32,6 +32,14 @@ tasks:
     cmd: |
       kubectl exec -i -t -n rook-ceph deploy/rook-ceph-tools -- bash
 
+  external-secrets:refresh:
+    cmd: |
+      kubectl get externalsecrets --no-headers -A | while read -r ns name _; do \
+        kubectl -n "$ns" annotate externalsecrets "$name" \
+          force-sync="$(date +%s)" --overwrite; \
+      done
+    preconditions:
+      - which kubectl
 
   reset:talos-upgrade:
     desc: Reset failed Talos upgrade
