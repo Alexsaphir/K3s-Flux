@@ -1,0 +1,40 @@
+---
+title: Homelab
+# background:
+#   image: https://raw.githubusercontent.com/joryirving/home-ops/main/.docs/assets/101518784_p0.jpg
+#   opacity: 20
+favicon: https://github.com/walkxcode/dashboard-icons/blob/main/png/heimdall.png
+theme: dark
+color: slate
+headerStyle: clean
+statusStyle: dot
+useEqualHeights: false
+fiveColumns: true
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+
+layout:
+  Calendar:
+    style: column
+    icon: mdi-calendar
+    initiallyCollapsed: false
+
+  Administration:
+    style: column
+    icon: mdi-network
+
+  Cluster:
+    style: column
+    icon: synology.png
+
+  Media:
+    style: column
+    icon: mdi-download-circle
+
+  Home:
+    style: column
+    icon: home-assistant

@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - actual
   - foundryvtt
+  - homepage
   - homer
   - immich
   - planka
