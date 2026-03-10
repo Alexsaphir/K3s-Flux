@@ -40,10 +40,6 @@ spec:
               GITLAB_RAILS_RACK_TIMEOUT: 6000
               GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
 
-            envFrom:
-              - secretRef:
-                  name: '{{ .Release.Name }}-secret'
-
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -101,17 +97,22 @@ spec:
                 port: 8091
 
     persistence:
-      config:
+      patch:
         enabled: true
         type: secret
         name: '{{ .Release.Name }}-config-secret'
         globalMounts:
-          - path: /omnibus_config.rb
-            subPath: config.rb
-            readOnly: true
-
           - path: /opt/gitlab/embedded/service/gitlab-rails/.license_encryption_key.pub
             subPath: license_key.pub
+            readOnly: true
+
+      config:
+        enabled: true
+        type: secret
+        name: gitlab-config
+        globalMounts:
+          - path: /omnibus_config.rb
+            subPath: config.rb
             readOnly: true
 
       data:
