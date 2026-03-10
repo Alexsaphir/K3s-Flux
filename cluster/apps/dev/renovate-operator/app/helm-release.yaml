@@ -36,3 +36,5 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+      dashboard:
+        enabled: true
