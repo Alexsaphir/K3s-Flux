@@ -47,6 +47,7 @@ spec:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${DOMAIN_NAME},https://s3.${DOMAIN_NAME}
               MINIO_BROWSER_REDIRECT_URL: https://minio.${DOMAIN_NAME}
               MINIO_SERVER_URL: https://s3.${DOMAIN_NAME}
+              MINIO_DOMAIN: s3.${DOMAIN_NAME}
 
               MINIO_REGION_NAME: us-east-1
 
@@ -86,6 +87,17 @@ spec:
           api:
             enabled: true
             port: 9000
+
+    rawResources:
+      no-compression:
+        apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: BackendTrafficPolicy
+        spec:
+          spec:
+            targetRefs:
+              - group: gateway.networking.k8s.io
+                kind: HTTPRoute
+                name: "{{ .Release.Name }}-s3"
 
     route:
       app:

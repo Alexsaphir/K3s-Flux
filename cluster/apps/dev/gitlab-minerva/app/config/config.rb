@@ -99,15 +99,17 @@ gitlab_rails['incoming_email_enabled'] = false
 
 ### Consolidated (simplified) object storage configuration
 gitlab_rails['object_store']['enabled'] = true
-gitlab_rails['object_store']['proxy_download'] = true
+gitlab_rails['object_store']['proxy_download'] = false
 gitlab_rails['object_store']['connection'] = {
   'provider' => 'AWS',
+  'host' => 's3.${DOMAIN_NAME}',
   'endpoint' => 'https://s3.${DOMAIN_NAME}',
   'path_style' => true,
   'region' => 'us-east-1',
-  'accesskey' => '{{ .MINIO_ROOT_USER }}',
-  'secretkey' => '{{ .MINIO_ROOT_PASSWORD }}',
+  'aws_access_key_id' => '{{ .GITLAB_S3_ID }}',
+  'aws_secret_access_key' => '{{ .GITLAB_S3_SECRET }}',
   'enable_signature_v4_streaming' => true,
+  'aws_signature_version' => 4,
 }
 gitlab_rails['object_store']['storage_options'] = {}
 
@@ -158,14 +160,13 @@ registry_nginx['proxy_set_headers'] = {
 ###! Docs: https://docs.gitlab.com/ee/administration/packages/container_registry.html#configure-storage-for-the-container-registry
 registry['storage'] = {
   's3' => {
-    'endpoint' => 'https://s3.${DOMAIN_NAME}',
+    'v4auth' => true,
     'regionendpoint'  => 'https://s3.${DOMAIN_NAME}',
     'path_style' => true,
     'region' => 'us-east-1',
-    'accesskey' => '{{ .MINIO_ROOT_USER }}',
-    'secretkey' => '{{ .MINIO_ROOT_PASSWORD }}',
-    'enable_signature_v4_streaming' => true,
     'bucket' => 'gitlab-registry',
+    'accesskey' => '{{ .GITLAB_S3_ID }}',
+    'secretkey' => '{{ .GITLAB_S3_SECRET }}',
   },
   'redirect' => {
     'disable' => false
