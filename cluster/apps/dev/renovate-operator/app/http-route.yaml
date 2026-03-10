@@ -10,6 +10,18 @@ spec:
     - name: envoy
       namespace: envoy-system
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: '/webhook'
+      backendRefs:
+        - name: *name
+          port: 8082
+
+    - matches:
+        - path:
+            type: PathPrefix
+            value: '/'
+      backendRefs:
         - name: *name
           port: 8081
