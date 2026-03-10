@@ -99,7 +99,7 @@ gitlab_rails['incoming_email_enabled'] = false
 
 ### Consolidated (simplified) object storage configuration
 gitlab_rails['object_store']['enabled'] = true
-gitlab_rails['object_store']['proxy_download'] = false
+gitlab_rails['object_store']['proxy_download'] = true
 gitlab_rails['object_store']['connection'] = {
   'provider' => 'AWS',
   'endpoint' => 'https://s3.${DOMAIN_NAME}',
@@ -164,7 +164,7 @@ registry['storage'] = {
     'region' => 'us-east-1',
     'accesskey' => '{{ .MINIO_ROOT_USER }}',
     'secretkey' => '{{ .MINIO_ROOT_PASSWORD }}',
-    'enable_signature_v4_streaming' => false,
+    'enable_signature_v4_streaming' => true,
     'bucket' => 'gitlab-registry',
   },
   'redirect' => {
