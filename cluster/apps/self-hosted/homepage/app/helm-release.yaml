@@ -37,9 +37,9 @@ spec:
               TZ: ${TIMEZONE}
               HOMEPAGE_ALLOWED_HOSTS: &host '{{ .Release.Name }}.${DOMAIN_NAME}'
 
-            #envFrom:
-            #  - secretRef:
-            #      name: homepage-secret
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
 
             resources:
               requests:
@@ -47,6 +47,9 @@ spec:
                 memory: 200M
               limits:
                 memory: 2G
+
+        serviceAccount:
+          identifier: homepage
 
     service:
       main:
