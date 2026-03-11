@@ -50,7 +50,12 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: &db-secret 'database-{{ .Release.Name }}'
-                    key: HOST
+                    key: HOSTNAME
+              PROWLARR__POSTGRES__PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: *db-secret
+                    key: PORT
               PROWLARR__POSTGRES__MAINDB:
                 valueFrom:
                   secretKeyRef:

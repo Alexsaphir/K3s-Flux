@@ -65,7 +65,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: database-tandoor-recipes
-                    key: HOST
+                    key: HOSTNAME
               POSTGRES_PORT: '5432'
               POSTGRES_DB:
                 valueFrom:
