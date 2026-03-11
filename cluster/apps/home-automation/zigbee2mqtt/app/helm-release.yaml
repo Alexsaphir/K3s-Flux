@@ -125,6 +125,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: zigbee2mqtt.svg
+          gethomepage.dev/name: Zigbee2Mqtt
+          gethomepage.dev/group: Observability
         hostnames:
           - '{{ .Release.Name }}.${DOMAIN_NAME}'
         parentRefs:
