@@ -10,7 +10,3 @@
     longitude: {{HOMEPAGE_VAR_LONGITUDE}}
     units: metric
     cache: 5
-
-- unifi_console:
-    url: {{HOMEPAGE_VAR_UNIFI_URL}}
-    key: {{HOMEPAGE_VAR_UNIFI_KEY}}
