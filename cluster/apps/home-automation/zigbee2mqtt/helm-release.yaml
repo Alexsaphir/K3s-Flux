@@ -39,7 +39,7 @@ spec:
                   name: '{{ .Release.Name }}-secret'
 
             env:
-              TZ: ${TIMEZONE}
+              TZ: '${TIMEZONE}'
 
               ZIGBEE2MQTT_DATA: /config
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601

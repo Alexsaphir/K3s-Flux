@@ -16,7 +16,7 @@ spec:
 
   prune: true
   interval: 1h
-  path: cluster/apps/home-automation/mosquitto/app
+  path: cluster/apps/home-automation/mosquitto
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes
