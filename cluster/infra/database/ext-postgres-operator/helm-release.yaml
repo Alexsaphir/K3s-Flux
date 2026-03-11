@@ -41,7 +41,7 @@ spec:
       reloader.stakater.com/auto: 'true'
 
     postgres:
-      host: postgres-rw.database.svc.cluster.local
+      host: postgres-rw.database.svc.cluster.local:5432
       default_database: 'postgres'
 
     resources:
