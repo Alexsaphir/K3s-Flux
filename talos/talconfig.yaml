@@ -149,6 +149,13 @@ controlPlane:
           modules:
             - name: nbd
 
+    - |-
+      machine:
+        udev:
+          rules:
+            # set owner and group on the zigbee USB device
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d4", OWNER="1022", GROUP="1022"
+
     - "@./patches/nodes/sysfs.yaml"
 
     - '@./manifests/disks.yaml'

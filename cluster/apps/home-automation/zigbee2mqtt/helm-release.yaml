@@ -102,14 +102,11 @@ spec:
 
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 1022
+        runAsGroup: 1022
+        fsGroup: 1022
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
-
-        supplementalGroups:
-          - 20
 
       nodeSelector:
         zigbee.feature.node.kubernetes.io/sonoff: 'true'
