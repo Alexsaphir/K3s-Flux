@@ -17,8 +17,6 @@ spec:
     substitute:
       PVC_NAME: *app
       VOLSYNC_CAPACITY: 5Gi
-      VOLSYNC_PUID: '0'
-      VOLSYNC_PGID: '0'
 
 
   prune: true
