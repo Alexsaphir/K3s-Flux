@@ -8,4 +8,6 @@ replacements:
   - path: ../../components/replacements/ks.yaml
 resources:
   - mosquitto/ks.yaml
+  - mqtt-exporter/ks.yaml
+
   - zigbee2mqtt/ks.yaml

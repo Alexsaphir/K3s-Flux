@@ -1,0 +1,96 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: mqtt-exporter
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mqtt-exporter
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: mqtt-exporter
+
+  values:
+    controllers:
+      mqtt-exporter:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/kpetremann/mqtt-exporter
+              tag: 1.11.2
+
+            env:
+              - { name: TZ, value: '${TIMEZONE}' }
+
+              - { name: MAX_METRICS, value: 0 }
+              - { name: LOG_LEVEL, value: DEBUG }
+              - { name: LOG_MQTT_MESSAGE, value: 'True' }
+              - { name: MQTT_ADDRESS, value: 'mosquitto.{{ .Release.Namespace }}.svc.cluster.local' }
+              - { name: MQTT_TOPIC, value: 'zigbee2mqtt/#' }
+              - { name: MQTT_V5_PROTOCOL, value: 'True' }
+              - { name: PROMETHEUS_PORT, value: &port 3321 }
+              - { name: PROMETHEUS_PREFIX, value: 'zigbee2mqtt_' }
+              - { name: ZIGBEE2MQTT_AVAILABILITY, value: 'True' }
+              - { name: EXPOSE_LAST_SEEN, value: 'True' }
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ 'ALL' ] }
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
+
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+
+    service:
+      app:
+        ports:
+          metrics:
+            protocol: HTTP
+            port: *port
+
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: metrics
+            metricRelabelings:
+              - action: labeldrop
+                regex: 'endpoint|container|job|instance|pod|prometheus|namespace'
+              - action: replace
+                sourceLabels:
+                  - 'service'
+                targetLabel: instance

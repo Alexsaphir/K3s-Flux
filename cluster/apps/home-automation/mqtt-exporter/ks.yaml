@@ -2,21 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app mosquitto
+  name: mqtt-exporter
   namespace: home-automation
 spec:
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-
-  postBuild:
-    substitute:
-      APP: *app
-      CONTROLLER: StatefulSet
+    - name: mosquitto
 
   prune: true
   interval: 1h
-  path: cluster/apps/home-automation/mosquitto/app
+  path: cluster/apps/home-automation/mqtt-exporter
   sourceRef:
     kind: GitRepository
     name: talos-kubernetes

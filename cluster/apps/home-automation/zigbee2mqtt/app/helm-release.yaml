@@ -1,0 +1,145 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: zigbee2mqtt
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: zigbee2mqtt
+
+  values:
+    controllers:
+      zigbee2mqtt:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/koenkk/zigbee2mqtt
+              tag: 2.9.1@sha256:574b2bd0dcbb59fae6edbbb81a35b5563291d3825da0225f0078aa5575dac37f
+
+            envFrom:
+              - secretRef:
+                  name: '{{ .Release.Name }}-secret'
+
+            env:
+              TZ: ${TIMEZONE}
+
+              ZIGBEE2MQTT_DATA: /config
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: 'false'
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: 'false'
+
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+
+              ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
+              ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
+
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: 'false'
+              ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: 'true'
+
+              ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: 'true'
+
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: 'https://{{ .Release.Name }}.${DOMAIN_NAME}'
+
+              ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: 'false'
+
+              ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: 'true'
+              ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
+              ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: 'true'
+              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: 'mqtt://mosquitto.{{ .Release.Namespace }}.svc.cluster.local'
+              ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+
+              ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: 'false'
+              ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
+              ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: 'false'
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &hostPath /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20221101094102-if00
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+
+            securityContext:
+              # apparently required for the USB attached device, even with owner/group set correctly?
+              privileged: true
+              readOnlyRootFilesystem: true
+              capabilities: { add: [ 'SYS_RAWIO' ] }
+
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                cpu: 500m
+                memory: 256Mi
+
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+        supplementalGroups:
+          - 20
+
+      nodeSelector:
+        zigbee.feature.node.kubernetes.io/sonoff: 'true'
+
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+          websocket:
+            enabled: true
+            port: 9000
+
+    route:
+      app:
+        hostnames:
+          - '{{ .Release.Name }}.${DOMAIN_NAME}'
+        parentRefs:
+          - name: envoy
+            namespace: envoy-system
+
+    persistence:
+      config:
+        existingClaim: '{{ .Release.Name }}'
+
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: *hostPath
+        advancedMounts:
+          zigbee2mqtt:
+            app:
+              - path: *hostPath
