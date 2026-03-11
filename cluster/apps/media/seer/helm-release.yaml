@@ -43,7 +43,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: &db-secret 'database-{{ .Release.Name }}'
-                    key: HOST
+                    key: HOSTNAME
               DB_NAME:
                 valueFrom:
                   secretKeyRef:
