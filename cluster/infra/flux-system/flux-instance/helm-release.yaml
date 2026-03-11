@@ -49,8 +49,8 @@ spec:
 
       sync:
         kind: GitRepository
-        #url: https://gitlab.alexsaphir.com/Homelab/Talos-Flux
-        url: https://github.com/Alexsaphir/Talos-Flux.git
+        url: https://gitlab.alexsaphir.com/Homelab/Talos-Flux
+        #url: https://github.com/Alexsaphir/Talos-Flux.git
         ref: refs/heads/main
         path: cluster/flux/cluster
         name: talos-kubernetes
