@@ -95,17 +95,3 @@ spec:
         namespace = "{{.Release.Namespace}}"
         image = "ubuntu:22.04"
         privileged = false
-        cpu_request = "100m"
-        memory_request = "128Mi"
-        service_cpu_request = "100m"
-        service_memory_request = "128Mi"
-        helper_cpu_request = "100m"
-        helper_memory_request = "128Mi"
-
-    resources:
-      limits:
-        memory: 256Mi
-        cpu: 200m
-      requests:
-        memory: 128Mi
-        cpu: 100m
