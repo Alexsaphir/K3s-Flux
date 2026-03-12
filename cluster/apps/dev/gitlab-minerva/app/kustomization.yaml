@@ -5,6 +5,7 @@ resources:
   - external-secret.yaml
   - secret.sops.yaml
   - helm-release.yaml
+  - tcp-route.yaml
 
 configMapGenerator:
   - name: gitlab-config-tpl

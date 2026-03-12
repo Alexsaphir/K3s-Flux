@@ -1,0 +1,14 @@
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: ssh
+spec:
+  parentRefs:
+    - name: envoy
+      namespace: envoy-system
+      sectionName: ssh
+  rules:
+    - backendRefs:
+        - name: gitlab
+          port: 22

@@ -52,3 +52,13 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-main-tls
+
+    - name: ssh
+      protocol: TCP
+      port: 2222
+      allowedRoutes:
+        namespaces:
+          from: All
+        kinds:
+          - kind: TCPRoute
+            group: gateway.networking.k8s.io
