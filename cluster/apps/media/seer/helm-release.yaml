@@ -109,7 +109,7 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: 'true'
-          gethomepage.dev/icon: seer.svg
+          gethomepage.dev/icon: seerr.svg
           gethomepage.dev/name: Seer
           gethomepage.dev/group: Media
           gatus.home-operations.com/endpoint: |-
