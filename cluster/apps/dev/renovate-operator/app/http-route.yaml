@@ -5,10 +5,10 @@ metadata:
   name: &name renovate-operator
   annotations:
     gethomepage.dev/enabled: 'true'
-    gethomepage.dev/href: 'renovate.${DOMAIN_NAME}'
     gethomepage.dev/icon: renovate.svg
     gethomepage.dev/name: Renovate Operator
     gethomepage.dev/group: Dev
+    gethomepage.dev/app: *name
 spec:
   # noinspection KubernetesUnknownValues
   hostnames: [ 'renovate.${DOMAIN_NAME}' ]
@@ -20,15 +20,15 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: '/webhook'
-      backendRefs:
-        - name: *name
-          port: 8082
-
-    - matches:
-        - path:
-            type: PathPrefix
             value: '/'
       backendRefs:
         - name: *name
           port: 8081
+
+    - matches:
+        - path:
+            type: PathPrefix
+            value: '/webhook'
+      backendRefs:
+        - name: *name
+          port: 8082

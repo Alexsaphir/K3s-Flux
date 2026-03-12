@@ -91,6 +91,7 @@ spec:
           gethomepage.dev/icon: tautulli.svg
           gethomepage.dev/name: Tautulli
           gethomepage.dev/group: Media
+          gethomepage.dev/weight: '-80'
           gatus.home-operations.com/endpoint: |-
             conditions: ['[STATUS] == 200']
             group: media

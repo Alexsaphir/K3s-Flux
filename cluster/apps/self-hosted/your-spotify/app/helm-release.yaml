@@ -115,7 +115,6 @@ spec:
       app:
         annotations:
           gethomepage.dev/enabled: 'true'
-          gethomepage.dev/href: 'spotify.${DOMAIN_NAME}'
           gethomepage.dev/icon: your-spotify.svg
           gethomepage.dev/name: YourSpotify
           gethomepage.dev/group: Self-Hosted
@@ -130,6 +129,14 @@ spec:
           - matches:
               - path:
                   type: PathPrefix
+                  value: '/'
+            backendRefs:
+              - identifier: web
+                port: *webport
+
+          - matches:
+              - path:
+                  type: PathPrefix
                   value: '/api'
             filters:
               - type: URLRewrite
@@ -140,14 +147,6 @@ spec:
             backendRefs:
               - identifier: server
                 port: *port
-
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: '/'
-            backendRefs:
-              - identifier: web
-                port: *webport
 
     persistence:
       config:
