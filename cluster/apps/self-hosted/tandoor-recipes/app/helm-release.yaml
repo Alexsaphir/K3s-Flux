@@ -143,6 +143,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: tandoor-recipes.svg
+          gethomepage.dev/name: Tandoor Recipes
+          gethomepage.dev/group: Self-Hosted
         hostnames:
           - *host
         parentRefs:

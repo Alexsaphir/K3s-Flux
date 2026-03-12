@@ -75,6 +75,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: actual-budget.svg
+          gethomepage.dev/name: Actual
+          gethomepage.dev/group: Self-Hosted
         hostnames:
           - '{{ .Release.Name }}.${DOMAIN_NAME}'
         parentRefs:

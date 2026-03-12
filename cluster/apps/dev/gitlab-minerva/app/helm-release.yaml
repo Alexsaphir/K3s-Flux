@@ -66,6 +66,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: gitlab.svg
+          gethomepage.dev/name: Gitlab
+          gethomepage.dev/group: Dev
         hostnames:
           - 'gitlab.${DOMAIN_NAME}'
         parentRefs:

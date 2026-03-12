@@ -113,6 +113,13 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/href: 'spotify.${DOMAIN_NAME}'
+          gethomepage.dev/icon: your-spotify.svg
+          gethomepage.dev/name: YourSpotify
+          gethomepage.dev/group: Self-Hosted
+
         hostnames:
           - 'spotify.${DOMAIN_NAME}'
         parentRefs:

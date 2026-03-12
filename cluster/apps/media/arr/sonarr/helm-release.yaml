@@ -96,6 +96,10 @@ spec:
     route:
       app:
         annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: sonarr.svg
+          gethomepage.dev/name: Sonarr
+          gethomepage.dev/group: Media
           gatus.home-operations.com/endpoint: |-
             conditions: ['[STATUS] == 200']
             group: media

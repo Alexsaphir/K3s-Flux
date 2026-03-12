@@ -96,6 +96,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: vaultwarden.svg
+          gethomepage.dev/name: Vaultwarden
+          gethomepage.dev/group: Self-Hosted
         hostnames:
           - *domain_name
         parentRefs:

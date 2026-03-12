@@ -151,6 +151,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: immich.svg
+          gethomepage.dev/name: Immich
+          gethomepage.dev/group: Self-Hosted
         hostnames:
           - photos.${DOMAIN_NAME}
         parentRefs:

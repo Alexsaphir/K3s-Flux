@@ -87,6 +87,11 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/icon: foundry-vtt.png
+          gethomepage.dev/name: FoundryVTT
+          gethomepage.dev/group: Self-Hosted
         hostnames:
           - *host
         parentRefs:
