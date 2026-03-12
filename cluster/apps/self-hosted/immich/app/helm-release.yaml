@@ -156,6 +156,11 @@ spec:
           gethomepage.dev/icon: immich.svg
           gethomepage.dev/name: Immich
           gethomepage.dev/group: Self-Hosted
+          gethomepage.dev/weight: '-80'
+          gethomepage.dev/widget.type: *app
+          gethomepage.dev/widget.url: http://immich.immich.svc.cluster.local:2283
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_IMMICH_API_KEY}}" }}'
+          gethomepage.dev/widget.version: '2'
         hostnames:
           - photos.${DOMAIN_NAME}
         parentRefs:
