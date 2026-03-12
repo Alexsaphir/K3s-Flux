@@ -6,4 +6,5 @@ resources:
   #  - forgejo
   #  - gitlab
   - gitlab-minerva
+  - gitlab-runner
   - renovate-operator
