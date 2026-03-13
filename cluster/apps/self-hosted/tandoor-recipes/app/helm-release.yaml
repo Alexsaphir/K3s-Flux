@@ -148,6 +148,10 @@ spec:
           gethomepage.dev/icon: tandoor-recipes.svg
           gethomepage.dev/name: Tandoor Recipes
           gethomepage.dev/group: Self-Hosted
+          gethomepage.dev/widget.type: tandoor
+          gethomepage.dev/widget.url: http://tandoor-recipes.tandoor-recipes.svc.cluster.local:8080
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_TANDOOR_API_KEY}}" }}'
+          gethomepage.dev/widget.fields: '["users", "recipes"]'
         hostnames:
           - *host
         parentRefs:

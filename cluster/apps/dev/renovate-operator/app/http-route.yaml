@@ -9,6 +9,7 @@ metadata:
     gethomepage.dev/name: Renovate Operator
     gethomepage.dev/group: Dev
     gethomepage.dev/app: *name
+    gethomepage.dev/pod-selector: app=renovate-operator
 spec:
   # noinspection KubernetesUnknownValues
   hostnames: [ 'renovate.${DOMAIN_NAME}' ]

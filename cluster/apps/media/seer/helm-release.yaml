@@ -112,7 +112,7 @@ spec:
           gethomepage.dev/icon: seerr.svg
           gethomepage.dev/name: Seer
           gethomepage.dev/group: Media
-          gethomepage.dev/weight: '-90'
+          gethomepage.dev/weight: '-80'
           gatus.home-operations.com/endpoint: |-
             conditions: ['[STATUS] == 200']
             group: media

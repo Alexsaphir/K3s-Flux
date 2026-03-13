@@ -94,7 +94,7 @@ spec:
           gethomepage.dev/icon: tautulli.svg
           gethomepage.dev/name: Tautulli
           gethomepage.dev/group: Media
-          gethomepage.dev/weight: '-80'
+          gethomepage.dev/weight: '-90'
           gethomepage.dev/widget.type: *app
           gethomepage.dev/widget.url: http://tautulli.media.svc.cluster.local:80
           gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_TAUTULLI_API_KEY}}" }}'
