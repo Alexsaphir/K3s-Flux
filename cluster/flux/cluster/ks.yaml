@@ -50,8 +50,6 @@ spec:
 
                   install:
                     crds: CreateReplace
-                    strategy:
-                      name: RetryOnFailure
                   rollback:
                     cleanupOnFail: true
                   upgrade:
@@ -134,8 +132,6 @@ spec:
 
                   install:
                     crds: CreateReplace
-                    strategy:
-                      name: RetryOnFailure
                   rollback:
                     cleanupOnFail: true
                   upgrade:
