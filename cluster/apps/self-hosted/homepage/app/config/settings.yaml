@@ -23,15 +23,15 @@ layout:
     icon: mdi-calendar
     initiallyCollapsed: false
 
+  Dev:
+    style: row
+    columns: 4
+
   Self-Hosted:
     style: row
     columns: 4
 
   Media:
-    style: row
-    columns: 4
-
-  Dev:
     style: row
     columns: 4
 
